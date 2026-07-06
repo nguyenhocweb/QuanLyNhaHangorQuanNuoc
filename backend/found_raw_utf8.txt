@@ -1,0 +1,319 @@
+﻿
+C:\Users\win\.gemini\antigravity-ide\brain\5898c6ca-7a0a-45fc-bc03-036eaa16eea1\.system_generated\logs\transcript_full.
+jsonl:122:{"step_index":123,"source":"MODEL","type":"VIEW_FILE","status":"DONE","created_at":"2026-07-03T09:39:10Z","co
+ntent":"Created At: 2026-07-03T09:39:10Z\nCompleted At: 2026-07-03T09:39:10Z\nFile Path: 
+`file:///d:/DuAnCaNhan/QuanLyNhaHang/backend/src/databases/seed/constants/brand.data.js`\nTotal Lines: 602\nTotal 
+Bytes: 22842\nShowing lines 1 to 602\nThe following code has been modified to include a line number before every line, 
+in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove 
+the line number, colon, and leading space.\n1: export default [\r\n2:   {\r\n3:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8e7\",\r\n4:     name: \"Hương Việt\",\r\n5:     logo: 
+\"https://ui-avatars.com/api/?name=Huong+Viet&background=random\",\r\n6:     email_contact: 
+\"contact@huongviet.vn\",\r\n7:     phone_contact: \"0909123456\",\r\n8:     tax_code: \"0312345678\",\r\n9:     link: 
+\"https://huongviet.vn\",\r\n10:     address: \"123 Nguyễn Huệ, Quận 1\",\r\n11:     city: \"TP.HCM\",\r\n12:     
+isActive: \"ACTIVE\",\r\n13:     imageMain: \"https://images.unsplash.com/photo-1600891964599-f61ba0e24092\",\r\n14:   
+  images: [\r\n15:       \"https://images.unsplash.com/photo-1555396273-367ea4eb4db5\",\r\n16:       
+\"https://images.unsplash.com/photo-1547592180-85f173990554\"\r\n17:     ],\r\n18:     description: \"Chuỗi nhà hàng 
+ẩm thực Việt truyền thống với hương vị đậm đà và không gian sang trọng.\",\r\n19:     isFeatured: true,\r\n20:     
+isNew: false,\n21:     restaurantCount: 7\r\n22:   },\r\n23:   {\r\n24:     id: \"65b2a1c0d4f3e2a1b0c9d8e8\",\r\n25:   
+  name: \"Tokyo Sushi Chain\",\r\n26:     logo: 
+\"https://ui-avatars.com/api/?name=Tokyo+Sushi&background=random\",\r\n27:     email_contact: 
+\"info@tokyosushi.vn\",\r\n28:     phone_contact: \"0909234567\",\r\n29:     tax_code: \"0312345679\",\r\n30:     
+link: \"https://tokyosushi.vn\",\r\n31:     address: \"456 Lê Lợi, Quận 3\",\r\n32:     city: \"TP.HCM\",\r\n33:     
+isActive: \"ACTIVE\",\r\n34:     imageMain: \"https://images.unsplash.com/photo-1553621042-f6e147245754\",\r\n35:     
+images: [\r\n36:       \"https://images.unsplash.com/photo-1579871494447-9811cf80d66c\",\r\n37:       
+\"https://images.unsplash.com/photo-1563636619-e9143da7973b\"\r\n38:     ],\r\n39:     description: \"Chuỗi sushi 
+chuẩn Nhật với nguyên liệu tươi sống nhập khẩu và đầu bếp chuyên nghiệp.\",\r\n40:     isFeatured: true,\r\n41:     
+isNew: false,\n42:     restaurantCount: 6\r\n43:   },\r\n44:   {\r\n45:     id: \"65b2a1c0d4f3e2a1b0c9d8e9\",\r\n46:   
+  name: \"BBQ Master Vietnam\",\r\n47:     logo: 
+\"https://ui-avatars.com/api/?name=BBQ+Master&background=random\",\r\n48:     email_contact: 
+\"support@bbqmaster.vn\",\r\n49:     phone_contact: \"0909345678\",\r\n50:     tax_code: \"0312345680\",\r\n51:     
+link: \"https://bbqmaster.vn\",\r\n52:     address: \"789 Phạm Văn Đồng\",\r\n53:     city: \"TP.Thủ Đức\",\r\n54:     
+isActive: \"ACTIVE\",\r\n55:     imageMain: \"https://images.unsplash.com/photo-1525755662778-989d0524087e\",\r\n56:   
+  images: [\r\n57:       \"https://images.unsplash.com/photo-1544025162-d76694265947\",\r\n58:       
+\"https://images.unsplash.com/photo-1555939594-58d7cb561ad1\"\r\n59:     ],\r\n60:     description: \"Thiên đường BBQ 
+với đa dạng món nướng từ Hàn Quốc đến Mỹ, phù hợp mọi buổi tụ họp.\",\r\n61:     isFeatured: false,\r\n62:     isNew: 
+false,\n63:     restaurantCount: 6\r\n64:   },\r\n65:   {\r\n66:     id: \"65b2a1c0d4f3e2a1b0c9d8ea\",\r\n67:     
+name: \"Coffee & Chill\",\r\n68:     logo: \"https://ui-avatars.com/api/?name=Coffee+Chill&background=random\",\r\n69: 
+    email_contact: \"hello@coffeechill.vn\",\r\n70:     phone_contact: \"0909456789\",\r\n71:     tax_code: 
+\"0312345681\",\r\n72:     link: \"https://coffeechill.vn\",\r\n73:     address: \"12 Trần Hưng Đạo, Quận 5\",\r\n74:  
+   city: \"TP.HCM\",\r\n75:     isActive: \"INACTIVE\",\r\n76:     imageMain: 
+\"https://images.unsplash.com/photo-1497935586351-b67a49e012bf\",\r\n77:     images: [\r\n78:       
+\"https://images.unsplash.com/photo-1554118811-1e0d58224f24\"\r\n79:     ],\r\n80:     description: \"Không gian cà 
+phê thư giãn, phù hợp làm việc và gặp gỡ bạn bè với phong cách hiện đại.\",\r\n81:     isFeatured: false,\r\n82:     
+isNew: false,\n83:     restaurantCount: 1\r\n84:   },\r\n85:   {\r\n86:     id: \"65b2a1c0d4f3e2a1b0c9d8eb\",\r\n87:   
+  name: \"Luna Asian Fusion\",\r\n88:     logo: 
+\"https://ui-avatars.com/api/?name=Luna+Fusion&background=random\",\r\n89:     email_contact: 
+\"contact@luna.vn\",\r\n90:     phone_contact: \"0909567890\",\r\n91:     tax_code: \"0312345682\",\r\n92:     link: 
+\"https://luna.vn\",\r\n93:     address: \"88 Võ Văn Kiệt, Quận 1\",\r\n94:     city: \"TP.HCM\",\r\n95:     isActive: 
+\"ACTIVE\",\r\n96:     imageMain: \"https://images.unsplash.com/photo-1546069901-ba9599a7e63c\",\r\n97:     images: 
+[\r\n98:       \"https://images.unsplash.com/photo-1569058242253-1d02c6109dc0\"\r\n99:     ],\r\n100:     description: 
+\"Nhà hàng fusion kết hợp ẩm thực Á - Âu với phong cách sáng tạo và không gian sang trọng.\",\r\n101:     isFeatured: 
+true,\r\n102:     isNew: true,\n103:     restaurantCount: 3\r\n104:   },\r\n105:   {\r\n106:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8ec\",\r\n107:     name: \"Golden Steakhouse\",\r\n108:     logo: 
+\"https://ui-avatars.com/api/?name=Golden+Steak&background=random\",\r\n109:     email_contact: 
+\"info@goldensteak.vn\",\r\n110:     phone_contact: \"0909678901\",\r\n111:     tax_code: \"0312345683\",\r\n112:     
+link: \"https://goldensteak.vn\",\r\n113:     address: \"21 Nguyễn Văn Linh, Quận 7\",\r\n114:     city: 
+\"TP.HCM\",\r\n115:     isActive: \"ACTIVE\",\r\n116:     imageMain: 
+\"https://images.unsplash.com/photo-1551183053-bf91a1d81141\",\r\n117:     images: [\r\n118:       
+\"https://images.unsplash.com/photo-1594041680534-e8c8cdebd659\",\r\n119:       
+\"https://images.unsplash.com/photo-1600891964092-4316c288032e\"\r\n120:     ],\r\n121:     description: \"Chuỗi 
+steakhouse cao cấp chuyên phục vụ bò Mỹ và Úc với quy trình chế biến chuẩn quốc tế.\",\r\n122:     isFeatured: 
+true,\r\n123:     isNew: false,\n124:     restaurantCount: 1\r\n125:   },\r\n126:   {\r\n127:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8ed\",\r\n128:     name: \"Saigon Vegan Kitchen\",\r\n129:     logo: 
+\"https://ui-avatars.com/api/?name=Vegan+Kitchen&background=random\",\r\n130:     email_contact: 
+\"contact@vegan.vn\",\r\n131:     phone_contact: \"0909789012\",\r\n132:     tax_code: \"0312345684\",\r\n133:     
+link: \"https://vegan.vn\",\r\n134:     address: \"45 Nguyễn Trãi, Quận 1\",\r\n135:     city: \"TP.HCM\",\r\n136:     
+isActive: \"ACTIVE\",\r\n137:     imageMain: \"https://images.unsplash.com/photo-1540189549336-e6e99c3679fe\",\r\n138: 
+    images: [\r\n139:       \"https://images.unsplash.com/photo-1512621776951-a57141f2eefd\"\r\n140:     ],\r\n141:    
+ description: \"Nhà hàng thuần chay với thực đơn sáng tạo, tốt cho sức khỏe và thân thiện môi trường.\",\r\n142:     
+isFeatured: false,\r\n143:     isNew: true,\n144:     restaurantCount: 3\r\n145:   },\r\n146:   {\r\n147:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8ee\",\r\n148:     name: \"Pizza Roma\",\r\n149:     logo: 
+\"https://ui-avatars.com/api/?name=Pizza+Roma&background=random\",\r\n150:     email_contact: 
+\"info@pizzaroma.vn\",\r\n151:     phone_contact: \"0909890123\",\r\n152:     tax_code: \"0312345685\",\r\n153:     
+link: \"https://pizzaroma.vn\",\r\n154:     address: \"67 Hai Bà Trưng, Quận 3\",\r\n155:     city: 
+\"TP.HCM\",\r\n156:     isActive: \"ACTIVE\",\r\n157:     imageMain: 
+\"https://images.unsplash.com/photo-1594007654729-407eedc4be65\",\r\n158:     images: [\r\n159:       
+\"https://images.unsplash.com/photo-1513104890138-7c749659a591\",\r\n160:       
+\"https://images.unsplash.com/photo-1534308983496-4fabb1a015ee\"\r\n161:     ],\r\n162:     description: \"Pizza phong 
+cách Ý truyền thống với lò nướng củi và nguyên liệu nhập khẩu.\",\r\n163:     isFeatured: true,\r\n164:     isNew: 
+false,\n165:     restaurantCount: 3\r\n166:   },\r\n167:   {\r\n168:     id: \"65b2a1c0d4f3e2a1b0c9d8ef\",\r\n169:     
+name: \"Korean Grill House\",\r\n170:     logo: 
+\"https://ui-avatars.com/api/?name=Korean+Grill&background=random\",\r\n171:     email_contact: 
+\"support@kgrill.vn\",\r\n172:     phone_contact: \"0909901234\",\r\n173:     tax_code: \"0312345686\",\r\n174:     
+link: \"https://kgrill.vn\",\r\n175:     address: \"99 Nguyễn Thị Minh Khai, Quận 1\",\r\n176:     city: 
+\"TP.HCM\",\r\n177:     isActive: \"ACTIVE\",\r\n178:     imageMain: 
+\"https://images.unsplash.com/photo-1604908176997-125f25cc6f3d\",\r\n179:     images: [\r\n180:       
+\"https://images.unsplash.com/photo-1544928147-79a2dbc1f389\"\r\n181:     ],\r\n182:     description: \"Nhà hàng nướng 
+Hàn Quốc chuẩn vị với hệ thống hút khói hiện đại.\",\r\n183:     isFeatured: false,\r\n184:     isNew: false,\n185:    
+ restaurantCount: 3\r\n186:   },\r\n187:   {\r\n188:     id: \"65b2a1c0d4f3e2a1b0c9d8f0\",\r\n189:     name: \"Bún Bò 
+Huế 1986\",\r\n190:     logo: \"https://ui-avatars.com/api/?name=Bun+Bo+Hue&background=random\",\r\n191:     
+email_contact: \"contact@bunbo1986.vn\",\r\n192:     phone_contact: \"0910123456\",\r\n193:     tax_code: 
+\"0312345687\",\r\n194:     link: \"https://bunbo1986.vn\",\r\n195:     address: \"12 Lý Tự Trọng, Quận 1\",\r\n196:   
+  city: \"TP.HCM\",\r\n197:     isActive: \"ACTIVE\",\r\n198:     imageMain: 
+\"https://images.unsplash.com/photo-1604908812839-4b9e4e8152ef\",\r\n199:     images: [],\r\n200:     description: 
+\"Chuỗi bún bò Huế gia truyền với hương vị đậm chất miền Trung.\",\r\n201:     isFeatured: true,\r\n202:     isNew: 
+false,\n203:     restaurantCount: 3\r\n204:   },\r\n205:   {\r\n206:     id: \"65b2a1c0d4f3e2a1b0c9d8f1\",\r\n207:     
+name: \"Dimsum Garden\",\r\n208:     logo: 
+\"https://ui-avatars.com/api/?name=Dimsum+Garden&background=random\",\r\n209:     email_contact: 
+\"hello@dimsum.vn\",\r\n210:     phone_contact: \"0911234567\",\r\n211:     tax_code: \"0312345688\",\r\n212:     
+link: \"https://dimsum.vn\",\r\n213:     address: \"88 Trần Phú, Quận 5\",\r\n214:     city: \"TP.HCM\",\r\n215:     
+isActive: \"ACTIVE\",\r\n216:     imageMain: \"https://images.unsplash.com/photo-1585032226651-759b368d7246\",\r\n217: 
+    images: [\r\n218:       \"https://images.unsplash.com/photo-1496116218417-1a781b1c416c\"\r\n219:     ],\r\n220:    
+ description: \"Thiên đường dimsum với hàng trăm món hấp dẫn chuẩn vị Trung Hoa.\",\r\n221:     isFeatured: 
+false,\r\n222:     isNew: true,\n223:     restaurantCount: 3\r\n224:   },\r\n225:   {\r\n226:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8f2\",\r\n227:     name: \"Highland Brew Specialty\",\r\n228:     logo: 
+\"https://ui-avatars.com/api/?name=Highland+Brew&background=random\",\r\n229:     email_contact: 
+\"info@brew.vn\",\r\n230:     phone_contact: \"0912345678\",\r\n231:     tax_code: \"0312345689\",\r\n232:     link: 
+\"https://brew.vn\",\r\n233:     address: \"222 Điện Biên Phủ, Bình Thạnh\",\r\n234:     city: \"TP.HCM\",\r\n235:     
+isActive: \"ACTIVE\",\r\n236:     imageMain: \"https://images.unsplash.com/photo-1509042239860-f550ce710b93\",\r\n237: 
+    images: [\r\n238:       \"https://images.unsplash.com/photo-1442512595331-e89e73853f31\",\r\n239:       
+\"https://images.unsplash.com/photo-1495474472205-16284eb86b38\"\r\n240:     ],\r\n241:     description: \"Quán cà phê 
+specialty với hạt rang xay tại chỗ và không gian hiện đại.\",\r\n242:     isFeatured: true,\r\n243:     isNew: 
+false,\n244:     restaurantCount: 0\r\n245:   },\r\n246:   {\r\n247:     id: \"65b2a1c0d4f3e2a1b0c9d8f3\",\r\n248:     
+name: \"Thai Street Food Hub\",\r\n249:     logo: 
+\"https://ui-avatars.com/api/?name=Thai+Hub&background=random\",\r\n250:     email_contact: 
+\"contact@thaihub.vn\",\r\n251:     phone_contact: \"0913456789\",\r\n252:     tax_code: \"0312345690\",\r\n253:     
+link: \"https://thaihub.vn\",\r\n254:     address: \"77 Nguyễn Huệ, Quận 1\",\r\n255:     city: \"TP.HCM\",\r\n256:    
+ isActive: \"ACTIVE\",\r\n257:     imageMain: \"https://images.unsplash.com/photo-1559847844-5315695dadae\",\r\n258:   
+  images: [],\r\n259:     description: \"Ẩm thực đường phố Thái Lan với hương vị cay nồng đặc trưng.\",\r\n260:     
+isFeatured: false,\r\n261:     isNew: false,\n262:     restaurantCount: 0\r\n263:   },\r\n264:   {\r\n265:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8f4\",\r\n266:     name: \"Ocean Seafood Palace\",\r\n267:     logo: 
+\"https://ui-avatars.com/api/?name=Ocean+Seafood&background=random\",\r\n268:     email_contact: 
+\"support@ocean.vn\",\r\n269:     phone_contact: \"0914567890\",\r\n270:     tax_code: \"0312345691\",\r\n271:     
+link: \"https://ocean.vn\",\r\n272:     address: \"10 Tôn Đức Thắng, Quận 1\",\r\n273:     city: \"TP.HCM\",\r\n274:   
+  isActive: \"ACTIVE\",\r\n275:     imageMain: \"https://images.unsplash.com/photo-1563245372-f21724e3856d\",\r\n276:  
+   images: [\r\n277:       \"https://images.unsplash.com/photo-1544552866-d3ed42536fc6\"\r\n278:     ],\r\n279:     
+description: \"Nhà hàng hải sản cao cấp với nguồn nguyên liệu tươi sống mỗi ngày.\",\r\n280:     isFeatured: 
+true,\r\n281:     isNew: false,\n282:     restaurantCount: 0\r\n283:   },\r\n284:   {\r\n285:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8f5\",\r\n286:     name: \"Burger Station\",\r\n287:     logo: 
+\"https://ui-avatars.com/api/?name=Burger+Station&background=random\",\r\n288:     email_contact: 
+\"hello@burger.vn\",\r\n289:     phone_contact: \"0915678901\",\r\n290:     tax_code: \"0312345692\",\r\n291:     
+link: \"https://burger.vn\",\r\n292:     address: \"150 Nguyễn Văn Cừ, Quận 5\",\r\n293:     city: \"TP.HCM\",\r\n294: 
+    isActive: \"ACTIVE\",\r\n295:     imageMain: 
+\"https://images.unsplash.com/photo-1550547660-d9450f859349\",\r\n296:     images: [\r\n297:       
+\"https://images.unsplash.com/photo-1568901346375-23c9450c58cd\"\r\n298:     ],\r\n299:     description: \"Burger 
+phong cách Mỹ với combo nhanh gọn, phù hợp giới trẻ.\",\r\n300:     isFeatured: false,\r\n301:     isNew: true,\n302:  
+   restaurantCount: 2\r\n303:   },\r\n304:   {\r\n305:     id: \"65b2a1c0d4f3e2a1b0c9d8f6\",\r\n306:     name: \"Fine 
+Dine Elite\",\r\n307:     logo: \"https://ui-avatars.com/api/?name=Elite+Dine&background=random\",\r\n308:     
+email_contact: \"elite@finedine.vn\",\r\n309:     phone_contact: \"0916789012\",\r\n310:     tax_code: 
+\"0312345693\",\r\n311:     link: \"https://finedine.vn\",\r\n312:     address: \"1 Đồng Khởi, Quận 1\",\r\n313:     
+city: \"TP.HCM\",\r\n314:     isActive: \"ACTIVE\",\r\n315:     imageMain: 
+\"https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c\",\r\n316:     images: [\r\n317:       
+\"https://images.unsplash.com/photo-1414235077428-338989a2e8c0\",\r\n318:       
+\"https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b\"\r\n319:     ],\r\n320:     description: \"Nhà hàng 
+fine dining đẳng cấp với trải nghiệm ẩm thực sang trọng.\",\r\n321:     isFeatured: true,\r\n322:     isNew: 
+false,\n323:     restaurantCount: 0\r\n324:   },\r\n325:   {\r\n326:     id: \"65b2a1c0d4f3e2a1b0c9d8f7\",\r\n327:     
+name: \"Hanoi Phở Quán\",\r\n328:     logo: \"https://ui-avatars.com/api/?name=Hanoi+Pho&background=random\",\r\n329:  
+   email_contact: \"contact@hanoipho.vn\",\r\n330:     phone_contact: \"0901112233\",\r\n331:     tax_code: 
+\"0101234567\",\r\n332:     link: \"https://hanoipho.vn\",\r\n333:     address: \"15 Tràng Tiền, Hoàn Kiếm\",\r\n334:  
+   city: \"Hà Nội\",\r\n335:     isActive: \"ACTIVE\",\r\n336:     imageMain: 
+\"https://images.unsplash.com/photo-1582878826629-29b7ad1cb438\",\r\n337:     images: [\r\n338:       
+\"https://images.unsplash.com/photo-1555126634-323283e090f1\"\r\n339:     ],\r\n340:     description: \"Phở bò gia 
+truyền mang đậm nét văn hóa ẩm thực thủ đô Hà Nội.\",\r\n341:     isFeatured: true,\r\n342:     isNew: false,\n343:    
+ restaurantCount: 0\r\n344:   },\r\n345:   {\r\n346:     id: \"65b2a1c0d4f3e2a1b0c9d8f8\",\r\n347:     name: \"Da Nang 
+Sea Breeze\",\r\n348:     logo: \"https://ui-avatars.com/api/?name=DaNang+Sea&background=random\",\r\n349:     
+email_contact: \"info@danangsea.vn\",\r\n350:     phone_contact: \"0902223344\",\r\n351:     tax_code: 
+\"0401234568\",\r\n352:     link: \"https://danangsea.vn\",\r\n353:     address: \"200 Võ Nguyên Giáp, Sơn 
+Trà\",\r\n354:     city: \"Đà Nẵng\",\r\n355:     isActive: \"ACTIVE\",\r\n356:     imageMain: 
+\"https://images.unsplash.com/photo-1534080564583-6be75777b70a\",\r\n357:     images: [\r\n358:       
+\"https://images.unsplash.com/photo-1615141982883-c7ad0e69fd62\"\r\n359:     ],\r\n360:     description: \"Thưởng thức 
+hải sản tươi sống bên bờ biển Mỹ Khê tuyệt đẹp.\",\r\n361:     isFeatured: true,\r\n362:     isNew: true,\n363:     
+restaurantCount: 0\r\n364:   },\r\n365:   {\r\n366:     id: \"65b2a1c0d4f3e2a1b0c9d8f9\",\r\n367:     name: \"Dalat 
+Pine Roasters\",\r\n368:     logo: \"https://ui-avatars.com/api/?name=Dalat+Pine&background=random\",\r\n369:     
+email_contact: \"hello@dalatpine.vn\",\r\n370:     phone_contact: \"0903334455\",\r\n371:     tax_code: 
+\"0501234569\",\r\n372:     link: \"https://dalatpine.vn\",\r\n373:     address: \"45 Trần Hưng Đạo, Phường 
+10\",\r\n374:     city: \"Đà Lạt\",\r\n375:     isActive: \"ACTIVE\",\r\n376:     imageMain: 
+\"https://images.unsplash.com/photo-1511920170033-f8396924c348\",\r\n377:     images: [\r\n378:       
+\"https://images.unsplash.com/photo-1497515114629-1c1a1bc8c5cb\",\r\n379:       
+\"https://images.unsplash.com/photo-1447933601403-0c6688de566e\"\r\n380:     ],\r\n381:     description: \"Trải nghiệm 
+cà phê nguyên bản được rang mộc ngay tại thành phố sương mù.\",\r\n382:     isFeatured: false,\r\n383:     isNew: 
+false,\n384:     restaurantCount: 0\r\n385:   },\r\n386:   {\r\n387:     id: \"65b2a1c0d4f3e2a1b0c9d8fa\",\r\n388:     
+name: \"Mekong Delta Farmhouse\",\r\n389:     logo: 
+\"https://ui-avatars.com/api/?name=Mekong+Farm&background=random\",\r\n390:     email_contact: 
+\"booking@mekongfarm.vn\",\r\n391:     phone_contact: \"0904445566\",\r\n392:     tax_code: \"0601234570\",\r\n393:    
+ link: \"https://mekongfarm.vn\",\r\n394:     address: \"Số 1 Bến Ninh Kiều, Ninh Kiều\",\r\n395:     city: \"Cần 
+Thơ\",\r\n396:     isActive: \"INACTIVE\",\r\n397:     imageMain: 
+\"https://images.unsplash.com/photo-1504674900247-0877df9cc836\",\r\n398:     images: [\r\n399:       
+\"https://images.unsplash.com/photo-1543362906-acfc16c67564\"\r\n400:     ],\r\n401:     description: \"Món ngon miệt 
+vườn với các nguyên liệu đồng quê sạch từ trang trại.\",\r\n402:     isFeatured: false,\r\n403:     isNew: true,\n404: 
+    restaurantCount: 0\r\n405:   },\r\n406:   {\r\n407:     id: \"65b2a1c0d4f3e2a1b0c9d8fb\",\r\n408:     name: 
+\"Indochine Palace\",\r\n409:     logo: 
+\"https://ui-avatars.com/api/?name=Indochine+Palace&background=random\",\r\n410:     email_contact: 
+\"info@indochinepalace.vn\",\r\n411:     phone_contact: \"0905556677\",\r\n412:     tax_code: \"0312345694\",\r\n413:  
+   link: \"https://indochinepalace.vn\",\r\n414:     address: \"26 Mai Chí Thọ, Quận 2\",\r\n415:     city: 
+\"TP.HCM\",\r\n416:     isActive: \"ACTIVE\",\r\n417:     imageMain: 
+\"https://images.unsplash.com/photo-1517248135467-4c7edcad34c4\",\r\n418:     images: [\r\n419:       
+\"https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c\",\r\n420:       
+\"https://images.unsplash.com/photo-1520209759809-a9bcb6cb3241\"\r\n421:     ],\r\n422:     description: \"Nhà hàng 
+phong cách Đông Dương với sự kết hợp tinh tế giữa kiến trúc Pháp và hương vị Việt cổ điển.\",\r\n423:     isFeatured: 
+true,\r\n424:     isNew: true,\n425:     restaurantCount: 2\r\n426:   },\r\n427:   {\r\n428:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8fc\",\r\n429:     name: \"Nướng Ngói Đà Lạt\",\r\n430:     logo: 
+\"https://ui-avatars.com/api/?name=Nuong+Ngoi&background=random\",\r\n431:     email_contact: 
+\"contact@nuongngoidalat.vn\",\r\n432:     phone_contact: \"0906667788\",\r\n433:     tax_code: 
+\"0501234571\",\r\n434:     link: \"https://nuongngoidalat.vn\",\r\n435:     address: \"01 Tô Hiến Thành, Phường 
+3\",\r\n436:     city: \"Đà Lạt\",\r\n437:     isActive: \"ACTIVE\",\r\n438:     imageMain: 
+\"https://images.unsplash.com/photo-1561622539-dffbfc2008fd\",\r\n439:     images: [\r\n440:       
+\"https://images.unsplash.com/photo-1599307734110-33296860368c\"\r\n441:     ],\r\n442:     description: \"Trải nghiệm 
+nướng trên ngói độc đáo trong không gian se lạnh đặc trưng của phố núi.\",\r\n443:     isFeatured: false,\r\n444:     
+isNew: false,\n445:     restaurantCount: 0\r\n446:   },\r\n447:   {\r\n448:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8fd\",\r\n449:     name: \"Pasta & Co\",\r\n450:     logo: 
+\"https://ui-avatars.com/api/?name=Pasta+Co&background=random\",\r\n451:     email_contact: 
+\"ciao@pastaco.vn\",\r\n452:     phone_contact: \"0907778899\",\r\n453:     tax_code: \"0312345695\",\r\n454:     
+link: \"https://pastaco.vn\",\r\n455:     address: \"102 Thảo Điền, Quận 2\",\r\n456:     city: \"TP.HCM\",\r\n457:    
+ isActive: \"ACTIVE\",\r\n458:     imageMain: 
+\"https://images.unsplash.com/photo-1473093226795-af9932fe5856\",\r\n459:     images: [\r\n460:       
+\"https://images.unsplash.com/photo-1551183053-bf91a1d81141\",\r\n461:       
+\"https://images.unsplash.com/photo-1528733918455-5a59687cedf0\"\r\n462:     ],\r\n463:     description: \"Mì Ý tươi 
+được làm thủ công mỗi ngày với các loại sốt nhập khẩu trực tiếp từ vùng Tuscany.\",\r\n464:     isFeatured: 
+true,\r\n465:     isNew: true,\n466:     restaurantCount: 1\r\n467:   },\r\n468:   {\r\n469:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8fe\",\r\n470:     name: \"Hải Sản Phố\",\r\n471:     logo: 
+\"https://ui-avatars.com/api/?name=Hai+San+Pho&background=random\",\r\n472:     email_contact: 
+\"sales@haisanpho.vn\",\r\n473:     phone_contact: \"0908889900\",\r\n474:     tax_code: \"0101234572\",\r\n475:     
+link: \"https://haisanpho.vn\",\r\n476:     address: \"48 Liễu Giai, Ba Đình\",\r\n477:     city: \"Hà Nội\",\r\n478:  
+   isActive: \"ACTIVE\",\r\n479:     imageMain: \"https://images.unsplash.com/photo-1559715745-e1b33a271c8f\",\r\n480: 
+    images: [\r\n481:       \"https://images.unsplash.com/photo-1599487488170-d11ec9c172f0\"\r\n482:     ],\r\n483:    
+ description: \"Siêu thị hải sản quy mô lớn tại Hà Nội với các bể chứa tôm hùm, cua hoàng đế tươi sống.\",\r\n484:     
+isFeatured: true,\r\n485:     isNew: false,\n486:     restaurantCount: 1\r\n487:   },\r\n488:   {\r\n489:     id: 
+\"65b2a1c0d4f3e2a1b0c9d8ff\",\r\n490:     name: \"Tapas Bar Viva\",\r\n491:     logo: 
+\"https://ui-avatars.com/api/?name=Tapas+Viva&background=random\",\r\n492:     email_contact: 
+\"hola@tapasviva.vn\",\r\n493:     phone_contact: \"0909990011\",\r\n494:     tax_code: \"0312345696\",\r\n495:     
+link: \"https://tapasviva.vn\",\r\n496:     address: \"15 Đông Du, Quận 1\",\r\n497:     city: \"TP.HCM\",\r\n498:     
+isActive: \"ACTIVE\",\r\n499:     imageMain: \"https://images.unsplash.com/photo-1515443961218-1523678885b8\",\r\n500: 
+    images: [\r\n501:       \"https://images.unsplash.com/photo-1615485290382-441e4d0c9cb5\"\r\n502:     ],\r\n503:    
+ description: \"Ẩm thực Tây Ban Nha sôi động với những đĩa Tapas nhỏ xinh và rượu Sangria nồng nàn.\",\r\n504:     
+isFeatured: false,\r\n505:     isNew: true,\n506:     restaurantCount: 0\r\n507:   },\r\n508:   {\r\n509:     id: 
+\"65b2a1c0d4f3e2a1b0c9d900\",\r\n510:     name: \"Zen Tea House\",\r\n511:     logo: 
+\"https://ui-avatars.com/api/?name=Zen+Tea&background=random\",\r\n512:     email_contact: 
+\"zen@teahouse.vn\",\r\n513:     phone_contact: \"0901110022\",\r\n514:     tax_code: \"0312345697\",\r\n515:     
+link: \"https://zentea.vn\",\r\n516:     address: \"24 Tú Xương, Quận 3\",\r\n517:     city: \"TP.HCM\",\r\n518:     
+isActive: \"ACTIVE\",\r\n519:     imageMain: \"https://images.unsplash.com/photo-1545048702-79362596cdc9\",\r\n520:    
+ images: [],\r\n521:     description: \"Trà đạo Nhật Bản trong không gian tĩnh mịch, giúp bạn tìm lại sự cân bằng giữa 
+lòng thành phố.\",\r\n522:     isFeatured: false,\r\n523:     isNew: false,\n524:     restaurantCount: 0\r\n525:   
+},\r\n526:   {\r\n527:     id: \"65b2a1c0d4f3e2a1b0c9d901\",\r\n528:     name: \"Lẩu Cá Linh Miền Tây\",\r\n529:     
+logo: \"https://ui-avatars.com/api/?name=Lau+Ca+Linh&background=random\",\r\n530:     email_contact: 
+\"contact@mientayfood.vn\",\r\n531:     phone_contact: \"0902220033\",\r\n532:     tax_code: \"0701234573\",\r\n533:   
+  link: \"https://mientayfood.vn\",\r\n534:     address: \"55 Mậu Thân, Ninh Kiều\",\r\n535:     city: \"Cần 
+Thơ\",\r\n536:     isActive: \"ACTIVE\",\r\n537:     imageMain: 
+\"https://images.unsplash.com/photo-1547592166-23ac45744a05\",\r\n538:     images: [\r\n539:       
+\"https://images.unsplash.com/photo-1511690656952-34342bb7c2f2\"\r\n540:     ],\r\n541:     description: \"Đặc sản lẩu 
+mắm và lẩu cá linh bông điên điển chuẩn vị vùng sông nước Cửu Long.\",\r\n542:     isFeatured: false,\r\n543:     
+isNew: false,\n544:     restaurantCount: 0\r\n545:   },\r\n546:   {\r\n547:     id: 
+\"65b2a1c0d4f3e2a1b0c9d902\",\r\n548:     name: \"The Meatball Co.\",\r\n549:     logo: 
+\"https://ui-avatars.com/api/?name=Meatball+Co&background=random\",\r\n550:     email_contact: 
+\"meat@ball.vn\",\r\n551:     phone_contact: \"0903330044\",\r\n552:     tax_code: \"0312345698\",\r\n553:     link: 
+\"https://meatball.vn\",\r\n554:     address: \"18 Phan Xích Long, Phú Nhuận\",\r\n555:     city: \"TP.HCM\",\r\n556:  
+   isActive: \"ACTIVE\",\r\n557:     imageMain: 
+\"https://images.unsplash.com/photo-1529042410759-3b12603502c1\",\r\n558:     images: [\r\n559:       
+\"https://images.unsplash.com/photo-1626074353765-517a681e40be\"\r\n560:     ],\r\n561:     description: \"Chuyên các 
+món thịt viên phong cách Châu Âu kết hợp với các loại sốt kem đặc trưng.\",\r\n562:     isFeatured: false,\r\n563:     
+isNew: true,\n564:     restaurantCount: 1\r\n565:   },\r\n566:   {\r\n567:     id: 
+\"65b2a1c0d4f3e2a1b0c9d903\",\r\n568:     name: \"Lebanese Kebab\",\r\n569:     logo: 
+\"https://ui-avatars.com/api/?name=Kebab&background=random\",\r\n570:     email_contact: 
+\"kebab@lebanese.vn\",\r\n571:     phone_contact: \"0904440055\",\r\n572:     tax_code: \"0101234574\",\r\n573:     
+link: \"https://kebab.vn\",\r\n574:     address: \"12 Hàng Bè, Hoàn Kiếm\",\r\n575:     city: \"Hà Nội\",\r\n576:     
+isActive: \"ACTIVE\",\r\n577:     imageMain: \"https://images.unsplash.com/photo-1561651823-34feb02250e4\",\r\n578:    
+ images: [],\r\n579:     description: \"Kebab Trung Đông với gia vị tẩm ướp độc đáo và bánh mì pita nướng nóng 
+hổi.\",\r\n580:     isFeatured: false,\r\n581:     isNew: false,\n582:     restaurantCount: 0\r\n583:   },\r\n584:   
+{\r\n585:     id: \"65b2a1c0d4f3e2a1b0c9d904\",\r\n586:     name: \"Mì Quảng Ếch Đà Thành\",\r\n587:     logo: 
+\"https://ui-avatars.com/api/?name=Mi+Quang&background=random\",\r\n588:     email_contact: 
+\"contact@miquangech.vn\",\r\n589:     phone_contact: \"0905550066\",\r\n590:     tax_code: \"0401234575\",\r\n591:    
+ link: \"https://miquangech.vn\",\r\n592:     address: \"24 Pasteur, Hải Châu\",\r\n593:     city: \"Đà 
+Nẵng\",\r\n594:     isActive: \"ACTIVE\",\r\n595:     imageMain: 
+\"https://images.unsplash.com/photo-1563245372-f21724e3856d\",\r\n596:     images: [],\r\n597:     description: \"Mì 
+Quảng ếch trứ danh Đà Nẵng, phục vụ trong niêu đất giữ nhiệt cực tốt.\",\r\n598:     isFeatured: true,\r\n599:     
+isNew: false,\n600:     restaurantCount: 1\r\n601:   }\r\n602: ];\nThe above content shows the entire, complete file 
+contents of the requested file.\n"}
+C:\Users\win\.gemini\antigravity-ide\brain\5898c6ca-7a0a-45fc-bc03-036eaa16eea1\.system_generated\logs\transcript_full.
+jsonl:243:{"step_index":245,"source":"MODEL","type":"PLANNER_RESPONSE","status":"DONE","created_at":"2026-07-03T09:56:1
+6Z","thinking":"**Prioritizing Tool Usage**\n\nI'm now focusing on tool selection, emphasizing specific tools over 
+general ones where possible. The goal is to optimize efficiency by leveraging tools like 'view_file' directly, rather 
+than resorting to broader, less direct methods. I'm aiming for targeted actions.\n\n\n**Refining Search 
+Strategies**\n\nI'm recalling crucial instructions: (a) avoid `cat` for file operations, prefer `grep_search` to grep, 
+and don't use generic tools. (b) list all related tools before execution. My immediate focus is improving the search 
+for the missing data. I've decided to employ `grep_search` to look for a specific string like \"Dalat Pine Roasters\" 
+within the transcript to pinpoint the failure.\n\n\n","tool_calls":[{"name":"grep_search","args":{"Query":"Dalat Pine R
+oasters","SearchPath":"C:\\Users\\win\\.gemini\\antigravity-ide\\brain\\5898c6ca-7a0a-45fc-bc03-036eaa16eea1\\.system_g
+enerated\\logs\\transcript_full.jsonl","toolAction":"Searching transcript for lost brand","toolSummary":"Search 
+text"}}]}
+C:\Users\win\.gemini\antigravity-ide\brain\5898c6ca-7a0a-45fc-bc03-036eaa16eea1\.system_generated\logs\transcript_full.
+jsonl:246:{"step_index":248,"source":"MODEL","type":"PLANNER_RESPONSE","status":"DONE","created_at":"2026-07-03T09:56:2
+2Z","thinking":"**Prioritizing Tool Usage**\n\nI'm now focusing on tool selection, emphasizing specific tools over 
+general ones where possible. The goal is to optimize efficiency by leveraging tools tailored to particular tasks, like 
+viewing files. This strategy promises a more targeted and less error-prone approach to problem-solving, which I will 
+continue to refine and implement moving forward.\n\n\n**Refining Tool Application**\n\nI'm now implementing new rules: 
+no `cat` to create or append, always `grep_search` instead of embedded `grep`. I'm starting to think about *all* 
+related tools before making calls, ensuring my selection is optimal. A recent hiccup with `grep_search` highlights the 
+importance of understanding specific tool behaviors, like that filenames are returned if match per line is not set. 
+This understanding will refine my tool 
+usage.\n\n\n","tool_calls":[{"name":"grep_search","args":{"MatchPerLine":true,"Query":"Dalat Pine Roasters","SearchPath
+":"C:\\Users\\win\\.gemini\\antigravity-ide\\brain\\5898c6ca-7a0a-45fc-bc03-036eaa16eea1\\.system_generated\\logs\\tran
+script_full.jsonl","toolAction":"Searching transcript with MatchPerLine","toolSummary":"Search transcript"}}]}
+C:\Users\win\.gemini\antigravity-ide\brain\5898c6ca-7a0a-45fc-bc03-036eaa16eea1\.system_generated\logs\transcript_full.
+jsonl:249:{"step_index":251,"source":"MODEL","type":"PLANNER_RESPONSE","status":"DONE","created_at":"2026-07-03T09:56:2
+8Z","thinking":"**Prioritizing Tool Usage**\n\nI'm now focusing on tool selection, emphasizing specific tools over 
+general ones where possible. The goal is to optimize efficiency by leveraging tools tailored to particular tasks, like 
+viewing files. This strategy promises a more targeted and less error-prone approach to problem-solving, which I will 
+continue to refine and implement moving forward.\n\n\n**Refining Tool Application**\n\nI'm now implementing new tool 
+selection rules, recalling critical instruction 1 and 2. Specifically, I'm avoiding `cat`, `grep` within bash 
+commands, and general-purpose tools for specific tasks. I just encountered a situation with truncated file output, and 
+I am now checking `transcript.jsonl` to ensure that there was not a failure of the `view_file` 
+operation.\n\n\n**Analyzing File Interactions**\n\nI've hit a snag. The user's \"xong roioi\" input might mean the 
+larger file's changes are gone. I also realized `grep_search` failed because of the huge line length; the JSON files 
+contain giant single-line JSON entries. I initially wanted to use PowerShell or `cat`, but I realized I can just ask 
+the user for clarity. The challenge is I don't know the exact user intent.\n\n\n**Recovering Previous Data**\n\nI'm 
+now certain the 600-line version is *not* gone forever. I've confirmed the user saved the 70 and 174 line versions in 
+VS Code, but the original file versions *should* be in my session's transcript. I'm building a Node script to parse 
+`transcript_full.jsonl` and extract the file contents from the earlier `view_file` calls. That should give me access 
+to the previous versions.\n\n\n","tool_calls":[{"name":"run_command","args":{"CommandLine":"node -e \"\nconst fs = 
+require('fs');\nconst logPath = 'C:\\\\\\\\Users\\\\\\\\win\\\\\\\\.gemini\\\\\\\\antigravity-ide\\\\\\\\brain\\\\\\\\5
+898c6ca-7a0a-45fc-bc03-036eaa16eea1\\\\\\\\.system_generated\\\\\\\\logs\\\\\\\\transcript_full.jsonl';\nconst lines = 
+fs.readFileSync(logPath, 'utf8').split('\\n');\nfor (let i = 0; i < lines.length; i++) {\n    if (!lines[i].trim()) 
+continue;\n    try {\n        const step = JSON.parse(lines[i]);\n        if (step.type === 'TOOL_RESPONSE' && typeof 
+step.content === 'string') {\n            if (step.content.includes('Dalat Pine Roasters')) {\n                
+fs.writeFileSync('found_brand.txt', step.content);\n                console.log('Found brand content!');\n            
+}\n            if (step.content.includes('BBQ Master Gò Vấp')) {\n                fs.writeFileSync('found_rest.txt', 
+step.content);\n                console.log('Found rest content!');\n            }\n        }\n    } catch(e) 
+{}\n}\n\"","Cwd":"d:\\DuAnCaNhan\\QuanLyNhaHang\\backend","WaitMsBeforeAsync":5000,"toolAction":"Extracting 
+text","toolSummary":"Run command"}}]}
+
+

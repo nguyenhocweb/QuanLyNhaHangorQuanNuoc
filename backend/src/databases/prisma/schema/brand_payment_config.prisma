@@ -1,0 +1,19 @@
+model BrandPaymentConfig {
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId               String @db.ObjectId
+  systemPaymentMethodId String @db.ObjectId
+
+  configData Json // API keys, secret keys của Brand
+  isActive   Boolean @default(true)
+  isTestMode Boolean @default(true)
+
+  brand               Brand               @relation(fields: [brandId], references: [id])
+  systemPaymentMethod SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive])
+  @@unique([brandId, systemPaymentMethodId])
+  @@map("brand_payment_configs")
+}

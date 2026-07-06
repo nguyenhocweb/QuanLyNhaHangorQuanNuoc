@@ -1,7 +1,7 @@
-import {restaurantData} from '../constants/restaurant.data.js';
-import { upsertVector } from "../../../modules/vector/service/vectorDB.service.js";
-import { embedText } from "../../../modules/vector/service/embedding.service.js";
-import { buildRestaurantVector } from "../../../modules/vector/builders/restaurant.builder.js";
+import restaurantData from '../constants/restaurant.data.js';
+import { upsertVector } from "../../../modules/shared/vector/service/vectorDB.service.js";
+import { embedText } from "../../../modules/shared/vector/service/embedding.service.js";
+import { buildRestaurantVector } from "../../../modules/shared/vector/builders/restaurant.builder.js";
 import { tableVector } from '../../../config/tableVector.js';
 export const restaurant_Extension = async(prisma)=>{
     // nơi lưu id của thương hiệu để gán cho nhà hàng
@@ -16,7 +16,7 @@ export const restaurant_Extension = async(prisma)=>{
    
         
     const result = await prisma.Restaurant.createMany({
-        data: restaurantData.map(({brandName,...e})=>e)
+        data: restaurantData.map(({brandName, city, ...e})=>e)
     });
     for (const restaurantDataItem of restaurantData) {
         const text = [

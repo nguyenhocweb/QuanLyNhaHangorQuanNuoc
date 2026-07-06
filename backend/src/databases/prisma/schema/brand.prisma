@@ -1,27 +1,32 @@
 model Brand {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
-  name        String       @unique
-  logo        String?
-  email_contact  String?
-  phone_contact  String?
-  description  String?
-  tax_code    String? 
-  link        String?
-  imageMain   String
-  images      String[]
-  isActive    isActive     @default(PENDING)
-  reason      String?
-  address     String? 
-  city        String?
-  isFeatured  Boolean @default(false) // 👈 tiêu biểu
-  isNew        Boolean @default(true)
-  restaurants Restaurant[] // 1 Brand có nhiều Nhà hàng
-  employments Employment[] // Nhân sự cấp Brand
-  menu        Menu[]
-  items       MenuItem[]
-  paymentConfigs RestaurantPaymentConfig[]
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  id                  String                    @id @default(auto()) @map("_id") @db.ObjectId
+  name                String                    @unique
+  logo                String?
+  email_contact       String?
+  phone_contact       String?
+  description         String?
+  tax_code            String?
+  link                String?
+  imageMain           String?
+  images              String[]
+  isActive            isActive                  @default(PENDING)
+  reason              String?
+  address             LocationAddress?
+  isFeatured          Boolean                   @default(false) // 👈 tiêu biểu
+  isNew               Boolean                   @default(true)
+  restaurantCount     Int                       @default(0) // Số lượng nhà hàng hiện có
+  subscriptions       BrandSubscription[] // Lịch sử các gói cước đã đăng ký
+  restaurants         Restaurant[] // 1 Brand có nhiều Nhà hàng
+  employments         Employment[] // Nhân sự cấp Brand
+  menu                Menu[]
+  items               MenuItem[]
+  paymentConfigs      RestaurantPaymentConfig[]
+  brandPaymentConfigs BrandPaymentConfig[]
+  brandRevenues       BrandRevenue[]
+  restaurantRevenues  RestaurantRevenue[]
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
+
   @@index([isActive])
   @@index([createdAt])
   @@index([isActive, isFeatured])

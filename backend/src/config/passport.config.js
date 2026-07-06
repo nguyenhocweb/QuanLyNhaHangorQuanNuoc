@@ -2,7 +2,7 @@ import passport from "passport";
 import "dotenv/config.js"
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
-import {verifyOAuthUserService} from "../modules/auth/service/verifyOAuthUser.service.js"
+import {verifyOAuthUserService} from "../modules/public/auth/service/verifyOAuthUser.service.js"
 
 // HÀM XỬ LÝ CHUNG: Ánh xạ dữ liệu thô từ các mạng xã hội về 1 chuẩn duy nhất
 const handleOAuth = async (accessToken,refreshToken,profile, done) => {

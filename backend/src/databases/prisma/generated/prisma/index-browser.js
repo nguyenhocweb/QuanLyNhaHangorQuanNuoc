@@ -118,6 +118,9 @@ exports.Prisma.Category_RestaurantScalarFieldEnum = {
   id: 'id',
   name: 'name',
   isActive: 'isActive',
+  description: 'description',
+  bgColor: 'bgColor',
+  textColor: 'textColor',
   restaurantIds: 'restaurantIds'
 };
 
@@ -182,7 +185,7 @@ exports.Prisma.RestaurantPaymentConfigScalarFieldEnum = {
   id: 'id',
   restaurantId: 'restaurantId',
   brandId: 'brandId',
-  provider: 'provider',
+  systemPaymentMethodId: 'systemPaymentMethodId',
   configData: 'configData',
   isActive: 'isActive',
   isTestMode: 'isTestMode',
@@ -193,7 +196,7 @@ exports.Prisma.TransactionScalarFieldEnum = {
   id: 'id',
   orderId: 'orderId',
   amount: 'amount',
-  provider: 'provider',
+  systemPaymentMethodId: 'systemPaymentMethodId',
   externalTransactionId: 'externalTransactionId',
   status: 'status',
   rawResponse: 'rawResponse',
@@ -241,10 +244,54 @@ exports.Prisma.BrandScalarFieldEnum = {
   imageMain: 'imageMain',
   images: 'images',
   isActive: 'isActive',
-  address: 'address',
-  city: 'city',
+  reason: 'reason',
   isFeatured: 'isFeatured',
   isNew: 'isNew',
+  restaurantCount: 'restaurantCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BrandPaymentConfigScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  systemPaymentMethodId: 'systemPaymentMethodId',
+  configData: 'configData',
+  isActive: 'isActive',
+  isTestMode: 'isTestMode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BrandRevenueScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  amount: 'amount',
+  source: 'source',
+  referenceId: 'referenceId',
+  description: 'description',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.BrandSubscriptionScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  planId: 'planId',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BrandSubscriptionTransactionScalarFieldEnum = {
+  id: 'id',
+  brandSubscriptionId: 'brandSubscriptionId',
+  amount: 'amount',
+  systemPaymentMethodId: 'systemPaymentMethodId',
+  externalTransactionId: 'externalTransactionId',
+  status: 'status',
+  rawResponse: 'rawResponse',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -306,7 +353,7 @@ exports.Prisma.OrderScalarFieldEnum = {
   discount_amount: 'discount_amount',
   tax_amount: 'tax_amount',
   total_amount: 'total_amount',
-  payment_method: 'payment_method',
+  systemPaymentMethodId: 'systemPaymentMethodId',
   paid_at: 'paid_at',
   createdAt: 'createdAt'
 };
@@ -398,8 +445,6 @@ exports.Prisma.RestaurantScalarFieldEnum = {
   logo: 'logo',
   isNew: 'isNew',
   name: 'name',
-  address: 'address',
-  city: 'city',
   email_contact: 'email_contact',
   phone_contact: 'phone_contact',
   description: 'description',
@@ -432,6 +477,17 @@ exports.Prisma.Restaurant_AreasScalarFieldEnum = {
   is_outdoor: 'is_outdoor',
   floor_number: 'floor_number',
   is_active: 'is_active'
+};
+
+exports.Prisma.RestaurantRevenueScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  brandId: 'brandId',
+  amount: 'amount',
+  source: 'source',
+  referenceId: 'referenceId',
+  description: 'description',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.Review_RestaurantScalarFieldEnum = {
@@ -469,6 +525,43 @@ exports.Prisma.Special_SchedulesScalarFieldEnum = {
   reason: 'reason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SubscriptionPlanScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  discountPrice: 'discountPrice',
+  discountStartDate: 'discountStartDate',
+  discountEndDate: 'discountEndDate',
+  billingCycle: 'billingCycle',
+  maxRestaurants: 'maxRestaurants',
+  features: 'features',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SystemPaymentMethodScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  description: 'description',
+  iconUrl: 'iconUrl',
+  isActive: 'isActive',
+  systemConfig: 'systemConfig',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SystemRevenueScalarFieldEnum = {
+  id: 'id',
+  amount: 'amount',
+  source: 'source',
+  referenceId: 'referenceId',
+  description: 'description',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.TablesScalarFieldEnum = {
@@ -527,13 +620,6 @@ exports.NotificationStatus = exports.$Enums.NotificationStatus = {
   BOUNCED: 'BOUNCED'
 };
 
-exports.PaymentMethod = exports.$Enums.PaymentMethod = {
-  CASH: 'CASH',
-  CARD: 'CARD',
-  MOMO: 'MOMO',
-  ZALOPAY: 'ZALOPAY'
-};
-
 exports.TransactionStatus = exports.$Enums.TransactionStatus = {
   PENDING: 'PENDING',
   SUCCESS: 'SUCCESS',
@@ -571,6 +657,13 @@ exports.isActive = exports.$Enums.isActive = {
   ACTIVE: 'ACTIVE',
   INACTIVE: 'INACTIVE',
   TERMINATED: 'TERMINATED'
+};
+
+exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
+  PENDING_PAYMENT: 'PENDING_PAYMENT',
+  ACTIVE: 'ACTIVE',
+  EXPIRED: 'EXPIRED',
+  CANCELLED: 'CANCELLED'
 };
 
 exports.ItemType = exports.$Enums.ItemType = {
@@ -643,6 +736,12 @@ exports.ScheduleType = exports.$Enums.ScheduleType = {
   CLOSURE: 'CLOSURE'
 };
 
+exports.BillingCycle = exports.$Enums.BillingCycle = {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+  LIFETIME: 'LIFETIME'
+};
+
 exports.TableShape = exports.$Enums.TableShape = {
   ROUND: 'ROUND',
   RECT: 'RECT',
@@ -666,6 +765,10 @@ exports.Prisma.ModelName = {
   UpgradeRequest: 'UpgradeRequest',
   User: 'User',
   Brand: 'Brand',
+  BrandPaymentConfig: 'BrandPaymentConfig',
+  BrandRevenue: 'BrandRevenue',
+  BrandSubscription: 'BrandSubscription',
+  BrandSubscriptionTransaction: 'BrandSubscriptionTransaction',
   Menu: 'Menu',
   MenuItem: 'MenuItem',
   Operating_Hours: 'Operating_Hours',
@@ -678,9 +781,13 @@ exports.Prisma.ModelName = {
   Reservations: 'Reservations',
   Restaurant: 'Restaurant',
   Restaurant_Areas: 'Restaurant_Areas',
+  RestaurantRevenue: 'RestaurantRevenue',
   Review_Restaurant: 'Review_Restaurant',
   Role: 'Role',
   Special_Schedules: 'Special_Schedules',
+  SubscriptionPlan: 'SubscriptionPlan',
+  SystemPaymentMethod: 'SystemPaymentMethod',
+  SystemRevenue: 'SystemRevenue',
   Tables: 'Tables'
 };
 

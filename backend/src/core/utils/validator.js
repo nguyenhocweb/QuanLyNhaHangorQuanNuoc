@@ -24,6 +24,13 @@ export const demoValidator = {
         required_error: `${name} là bắt buộc`,
         invalid_type_error: `${name} phải là chuỗi`
     }).trim().min(1, `${name} không để trống`),
+    soDienThoai: () => z.string({
+        required_error: "Số điện thoại là bắt buộc",
+        invalid_type_error: "Số điện thoại phải là chuỗi"
+    })
+        .trim()
+        .min(1, "Số điện thoại không được để trống")
+        .regex(/^(0[3|5|7|8|9])+([0-9]{8})\b/, "Số điện thoại không hợp lệ"),
     password: (name) => z.string({
         required_error: `${name} là bắt buộc`,
         invalid_type_error: `${name} phải là chuỗi`

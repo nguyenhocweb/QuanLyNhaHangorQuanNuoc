@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "prisma:push": "prisma db push --config src/config/prisma.config.js",
-    "prisma:generate": "prisma db generate --config src/config/prisma.config.js",
+    "prisma:generate": "prisma generate",
     "start": "nodemon --inspect src/server.js",
     "db:seed": "node src/databases/seed/index.js",
     "db:mig": "npx migrate-mongo up",
@@ -19,7 +19,9 @@
     "@google/generative-ai": "^0.24.1",
     "@pinecone-database/pinecone": "^7.1.0",
     "@prisma/client": "6.19",
+    "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
+    "bson": "^7.2.0",
     "cloudinary": "^2.9.0",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",

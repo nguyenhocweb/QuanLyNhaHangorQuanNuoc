@@ -1,0 +1,17 @@
+model BrandRevenue {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  brandId     String  @db.ObjectId
+  amount      Float
+  source      String // VD: "RESTAURANT_ORDER"
+  referenceId String? @db.ObjectId
+  description String?
+
+  brand Brand @relation(fields: [brandId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([brandId])
+  @@index([brandId, createdAt])
+  @@index([brandId, source])
+  @@map("brand_revenues")
+}

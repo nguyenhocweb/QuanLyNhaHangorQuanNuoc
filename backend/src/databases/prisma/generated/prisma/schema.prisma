@@ -2,6 +2,9 @@ model Category_Restaurant {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
   name          String       @unique // VD: Lẩu, Nướng, Chay, Hàn Quốc...
   isActive      Boolean      @default(true)
+  description   String?
+  bgColor       String?      @default("#EEF2FF") // Default indigo-50
+  textColor     String?      @default("#6366F1") // Default indigo-500
   // Quan hệ ngược lại với Restaurant
   restaurantIds String[]     @db.ObjectId
   restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
@@ -229,10 +232,19 @@ model User {
   @@map("users")
 }
 
+type LocationAddress {
+  street       String?
+  ward         String?
+  wardCode     String?
+  district     String?
+  districtCode String?
+  province     String?
+  provinceCode String?
+}
+
 generator client {
-  provider        = "prisma-client-js"
-  output          = "../generated/prisma"
-  previewFeatures = ["prismaSchemaFolder"]
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -241,33 +253,55 @@ datasource db {
 }
 
 model Brand {
-  id             String                    @id @default(auto()) @map("_id") @db.ObjectId
-  name           String                    @unique
-  logo           String?
-  email_contact  String?
-  phone_contact  String?
-  description    String?
-  tax_code       String?
-  link           String?
-  imageMain      String
-  images         String[]
-  isActive       isActive                  @default(PENDING)
-  address        String?
-  city           String?
-  isFeatured     Boolean                   @default(false) // 👈 tiêu biểu
-  isNew          Boolean                   @default(true)
-  restaurants    Restaurant[] // 1 Brand có nhiều Nhà hàng
-  employments    Employment[] // Nhân sự cấp Brand
-  menu           Menu[]
-  items          MenuItem[]
-  paymentConfigs RestaurantPaymentConfig[]
-  createdAt      DateTime                  @default(now())
-  updatedAt      DateTime                  @updatedAt
+  id              String                    @id @default(auto()) @map("_id") @db.ObjectId
+  name            String                    @unique
+  logo            String?
+  email_contact   String?
+  phone_contact   String?
+  description     String?
+  tax_code        String?
+  link            String?
+  imageMain       String?
+  images          String[]
+  isActive        isActive                  @default(PENDING)
+  reason          String?
+  address         LocationAddress?
+  isFeatured      Boolean                   @default(false) // 👈 tiêu biểu
+  isNew           Boolean                   @default(true)
+  restaurantCount Int                       @default(0) // Số lượng nhà hàng hiện có
+  subscriptions   BrandSubscription[] // Lịch sử các gói cước đã đăng ký
+  restaurants     Restaurant[] // 1 Brand có nhiều Nhà hàng
+  employments     Employment[] // Nhân sự cấp Brand
+  menu            Menu[]
+  items           MenuItem[]
+  paymentConfigs  RestaurantPaymentConfig[]
+  createdAt       DateTime                  @default(now())
+  updatedAt       DateTime                  @updatedAt
 
   @@index([isActive])
   @@index([createdAt])
   @@index([isActive, isFeatured])
   @@map("brands")
+}
+
+model BrandSubscription {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String @db.ObjectId
+  planId  String @db.ObjectId
+
+  startDate DateTime           @default(now())
+  endDate   DateTime
+  status    SubscriptionStatus @default(PENDING_PAYMENT)
+
+  brand Brand            @relation(fields: [brandId], references: [id])
+  plan  SubscriptionPlan @relation(fields: [planId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([status])
+  @@map("brand_subscriptions")
 }
 
 enum Gender {
@@ -433,6 +467,19 @@ enum ItemType {
   COMBO // Gói combo nhiều món
   SERVICE // Phí dịch vụ (Phí phòng VIP, phí mang đồ uống ngoài vào)
   OTHER // Các loại khác
+}
+
+enum BillingCycle {
+  MONTHLY
+  YEARLY
+  LIFETIME
+}
+
+enum SubscriptionStatus {
+  PENDING_PAYMENT // Đang chờ thanh toán
+  ACTIVE // Đang sử dụng
+  EXPIRED // Đã hết hạn
+  CANCELLED // Đã hủy
 }
 
 model Menu {
@@ -716,17 +763,16 @@ model Reservations {
 model Restaurant {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  brandId       String?      @db.ObjectId
-  brand         Brand?       @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId       String?          @db.ObjectId
+  brand         Brand?           @relation(fields: [brandId], references: [id], onDelete: Cascade)
   logo          String?
-  isNew         Boolean      @default(true)
+  isNew         Boolean          @default(true)
   name          String?
-  address       String?
-  city          String?
+  address       LocationAddress?
   email_contact String?
   phone_contact String?
   description   String?
-  isActive      isActive     @default(ACTIVE)
+  isActive      isActive         @default(ACTIVE)
   imageMain     String
   images        String[]
   slug          String?
@@ -759,10 +805,8 @@ model Restaurant {
 
   @@index([brandId, isActive]) // theo brand
   @@index([isActive, createdAt]) // list + pagination
-  @@index([city, isActive]) // filter location
   @@index([averageRating]) // sort rating
   @@index([averageRating, isActive]) // sort rating và còn hoạt động
-  @@index([city, isActive, averageRating]) // top theo city
   @@index([weightedScore, isActive, isNew]) // đang hoạt động và có điểm cao 
   @@map("restaurants")
 }
@@ -850,6 +894,32 @@ model Special_Schedules {
   @@index([restaurantId])
   @@index([date])
   @@map("special_schedules")
+}
+
+model SubscriptionPlan {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  name              String       @unique
+  description       String?
+  price             Float
+  discountPrice     Float? // Giá sau khi giảm (nếu có chương trình khuyến mãi)
+  discountStartDate DateTime? // Ngày bắt đầu khuyến mãi
+  discountEndDate   DateTime? // Ngày kết thúc khuyến mãi
+  billingCycle      BillingCycle @default(MONTHLY)
+  maxRestaurants    Int // Số nhà hàng tối đa (-1 = không giới hạn)
+  features          String[] // Danh sách các tính năng được mở khóa
+  isActive          Boolean      @default(true)
+
+  subscriptions BrandSubscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([price])
+  @@index([billingCycle])
+  @@index([maxRestaurants])
+  @@index([isActive])
+  @@index([isActive, billingCycle])
+  @@map("subscription_plans")
 }
 
 // tạo tabels cho nhà hàng 

@@ -1,17 +1,16 @@
 "use client"
-import { Div,H,P } from "@/src/core/components/ui"
+import { Div } from "@/src/core/components/ui"
 import { use } from "react";
-const brandManagementPage=(  { params }: {
-        params: Promise<{ idBrand: string }>
-    })=>{
-   // lấy id  
+import BrandDetailComponent from "@/src/features/system_admin/brands/brands_components/BrandDetail_component";
+
+const DashboardBrandManagementPage = ({ params }: { params: Promise<{ idBrand: string }> }) => {
     const { idBrand } = use(params);
 
     return (
         <Div size="full" vitri="col_none">
-           <H variant="text_black">Chi tiết thương hiệu </H>
-           <P>Quản lý thực thể kinh doanh và và cấu trúc vận hành</P>
+           <BrandDetailComponent brandId={idBrand} />
         </Div>
-    )
-}
-export default brandManagementPage
+    );
+};
+
+export default DashboardBrandManagementPage;

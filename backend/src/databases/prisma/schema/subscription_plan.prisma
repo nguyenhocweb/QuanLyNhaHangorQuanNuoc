@@ -1,0 +1,25 @@
+model SubscriptionPlan {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  name              String       @unique
+  description       String?
+  price             Float
+  discountPrice     Float? // Giá sau khi giảm (nếu có chương trình khuyến mãi)
+  discountStartDate DateTime? // Ngày bắt đầu khuyến mãi
+  discountEndDate   DateTime? // Ngày kết thúc khuyến mãi
+  billingCycle      BillingCycle @default(MONTHLY)
+  maxRestaurants    Int // Số nhà hàng tối đa (-1 = không giới hạn)
+  features          String[] // Danh sách các tính năng được mở khóa
+  isActive          Boolean      @default(true)
+
+  subscriptions BrandSubscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([price])
+  @@index([billingCycle])
+  @@index([maxRestaurants])
+  @@index([isActive])
+  @@index([isActive, billingCycle])
+  @@map("subscription_plans")
+}

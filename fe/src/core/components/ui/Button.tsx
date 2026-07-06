@@ -30,6 +30,14 @@ const ButtonVariantProps = cva(
                     "hover:shadow-lg hover:scale-[1.03]",
                     "active:scale-95"
                 ],
+                white: [" flex items-center justify-center   text-black text-sm font-medium ",
+                    "bg-gradient-to-r from-white to-gray-200",
+                    "  shadow-md",
+                    "  transition-all duration-300",
+                    " hover:from-gray-200 hover:to-gray-300",
+                    "hover:shadow-lg hover:scale-[1.03]",
+                    "active:scale-95"
+                ],
                 red: [" flex items-center justify-center   text-white text-sm font-medium ",
                     "bg-gradient-to-r from-red-500 to-red-600",
                     "  shadow-md",

@@ -8,3 +8,4 @@ backend/.env
 
 # file hướng đẫn
 huongdanGithub.text
+node_modules

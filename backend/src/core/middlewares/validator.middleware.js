@@ -8,13 +8,14 @@ export const validate = (schema) => asyncHandler(async (req, res, next) => {
   try {
     // Zod parse: Nếu dữ liệu sai nó sẽ throw error ngay lập tức
     // parse vs parseAsync: Dùng parse cho đồng bộ (nhanh hơn)
-    schema.parse({
+    const validatedData = schema.parse({
       body: req.body,
       query: req.query,
       params: req.params,
       file: req.file, // nếu có file upload
       files: req.files // nếu có multiple file upload
     });
+
 
     next();
   } catch (error) {

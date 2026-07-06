@@ -57,6 +57,65 @@ export const menusData = [
     sort_order: 2
   },
 
+  // 7. Pizza Roma (brandId: 65b2a1c0d4f3e2a1b0c9d8ee)
+  {
+    id: "65b2a1c0d4f3e2a1b0c9e813",
+    brandId: "65b2a1c0d4f3e2a1b0c9d8ee",
+    restaurantId: null,
+    name: "Kids Menu (Thực Đơn Bé Yêu)",
+    description: "Phần ăn nhỏ gọn, ít gia vị cay nóng, tặng kèm đồ chơi cho bé",
+
+    is_active: true,
+    sort_order: 2
+  },
+  {
+    id: "65b2a1c0d4f3e2a1b0c9e814",
+    brandId: "65b2a1c0d4f3e2a1b0c9d8ee",
+    restaurantId: null,
+    name: "Delivery & Takeaway Menu",
+    description: "Thực đơn đóng gói mang về (lược bỏ các món dễ hỏng khi vận chuyển)",
+
+    is_active: true,
+    sort_order: 3
+  },
+
+  // 8. Bún Bò Huế 1986 (brandId: 65b2a1c0d4f3e2a1b0c9d8f0)
+  {
+    id: "65b2a1c0d4f3e2a1b0c9e815",
+    brandId: "65b2a1c0d4f3e2a1b0c9d8f0",
+    restaurantId: null,
+    name: "Menu Điểm Tâm Sáng",
+
+    description: "Bún bò tô tiêu chuẩn phục vụ nhanh buổi sáng",
+
+    is_active: true,
+    sort_order: 1
+  },
+
+  // 9. Da Nang Sea Breeze (brandId: 65b2a1c0d4f3e2a1b0c9d8f8)
+  {
+    id: "65b2a1c0d4f3e2a1b0c9e816",
+    brandId: "65b2a1c0d4f3e2a1b0c9d8f8",
+    restaurantId: null,
+    name: "Hải Sản Tươi Sống (Market Price)",
+    description: "Hải sản bắt tại hồ, giá thay đổi theo thời giá mỗi ngày",
+
+    is_active: true,
+    sort_order: 2
+  },
+
+  // 10. Hanoi Phở Quán (brandId: 65b2a1c0d4f3e2a1b0c9d8f7)
+  {
+    id: "65b2a1c0d4f3e2a1b0c9e817",
+    brandId: "65b2a1c0d4f3e2a1b0c9d8f7",
+    restaurantId: null,
+    name: "Phở Gánh Truyền Thống",
+    description: "Menu các món phở nước và phở xào đậm chất Hà Nội",
+
+    is_active: true,
+    sort_order: 1
+  },
+
   // 3. BBQ Master Vietnam (brandId: 65b2a1c0d4f3e2a1b0c9d8e9)
   {
     id: "65b2a1c0d4f3e2a1b0c9e806",
@@ -108,7 +167,7 @@ export const menusData = [
     restaurantId: null,
     name: "Signature Tasting Menu (7 Courses)",
     description: "Hành trình ẩm thực 7 món do bếp trưởng thiết kế",
- 
+
     is_active: true,
     sort_order: 1
   },
@@ -191,7 +250,7 @@ export const menusData = [
     restaurantId: "65b2a1c0d4f3e2a1b0c9d99f",
     name: "Menu Nhậu Đêm (Late Night BBQ)",
     description: "Thực đơn nướng và bia vỉa hè dành riêng cho khách nhậu đêm",
-  
+
     is_active: true,
     sort_order: 1
   },
@@ -207,75 +266,6 @@ export const menusData = [
     is_active: true,
     sort_order: 3
   },
-  // ==========================================
-  // I. MENU CẤP THƯƠNG HIỆU (BRAND MENUS) 
-  // ==========================================
-
-  // 1. Pizza Roma (brandId: 65b2a1c0d4f3e2a1b0c9d8ee)
-  {
-    id: "65b2a1c0d4f3e2a1b0c9e813",
-    brandId: "65b2a1c0d4f3e2a1b0c9d8ee",
-    restaurantId: null,
-    name: "Kids Menu (Thực Đơn Bé Yêu)",
-    description: "Phần ăn nhỏ gọn, ít gia vị cay nóng, tặng kèm đồ chơi cho bé",
-
-    is_active: true,
-    sort_order: 2
-  },
-  {
-    id: "65b2a1c0d4f3e2a1b0c9e814",
-    brandId: "65b2a1c0d4f3e2a1b0c9d8ee",
-    restaurantId: null,
-    name: "Delivery & Takeaway Menu",
-    description: "Thực đơn đóng gói mang về (lược bỏ các món dễ hỏng khi vận chuyển)",
-
-    is_active: true,
-    sort_order: 3
-  },
-
-  // 2. Bún Bò Huế 1986 (brandId: 65b2a1c0d4f3e2a1b0c9d8f0)
-  {
-    id: "65b2a1c0d4f3e2a1b0c9e815",
-    brandId: "65b2a1c0d4f3e2a1b0c9d8f0",
-    restaurantId: null,
-    name: "Menu Điểm Tâm Sáng",
-  
-    description: "Bún bò tô tiêu chuẩn phục vụ nhanh buổi sáng",
-
-    is_active: true,
-    sort_order: 1
-  },
-
-  // 3. Da Nang Sea Breeze (brandId: 65b2a1c0d4f3e2a1b0c9d8f8)
-  {
-    id: "65b2a1c0d4f3e2a1b0c9e816",
-    brandId: "65b2a1c0d4f3e2a1b0c9d8f8",
-    restaurantId: null,
-    name: "Hải Sản Tươi Sống (Market Price)",
-    description: "Hải sản bắt tại hồ, giá thay đổi theo thời giá mỗi ngày",
-
-    is_active: true,
-    sort_order: 2
-  },
-
-  // 4. Hanoi Phở Quán (brandId: 65b2a1c0d4f3e2a1b0c9d8f7)
-  {
-    id: "65b2a1c0d4f3e2a1b0c9e817",
-    brandId: "65b2a1c0d4f3e2a1b0c9d8f7",
-    restaurantId: null,
-    name: "Phở Gánh Truyền Thống",
-    description: "Menu các món phở nước và phở xào đậm chất Hà Nội",
-
-
-    is_active: true,
-    sort_order: 1
-  },
-
-  // ==========================================
-  // II. MENU CẤP CHI NHÁNH NHÀ HÀNG (RESTAURANT MENUS)
-  // ==========================================
-
-  // 5. Golden Steak Thảo Điền (restaurantId: 65b2a1c0d4f3e2a1b0c9d9a0)
   {
     id: "65b2a1c0d4f3e2a1b0c9e818",
     brandId: null,
@@ -346,7 +336,7 @@ export const menusData = [
     restaurantId: "65b2a1c0d4f3e2a1b0c9d99e",
     name: "Happy Hour Drinks (Giờ Vàng Bia Cuộn)",
     description: "Khuyến mãi mua 1 tặng 1 cho các loại bia tháp và cocktail",
-    
+
     is_active: true, // Nếu hết chạy chương trình có thể chuyển thành false
     sort_order: 4
   }

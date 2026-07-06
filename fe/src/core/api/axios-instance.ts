@@ -28,7 +28,7 @@ axiosClient.interceptors.request.use(
         if (config.data instanceof FormData) {
             delete config.headers["Content-Type"];
         }
-        
+
         return config;
     },
     (error) => Promise.reject(error)
@@ -37,7 +37,7 @@ axiosClient.interceptors.request.use(
 // --- Response Interceptor ---
 axiosClient.interceptors.response.use(
     (response: AxiosResponse) => {
-        
+
         return response;
     },
     async (error: AxiosError) => {
@@ -54,9 +54,9 @@ axiosClient.interceptors.response.use(
             try {
                 // SỬA ĐỔI 1: Dùng axiosAuth (instance phụ) để gọi refresh
                 // Để tránh dính interceptor request của axiosClient
-                   await axiosClient.post(REFRESH_URL);
-                    return axios(originalRequest);
-                
+                await axiosAuth.post(REFRESH_URL);
+                return axiosClient(originalRequest);
+
             } catch (refreshError) {
                 // Refresh thất bại -> Logout
                 const authState = useAuthStore.getState();

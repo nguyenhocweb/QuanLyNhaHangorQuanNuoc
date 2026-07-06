@@ -16,16 +16,20 @@ const PublicHeader = () => {
     const getUser = useAuthStore((state) => state.user);
     console.log(getUser);
 
-    const linkClick = {
-        "Khách Hàng": "/user/profile",
+    const linkClick: Record<string, string> = {
+        "Khách hàng": "/user/profile",
         "Admin": "/system/dashboard",
+        "Quản lý thương hiệu": "/brand/dashboard",        // Đổi lại URL nếu cần
+        "Quản lý nhà hàng": "/restaurant/dashboard",      // Đổi lại URL nếu cần
+        "Nhân viên": "/staff/dashboard",                  // Đổi lại URL nếu cần
         "login": "/login"
     };
 
     const userRole = getUser?.role || "login"; // Giả sử đây là một biến any từ đâu đó
 
     // Ép kiểu trực tiếp lúc truy xuất
-    const redirectUrl = linkClick[userRole as keyof typeof linkClick]
+    const redirectUrl = linkClick[userRole] || "/"
+
     return (
         <header
             className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/80 backdrop-blur-md "
@@ -75,6 +79,7 @@ const PublicHeader = () => {
 
                 }
             </Div>
+            
         </header>
     )
 }

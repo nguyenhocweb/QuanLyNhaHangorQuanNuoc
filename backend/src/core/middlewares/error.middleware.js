@@ -25,6 +25,6 @@ export const errorHandler = (err, req, res, next) => {
   console.error(`ERROR: ${error.message}`); // Ghi log server
 
   // 3. Trả về JSON
-  res.status(error.statusCode).json(response);
+  return res.status(error.statusCode).json(response);
 };
 

@@ -1,38 +1,37 @@
 model Notifications {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  reservationId String?  @db.ObjectId
+  reservationId String?       @db.ObjectId
   reservation   Reservations? @relation(fields: [reservationId], references: [id])
 
-  userId        String?  @db.ObjectId
-  user          User?    @relation(fields: [userId], references: [id])
+  userId String? @db.ObjectId
+  user   User?   @relation(fields: [userId], references: [id])
 
-  type          NotificationType?          // loại thông báo 
-  channel       NotificationChannel?        // thuộc loại nào để gửi đến
+  type    NotificationType? // loại thông báo 
+  channel NotificationChannel? // thuộc loại nào để gửi đến
 
-  recipient     String       // người nhận
+  recipient String // người nhận
 
-  subject       String?     // tiêu đề thông báo
-  body          String?     // nội dung thông báo
+  subject String? // tiêu đề thông báo
+  body    String? // nội dung thông báo
 
-  status        NotificationStatus
+  status NotificationStatus
 
-  sent_at       DateTime?   // thời điểm gửi thông báo 
-  delivered_at  DateTime?  // thời điểm thông báo đc nhận 
+  sent_at      DateTime? // thời điểm gửi thông báo 
+  delivered_at DateTime? // thời điểm thông báo đc nhận 
 
   external_id   String?
   error_message String?
 
   // ⭐ thêm cho web notification
-  is_read       Boolean  @default(false)
-  read_at       DateTime?
+  is_read Boolean   @default(false)
+  read_at DateTime?
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId])
   @@index([reservationId])
   @@index([status])
-
   @@map("notifications")
 }

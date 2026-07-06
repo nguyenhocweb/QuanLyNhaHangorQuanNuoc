@@ -1,9 +1,9 @@
 // extensions/categoriesAndItemsExtension.js
 import { menuCategoriesData, menuItemsData } from "../constants/menucategory-items.data.js";
-import { upsertVector } from "../../../modules/vector/service/vectorDB.service.js";
-import { embedText } from "../../../modules/vector/service/embedding.service.js";
-  import { tableVector } from '../../../config/tableVector.js';
-import { buildMenuItemVector } from "../../../modules/vector/builders/menuItem.builder.js";
+import { upsertVector } from "../../../modules/shared/vector/service/vectorDB.service.js";
+import { embedText } from "../../../modules/shared/vector/service/embedding.service.js";
+import { tableVector } from "../../../config/tableVector.js";
+import { buildMenuItemVector } from "../../../modules/shared/vector/builders/menuItem.builder.js";
 export const categoriesAndItemsExtension = async (prisma) => {
   console.log("Creating Menu Categories & Items...");
 

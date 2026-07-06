@@ -1,0 +1,31 @@
+# 1. BỐI CẢNH DỰ ÁN (PROJECT CONTEXT)
+- Tên dự án: Foleat - Nền tảng SaaS Quản lý Nhà hàng.
+- Tech Stack: 
+  - Frontend (fe): Next.js (App Router), React, TypeScript, Tailwind CSS.
+  - Backend (backend): Node.js, Express.js.
+  - Database: MongoDB.
+
+# 2. QUY TẮC DỮ LIỆU & NAMING CONVENTION (BẮT BUỘC TUÂN THỦ 100%)
+- **Tên biến Database & API:** BẮT BUỘC sử dụng chuẩn `snake_case` cho tất cả các trường dữ liệu khi lưu vào Database hoặc trả về qua API. 
+  - Ví dụ đúng: `brand_name`, `tax_code` (tuyệt đối không dùng `taxCode`), `created_at`.
+- **Kiểu dữ liệu đặc biệt:** Đối với các trường liên quan đến tiền tệ (giá món, doanh thu) hoặc tọa độ địa lý, BẮT BUỘC phải cấu hình là `Float`. KHÔNG ĐƯỢC DÙNG `Decimal` để tránh lỗi validation khi lưu vào MongoDB.
+
+# 3. KIẾN TRÚC BACKEND (Module-Based Architecture)
+Khi tạo một tính năng mới ở Backend (ví dụ: `brand`), KHÔNG được vứt code lung tung, BẮT BUỘC phải tạo trong thư mục `backend/src/modules/<tên_module>/` với quy tắc đặt tên file như sau:
+- `route.<tên_module>.js` (ví dụ: `route.brand.js`): Chỉ chứa định nghĩa endpoint và middleware.
+- `controller.<tên_module>`: Xử lý Request/Response.
+- `service.<tên_module>`: Chứa logic nghiệp vụ lõi.
+- `repository.<tên_module>`: Xử lý thao tác trực tiếp với Database (Mongoose/Prisma).
+- `validator.<tên_module>`: Validate dữ liệu đầu vào.
+
+# 4. KIẾN TRÚC FRONTEND (Feature-Sliced Design)
+Khi tạo tính năng mới ở Frontend (ví dụ: Quản lý thương hiệu), phải chia làm 2 phần rõ rệt:
+- **Tầng UI/Routing:** Đặt trong `fe/src/app/(group)/...` (ví dụ: `app/(dashboard)/brands/page.tsx`). Chỉ dùng để định tuyến và gọi component.
+- **Tầng Features (Logic & Components):** Mọi logic của tính năng phải gom vào thư mục `fe/src/features/<tên_tính_năng>/`. 
+  - Cấu trúc thư mục con bên trong phải theo format: `<tên_tính_năng>_components`, `<tên_tính_năng>_hook`, `<tên_tính_năng>_schemas`.
+  - Ví dụ: `fe/src/features/brand/brand_components/`, `fe/src/features/brand/brand_hook/`.
+
+# 5. HƯỚNG DẪN KHI SINH CODE (Dành cho AI)
+- Luôn kiểm tra xem frontend đã có các UI dùng chung trong `fe/src/core/components/` chưa trước khi tạo mới.
+- Ở tầng Backend, luôn tách biệt Repository ra khỏi Service. Service không gọi trực tiếp Model mà phải gọi qua Repository.
+- Hãy suy nghĩ theo luồng Full-stack: Khi được yêu cầu làm một tính năng CRUD, hãy sinh code theo thứ tự: Repository -> Service -> Controller -> Route -> Frontend Hook -> Frontend Component.

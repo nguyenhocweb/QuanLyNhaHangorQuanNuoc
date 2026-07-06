@@ -1,22 +1,22 @@
 import { z } from "zod";
 export const validator = {
     string: (name: string, max: number = 255, min?: number) =>
-        z.string({ error: `${name} phải là chuổi` })
+        z.string({ message: `${name} phải là chuổi` })
             .trim()
             .min(min ?? 1, `${name} ${min ? `phải lón hơn ${min} ký tự ` : "không được để trống"}`)
             .max(max, `${name} không được vượt quá ${max} ký tự`),
     email: () =>
-        z.string({ error: "Vui lòng nhập Email" })
+        z.string({ message: "Vui lòng nhập Email" })
             .trim()
             .min(1, "Email không được để trống")
             .email("Định dạng email không hợp lệ"),
     phone: () =>
-        z.string({ error: "Vui lòng nhập Số điện thoại" })
+        z.string({ message: "Vui lòng nhập Số điện thoại" })
             .trim()
             .min(1, "Số điện thoại không được để trống")
             .regex(/^(0[3|5|7|8|9])+([0-9]{8})\b/, "Số điện thoại không hợp lệ "),
     password: (name: string = "Mật khẩu") =>
-        z.string({ error: `Vui lòng nhập ${name.toLowerCase()}` })
+        z.string({ message: `Vui lòng nhập ${name.toLowerCase()}` })
             .min(8, `${name} phải có ít nhất 8 ký tự`)
             .regex(
                 /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/,
@@ -25,7 +25,7 @@ export const validator = {
     number: (name: string, min?: number, max?: number) => {
         let schema = z.coerce
             .number({
-                error: `Vui lòng nhập ${name.toLowerCase()}`,
+                message: `Vui lòng nhập ${name.toLowerCase()}`,
 
             });
 
@@ -40,16 +40,14 @@ export const validator = {
     price: (name: string = "Giá tiền", max: number = 1_000_000_000) =>
         z.coerce
             .number({
-                error: `Vui lòng nhập ${name.toLowerCase()}`,
+                message: `Vui lòng nhập ${name.toLowerCase()}`,
 
             })
             .positive(`${name} phải lớn hơn 0`)
             .max(max, `${name} không được vượt quá ${max.toLocaleString('vi-VN')}đ`),
     boolean: (name: string) =>
         z.coerce.boolean({
-            error: (issue) => issue.input === undefined
-                ? `Vui lòng chọn ${name.toLowerCase()}`
-                : `${name} chỉ nhận giá trị Đúng/Sai`,
+            message: `Vui lòng chọn ${name.toLowerCase()}`,
         }),
     // 8. FILE (Upload 1 file đơn lẻ)
     file: (
@@ -71,14 +69,14 @@ export const validator = {
 
     // 9. URL (Đường dẫn web)
     url: (name: string = "Đường dẫn") =>
-        z.string({ error: `Vui lòng nhập ${name.toLowerCase()}` })
+        z.string({ message: `Vui lòng nhập ${name.toLowerCase()}` })
             .trim()
             .min(1, `${name} không được để trống`)
             .url(`${name} phải là một đường dẫn hợp lệ (vd: https://...)`),
     // 10. NGÀY THÁNG BÌNH THƯỜNG (Có thể giới hạn ngày bắt đầu / kết thúc)
     date: (name: string = "Ngày", options?: { minDate?: Date; maxDate?: Date }) => {
         let schema = z.coerce.date({
-            error: `Vui lòng chọn ${name.toLowerCase()}`,
+            message: `Vui lòng chọn ${name.toLowerCase()}`,
 
         });
 
@@ -95,7 +93,7 @@ export const validator = {
     // 11. NGÀY SINH (Validate theo độ tuổi)
     dob: (name: string = "Ngày sinh", options?: { minAge?: number; maxAge?: number }) => {
         return z.coerce.date({
-            error: `Vui lòng chọn ${name.toLowerCase()}`,
+            message: `Vui lòng chọn ${name.toLowerCase()}`,
 
         })
             .max(new Date(), `${name} không được lớn hơn ngày hiện tại`) // Chắc chắn ngày sinh phải trong quá khứ
@@ -129,7 +127,7 @@ export const validator = {
         allowedValues: T
     ) =>
         z.enum(allowedValues, {
-            error: `${name} lựa chọn không hợp lệ`
+            message: `${name} lựa chọn không hợp lệ`
         }),
     array: <T extends z.ZodTypeAny>(
         name: string,
@@ -137,7 +135,7 @@ export const validator = {
         options?: { min?: number; max?: number }
     ) => {
         let schema = z.array(itemSchema, {
-            error: `Vui lòng cung cấp danh sách ${name.toLowerCase()}`,
+            message: `Vui lòng cung cấp danh sách ${name.toLowerCase()}`,
             
         });
 
@@ -156,7 +154,7 @@ export const validator = {
         shape: T
     ) => {
         return z.object(shape, {
-            error: `Vui lòng cung cấp thông tin ${name.toLowerCase()}`,
+            message: `Vui lòng cung cấp thông tin ${name.toLowerCase()}`,
         
         });
     }

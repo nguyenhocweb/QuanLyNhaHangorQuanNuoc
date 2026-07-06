@@ -1,7 +1,7 @@
 import { Div,H,P } from "@/src/core/components/ui"
-import AvatarProfile from "@/src/features/profile/profile_component/avatar_profile"
-import ImformationProfile from "@/src/features/profile/profile_component/information_profile"
-import ChangePassword from "@/src/features/profile/profile_component/changePassword"
+import AvatarProfile from "@/src/features/shared/profile/profile_component/avatar_profile"
+import ImformationProfile from "@/src/features/shared/profile/profile_component/information_profile"
+import ChangePassword from "@/src/features/shared/profile/profile_component/changePassword"
 const ProfileAdmin =()=>{
     return(
       <Div vitri="col_none" className="p-10 gap-3" size="full" >

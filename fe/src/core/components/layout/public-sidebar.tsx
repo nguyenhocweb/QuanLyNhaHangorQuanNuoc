@@ -10,7 +10,8 @@ import { MdOutlineLogout } from "react-icons/md";
 
 import {
     MdOutlineDashboard, MdOutlineRestaurantMenu, MdOutlineTableRestaurant,
-    MdOutlineSettings, MdCategory, MdOutlineSoupKitchen
+    MdOutlineSettings, MdCategory, MdOutlineSoupKitchen, MdStore, MdCardMembership,
+    MdPayment
 } from "react-icons/md";
 import { FiUsers, FiMap } from "react-icons/fi";
 import { BsShop, BsClipboardData, BsReceipt, BsCalendar2Check } from "react-icons/bs";
@@ -22,9 +23,12 @@ export const SidebarMenuSystemAdmin = [
     { name: "Tổng quan", link: "/system/dashboard", icon: <MdOutlineDashboard className="text-xl" /> },
     { name: "Hồ sơ cá nhân", link: "/system/profile", icon: <BsPersonFill className="text-xl" /> },
     { name: "Quản lý Thương hiệu", link: "/system/brands", icon: <BiBuildingHouse className="text-xl" /> },
+    { name: "Quản lý Gói cước", link: "/system/subscriptions", icon: <MdCardMembership className="text-xl" /> },
     { name: "Tài khoản toàn cục", link: "/system/users", icon: <FiUsers className="text-xl" /> },
     { name: "Danh mục chuẩn", link: "/system/categories", icon: <MdCategory className="text-xl" /> }, // Thể loại nhà hàng (Lẩu, Nướng...)
+    { name: "Quản lý Nhà hàng", link: "/system/restaurants", icon: <MdStore className="text-xl" /> },
     { name: "Gói dịch vụ & Thanh toán", link: "/system/billing", icon: <RiBillLine className="text-xl" /> },
+    { name: "Phương thức thanh toán", link: "/system/payment-methods", icon: <MdPayment className="text-xl" /> },
     { name: "Cài đặt hệ thống", link: "/system/settings", icon: <MdOutlineSettings className="text-xl" /> },
 ];
 const SidebarMenuCustomer = [
@@ -40,10 +44,22 @@ const SidebarMenuCustomer = [
 import { useAuthStore } from "@/src/features/auth/auth_store/use-auth-store";
 import { A, Button, Div, H, P } from "../ui";
 import { usePathname } from "next/navigation";
+import { ConfirmModal } from "./public-ConfirmModal";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 const PublicSidebar = () => {
-    const { user } = useAuthStore();
+    const router = useRouter();
+    const { user, logout } = useAuthStore();
     const pathname = usePathname();
-   
+    
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleLogout = () => {
+
+        setIsModalOpen(false);
+        logout();
+        router.push("/");
+    }
     
     return (
         <Div variant="bg_white" vitri="col_none" className="h-[90vh] sticky top-16 w-70" gap="g4_5" shape="none">
@@ -94,7 +110,7 @@ const PublicSidebar = () => {
 
                 )}
                 {/* dành cho admin  */}
-                {user?.role === "Admin" && (
+                {(user?.role === "Admin" || user?.role === "SYSTEM" || user?.role?.name === "SYSTEM") && (
                     <Div vitri="col_none" size="full" shape="none" gap="g3_4"
                         className=" h-9/10 overflow-y-auto overflow-x-hidden "
                     >
@@ -119,7 +135,7 @@ const PublicSidebar = () => {
                         variant="gray_hover"
                         sizea="p3_2"
                         className='w-full justify-start gap-3 text-red-600'
-
+                        onClick={()=>{setIsModalOpen(prev=>!prev)}}
 
                     >
                         <MdOutlineLogout className="text-lg" />
@@ -127,6 +143,18 @@ const PublicSidebar = () => {
                     </Button>
                 </Div>
             </Div>
+            <ConfirmModal
+                open={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                onConfirm={() => {
+                    
+                    handleLogout();
+                }}
+                title="Xác nhận đăng xuất"
+                content="Bạn có chắc chắn muốn đăng xuất không?"
+                confirmText="Đăng xuất"
+                cancelText="Hủy"
+            />
         </Div>
     )
 }

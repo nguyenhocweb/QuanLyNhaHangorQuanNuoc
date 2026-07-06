@@ -1,44 +1,44 @@
 model MenuItem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  categoryId String       @db.ObjectId
+  category   MenuCategory @relation(fields: [categoryId], references: [id])
 
-  categoryId   String   @db.ObjectId
-  category     MenuCategory @relation(fields: [categoryId], references: [id])
+  brandId String? @db.ObjectId
+  brand   Brand?  @relation(fields: [brandId], references: [id])
 
-  brandId      String?  @db.ObjectId
-  brand        Brand?   @relation(fields: [brandId], references: [id])
-
-  restaurantId String?  @db.ObjectId
+  restaurantId String?     @db.ObjectId
   restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
 
-  name         String 
-  description  String?
-  image        String
-  images       String[]
+  name        String
+  description String?
+  image       String
+  images      String[]
 
-  base_price   Int  // giá gốc
+  base_price Int // giá gốc
 
-  discount_percent Float?       // phần trăm giảm giá
-  discount_until   DateTime?   // ngày kết thúc giảm giá
+  discount_percent Float? // phần trăm giảm giá
+  discount_until   DateTime? // ngày kết thúc giảm giá
 
-  item_type    ItemType?
-  allergens    String[] // thành phần món ăn để biết khách có bị dị ứng hay không
+  item_type ItemType?
+  allergens String[] // thành phần món ăn để biết khách có bị dị ứng hay không
 
-  spice_level  Int?   // độ cay
-  prep_time    Int?  // thời gian chuẩn bị dự kiến 
-  is_available Boolean @default(true)  // còn bán hay không
+  spice_level  Int? // độ cay
+  prep_time    Int? // thời gian chuẩn bị dự kiến 
+  is_available Boolean @default(true) // còn bán hay không
   is_featured  Boolean @default(false) // món có hot không
 
-  sort_order   Int @default(0) 
-  createdAt   DateTime   @default(now()) 
-  updatedAt   DateTime   @updatedAt
-  orderItems   OrderItem[]
- @@index([restaurantId, is_available, sort_order])
- @@index([restaurantId, categoryId, is_available])
- @@index([brandId, is_available])
- @@index([is_featured, is_available])
- @@index([discount_until, is_available])
- @@index([createdAt,is_featured,is_available])
- @@index([name])
+  sort_order Int         @default(0)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItems OrderItem[]
+
+  @@index([restaurantId, is_available, sort_order])
+  @@index([restaurantId, categoryId, is_available])
+  @@index([brandId, is_available])
+  @@index([is_featured, is_available])
+  @@index([discount_until, is_available])
+  @@index([createdAt, is_featured, is_available])
+  @@index([name])
   @@map("menu_items")
 }

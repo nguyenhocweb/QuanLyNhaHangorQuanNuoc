@@ -45,7 +45,22 @@ const DivVariantProps = cva(
                 g5_6: "gap-x-5 gap-y-6",
             },
             vitri: {
-                col_none: "flex-col items-start justify-start"
+                // Hướng ngang (Row)
+                row_center: "flex-row items-center justify-center",
+                row_between: "flex-row items-center justify-between",
+                row_around: "flex-row items-center justify-around",
+                row_start: "flex-row items-center justify-start",
+                row_end: "flex-row items-center justify-end",
+                row_top_between: "flex-row items-start justify-between",
+                row_none: "flex-row items-start justify-start",
+                
+                // Hướng dọc (Col)
+                col_center: "flex-col items-center justify-center",
+                col_between: "flex-col items-center justify-between",
+                col_around: "flex-col items-center justify-around",
+                col_start: "flex-col items-center justify-start",
+                col_end: "flex-col items-center justify-end",
+                col_none: "flex-col items-start justify-start",
             },
             grids:{
                 default:"",

@@ -1,0 +1,22 @@
+model SystemPaymentMethod {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String // Tên hiển thị (VD: MoMo, VNPay, Tiền mặt)
+  code        String  @unique // Mã code (VD: MOMO, VNPAY, CASH)
+  description String?
+  iconUrl     String?
+  isActive    Boolean @default(true)
+
+  systemConfig Json? // Các setting chung của hệ thống
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  brandConfigs                BrandPaymentConfig[]
+  restaurantConfigs           RestaurantPaymentConfig[]
+  transactions                Transaction[]
+  brandSubscriptionTransactions BrandSubscriptionTransaction[]
+  orders                      Order[]
+
+  @@index([isActive])
+  @@map("system_payment_methods")
+}

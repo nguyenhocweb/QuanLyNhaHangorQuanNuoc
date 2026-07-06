@@ -1,5 +1,5 @@
 // seed/index.js
-import  { connectDB, disconnectDB,prisma } from '../init.mongodb.js'; // Import file DB chuẩn
+import { connectDB, disconnectDB, prisma } from '../init.mongodb.js'; // Import file DB chuẩn
 
 import { roleExtension } from './extensions/role.extension.js';
 
@@ -8,33 +8,36 @@ import { Brand_Extension } from './extensions/brand.extension.js';
 import { restaurant_Extension } from './extensions/restaurant.extension.js';
 import { employment_Extension } from './extensions/employment.extension.js';
 import { permission_extenion } from './extensions/permission.extension.js';
-import {emp_vd_per_extension} from "./extensions/emloyment_vs_permission.extension.js";
-import {operatingHoursExtension} from "./extensions/operating_hours.extension.js";
-import {RestaurantAreas_Extension} from "./extensions/restaurant_areas.extension.js"
-import {Special_Schedules_Extension} from "./extensions/special_schedules.extension.js";
-import {table_Extension} from "./extensions/table.extension.js";
-import {reservations_Extension} from  "./extensions/reservations.extension.js";
-import {reservationTablesExtension} from "./extensions/reservationTables.extension.js"
-import {notificationExtension} from "./extensions/notifications.extension.js"
-import {reviewRestaurantExtension} from "./extensions/review_restaurant.extension.js";
-import {reservationAuditLogsExtension} from "./extensions/reservation_audit_log.extension.js"
-import {menusExtension} from "./extensions/menu.extension.js";
-import {categoriesAndItemsExtension}from "./extensions/menuCategory-items.extension.js"
-import {category_restaurant_extension} from "./extensions/category_restaurant.extension.js"
+import { emp_vd_per_extension } from "./extensions/emloyment_vs_permission.extension.js";
+import { operatingHoursExtension } from "./extensions/operating_hours.extension.js";
+import { RestaurantAreas_Extension } from "./extensions/restaurant_areas.extension.js"
+import { Special_Schedules_Extension } from "./extensions/special_schedules.extension.js";
+import { table_Extension } from "./extensions/table.extension.js";
+import { reservations_Extension } from "./extensions/reservations.extension.js";
+import { reservationTablesExtension } from "./extensions/reservationTables.extension.js"
+import { notificationExtension } from "./extensions/notifications.extension.js"
+import { reviewRestaurantExtension } from "./extensions/review_restaurant.extension.js";
+import { reservationAuditLogsExtension } from "./extensions/reservation_audit_log.extension.js"
+import { menusExtension } from "./extensions/menu.extension.js";
+import { categoriesAndItemsExtension } from "./extensions/menuCategory-items.extension.js"
+import { category_restaurant_extension } from "./extensions/category_restaurant.extension.js"
 import { upgradeRequest_Extension } from './extensions/UpgradeRequest.extension.js';
+import { Subscription_Extension } from './extensions/subscription.extension.js';
 
-import {deleteAllVector} from "../../modules/vector/service/vectorDB.service.js"
+import { deleteAllVector } from "../../modules/shared/vector/service/vectorDB.service.js"
 const runSeed = async () => {
     try {
         console.log('🌱 Starting Seed...');
-        
+
         // 1. Kết nối
         await connectDB();
         //
-        await deleteAllVector("Brand_vector");
-        await deleteAllVector("Category_vector");
-        await deleteAllVector("Menu_vector");
-        await deleteAllVector("Restaurant_vector");
+        await Promise.all([
+            deleteAllVector("Brand_vector"),
+            deleteAllVector("Category_vector"),
+            deleteAllVector("Menu_vector"),
+            deleteAllVector("Restaurant_vector")
+        ]);
         await prisma.permission_vs_Employment.deleteMany({});
         await prisma.permission.deleteMany({});
         await prisma.notifications.deleteMany({})
@@ -52,21 +55,27 @@ const runSeed = async () => {
         await prisma.menu.deleteMany();
         await prisma.restaurant.deleteMany();
         await prisma.category_Restaurant.deleteMany();
+        await prisma.brandSubscriptionTransaction.deleteMany();
+        await prisma.brandSubscription.deleteMany();
+        await prisma.subscriptionPlan.deleteMany();
         await prisma.brand.deleteMany();
+        await prisma.systemPaymentMethod.deleteMany();
         await prisma.upgradeRequest.deleteMany();
         await prisma.user.deleteMany();
         await prisma.role.deleteMany({})
 
-       // tạo dữ liệu role admin và khách hàng trước để có id gán cho user
-       await roleExtension(prisma);
-       // tạo role cho nhân viên thương hiệu và nhà hàng
-         // tạo dữ liệu user admin, khách hàng, nhân viên thương hiệu và nhà hàng
-       await users_Extension(prisma);
-       /// tạo dữ liệu yêu cầu nâng cấp tài khoản
-       await upgradeRequest_Extension(prisma)
+        // tạo dữ liệu role admin và khách hàng trước để có id gán cho user
+        await roleExtension(prisma);
+        // tạo role cho nhân viên thương hiệu và nhà hàng
+        // tạo dữ liệu user admin, khách hàng, nhân viên thương hiệu và nhà hàng
+        await users_Extension(prisma);
+        /// tạo dữ liệu yêu cầu nâng cấp tài khoản
+        await upgradeRequest_Extension(prisma)
 
         // tạo dữ liệu thương hiệu
         await Brand_Extension(prisma);
+        // tạo dữ liệu gói cước và gán cho thương hiệu
+        await Subscription_Extension(prisma);
         // tạo dữ liệu category restaurant
         await category_restaurant_extension(prisma);
         // tạo dữ liệu nhà hàng
@@ -89,17 +98,17 @@ const runSeed = async () => {
         await reservations_Extension(prisma);
 
         await reservationTablesExtension(prisma);
-      
+
         await notificationExtension(prisma);
 
-       //await reviewRestaurantExtension(prisma);
-        
+        //await reviewRestaurantExtension(prisma);
+
         await reservationAuditLogsExtension(prisma);
-        
+
         await menusExtension(prisma);
         await categoriesAndItemsExtension(prisma);
 
-        
+
 
     } catch (error) {
         console.error('❌ Seed Failed:', error);

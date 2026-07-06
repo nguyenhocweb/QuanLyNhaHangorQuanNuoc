@@ -6,7 +6,7 @@ const LabelVariantProps = cva(
     {
         variants: {
             variant: {
-                default: "text-gray-200/90",
+                default: "text-black",
                 black:"text-black"
                 
             },

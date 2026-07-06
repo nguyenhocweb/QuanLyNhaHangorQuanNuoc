@@ -1,7 +1,7 @@
 "use client"
 import { Div, Input, Select, H, Button } from "@/src/core/components/ui";
 import { useScrollTo } from "@/src/core/hooks/useScrollTo";
-import Featured_Restaurant_Component from "@/src/features/restaurant/restaurant_components/demo-card-restaurant/featured-restaurant-component"
+import Featured_Restaurant_Component from "@/src/features/public/restaurant/restaurant_components/demo-card-restaurant/featured-restaurant-component"
 import { cities } from "@/src/core/lib/configAddressCity";
 import { BiChevronDown } from "react-icons/bi";
 import { useEffect, useState } from "react";
@@ -25,9 +25,10 @@ const ratings = [
 ];
 import  useDebounce  from "@/src/core/hooks/useDebounce";
 import { usePagination } from "@/src/core/hooks/usePagination";
-import { useCategoryRestaurant } from "@/src/features/restaurant/restaurant_hook/useCategoryRestaurant_hook";
+import { useCategoryRestaurant } from "@/src/features/system_admin/categories/hook/useCategoryRestaurant_hook";
 const RestaurantPage = () => {
-  const { data: restaurantCategories, isLoading } = useCategoryRestaurant();
+  const { data: categoryData, isLoading } = useCategoryRestaurant({ page: 1, limit: 100, search: "", status: "true" });
+  const restaurantCategories = categoryData?.data || [];
   const [showDropdown, setShowDropdown] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
   const toggle = (value: string) => {

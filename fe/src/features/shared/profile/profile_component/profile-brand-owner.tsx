@@ -1,5 +1,5 @@
 import { Div } from "@/src/core/components/ui"
-const ProfileBrandOwner=(idBrand:string)=>{
+const ProfileBrandOwner=({ idBrand }: { idBrand?: string })=>{
     return (
         <Div></Div>
     )

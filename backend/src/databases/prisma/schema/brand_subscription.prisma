@@ -9,7 +9,7 @@ model BrandSubscription {
 
   brand Brand            @relation(fields: [brandId], references: [id])
   plan  SubscriptionPlan @relation(fields: [planId], references: [id])
-  
+
   transactions BrandSubscriptionTransaction[]
 
   createdAt DateTime @default(now())

@@ -6,7 +6,7 @@ const SelectVariantProps = cva(
     {
         variants: {
             variant: {
-                default: "flex border border-gray-400 bg-white/3 backdrop-blur-[10px] px-2 py-2 text-sm text-white transition-all file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 disabled:cursor-not-allowed disabled:opacity-50",
+                default: "flex border border-gray-400 bg-white/3 backdrop-blur-[10px] px-2 py-2 text-sm text-black transition-all file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-gray-400 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-white/30 disabled:cursor-not-allowed disabled:opacity-50",
                 gray: [" flex items-center justify-center  rounded-xl text-black text-sm font-medium ",
                     "bg-gradient-to-r from-gray-200 to-gray-300",
                     "  shadow-md",

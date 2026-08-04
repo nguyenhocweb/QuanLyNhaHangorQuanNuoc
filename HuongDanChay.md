@@ -31,6 +31,7 @@ Dùng hàng ngày, mỗi khi bạn muốn bật dự án lên để code hoặc 
 ---
 
 ## 💡 Lưu ý chung
+- **Quan trọng:** Bạn **PHẢI** cài đặt và bật sẵn **Docker Desktop** (hoặc Docker engine) trước khi chạy các file `.bat` này, vì hệ thống cần khởi chạy Redis server thông qua Docker.
 - Trước khi chạy bất kỳ file nào, hãy chắc chắn rằng bạn đã chạy `npm install` ở cả thư mục `backend` và `fe` nếu đây là lần đầu clone project về máy.
 - Đảm bảo bạn đã cấu hình đúng thông tin kết nối Database trong file `.env` của `backend`.
 - Để dừng dự án, bạn chỉ cần tắt 2 cửa sổ CMD của Backend và Frontend đi là xong.

@@ -14,7 +14,7 @@ export const setCookieAccess = (res, accessToken) => {
         httpOnly: true,  // JS không được phép đọc (Chống XSS)
         secure: process.env.NODE_ENV === 'production', // Chỉ gửi qua HTTPS
         sameSite: 'strict', // Chống CSRF
-        path: '/api/v1/', // Gửi cookie cho tất cả các đường dẫn
+        path: '/', // Quan trọng: Đổi thành '/' để browser gửi Cookie cho cả /socket.io/
         maxAge: 15 * 60 * 1000 // 15 phút
     })
 }

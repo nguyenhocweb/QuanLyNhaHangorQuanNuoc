@@ -4,7 +4,7 @@ export const textBuildMenuItem = (menuItem) => {
         ` ${menuItem.restaurantName ? `món ăn này thuộc nhà hàng: ${menuItem.restaurantName}` : ""}. `,
         `${menuItem.brandName ? `món ăn này thuộc thương hiệu: ${menuItem.brandName}` : ""}.`,
 
-        ` Giá cơ bản: ${menuItem.base_price || 0}.`,
+        ` Giá cơ bản: ${menuItem.basePrice || 0}.`,
         ` Phần trăm giảm giá: ${menuItem.discount_percent ?? 0}%`,
         ` hạn ngày hết giảm giá: ${menuItem.discount_until ?? "Không có thông tin"}`,
         menuItem.is_featured ? "là món hot" : "",
@@ -23,7 +23,7 @@ export const buildMenuItemVector = (menuItem) => {
         ` ${menuItem.restaurantName ? `món ăn này thuộc nhà hàng: ${menuItem.restaurantName} \n` : ""}. `,
         `${menuItem.brandName ? `món ăn này thuộc thương hiệu: ${menuItem.brandName}` : ""}.\n`,
 
-        ` Giá cơ bản: ${menuItem.base_price || 0}.\n`,
+        ` Giá cơ bản: ${menuItem.basePrice || 0}.\n`,
         ` Phần trăm giảm giá: ${menuItem.discount_percent ?? 0}%\n`,
         ` hạn ngày hết giảm giá: ${menuItem.discount_until ?? "Không có thông tin"}\n`,
         menuItem.is_featured ? "là món hot \n" : "",
@@ -40,7 +40,7 @@ export const buildMenuItemVector = (menuItem) => {
         metadata: {
             name: menuItem.name || "món ăn ẩn danh",
             description: menuItem.description || "chưa cập nhật mô tả",
-            base_price: menuItem.base_price || 0,
+            basePrice: menuItem.basePrice || 0,
             restaurantName: menuItem.restaurantName || "chưa cập nhật nhà hàng",
             categoryName: menuItem.categoryName || "chưa cập nhật danh mục",
             text: rawText

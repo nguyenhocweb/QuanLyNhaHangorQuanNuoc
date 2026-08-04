@@ -6,9 +6,19 @@ import { publicChatBoxAiHook } from "../chatBoxAi_hook/public_chatbox_hook";
 import LoadingAi from "@/src/core/components/layout/public-loandig-chatAi";
 import ReactMarkdown from 'react-markdown';
 import { IoClose } from "react-icons/io5";
-const ChatBoxAi = () => {
+interface ChatBoxAiProps {
+    isOpen?: boolean;
+    onClose?: () => void;
+}
 
-    const [openChat, setOpenChat] = useState(false)
+const ChatBoxAi: React.FC<ChatBoxAiProps> = ({ isOpen: externalIsOpen, onClose: externalOnClose }) => {
+    const [internalOpen, setInternalOpen] = useState(false);
+    const openChat = externalIsOpen !== undefined ? externalIsOpen : internalOpen;
+    const handleToggle = () => {
+        if (externalOnClose) externalOnClose();
+        else setInternalOpen(!internalOpen);
+    };
+
     const getUser = useAuthStore(s => s.user)
     const [mes, setMes] = useState([
         {
@@ -51,20 +61,22 @@ const ChatBoxAi = () => {
     return (
         <>
             {
-                !openChat ?
-                    <button
-                        onClick={() => setOpenChat(!openChat)}
-                        className="fixed bottom-5 right-5 w-14 h-14 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center text-xl hover:scale-110 transition"
-                    >
-                        <BsRobot className="text-2xl text-white" />
-                    </button>
-                    :
-                    <div className="fixed bottom-10 right-10 flex flex-col w-full max-w-md h-[500px] border border-gray-200 rounded-2xl shadow-xl bg-white overflow-hidden font-sans">
+                !openChat ? (
+                    externalIsOpen !== undefined ? null : (
+                        <button
+                            onClick={handleToggle}
+                            className="fixed bottom-5 right-5 w-14 h-14 bg-blue-500 text-white rounded-full shadow-lg flex items-center justify-center text-xl hover:scale-110 transition z-50"
+                        >
+                            <BsRobot className="text-2xl text-white" />
+                        </button>
+                    )
+                ) : (
+                    <div className="fixed bottom-20 right-6 flex flex-col w-full max-w-md h-[500px] border border-gray-200 rounded-2xl shadow-2xl bg-white overflow-hidden font-sans z-[100] animate-fade-in">
 
                         {/* --- Phần Header --- */}
                         <button
-                            onClick={() => setOpenChat(!openChat)}
-                            className=" absolute right-2 top-2 z-100 cursor-pointer text-white hover:text-black"
+                            onClick={handleToggle}
+                            className="absolute right-3 top-3 z-[101] cursor-pointer text-white hover:text-gray-200 transition-colors"
                         >
                             <IoClose className="text-3xl" />
                         </button>
@@ -134,6 +146,7 @@ const ChatBoxAi = () => {
                             </button>
                         </form>
                     </div>
+                )
             }
         </>
     )

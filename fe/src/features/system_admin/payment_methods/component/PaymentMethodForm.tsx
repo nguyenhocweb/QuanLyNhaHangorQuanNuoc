@@ -1,10 +1,11 @@
 "use client";
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { paymentMethodSchema, PaymentMethodFormValues } from "../schema/payment_method.schema";
 import { PaymentMethod } from "../type/payment_method.type";
-import { FiX, FiCheck } from "react-icons/fi";
+import { FiX, FiCheck, FiBookOpen } from "react-icons/fi";
 import { PREDEFINED_METHODS, POPULAR_BANKS } from "../constants/payment_method.constant";
 
 interface PaymentMethodFormProps {
@@ -58,6 +59,7 @@ export const PaymentMethodForm: React.FC<PaymentMethodFormProps> = ({ isOpen, on
     if (!isOpen) return null;
 
     return (
+        <FadeIn>
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
             <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg flex flex-col max-h-[90vh] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                 <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100 bg-gray-50/50 shrink-0">
@@ -120,11 +122,36 @@ export const PaymentMethodForm: React.FC<PaymentMethodFormProps> = ({ isOpen, on
 
 
                     {/* Dynamic Config Area */}
-                    {(watchCode === 'BANK_TRANSFER' || watchCode === 'MOMO' || watchCode === 'ZALOPAY' || watchCode === 'VNPAY') && (
+                    {(watchCode === 'PAYOS' || watchCode === 'BANK_TRANSFER' || watchCode === 'MOMO' || watchCode === 'ZALOPAY' || watchCode === 'VNPAY') && (
                         <div className="p-4 bg-indigo-50/50 border border-indigo-100 rounded-xl space-y-4">
-                            <h4 className="text-sm font-semibold text-indigo-900 flex items-center gap-2">
-                                ⚙️ Cấu hình {watchCode === 'VNPAY' ? 'API VNPay' : 'Tài khoản nhận tiền'}
-                            </h4>
+                            <div className="flex items-center justify-between">
+                                <h4 className="text-sm font-semibold text-indigo-900 flex items-center gap-2">
+                                    ⚙️ Cấu hình {watchCode === 'VNPAY' || watchCode === 'PAYOS' || watchCode === 'MOMO' ? 'Kết nối API' : 'Tài khoản nhận tiền'}
+                                </h4>
+                                <a href={`/system/payment-methods/docs#${watchCode.toLowerCase()}`} target="_blank" rel="noreferrer" className="text-xs text-indigo-600 hover:underline flex items-center gap-1">
+                                    <FiBookOpen /> Xem hướng dẫn
+                                </a>
+                            </div>
+
+                            {watchCode === 'PAYOS' && (
+                                <>
+                                    <div className="p-3 bg-blue-50 text-blue-800 text-xs rounded-lg">
+                                        💡 <strong>Mẹo:</strong> Lấy thông tin này tại mục "Tích hợp" trên trang quản trị PayOS.
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-gray-700 mb-1">Client ID</label>
+                                        <input {...register("systemConfig.clientId")} placeholder="Nhập Client ID..." className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-indigo-500 outline-none text-sm" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-gray-700 mb-1">API Key</label>
+                                        <input {...register("systemConfig.apiKey")} type="password" placeholder="Nhập API Key..." className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-indigo-500 outline-none text-sm" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-gray-700 mb-1">Checksum Key</label>
+                                        <input {...register("systemConfig.checksumKey")} type="password" placeholder="Nhập Checksum Key..." className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-indigo-500 outline-none text-sm" />
+                                    </div>
+                                </>
+                            )}
                             
                             {watchCode === 'BANK_TRANSFER' && (
                                 <>
@@ -166,13 +193,20 @@ export const PaymentMethodForm: React.FC<PaymentMethodFormProps> = ({ isOpen, on
 
                             {(watchCode === 'MOMO' || watchCode === 'ZALOPAY') && (
                                 <>
-                                    <div>
-                                        <label className="block text-xs font-medium text-gray-700 mb-1">Số điện thoại nhận tiền</label>
-                                        <input {...register("systemConfig.phoneNumber")} placeholder="0987..." className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-indigo-500 outline-none text-sm" />
+                                    <div className="p-3 bg-blue-50 text-blue-800 text-xs rounded-lg">
+                                        💡 <strong>Mẹo:</strong> Cần sử dụng tài khoản doanh nghiệp (Business) để lấy các tham số API.
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-medium text-gray-700 mb-1">Tên Chủ Tài Khoản</label>
-                                        <input {...register("systemConfig.accountName")} placeholder="NGUYEN VAN A" className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-indigo-500 outline-none uppercase text-sm" />
+                                        <label className="block text-xs font-medium text-gray-700 mb-1">Partner Code</label>
+                                        <input {...register("systemConfig.partnerCode")} placeholder="Mã đối tác (Partner Code)..." className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-indigo-500 outline-none text-sm uppercase" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-gray-700 mb-1">Access Key</label>
+                                        <input {...register("systemConfig.accessKey")} type="password" placeholder="Khóa truy cập (Access Key)..." className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-indigo-500 outline-none text-sm" />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-gray-700 mb-1">Secret Key / MAC Key</label>
+                                        <input {...register("systemConfig.secretKey")} type="password" placeholder="Khóa bí mật (Secret Key)..." className="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-indigo-500 outline-none text-sm" />
                                     </div>
                                 </>
                             )}
@@ -230,5 +264,6 @@ export const PaymentMethodForm: React.FC<PaymentMethodFormProps> = ({ isOpen, on
                 </form>
             </div>
         </div>
+        </FadeIn>
     );
 };

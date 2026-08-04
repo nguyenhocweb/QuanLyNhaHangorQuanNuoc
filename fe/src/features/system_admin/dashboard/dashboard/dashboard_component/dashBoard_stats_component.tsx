@@ -1,4 +1,5 @@
 "use client"
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import Public_Stat_Card from "@/src/core/components/layout/public-stat-Card"
 import { Div } from "@/src/core/components/ui"
 import { FiGrid, FiUserPlus, FiUsers, FiCheckCircle, FiClock, FiXCircle } from 'react-icons/fi';
@@ -33,6 +34,7 @@ const Dashboard_Stats_component = () => {
     };
 
     return (
+        <FadeIn>
         <div className="flex flex-col gap-6 w-full">
             {/* Hàng 1: Các thẻ KPI (Premium Design) */}
             <Div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" size="full">
@@ -159,6 +161,7 @@ const Dashboard_Stats_component = () => {
                 </div>
             </div>
         </div>
+        </FadeIn>
     );
 }
 

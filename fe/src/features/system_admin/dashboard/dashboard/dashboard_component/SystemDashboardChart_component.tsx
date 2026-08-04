@@ -1,4 +1,5 @@
 "use client"
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import { DynamicAreaChart } from "@/src/core/components/layout/SystemGrow/SystemGrowthAreaChart";
 import { useDashboard_stat } from "../dashboard_hook/useDashboard_stas";
 
@@ -14,12 +15,14 @@ const SystemDashboardChart_component = () => {
     }
 
     return (
+        <FadeIn>
         <DynamicAreaChart
             title="Biểu đồ tổng quan Hệ thống & Doanh thu"
             data={data.chartData}
             config={chartConfig}
             xAxisKey="month"
         />
+        </FadeIn>
     );
 };
 

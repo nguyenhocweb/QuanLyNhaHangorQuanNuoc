@@ -1,6 +1,6 @@
 import { getBrands, countBrands } from "../repository.brand/index.js";
 import { searchAIService } from "../../../public/ai/ai.service/index.js  "
-export const getBrandsService = async (page, limit, city, search, status) => {
+export const getBrandsService = async (page, limit, city, search, status, isFeatured, isNew) => {
     let brandIds = [];
     if (search) {
         const aiResult = await searchAIService({ query: search, topK: 20 });
@@ -14,6 +14,12 @@ export const getBrandsService = async (page, limit, city, search, status) => {
     
     if (status) {
         baseWhere.push({ isActive: status });
+    }
+    if (typeof isFeatured === "boolean") {
+        baseWhere.push({ isFeatured: isFeatured });
+    }
+    if (typeof isNew === "boolean") {
+        baseWhere.push({ isNew: isNew });
     }
     if (brandIds.length > 0) baseWhere.push({ id: { in: brandIds } });
     if (city) baseWhere.push({ restaurants: { some: { address: { is: { province: city } } } } });

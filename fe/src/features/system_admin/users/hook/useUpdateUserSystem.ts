@@ -11,7 +11,7 @@ export const useUpdateUserSystem = () => {
       UserService.updateUser(id, payload),
     onSuccess: () => {
       toast.success("Cập nhật tài khoản thành công!");
-      queryClient.invalidateQueries({ queryKey: ["system-users"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error: any) => {
       const message = error.response?.data?.message || "Đã có lỗi xảy ra, vui lòng thử lại!";

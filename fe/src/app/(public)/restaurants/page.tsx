@@ -1,210 +1,118 @@
-"use client"
-import { Div, Input, Select, H, Button } from "@/src/core/components/ui";
+"use client";
+
+import React, { Suspense } from "react";
+import Restaurant3DBackground from "@/src/features/public/restaurant/restaurant_components/demo-card-restaurant/restaurant-3d-background";
+import RestaurantFilterBar from "@/src/features/public/restaurant/restaurant_components/demo-card-restaurant/RestaurantFilterBar";
+import Featured_Restaurant_Component from "@/src/features/public/restaurant/restaurant_components/demo-card-restaurant/featured-restaurant-component";
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import { useScrollTo } from "@/src/core/hooks/useScrollTo";
-import Featured_Restaurant_Component from "@/src/features/public/restaurant/restaurant_components/demo-card-restaurant/featured-restaurant-component"
-import { cities } from "@/src/core/lib/configAddressCity";
-import { BiChevronDown } from "react-icons/bi";
-import { useEffect, useState } from "react";
-import { FaCheck } from "react-icons/fa";
-import { FaFilter } from "react-icons/fa";
-// Dữ liệu cho Lọc theo Giá (Khoảng giá trung bình/người)
-const priceRanges = [
-  { label: "Tất cả mức giá", value: "" },
-  { label: "Dưới 200.000đ", value: "under_200" },
-  { label: "Từ 200.000đ - 500.000đ", value: "200_500" },
-  { label: "Từ 500.000đ - 1.000.000đ", value: "500_1000" },
-  { label: "Trên 1.000.000đ", value: "over_1000" },
-];
+import { FaUtensils, FaStar, FaShieldAlt, FaArrowDown, FaCrown } from "react-icons/fa";
 
-// Dữ liệu cho Lọc theo Đánh giá
-const ratings = [
-  { label: "Mọi đánh giá", value: "" },
-  { label: "Từ 4.5 sao trở lên", value: 4.5 },
-  { label: "Từ 4.0 sao trở lên", value: 4.0 },
-  { label: "Từ 3.0 sao trở lên", value: 3.0 },
-];
-import  useDebounce  from "@/src/core/hooks/useDebounce";
-import { usePagination } from "@/src/core/hooks/usePagination";
-import { useCategoryRestaurant } from "@/src/features/system_admin/categories/hook/useCategoryRestaurant_hook";
-const RestaurantPage = () => {
-  const { data: categoryData, isLoading } = useCategoryRestaurant({ page: 1, limit: 100, search: "", status: "true" });
-  const restaurantCategories = categoryData?.data || [];
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [selected, setSelected] = useState<string[]>([]);
-  const toggle = (value: string) => {
-    setSelected((prev) =>
-      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
-    );
-  };
+const RestaurantPageContent = () => {
+    const scrollToSection = useScrollTo(100);
 
-  const scrollToSection = useScrollTo(100); // Tùy chỉnh offset nếu cần
-  
-  // Các hàm và state liên quan đến phân trang và lọc
-  const {setSearch,applyFiltersRestaurant,clean} = usePagination();
-  // đặt biến để lấy giá trị đk lọc từ url, nếu có thì gán vào biến còn không thì để rỗng
-  const [fitter, setFitter] = useState({
-    city: "",
-    review: "",
-  });
-  const HandleFitter_Change=(e:React.ChangeEvent<HTMLSelectElement>)=>{
-    const { name, value } = e.target;
-    setFitter((prev) => ({
-      ...prev,
-      [name]: value
-    }));
-  }
- 
-
-  // hàm sử lý nút lọc
-  const HandleFitter=()=>{
-    applyFiltersRestaurant({
-      city: fitter.city,
-      review: fitter.review,
-      categories: selected
-    })
-    
-  }
-
-     const [searchTerm, setSearchTerm] = useState("");
-        const debouncedSearchTerm = useDebounce({value:searchTerm,delay:1000});
-        useEffect(()=>{
-            if(debouncedSearchTerm){
-             
-                setSearch(debouncedSearchTerm)
-            }
-               if(debouncedSearchTerm==="") return clean("search");
-            
-        },[debouncedSearchTerm])
-
-  return (
-    <Div vitri="col_none" className=" gap-y-40" size="full" >
-      <div className="relative h-screen w-full  overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
-          className="w-full h-full object-cover"
-        />
-
-        {/* overlay */}
-        <div className="absolute inset-0 bg-linear-to-r from-black/70 via-black/40 to-transparent" />
-
-        {/* content */}
-        <div className="absolute inset-0 flex flex-col justify-center px-10 text-white space-y-4">
-          <p className="uppercase text-sm tracking-wider text-green-400">
-            Premium Dining System
-          </p>
-
-          <h1 className="text-4xl md:text-5xl font-bold leading-tight max-w-xl">
-            Khám phá hệ thống nhà hàng cao cấp
-          </h1>
-
-          <p className="text-gray-200 max-w-md">
-            Đặt bàn nhanh chóng, trải nghiệm ẩm thực tinh hoa từ các thương hiệu hàng đầu.
-          </p>
-
-          <div className="flex gap-3 pt-2">
-            <button
-              className="bg-green-600 px-6 py-3 rounded-xl font-medium hover:bg-green-700"
-              onClick={() => scrollToSection("restaurants")}
-            >
-              Khám phá ngay
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <Div id="restaurants" vitri="col_none" className=" gap-y-10 items-center " size="full" >
-        <H variant="text_black" className="text-3xl text-start w-full pl-10">Hệ thống nhà hàng</H>
-        <Div className="flex gap-5 justify-between px-20 text-black" size="full">
-          <Input className="text-black w-80" placeholder="Tìm kiếm tên nhà hàng..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          {/* lọc */}
-          <Div gap="g2_3">
-
-            <Select name="city" id="city" className="text-black" onChange={HandleFitter_Change}>
-              {cities.map((city) => (
-                <option key={city.value} value={city.value}>
-                  {city.label}
-                </option>
-              ))}
-            </Select>
-
-            {/* chọn loại nhà hàng */}
-            <Div className="relative">
-              <Button variant="outline" sizea="p2_1"
-                onClick={() => setShowDropdown((prev) => !prev)}
-              >
-                Loại nhà hàng <BiChevronDown className="text-xl" />
-              </Button>
-              {showDropdown &&
-                <div className="absolute z-1 top-full bg-white max-h-100 overflow-y-auto space-y-2 pr-1 border border-gray-700 rounded-lg mt-1 w-full p-2">
-                  {
-                  restaurantCategories?.map((category) => {
-                    const active = selected.includes(category.id)
-
-                    return (
-                      <div
-                        key={category.id}
-                        onClick={() => toggle(category.id)}
-                        className={`flex items-center justify-between px-3 py-2 rounded-lg cursor-pointer transition
-              ${active
-                            ? "bg-green-50 border border-green-400"
-                            : "bg-gray-50 hover:bg-gray-100 border border-transparent"
-                          }`}
-                      >
-                        <span className="text-sm">{category.name}</span>
-
-                        {/* checkbox custom */}
-                        <div
-                          className={`w-3 h-3 flex items-center justify-center rounded-sm border
-                ${active
-                              ? "bg-green-600 border-green-600 text-white"
-                              : "border-gray-300"
-                            }`}
-                        >
-                          {active && <FaCheck size={14} />}
+    return (
+        <Restaurant3DBackground>
+            <main className="w-full min-h-screen pb-20 flex flex-col gap-12 sm:gap-16 relative z-10">
+                
+                {/* ==================== 1. HERO SECTION GLASSMORPHISM CAO CẤP ==================== */}
+                <section className="w-full pt-12 sm:pt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col items-center text-center relative">
+                    <FadeIn className="flex flex-col items-center gap-6 max-w-4xl">
+                        
+                        {/* Huy hiệu Vương miện Thượng hạng */}
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-500/10 via-teal-500/15 to-amber-500/15 border border-emerald-500/30 text-emerald-800 text-xs sm:text-sm font-extrabold shadow-sm animate-pulse">
+                            <FaCrown className="text-amber-500 text-base" />
+                            <span>HỆ THỐNG NHÀ HÀNG ĐỐI TÁC NVNGUYEN</span>
                         </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              }
-            </Div>
 
-              {/* lọc theo đánh giá */}
-              <Select name="review" id="danhgia" className="text-black" onChange={HandleFitter_Change}>
-              {ratings.map((rating) => (
-                <option key={rating.value} value={rating.value}>
-                  {rating.label}
-                </option>
-              ))}
-            </Select>
+                        {/* Tiêu đề chính Gradient Ngọc bích & Hổ phách */}
+                        <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-gray-900 leading-[1.15]">
+                            Khám Phá Tinh Hoa{" "}
+                            <span className="bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-600 bg-clip-text text-transparent">
+                                Ẩm Thực Thượng Hạng
+                            </span>
+                        </h1>
 
-            {/* nút lọc  */}
-            <Button variant="green" sizea="p3_2" onClick={HandleFitter}>
-              Lọc <FaFilter className="ml-2" />
-            </Button>
-          </Div>
-          {/* end lọc */}
-        </Div>
+                        {/* Đoạn mô tả cảm hứng */}
+                        <p className="text-base sm:text-lg text-gray-600 max-w-2xl font-medium leading-relaxed">
+                            Đặt bàn giữ chỗ nhanh chóng, chiêm ngưỡng không gian 3D thực tế sống động và thưởng thức thực đơn tinh hoa từ các thương hiệu ẩm thực hàng đầu Việt Nam.
+                        </p>
 
+                        {/* Nút Khám phá cuộn mượt xuống danh sách */}
+                        <div className="pt-2">
+                            <button
+                                type="button"
+                                onClick={() => scrollToSection("restaurants-list")}
+                                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-700 hover:from-emerald-700 hover:to-teal-700 text-white font-extrabold text-sm tracking-wide shadow-lg shadow-emerald-600/25 hover:shadow-xl hover:scale-105 active:scale-100 transition-all duration-300 group cursor-pointer"
+                            >
+                                <span>🍽️ Khám phá hệ thống ngay</span>
+                                <FaArrowDown className="text-xs group-hover:translate-y-1 transition-transform duration-200" />
+                            </button>
+                        </div>
+                    </FadeIn>
 
+                    {/* --- BỘ 3 THẺ THỐNG KÊ KÍNH MỜ (STATS CARDS) --- */}
+                    <FadeIn delay={0.2} className="w-full mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+                        <div className="p-5 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-md flex items-center gap-4 text-left hover:shadow-lg transition-all duration-300">
+                            <div className="w-12 h-12 rounded-2xl bg-emerald-100/80 text-emerald-600 flex items-center justify-center text-xl flex-shrink-0 shadow-inner">
+                                <FaUtensils />
+                            </div>
+                            <div>
+                                <h4 className="font-extrabold text-gray-900 text-lg">50+ Nhà Hàng VIP</h4>
+                                <p className="text-xs text-gray-500 font-medium">Hệ thống tuyển chọn sang trọng</p>
+                            </div>
+                        </div>
 
+                        <div className="p-5 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-md flex items-center gap-4 text-left hover:shadow-lg transition-all duration-300">
+                            <div className="w-12 h-12 rounded-2xl bg-amber-100/80 text-amber-500 flex items-center justify-center text-xl flex-shrink-0 shadow-inner">
+                                <FaStar />
+                            </div>
+                            <div>
+                                <h4 className="font-extrabold text-gray-900 text-lg">4.9 / 5.0 Đánh Giá</h4>
+                                <p className="text-xs text-gray-500 font-medium">Từ hàng ngàn thực khách hài lòng</p>
+                            </div>
+                        </div>
 
+                        <div className="p-5 rounded-2xl bg-white/70 backdrop-blur-xl border border-white/80 shadow-md flex items-center gap-4 text-left hover:shadow-lg transition-all duration-300">
+                            <div className="w-12 h-12 rounded-2xl bg-teal-100/80 text-teal-600 flex items-center justify-center text-xl flex-shrink-0 shadow-inner">
+                                <FaShieldAlt />
+                            </div>
+                            <div>
+                                <h4 className="font-extrabold text-gray-900 text-lg">100% Bảo Chứng VIP</h4>
+                                <p className="text-xs text-gray-500 font-medium">Giữ bàn nhanh chóng & tin cậy</p>
+                            </div>
+                        </div>
+                    </FadeIn>
+                </section>
 
+                {/* ==================== 2. THANH BỘ LỌC KÍNH MỜ (FILTER BAR) ==================== */}
+                <section id="restaurants-list" className="w-full pt-4 scroll-mt-24">
+                    <FadeIn delay={0.25} className="w-full">
+                        <RestaurantFilterBar />
+                    </FadeIn>
+                </section>
 
-        {/* danh sách nhà hàng */}
-        <Div >
-          <Featured_Restaurant_Component type="page" />
-        </Div>
+                {/* ==================== 3. DANH SÁCH NHÀ HÀNG & PHÂN TRANG ==================== */}
+                <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <FadeIn delay={0.3} className="w-full">
+                        <Featured_Restaurant_Component type="page" />
+                    </FadeIn>
+                </section>
 
+            </main>
+        </Restaurant3DBackground>
+    );
+};
 
-      </Div>
-
-    </Div>
-
-
-  )
+export default function RestaurantPage() {
+    return (
+        <Suspense fallback={
+            <div className="w-full min-h-screen flex flex-col items-center justify-center bg-gray-50 gap-4">
+                <div className="w-12 h-12 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
+                <p className="text-sm font-bold text-gray-600 animate-pulse">Đang chuẩn bị không gian ẩm thực 3D...</p>
+            </div>
+        }>
+            <RestaurantPageContent />
+        </Suspense>
+    );
 }
-export default RestaurantPage

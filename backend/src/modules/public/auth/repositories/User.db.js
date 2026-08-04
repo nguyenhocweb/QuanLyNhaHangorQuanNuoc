@@ -50,24 +50,40 @@ const dataUser=(result)=>{
    if(!result) return false
     const { role, employments, ...User } = result;
     let brand = [], restaurant = [], permissions = [];
-    if (!role) {
+    
+    if (employments && employments.length > 0) {
         employments.forEach(element => {
-            element.brand ?
-                brand.push({ ...element.brand, isSlect: false })
-                :
-                restaurant.push({ ...element.restaurant, isSlect: false })
+            if (element.restaurant) {
+                if (!restaurant.some(r => r.id === element.restaurant.id)) {
+                    restaurant.push({ ...element.restaurant, isSelect: false })
+                }
+            } else if (element.brand) {
+                if (!brand.some(b => b.id === element.brand.id)) {
+                    brand.push({ ...element.brand, isSelect: false })
+                }
+            }
         });
-        const [{ per_vs_emp, ...employment }] = employments
-        permissions = per_vs_emp.map((e) => e.permissions.name);
-        if (employment.brand) {
-            brand = brand.map(e => (e.id === employment.brand.id) && { ...e, isSlect: true })
-        } else {
-            restaurant = restaurant.map(e => (e.id === employment.restaurant.id) && { ...e, isSlect: true })
+        employments.forEach(emp => {
+            if (emp.per_vs_emp && emp.per_vs_emp.length > 0) {
+                emp.per_vs_emp.forEach(pve => {
+                    if (!permissions.includes(pve.permissions.name)) {
+                        permissions.push(pve.permissions.name);
+                    }
+                });
+            }
+        });
+        
+        const [{ ...employment }] = employments;
+        if (employment.restaurant) {
+            restaurant = restaurant.map(e => (e.id === employment.restaurant.id) ? { ...e, isSelect: true } : e)
+        } else if (employment.brand) {
+            brand = brand.map(e => (e.id === employment.brand.id) ? { ...e, isSelect: true } : e)
         }
     }
+    
     return {
         ...User,
-        role:role?role.name:null,
+        role: role ? role.name : null,
         brand,
         restaurant,
         permissions,

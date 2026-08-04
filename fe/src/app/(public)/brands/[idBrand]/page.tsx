@@ -1,57 +1,69 @@
-"use client"
-import { Div, P, A } from "@/src/core/components/ui"
-import PublicItemImages from "@/src/core/components/layout/public-item-image";
+"use client";
 
-
-import { use } from "react";
-import { MdOutlineMail } from "react-icons/md";
-import { FaPhoneAlt } from "react-icons/fa";
-import { TbWorld } from "react-icons/tb";
-import { useBrand_hook } from "@/src/features/system_admin/brands/brands_hook/useBrand_hook";
-import FeaturedDishComponent from "@/src/features/public/dish/dish_component/featured-dish-component";
+import React, { use, useState } from "react";
+import { usePublicBrand_hook } from "@/src/features/public/brands/brands_hook/usePublicBrand_hook";
 import Loading from "@/src/core/components/layout/public-loading";
-import Featured_Restaurant_Component from "@/src/features/public/restaurant/restaurant_components/demo-card-restaurant/featured-restaurant-component";
-const BrandItem = (
-    { params }: {
-        params: Promise<{ idBrand: string }>
-    }) => {
+import { FaExclamationTriangle } from "react-icons/fa";
+import Link from "next/link";
+import TemplateRenderer from "@/src/features/public/brands/components/brand-detail/TemplateRenderer";
+import { BrandTemplateTheme } from "@/src/core/lib/configTemplates";
+import ThemeSwitcher from "@/src/features/public/brands/components/brand-detail/ThemeSwitcher";
+
+const BrandItem = ({ params }: { params: Promise<{ idBrand: string }> }) => {
     const { idBrand } = use(params);
-    const { data, isLoading, isFetched } = useBrand_hook(idBrand);
-    if (isLoading) return <Loading />
-    if (isFetched && !data) {
-        return <Div size="full">Không tìm thấy thương hiệu này!</Div>;
+    const { data, isLoading, isFetched } = usePublicBrand_hook(idBrand);
+    
+    // Khởi tạo state nhưng sẽ cập nhật lại khi có data
+    const [currentTheme, setCurrentTheme] = useState<BrandTemplateTheme>("standard");
+
+    // Khi có data, cập nhật theme nếu brand có liên kết template
+    React.useEffect(() => {
+        const brandData: any = data?.data || data;
+        const templateCode = brandData?.template?.code;
+        if (templateCode) {
+            // Ép kiểu sang BrandTemplateTheme (ví dụ code là "premium3d" hoặc "modern")
+            setCurrentTheme(templateCode as BrandTemplateTheme);
+        }
+    }, [data]);
+
+    if (isLoading) {
+        return (
+            <div className="w-full min-h-screen flex items-center justify-center bg-slate-950">
+                <Loading />
+            </div>
+        );
     }
 
+    if (isFetched && !data) {
+        return (
+            <div className="w-full min-h-[70vh] flex flex-col items-center justify-center gap-4 text-center px-4">
+                <div className="w-16 h-16 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center text-3xl">
+                    <FaExclamationTriangle />
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-black text-gray-800 dark:text-white">
+                    Không tìm thấy thương hiệu này!
+                </h2>
+                <p className="text-sm text-gray-500 max-w-md">
+                    Thương hiệu bạn đang tìm kiếm có thể đã tạm dừng hoạt động hoặc đường dẫn không hợp lệ trên hệ thống NVNguyen.
+                </p>
+                <Link
+                    href="/brands"
+                    className="mt-2 px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-lg transition-all"
+                >
+                    Quay lại danh sách Thương hiệu
+                </Link>
+            </div>
+        );
+    }
+
+    const brandData = data?.data || data;
+    
     return (
-        <Div vitri="col_none" className=" gap-y-40" >
-            {data && (
-                <PublicItemImages name={data?.name} isFeatured={data?.isFeatured} images={data?.images} />
-            )}
-            <Div vitri="col_none" size="full" className="mt-20 px-10">
-                <P variant='text_green'>về {data?.name} </P>
-                <Div size="full" gap="g5_6" className=" justify-start items-start ">
-                    <Div className="w-6/10 p-2" vitri="col_none" >
-                        <P className="text-2xl">{data?.description}</P>
-                    </Div>
-                    <Div vitri="col_none" className="w-3/10 bg-gray-100 p-3 rounded-none">
-                        {data?.email_contact &&
-                            <P variant="text_green" className="gap-x-4"><MdOutlineMail className="text-2xl" /> <span className="text-gray-500">{data?.email_contact}</span></P>
-                        }
-                        {data?.phone_contact &&
-                            <P variant="text_green" className="gap-x-4"><FaPhoneAlt className="text-xl" /> <span className="text-gray-500">{data?.phone_contact}</span></P>
-                        }
-                        {data?.link &&
-                            <A href={data?.link} className="text-green-600 flex gap-x-4 p-2"><TbWorld className="text-xl" /> <span className="text-gray-500">{data?.name}</span> </A>
-                        }
-                    </Div>
-                </Div>
-            </Div>
-            <Div  className="px-10 gap-y-40" vitri="col_none" size="full" >
-                <FeaturedDishComponent type="isBrand" id={idBrand} limit={5}/>
-                <Featured_Restaurant_Component type="page" id={idBrand} limit={5} />
-            </Div>
-              
-        </Div>
-    )
-}
-export default BrandItem
+        <>
+            <TemplateRenderer theme={currentTheme} data={brandData} idBrand={idBrand} />
+            <ThemeSwitcher currentTheme={currentTheme} onChangeTheme={setCurrentTheme} />
+        </>
+    );
+};
+
+export default BrandItem;

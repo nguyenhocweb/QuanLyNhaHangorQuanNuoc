@@ -4,8 +4,14 @@ export interface BrandCardType {
   description?: string;
   imageMain: string;
   logo?: string; // VD: "AS", "LA", "VI" trong vòng tròn
-  numberRestaurant?:number
-
+  numberRestaurant?: number;
+  tax_code?: string;
+  email_contact?: string;
+  phone_contact?: string;
+  address?: any;
+  createdAt?: string;
+  isActive?: string;
+  link?: string;
 }
 export interface BrandCardResponseType{
   data:BrandCardType[],
@@ -15,5 +21,7 @@ export interface BrandCardRequestType {
   page:number,
   limit:number,
   city?:string,
-  search?:string
+  search?:string,
+  isFeatured?:boolean,
+  isNew?:boolean
 }

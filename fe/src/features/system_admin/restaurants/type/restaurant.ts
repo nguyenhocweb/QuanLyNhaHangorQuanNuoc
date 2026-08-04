@@ -7,6 +7,9 @@ export interface RestaurantTypeResponse {
     email_contact?: string;
     phone_contact?: string;
     isActive: string; // 'ACTIVE' | 'INACTIVE'
+    statusByAdmin?: string; // 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'TERMINATED'
+    reasonByAdmin?: string;
+    statusByBrand?: string; // 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'TERMINATED'
     categories?: {
         name: string;
         bgColor?: string;
@@ -67,4 +70,6 @@ export interface UpdateRestaurantProps {
     email_contact?: string;
     phone_contact?: string;
     isActive?: boolean;
+    statusByAdmin?: string;
+    reasonByAdmin?: string;
 }

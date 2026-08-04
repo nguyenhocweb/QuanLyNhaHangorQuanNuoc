@@ -1,0 +1,24 @@
+model Template {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  name              String       
+  code              String       @unique 
+  type              TemplateType 
+  thumbnailUrl      String?      
+  description       String?      
+  
+  desktopImages     String[]
+  mobileImages      String[]
+  tabletImages      String[]
+  
+  isActive          Boolean      @default(true)
+  
+  allowedPlanIds    String[]     @db.ObjectId 
+  
+  brands            Brand[]      
+  restaurants       Restaurant[] 
+
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  @@map("templates")
+}

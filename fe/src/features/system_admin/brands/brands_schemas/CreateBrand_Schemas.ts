@@ -44,6 +44,7 @@ export const CreateBrandSchema = z.object({
     }),
     brand_owner_id: validator.string("Chủ sở hữu thương hiệu"),
     is_featured: validator.boolean("Thương hiệu tiêu biểu"),
+    FileImages: z.array(z.any()).optional(),
     
 });  
 export type CreateBrandFormValues = z.infer<typeof CreateBrandSchema>;

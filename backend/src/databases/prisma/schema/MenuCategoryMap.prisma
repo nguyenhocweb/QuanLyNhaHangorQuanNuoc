@@ -1,0 +1,16 @@
+model MenuCategoryMap {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  menuId     String       @db.ObjectId
+  menu       Menu         @relation(fields: [menuId], references: [id], onDelete: Cascade)
+  
+  categoryId String       @db.ObjectId
+  category   MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  sort_order Int @default(0)
+
+  @@unique([menuId, categoryId])
+  @@index([menuId])
+  @@index([categoryId])
+  @@map("menu_category_maps")
+}

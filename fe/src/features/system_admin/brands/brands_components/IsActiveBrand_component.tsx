@@ -1,3 +1,4 @@
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import { Button, Div } from "@/src/core/components/ui";
 const STATUS_OPTIONS = [
     {
@@ -26,6 +27,7 @@ interface ActiveBrand_type extends IsActiveBrand_type {
 const IsActiveBrand_component = ({ id, isActive, logo, name, onclickCloseActive }: ActiveBrand_type) => {
 
     return (
+        <FadeIn>
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
             <div className="w-[420px] relative bg-white rounded-2xl shadow-xl overflow-hidden">
                 <button
@@ -105,6 +107,7 @@ const IsActiveBrand_component = ({ id, isActive, logo, name, onclickCloseActive 
             </div>
         </div>
 
+        </FadeIn>
     )
 }
 export default IsActiveBrand_component

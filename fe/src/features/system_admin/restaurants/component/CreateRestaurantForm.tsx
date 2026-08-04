@@ -2,6 +2,7 @@
 import { Div, H, P, Button } from "@/src/core/components/ui"
 import { FiX, FiCheck, FiSearch, FiUploadCloud, FiImage, FiTrash2 } from "react-icons/fi"
 import { useForm, Controller } from "react-hook-form"
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { createRestaurantSchema, CreateRestaurantFormValues } from "../schema/createRestaurant-schema"
 import { useCreateRestaurant } from "../hook/useCreateRestaurant_hook"
@@ -191,6 +192,7 @@ const CreateRestaurant = ({ onclickClose }: { onclickClose: () => void }) => {
     };
 
     return (
+        <FadeIn>
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 overflow-y-auto p-4 sm:p-10">
             <div className="bg-white flex flex-col relative p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-[1000px] border border-gray-100 my-auto">
                 <button onClick={onclickClose} className="absolute top-5 right-5 p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-all" type="button">
@@ -374,6 +376,7 @@ const CreateRestaurant = ({ onclickClose }: { onclickClose: () => void }) => {
                 </form>
             </div>
         </div>
+        </FadeIn>
     )
 }
 

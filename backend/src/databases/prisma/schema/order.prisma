@@ -1,8 +1,15 @@
 model Order {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  reservationId String       @db.ObjectId
-  reservation   Reservations @relation(fields: [reservationId], references: [id])
+  reservationId String?      @db.ObjectId
+  reservation   Reservations? @relation(fields: [reservationId], references: [id])
+
+  isTakeaway    Boolean @default(false)
+  version       Int     @default(1)
+  taxDetails    Json?
+
+  restaurantId  String? @db.ObjectId
+  restaurant    Restaurant? @relation(fields: [restaurantId], references: [id])
 
   tableId String? @db.ObjectId
   table   Tables? @relation(fields: [tableId], references: [id])

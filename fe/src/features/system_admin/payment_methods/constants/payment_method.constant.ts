@@ -1,8 +1,9 @@
 export const PREDEFINED_METHODS = [
-    { name: "Chuyển khoản Ngân hàng", code: "BANK_TRANSFER", iconUrl: "https://cdn-icons-png.flaticon.com/512/2761/2761118.png" },
+    { name: "VietQR (PayOS)", code: "PAYOS", iconUrl: "https://apps.odoo.com/web/image/loempia.module/309317/icon_image?unique=77d4bc8" },
     { name: "Ví MoMo", code: "MOMO", iconUrl: "https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-MoMo-Square.png" },
     { name: "VNPay", code: "VNPAY", iconUrl: "https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-VNPAY-QR-1.png" },
-    { name: "ZaloPay", code: "ZALOPAY", iconUrl: "https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-ZaloPay-Square.png" }
+    { name: "ZaloPay", code: "ZALOPAY", iconUrl: "https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-ZaloPay-Square.png" },
+    { name: "Chuyển khoản thủ công", code: "BANK_TRANSFER", iconUrl: "https://cdn-icons-png.flaticon.com/512/2761/2761118.png" }
 ];
 
 export const POPULAR_BANKS = [

@@ -10,33 +10,61 @@ export const categoriesAndItemsExtension = async (prisma) => {
   // ==========================================
   // 1️⃣ SEEDING MENU CATEGORIES
   // ==========================================
-  
-  // Lấy danh sách Menu để map ID
-
-  // Tạo Categories
   const categoryResult = await prisma.menuCategory.createMany({
     data: menuCategoriesData
   });
-
   console.log(`✅ Created ${categoryResult.count} menu categories`);
 
   // ==========================================
-  // 2️⃣ SEEDING MENU ITEMS
+  // 2️⃣ SEEDING MENU ITEMS & RESTAURANT MAPS
   // ==========================================
 
-  // Lấy các dữ liệu tham chiếu cần thiết
-  
-
-
-  // Xử lý và map dữ liệu Items
-
-
+  // Chuẩn bị dữ liệu cho MenuItem chuẩn Enterprise
+  const mappedItems = menuItemsData.map((item, index) => {
+    return {
+      id: item.id,
+      categoryId: item.categoryId,
+      brandId: item.brandId,
+      sku: `SKU-${item.id ? item.id.substring(18) : index}-${Date.now().toString().slice(-4)}`,
+      name: item.name,
+      description: item.description,
+      image: item.image,
+      images: item.images || [],
+      basePrice: item.base_price || 0,
+      item_type: item.item_type,
+      allergens: item.allergens || [],
+      spice_level: item.spice_level,
+      prep_time: item.prep_time,
+      isActive: item.is_available ?? true,
+      is_featured: item.is_featured ?? false,
+      sort_order: item.sort_order ?? 0,
+    };
+  });
 
   const itemResult = await prisma.menuItem.createMany({
-    data: menuItemsData.map(({brandName,restaurantName,menuName,categoryName,...e})=>e)
+    data: mappedItems
   });
- 
-  // Tạo vector cho từng item
+
+  // Chuẩn bị dữ liệu Phân phối cho RestaurantMenuItem
+  const restaurantMaps = menuItemsData
+    .filter(item => item.restaurantId)
+    .map(item => ({
+      restaurantId: item.restaurantId,
+      menuItemId: item.id,
+      isAvailable: item.is_available ?? true,
+      overridePrice: null // Khởi tạo chưa ghi đè giá
+    }));
+
+  if (restaurantMaps.length > 0) {
+    const rmResult = await prisma.restaurantMenuItem.createMany({
+      data: restaurantMaps
+    });
+    console.log(`✅ Distributed ${rmResult.count} items to restaurants`);
+  }
+
+  // ==========================================
+  // 3️⃣ CẬP NHẬT VECTOR DB CHO AI SEARCH
+  // ==========================================
   for (const item of menuItemsData) {
     const text = [
         `Món ăn: ${item.name || "Món ăn ẩn danh"} là 1 món ăn.`,
@@ -62,7 +90,7 @@ export const categoriesAndItemsExtension = async (prisma) => {
       allergens: item.allergens,
       embedding: embedding,
 
-      base_price: item.base_price,
+      basePrice: item.base_price || 0, // Dùng schema mới
       brandName:item.brandName,
       menuName:item.menuName,
       restaurantName: item.restaurantName,

@@ -5,11 +5,13 @@ const homeSelect={
             description: true,
             id: true,
             name: true,
-            base_price: true,
+            basePrice: true,
             image: true,
-            restaurant: {
-                select: {
-                    name: true
+            restaurantMaps: {
+                include: {
+                    restaurant: {
+                        select: { name: true }
+                    }
                 }
             },
             brand: {
@@ -20,7 +22,7 @@ const brandSelect={
     description: true,
     id: true,
     name: true,
-    base_price: true,
+    basePrice: true,
     image: true,
 }
 
@@ -37,11 +39,12 @@ export const getDishs = async ({page, limit, where, type}) => {
         select: type === "home" ? homeSelect : brandSelect
     });
     
-    if(type !== "home") return result??null; // nếu không phải trang home thì trả về kết quả ngay mà không cần map thêm tên nhà hàng và thương hiệu
+    if(type !== "home") return result ? result.map(({ basePrice, ...e }) => ({ ...e, base_price: basePrice })) : null;
 
-    return result ? result.map(({ restaurant, brand, ...e }) => ({
+    return result ? result.map(({ restaurantMaps, brand, basePrice, ...e }) => ({
         ...e,
-        restaurantName: restaurant?.name ?? undefined,
+        base_price: basePrice,
+        restaurantName: restaurantMaps?.[0]?.restaurant?.name ?? undefined,
         brandName: brand?.name ?? undefined
     })) : null
 }

@@ -1,3 +1,4 @@
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import React from "react";
 import { useGetTransaction } from "../hook/useTransaction_hook";
 
@@ -21,6 +22,7 @@ export default function TransactionModal({ subscriptionId, onClose }: Transactio
     const transaction = response?.data;
 
     return (
+        <FadeIn>
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden animate-in zoom-in-95 duration-200">
                 <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
@@ -104,5 +106,6 @@ export default function TransactionModal({ subscriptionId, onClose }: Transactio
                 </div>
             </div>
         </div>
+        </FadeIn>
     );
 }

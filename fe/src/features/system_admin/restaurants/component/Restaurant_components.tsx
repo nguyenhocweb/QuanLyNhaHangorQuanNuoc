@@ -12,6 +12,7 @@ import { cities } from "@/src/core/lib/configAddressCity";
 import UpdateRestaurant from "./UpdateRestaurant_Form";
 import CreateRestaurant from "./CreateRestaurantForm";
 import { ConfirmModal } from "@/src/core/components/layout/public-ConfirmModal";
+import UpdateRestaurantStatusModal from "./UpdateRestaurantStatus_Modal";
 
 const RestaurantComponent = () => {
     const [page, setPage] = useState(1);
@@ -26,6 +27,8 @@ const RestaurantComponent = () => {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
     const [selectedRestaurantId, setSelectedRestaurantId] = useState<string | null>(null);
     const [restaurantToDelete, setRestaurantToDelete] = useState<any>(null);
+    const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState<boolean>(false);
+    const [restaurantToUpdateStatus, setRestaurantToUpdateStatus] = useState<any>(null);
     const [isCityOpen, setIsCityOpen] = useState(false);
     const [citySearch, setCitySearch] = useState("");
     const cityRef = useRef<HTMLDivElement>(null);
@@ -58,8 +61,20 @@ const RestaurantComponent = () => {
     const { mutate: updateRestaurant, isPending: isUpdating } = useUpdateRestaurant();
     const { mutate: deleteRestaurant, isPending: isDeleting } = useDeleteRestaurant();
 
-    const toggleStatus = (id: string, currentStatus: string) => {
-        updateRestaurant({ id, isActive: currentStatus === 'ACTIVE' ? false : true });
+
+
+    const renderStatusBadge = (status: string | undefined) => {
+        switch (status) {
+            case 'ACTIVE':
+                return <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium bg-green-50 text-green-600 border border-green-100 whitespace-nowrap"><span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>Hoạt động</span>;
+            case 'INACTIVE':
+                return <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium bg-yellow-50 text-yellow-600 border border-yellow-100 whitespace-nowrap"><span className="w-1.5 h-1.5 rounded-full bg-yellow-500"></span>Tạm nghỉ</span>;
+            case 'TERMINATED':
+                return <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium bg-red-50 text-red-600 border border-red-100 whitespace-nowrap"><span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>Nghỉ vĩnh viễn</span>;
+            case 'PENDING':
+            default:
+                return <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-md text-[11px] font-medium bg-gray-50 text-gray-600 border border-gray-200 whitespace-nowrap"><span className="w-1.5 h-1.5 rounded-full bg-gray-400"></span>Chờ duyệt</span>;
+        }
     };
 
     const searchTimeout = useRef<NodeJS.Timeout | null>(null);
@@ -253,11 +268,11 @@ const RestaurantComponent = () => {
                                     <th className="py-4 px-5 font-semibold w-[5%] min-w-[60px]">STT</th>
                                     <th className="py-4 px-5 font-semibold w-[22%] min-w-[180px]">Nhà hàng</th>
                                     <th className="py-4 px-5 font-semibold w-[12%] min-w-[120px]">Thương hiệu</th>
-                                    <th className="py-4 px-5 font-semibold w-[12%] min-w-[140px]">Liên hệ</th>
-                                    <th className="py-4 px-5 font-semibold w-[12%] min-w-[140px]">Quản lý</th>
-                                    <th className="py-4 px-5 font-semibold w-[13%] min-w-[150px]">Loại nhà hàng</th>
-                                    <th className="py-4 px-5 font-semibold w-[10%] min-w-[110px]">Trạng thái</th>
-                                    <th className="py-4 px-5 font-semibold w-[14%] min-w-[160px] text-right">Thao tác</th>
+                                    <th className="py-4 px-5 font-semibold w-[11%] min-w-[130px]">Liên hệ</th>
+                                    <th className="py-4 px-5 font-semibold w-[11%] min-w-[130px]">Quản lý</th>
+                                    <th className="py-4 px-5 font-semibold w-[12%] min-w-[140px]">Loại nhà hàng</th>
+                                    <th className="py-4 px-5 font-semibold w-[15%] min-w-[140px]">Trạng thái</th>
+                                    <th className="py-4 px-5 font-semibold w-[10%] min-w-[100px] text-right">Thao tác</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -376,25 +391,31 @@ const RestaurantComponent = () => {
                                             )}
                                         </td>
                                         <td className="py-4 px-5">
-                                            <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[12px] font-medium whitespace-nowrap ${e.isActive === 'ACTIVE'
-                                                    ? 'bg-green-50 text-green-600 border border-green-100'
-                                                    : 'bg-gray-100 text-gray-500 border border-gray-200'
-                                                }`}>
-                                                <span className={`w-1.5 h-1.5 rounded-full ${e.isActive === 'ACTIVE' ? 'bg-green-500' : 'bg-gray-400'}`}></span>
-                                                {e.isActive === 'ACTIVE' ? "Hoạt động" : "Khóa"}
-                                            </span>
+                                            <div className="flex flex-col gap-2">
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[10px] text-gray-500 font-medium w-[42px]">Admin:</span>
+                                                    {renderStatusBadge(e.statusByAdmin)}
+                                                </div>
+                                                <div className="flex items-center gap-2">
+                                                    <span className="text-[10px] text-gray-500 font-medium w-[42px]">Brand:</span>
+                                                    {renderStatusBadge(e.statusByBrand)}
+                                                </div>
+                                            </div>
                                         </td>
                                         <td className="py-4 px-5 text-right">
                                             <div className="flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
-                                                <button
-                                                    onClick={() => toggleStatus(e.id, e.isActive)}
-                                                    disabled={isUpdating}
-                                                    className={`relative inline-flex h-5 w-9 flex-shrink-0 items-center rounded-full transition-colors mr-2 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 ${e.isActive === 'ACTIVE' ? 'bg-indigo-500' : 'bg-gray-200'
-                                                        } ${isUpdating ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                                                <Button
+                                                    variant="outline"
+                                                    sizea="p2_1"
+                                                    className="text-gray-500 border-gray-200 hover:bg-blue-50 hover:text-blue-600 hover:border-blue-200 rounded-lg p-2 h-8 w-8 flex items-center justify-center transition-all"
+                                                    onClick={() => {
+                                                        setRestaurantToUpdateStatus(e);
+                                                        setIsUpdateStatusModalOpen(true);
+                                                    }}
+                                                    title="Cập nhật trạng thái"
                                                 >
-                                                    <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white transition-transform ${e.isActive === 'ACTIVE' ? 'translate-x-4' : 'translate-x-1'
-                                                        }`} />
-                                                </button>
+                                                    <FiCheckCircle />
+                                                </Button>
                                                 <Button
                                                     variant="outline"
                                                     sizea="p2_1"
@@ -529,6 +550,14 @@ const RestaurantComponent = () => {
                 }}
                 confirmText="Xóa"
                 cancelText="Hủy"
+            />
+            <UpdateRestaurantStatusModal
+                isOpen={isUpdateStatusModalOpen}
+                onClose={() => {
+                    setIsUpdateStatusModalOpen(false);
+                    setRestaurantToUpdateStatus(null);
+                }}
+                restaurant={restaurantToUpdateStatus}
             />
         </FadeIn>
     )

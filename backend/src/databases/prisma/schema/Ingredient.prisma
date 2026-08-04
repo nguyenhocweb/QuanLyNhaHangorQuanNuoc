@@ -1,0 +1,12 @@
+model Ingredient {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  brandId     String   @db.ObjectId
+  sku         String   @unique
+  name        String   
+  unit        String   // "ml", "gram"
+  costPerUnit Float    
+  
+  recipes     Recipe[]
+
+  @@map("ingredients")
+}

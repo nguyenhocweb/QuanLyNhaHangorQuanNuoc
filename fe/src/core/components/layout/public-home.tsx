@@ -1,80 +1,35 @@
-"use client"
-import { Div, P, Button, A } from "../ui"
-const brandTieubieu: {
-    id: string,
-    image: string,
-    name: string
-} = {
-    id: "1",
-    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5",
-    name: "Aura Steakhouse Riverside"
-}
-import FadeIn from "../animation/FadeIn"
-const PublicHome = () => {
-   const handleScroll = (id: string) => {
-  const element = document.getElementById(id);
+"use client";
 
-  if (element) {
-    const y =
-      element.getBoundingClientRect().top + window.pageYOffset - 100;
+import React from "react";
+import { HomeHero3D } from "./home-sections/HomeHero3D";
+import { HomeCategoryGrid } from "./home-sections/HomeCategoryGrid";
+import { HomeFeaturedShowcase } from "./home-sections/HomeFeaturedShowcase";
+import { HomeSocialProofMarquee } from "./home-sections/HomeSocialProofMarquee";
+import { HomeCtaBanner } from "./home-sections/HomeCtaBanner";
+import { BackgroundMesh3D } from "../animation/BackgroundMesh3D";
 
-    window.scrollTo({
-      top: y,
-      behavior: "smooth",
-    });
-  }
-};
+const PublicHome: React.FC = () => {
     return (
-        <Div size="full_screen" gap="g3_4" className="px-20">
-            {/* LEFT CONTENT */}
-            <Div vitri="col_none" gap="g5_6">
-                <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
-                    <FadeIn  > Trải nghiệm </FadeIn>
-                    <FadeIn delay={0.2}><span className="text-green-600">Ẩm thực Tinh hoa</span></FadeIn>
-                </h1>
-                <FadeIn  delay={0.3}> <P className="w-1/2">
-                    Kết nối bạn với những không gian ẩm thực đẳng cấp nhất,
-                    từ Steakhouse thượng hạng đến phong vị Fusion hiện đại.
-                </P>
-                </FadeIn>
-                <Div gap="g4_5">
-                    <FadeIn delay={0.4}>
-                        <Button variant="green" sizea="p4_3"
-                            onClick={() => { handleScroll("restaurant") }}
-                        >Khám phá nhà hàng </Button>
-                    </FadeIn>
-                    <FadeIn delay={0.5}>
-                        <Button variant="gray" sizea="p4_3"
-                            onClick={() => { handleScroll("brandHome") }}
-                        >🍴 Xem Thương hiệu</Button>
-                    </FadeIn>
-                </Div>
-            </Div>
-            {/* RIGHT CARD */}
-            <FadeIn>
-                <Div vitri="col_none" className=" relative">
-                    <A href="/login" className="rounded-2xl overflow-hidden shadow-xl h-[520px] bg-gray-300">
-                        <img
-                            src={`${brandTieubieu.image}?auto=format&fit=crop&w=900&q=80`}
-                            alt="restaurant"
-                            className="w-full h-full object-cover"
-                        />
-                        {/* Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="w-full min-h-screen bg-gradient-to-b from-gray-50/50 via-white to-gray-50/30 flex flex-col relative selection:bg-indigo-500 selection:text-white overflow-x-hidden">
+            {/* Lớp nền 3D WebGL / 2D Pro Max toàn cảnh */}
+            <BackgroundMesh3D />
 
-                        {/* Text */}
-                        <Div vitri="col_none" size="h16" shape="none" className=" absolute bottom-0 left-0 px-5 h-20">
-                           <FadeIn delay={0.2}> <P>Thương hiệu tiêu biểu</P></FadeIn>
-                             <FadeIn delay={0.3}>
-                            <h3 className="text-xl font-semibold text-white " >
-                                {brandTieubieu.name}
-                            </h3>
-                            </FadeIn>
-                        </Div>
-                    </A>
-                </Div>
-            </FadeIn>
-        </Div>
-    )
-}
-export default PublicHome
+            {/* Khối 1: Hero Section 3D Tinh hoa */}
+            <HomeHero3D />
+
+            {/* Khối 2: Danh mục Ẩm thực Thịnh hành */}
+            <HomeCategoryGrid />
+
+            {/* Khối 3: Showcase Nhà hàng, Thương hiệu & Món ăn Nổi bật */}
+            <HomeFeaturedShowcase />
+
+            {/* Khối 4: Dòng chảy Đánh giá Thực tế từ Khách hàng */}
+            <HomeSocialProofMarquee />
+
+            {/* Khối 5: Banner Kêu gọi Hành động (CTA) */}
+            <HomeCtaBanner />
+        </div>
+    );
+};
+
+export default PublicHome;

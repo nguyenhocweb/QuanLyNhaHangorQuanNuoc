@@ -1,3 +1,4 @@
+"use client";
 import { useState, useRef, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import { RiImageAiFill } from "react-icons/ri";

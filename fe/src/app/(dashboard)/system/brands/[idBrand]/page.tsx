@@ -1,16 +1,11 @@
-"use client"
-import { Div } from "@/src/core/components/ui"
-import { use } from "react";
+import React from 'react';
 import BrandDetailComponent from "@/src/features/system_admin/brands/brands_components/BrandDetail_component";
 
-const BrandManagementPage = ({ params }: { params: Promise<{ idBrand: string }> }) => {
-    const { idBrand } = use(params);
-
+export default async function BrandDetailPage({ params }: { params: Promise<{ idBrand: string }> }) {
+    const { idBrand } = await params;
     return (
-        <Div size="full" vitri="col_none">
-           <BrandDetailComponent brandId={idBrand} />
-        </Div>
+        <div className="w-full h-full p-4 sm:p-6 lg:p-8 max-w-7xl mx-auto">
+            <BrandDetailComponent brandId={idBrand} />
+        </div>
     );
-};
-
-export default BrandManagementPage;
+}

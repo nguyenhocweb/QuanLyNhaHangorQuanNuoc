@@ -1,9 +1,10 @@
 "use client";
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import React, { useState } from "react";
 import { usePaymentMethods, useCreatePaymentMethod, useUpdatePaymentMethod, useDeletePaymentMethod } from "../hook/usePaymentMethod_hook";
 import { PaymentMethodForm } from "./PaymentMethodForm";
 import { PaymentMethod, PaymentMethodFormData } from "../type/payment_method.type";
-import { FiEdit2, FiTrash2, FiPlus } from "react-icons/fi";
+import { FiEdit2, FiTrash2, FiPlus, FiBookOpen } from "react-icons/fi";
 import { MdPayment } from "react-icons/md";
 import { ConfirmModal } from "../../../../core/components/layout/public-ConfirmModal";
 
@@ -44,6 +45,7 @@ export const PaymentMethodList = () => {
     };
 
     return (
+        <FadeIn>
         <div className="p-6 max-w-7xl mx-auto space-y-6 w-full">
             {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -53,12 +55,22 @@ export const PaymentMethodList = () => {
                     </h2>
                     <p className="text-gray-500 mt-1">Cấu hình các cổng thanh toán khả dụng trên toàn hệ thống</p>
                 </div>
-                <button
-                    onClick={handleOpenCreate}
-                    className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-sm transition-colors"
-                >
-                    <FiPlus /> Thêm phương thức
-                </button>
+                <div className="flex flex-col sm:flex-row items-center gap-3">
+                    <a
+                        href="/system/payment-methods/docs"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 px-4 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-sm transition-colors w-full sm:w-auto justify-center"
+                    >
+                        <FiBookOpen className="text-indigo-600" /> Hướng dẫn lấy API Key
+                    </a>
+                    <button
+                        onClick={handleOpenCreate}
+                        className="bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-2.5 rounded-xl font-medium flex items-center gap-2 shadow-sm transition-colors w-full sm:w-auto justify-center"
+                    >
+                        <FiPlus /> Thêm phương thức
+                    </button>
+                </div>
             </div>
 
             {/* List */}
@@ -158,5 +170,6 @@ export const PaymentMethodList = () => {
                 cancelText="Hủy bỏ"
             />
         </div>
+        </FadeIn>
     );
 };

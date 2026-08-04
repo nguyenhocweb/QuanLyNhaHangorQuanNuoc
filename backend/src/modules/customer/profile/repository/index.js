@@ -30,13 +30,22 @@ export const getUsersBrandOwner = async (where) => {
             ...where,
             role: {
                 name: "Quản lý thương hiệu"
+            },
+            // Chỉ lấy những user chưa làm chủ thương hiệu nào (chưa có employment nào có restaurantId = null)
+            employments: {
+                none: {
+                    restaurantId: null
+                }
             }
         },
         take: 10,
         select: {
             id: true,
             name: true,
-            email: true
+            email: true,
+            avatar: true
         }
     })
 }
+
+export * from "./upgradeRequest_repo.js";

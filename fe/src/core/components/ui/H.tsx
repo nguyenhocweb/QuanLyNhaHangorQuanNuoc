@@ -48,12 +48,15 @@ const HVariantProps = cva(
 )
 
 // Sửa Interface để khớp với thẻ <h1>, <h2>, v.v.
-interface HProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof HVariantProps> { }
+interface HProps extends React.HTMLAttributes<HTMLHeadingElement>, VariantProps<typeof HVariantProps> {
+    level?: 1 | 2 | 3 | 4 | 5 | 6;
+}
 
 const H = React.forwardRef<HTMLHeadingElement, HProps>(
-    ({ className, variant, shape, size, fonts,line, ...props }, ref) => {
+    ({ className, variant, shape, size, fonts, line, level = 1, ...props }, ref) => {
+        const Comp = `h${level}` as any;
         return (
-            <h1
+            <Comp
                 className={cn(HVariantProps({ variant, shape, size, fonts, line, className }))}
                 ref={ref}
                 {...props}

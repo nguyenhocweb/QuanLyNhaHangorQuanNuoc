@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 import { Div, H, P, Label, Input, Button } from "@/src/core/components/ui"
 import { IoClose } from "react-icons/io5"

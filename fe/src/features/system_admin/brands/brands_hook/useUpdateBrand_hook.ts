@@ -10,8 +10,8 @@ export const useUpdateBrand = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (data: { id: string, payload: any, FileLogo?: File, FileImageMain?: File }) => {
-            const { id, payload, FileLogo, FileImageMain } = data;
+        mutationFn: async (data: { id: string, payload: any, FileLogo?: File, FileImageMain?: File, FileImages?: File[], existingImages?: string[] }) => {
+            const { id, payload, FileLogo, FileImageMain, FileImages, existingImages } = data;
             
             // Cập nhật thông tin cơ bản
             await updateBrandService(id, payload);
@@ -37,13 +37,32 @@ export const useUpdateBrand = () => {
                 uploadTasks.push(uploadFileToCloudinary(sigData, FileImageMain));
             }
 
-            const updatePayload: Record<string, string> = {};
+            let otherImageTasks: Promise<string>[] = [];
+            if (FileImages && FileImages.length > 0) {
+                otherImageTasks = FileImages.map(async (file: File, index: number) => {
+                    const sigData = await CloudinarySignatureService({
+                        folder: `quan_ly_nha_hang/brands/${id}/images`,
+                        public_id: `${Date.now()}_${index}`
+                    });
+                    return uploadFileToCloudinary(sigData, file);
+                });
+            }
+
+            const updatePayload: Record<string, any> = {};
 
             if (uploadTasks.length > 0) {
                 const uploadResults = await Promise.all(uploadTasks);
                 uploadResults.forEach((url, index) => {
                     updatePayload[uploadKeys[index]] = url;
                 });
+            }
+
+            if (otherImageTasks.length > 0 || (existingImages && existingImages.length > 0)) {
+                const otherImagesResults = await Promise.all(otherImageTasks);
+                updatePayload.images = [...(existingImages || []), ...otherImagesResults];
+            }
+
+            if (Object.keys(updatePayload).length > 0) {
                 await updateBrandImagesService(id, updatePayload as any);
             }
         },

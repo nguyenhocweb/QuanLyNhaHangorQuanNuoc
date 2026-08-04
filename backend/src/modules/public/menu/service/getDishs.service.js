@@ -3,7 +3,7 @@ export const getDishsService=async(page,limit,where,type)=>{
     
     const baseWhere = {AND:[
         ...(Array.isArray(where) ? where : where ? [where] : []),
-        { is_available: true },
+        { isActive: true },
     ]};
     const [Dishs,totalDishs]=await Promise.all([
         getDishs({

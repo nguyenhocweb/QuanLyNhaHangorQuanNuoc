@@ -19,6 +19,7 @@ model OrderItem {
 
   note   String?
   status KitchenStatus @default(QUEUED)
+  version Int @default(1)
 
   createdAt DateTime @default(now())
 

@@ -14,7 +14,11 @@ export const useLogin = () => {
         mutationFn: loginSevice,
         onSuccess: (data: LoginResponse) => {
             setUser(data);
-            router.push("/");
+            if (data.role === "Admin") {
+                router.push("/system/dashboard");
+            } else {
+                router.push("/");
+            }
         },
         onError: (error) => {             
             // 1. Nếu đây là lỗi do gọi API (Server ném lỗi 400, 401, 404...)

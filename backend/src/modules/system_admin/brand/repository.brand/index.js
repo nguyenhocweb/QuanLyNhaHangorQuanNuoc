@@ -59,11 +59,23 @@ export const getBrandById = async (_id) => {
                     restaurants: true
                 }
             },
+            template: {
+                select: {
+                    code: true
+                }
+            },
             employments: {
-                where: { restaurantId: null },
+                where: { 
+                    restaurantId: null,
+                    user: {
+                        role: {
+                            name: "Quản lý thương hiệu"
+                        }
+                    }
+                },
                 select: {
                     user: {
-                        select: { id: true, name: true, email: true, sdt: true, avatar: true }
+                        select: { id: true, name: true, user_name: true, email: true, sdt: true, avatar: true }
                     }
                 }
             },
@@ -79,7 +91,10 @@ export const getBrandById = async (_id) => {
                 }
             },
             restaurants: {
-                where: { isActive: "ACTIVE" }, // Chỉ lấy những nhà hàng đang mở cửa
+                where: { 
+                    statusByAdmin: "ACTIVE",
+                    statusByBrand: "ACTIVE"
+                }, // Chỉ lấy những nhà hàng đang mở cửa
                 take: 20, // Tăng lên 20 để hiển thị nhiều nhà hàng hơn
                 orderBy: [
                     { isNew: "desc" },
@@ -103,6 +118,20 @@ export const getBrandById = async (_id) => {
                         select: {
                             open_time: true,
                             close_time: true,
+                        }
+                    },
+                    employments: {
+                        where: {
+                            user: {
+                                role: {
+                                    name: "Quản lý nhà hàng"
+                                }
+                            }
+                        },
+                        select: {
+                            user: {
+                                select: { id: true, name: true, user_name: true, email: true, sdt: true, avatar: true }
+                            }
                         }
                     },
                 },
@@ -153,7 +182,14 @@ export const getBrands = async ({ where, page, limit }) => {
                 }
             },
             employments: {
-                where: { restaurantId: null },
+                where: { 
+                    restaurantId: null,
+                    user: {
+                        role: {
+                            name: "Quản lý thương hiệu"
+                        }
+                    }
+                },
                 select: {
                     user: {
                         select: { id: true, name: true, email: true, sdt: true, avatar: true }

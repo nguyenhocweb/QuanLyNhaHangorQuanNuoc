@@ -1,12 +1,15 @@
-"use client"
-import { Div } from "@/src/core/components/ui"
-import CategoryRestaurantComponent from "@/src/features/system_admin/categories/component/CategoryRestaurant_components"
+import React from 'react';
+import CategoryRestaurantComponent from '@/src/features/system_admin/categories/component/CategoryRestaurant_components';
+import FadeIn from "@/src/core/components/animation/FadeIn";
 
-const SytemCategory = () => {
+export default function CategoriesPage() {
     return (
-        <Div vitri="col_none" size="full" className="p-4 md:p-10 min-h-screen bg-gray-50/30">
+        <FadeIn className="w-full flex flex-col gap-6 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col gap-1">
+                <h1 className="text-2xl font-bold text-gray-900">Danh mục chuẩn</h1>
+                <p className="text-gray-500 text-sm">Quản lý danh mục thể loại nhà hàng (Ví dụ: Lẩu, Nướng, Hải sản...).</p>
+            </div>
             <CategoryRestaurantComponent />
-        </Div>
-    )
+        </FadeIn>
+    );
 }
-export default SytemCategory

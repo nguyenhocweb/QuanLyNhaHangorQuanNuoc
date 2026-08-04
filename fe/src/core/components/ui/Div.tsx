@@ -17,7 +17,13 @@ const DivVariantProps = cva(
                restaurant_template1_svg: "bg-svg-restaurant-template1 absolute p-4 gap-4 inset-0 pointer-events-none z-0  bg-repeat ",
                 restaurant_template1: "bg-bg-restaurant-template1 ",
                 bg_gray:"bg-gray-200 shadow-xl shadow-gray-300",
-                bg_white:"bg-white shadow-xl shadow-gray-300 px-6 py-3"
+                bg_white:"bg-white shadow-xl shadow-gray-300 px-6 py-3",
+                gradient_blue: "bg-gradient-to-br from-blue-50 to-blue-100/50 shadow-sm border border-blue-100",
+                gradient_indigo: "bg-gradient-to-br from-indigo-50 to-indigo-100/50 shadow-sm border border-indigo-100",
+                gradient_purple: "bg-gradient-to-br from-purple-50 to-purple-100/50 shadow-sm border border-purple-100",
+                gradient_emerald: "bg-gradient-to-br from-emerald-50 to-emerald-100/50 shadow-sm border border-emerald-100",
+                gradient_rose: "bg-gradient-to-br from-rose-50 to-rose-100/50 shadow-sm border border-rose-100",
+                gradient_amber: "bg-gradient-to-br from-amber-50 to-amber-100/50 shadow-sm border border-amber-100"
 
               
             },

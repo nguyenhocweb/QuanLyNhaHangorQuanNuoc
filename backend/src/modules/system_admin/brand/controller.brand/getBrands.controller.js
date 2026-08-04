@@ -8,7 +8,9 @@ export const getBrandsController=asyncHandler(
        const city=req.query.city;
        const search=req.query.search;
        const status=req.query.status;
-       const result=await getBrandsService(page,limit,city,search,status); 
+       const isFeatured = req.query.isFeatured !== undefined ? req.query.isFeatured === 'true' || req.query.isFeatured === true : undefined;
+       const isNew = req.query.isNew !== undefined ? req.query.isNew === 'true' || req.query.isNew === true : undefined;
+       const result=await getBrandsService(page,limit,city,search,status,isFeatured,isNew); 
        switch (result.code) {
         case 404:
             throw new NotFoundError(result.mes)

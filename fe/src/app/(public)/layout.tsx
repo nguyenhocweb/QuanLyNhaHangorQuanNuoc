@@ -7,6 +7,7 @@ interface PublicLayoutProps {
 
 import PublicHeader from "@/src/core/components/layout/public-header";
 import PublicFooter from "@/src/core/components/layout/public-footer";
+import PublicFloatingActions from "@/src/core/components/layout/PublicFloatingActions";
 import { Div } from "@/src/core/components/ui";
 export default function PublicLayout({ children }: PublicLayoutProps) {
     const pathname = usePathname()
@@ -20,8 +21,9 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
                 {children}
             </main>
             {/* 4. Chân trang dùng chung */}
-            {/* <PublicFooter /> */}
-             <PublicFooter />
+            <PublicFooter />
+            {/* 5. Bộ tiện ích nổi (Chuyển đổi 2D/3D, Chat AI, Zalo Hotline) */}
+            <PublicFloatingActions />
         </Div>
     )
 }

@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { IoClose, IoWarningOutline } from "react-icons/io5";
 import { Brand } from "../brands_type/brand-type";

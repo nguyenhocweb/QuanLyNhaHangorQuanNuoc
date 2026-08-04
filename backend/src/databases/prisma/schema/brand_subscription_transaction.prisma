@@ -1,16 +1,19 @@
 model BrandSubscriptionTransaction {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  brandSubscriptionId String @db.ObjectId
+  brandSubscriptionId String            @db.ObjectId
   brandSubscription   BrandSubscription @relation(fields: [brandSubscriptionId], references: [id])
 
   amount Float
-  
-  systemPaymentMethodId String @db.ObjectId
+
+  userId String @db.ObjectId // Người thanh toán
+  user   User   @relation(fields: [userId], references: [id])
+
+  systemPaymentMethodId String              @db.ObjectId
   systemPaymentMethod   SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
 
-  externalTransactionId String? // VD: Mã giao dịch VNPay/Momo
-  
+  externalTransactionId String? // VD: Mã giao dịch VNPay/Momo/VietQR
+
   status TransactionStatus
 
   rawResponse Json? // Lưu kết quả trả về từ cổng thanh toán
@@ -19,6 +22,7 @@ model BrandSubscriptionTransaction {
   updatedAt DateTime @updatedAt
 
   @@index([brandSubscriptionId])
+  @@index([userId])
   @@index([externalTransactionId])
   @@map("brand_subscription_transactions")
 }

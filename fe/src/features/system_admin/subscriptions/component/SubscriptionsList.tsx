@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { FiPlus, FiEdit2, FiTrash2, FiSearch, FiCheck, FiX, FiInfo } from 'react-icons/fi';
 import { useGetSubscriptions, useDeleteSubscription, useUpdateSubscription } from '../hook/useSubscription_hook';

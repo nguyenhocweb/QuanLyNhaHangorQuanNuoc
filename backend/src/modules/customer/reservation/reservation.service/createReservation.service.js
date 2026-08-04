@@ -2,6 +2,7 @@ import Create_chuoi from "../../../../core/utils/Create_chuoi.js";
 import { createReservation } from "../reservation.repository/index.js";
 import { calculateEndTime } from "../../../../core/utils/calculateEndTime.js";
 import { Prisma } from "../../../../databases/prisma/generated/prisma/index.js";
+import { emitReservationUpdate } from "../../../../core/utils/socket.js";
 export const createReservationService = async (data) => {
         const initial = data.guest_name
                 .split(/\s+/)            // Tách chuỗi bởi khoảng trắng
@@ -21,6 +22,7 @@ export const createReservationService = async (data) => {
                         data.confirmation_code = confirmation_code
                         const result = await createReservation(data);
                         console.log(i, result);
+                        emitReservationUpdate(data.restaurantId);
 
                         return { code: 201, mes: "đã tạo thành công" }
                 } catch (error) {

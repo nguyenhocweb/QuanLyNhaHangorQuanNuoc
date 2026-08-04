@@ -47,6 +47,8 @@ export const Subscription_Extension = async (prisma) => {
         }
     });
 
+    const firstUser = await prisma.user.findFirst();
+
     // Tạo lịch sử giao dịch cho từng gói cước
     const transactions = subscriptions.map((sub, index) => {
         let price = 0;
@@ -59,6 +61,7 @@ export const Subscription_Extension = async (prisma) => {
             systemPaymentMethodId: vnpay.id,
             amount: price,
             externalTransactionId: `VNPAY${Math.floor(Math.random() * 100000000)}`,
+            userId: firstUser.id,
             status: "SUCCESS",
             rawResponse: { message: "Thanh toán thành công" }
         };

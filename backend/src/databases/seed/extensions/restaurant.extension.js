@@ -23,7 +23,7 @@ export const restaurant_Extension = async(prisma)=>{
         `nhà hàng: ${restaurantDataItem.name || "Nhà hàng ẩn danh"} là 1 nhà hàng.`,
         `${restaurantDataItem.brandName ? `nhà hàng này thuộc thương hiệu: ${restaurantDataItem.brandName}` : ""} .`,
         ` Địa chỉ: ${restaurantDataItem.address || "Chưa cập nhật địa chỉ"},`,
-        restaurantDataItem.isActive === "INACTIVE" ? "tạm thời nghĩ" : restaurantDataItem.isActive === "TERMINATED" ? "nghĩ vĩnh viễn" : " đang hoạt động",
+        restaurantDataItem.statusByAdmin === "INACTIVE" ? "tạm thời nghĩ" : restaurantDataItem.statusByAdmin === "TERMINATED" ? "nghĩ vĩnh viễn" : " đang hoạt động",
         restaurantDataItem.isNew === false ? "" : "Nhà hàng mới",
         ` ${restaurantDataItem.city || "chưa cập nhật thành phố"}. `,
         `Đánh giá trung bình: ${restaurantDataItem.averageRating || "chưa có đánh giá"}.`,

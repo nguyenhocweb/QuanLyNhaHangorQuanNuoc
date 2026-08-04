@@ -11,6 +11,16 @@ export const createBrandBasicByAdminService = async (data) => {
     });
     const freePlanId = freePlan ? freePlan.id : "60e9eb7a8d200d3b5098de40";
 
+    // Lấy danh sách các quyền của cấp độ Thương hiệu (BRAND)
+    const brandPermissions = await prisma.permission.findMany({
+        where: { type: "BRAND" }
+    });
+    
+    // Chuẩn bị dữ liệu phân quyền
+    const perVsEmpData = brandPermissions.map(p => ({
+        permissionId: p.id
+    }));
+
     const payload = {
         name: data.name,
         tax_code: data.tax_code,
@@ -30,6 +40,16 @@ export const createBrandBasicByAdminService = async (data) => {
                     endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 10)), // 10 năm mặc định
                 }
             ]
+        },
+        employments: {
+            create: [
+                {
+                    userId: data.brand_owner_id,
+                    per_vs_emp: {
+                        create: perVsEmpData
+                    }
+                }
+            ]
         }
     };
 
@@ -41,8 +61,12 @@ export const createBrandBasicByAdminService = async (data) => {
         return { id };
     } catch (error) {
         if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2002") {
-            throw new ConflictError("Thương hiệu đã tồn tại");
+            const target = error.meta?.target;
+            if (target && target.includes("userId")) {
+                throw new ConflictError("Người dùng này đã được phân quyền ở một thương hiệu hoặc hệ thống khác (Lỗi trùng lặp Employment)");
+            }
+            throw new ConflictError("Tên thương hiệu đã tồn tại (Lỗi trùng lặp tên)");
         }
-        throw new BadRequestError("Tạo thương hiệu không thành công");
+        throw new BadRequestError("Tạo thương hiệu không thành công: " + error.message);
     }
 };

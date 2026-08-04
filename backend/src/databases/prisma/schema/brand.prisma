@@ -15,15 +15,21 @@ model Brand {
   isFeatured          Boolean                   @default(false) // 👈 tiêu biểu
   isNew               Boolean                   @default(true)
   restaurantCount     Int                       @default(0) // Số lượng nhà hàng hiện có
+  
+  templateId          String?                   @db.ObjectId
+  template            Template?                 @relation(fields: [templateId], references: [id])
+  
   subscriptions       BrandSubscription[] // Lịch sử các gói cước đã đăng ký
   restaurants         Restaurant[] // 1 Brand có nhiều Nhà hàng
   employments         Employment[] // Nhân sự cấp Brand
   menu                Menu[]
+  menuCategories      MenuCategory[]
   items               MenuItem[]
   paymentConfigs      RestaurantPaymentConfig[]
   brandPaymentConfigs BrandPaymentConfig[]
   brandRevenues       BrandRevenue[]
   restaurantRevenues  RestaurantRevenue[]
+  promotions          Promotion[]
   createdAt           DateTime                  @default(now())
   updatedAt           DateTime                  @updatedAt
 

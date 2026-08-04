@@ -12,8 +12,16 @@ import { getAccountsValidator } from "./validators/account.get.validator.js";
 import { createAccountValidator } from "./validators/account.create.validator.js";
 import { updateAccountValidator } from "./validators/account.update.validator.js";
 import { deleteAccountValidator } from "./validators/account.delete.validator.js";
+import { getBrandOwnersValidator } from "./validators/account.getBrandOwners.validator.js";
+import { getBrandOwnersController } from "./controllers/account.getBrandOwners.controller.js";
 
 const accountRouter = Router();
+
+accountRouter.get(
+  "/brandOwner",
+  validate(getBrandOwnersValidator),
+  getBrandOwnersController
+);
 
 accountRouter.get(
   "/",

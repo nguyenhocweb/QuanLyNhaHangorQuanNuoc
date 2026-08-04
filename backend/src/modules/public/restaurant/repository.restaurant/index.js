@@ -27,6 +27,25 @@ export const getRestaurants = async ({ page, limit, where }) => {
             averageRating: true,
             address: true,
             isNew: true,
+            description: true,
+            phone_contact: true,
+            email_contact: true,
+            max_party_size: true,
+            booking_window_days: true,
+            cancellation_hours: true,
+            deposit_required: true,
+            deposit_amount: true,
+            totalRating: true,
+            average_food_rating: true,
+            average_service_rating: true,
+            average_ambiance_rating: true,
+            categories: {
+                select: {
+                    name: true,
+                    bgColor: true,
+                    textColor: true,
+                }
+            },
             operating_hours: {
                 where: { day_of_week: day },
                 take: 1,
@@ -40,12 +59,12 @@ export const getRestaurants = async ({ page, limit, where }) => {
     });
 
     return result ? result.map(({ operating_hours, brand, ...rest }) => {
-        // Lấy phần tử đầu tiên nếu mảng có dữ liệu
-        const hours = operating_hours[0];
+        // Lấy phần tử đầu tiên nếu mảng có dữ liệu an toàn
+        const hours = operating_hours?.[0];
 
         return {
             ...rest,
-            brandName: brand.name,
+            brandName: brand?.name || "Nhà hàng Foleat",
             time: hours
                 ? `${hours.open_time} - ${hours.close_time}`
                 : "Hôm nay nghỉ"
@@ -122,7 +141,7 @@ export const getRestaurantById = async (id) => {
         const {operating_hours,special_schedules,brand,...data}=result
         return {
             ...data,
-            brandName:brand.name,
+            brandName: brand?.name || "Nhà hàng Foleat",
             timeWeek:mergeWeeklySchedules(operating_hours,special_schedules,today)
         }
     }

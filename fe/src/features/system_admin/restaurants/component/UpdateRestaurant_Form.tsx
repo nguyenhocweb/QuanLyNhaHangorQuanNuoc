@@ -1,6 +1,8 @@
 "use client"
 import { H, P, Button } from "@/src/core/components/ui"
 import { FiX, FiCheck, FiSearch, FiUploadCloud, FiImage, FiTrash2 } from "react-icons/fi"
+import { ConfirmModal } from "@/src/core/components/layout/public-ConfirmModal";
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { updateRestaurantSchema, UpdateRestaurantFormValues } from "../schema/updateRestaurant-schema"
@@ -239,6 +241,7 @@ const UpdateRestaurant = ({ onclickClose, restaurantId }: Props) => {
     };
 
     return (
+        <FadeIn>
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 overflow-y-auto p-4 sm:p-10">
             <div className="bg-white flex flex-col relative p-6 sm:p-8 rounded-2xl shadow-2xl w-full max-w-[1000px] border border-gray-100 my-auto">
                 <button onClick={onclickClose} className="absolute top-5 right-5 p-2 text-gray-400 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-all" type="button">
@@ -430,6 +433,7 @@ const UpdateRestaurant = ({ onclickClose, restaurantId }: Props) => {
                 )}
             </div>
         </div>
+        </FadeIn>
     )
 }
 

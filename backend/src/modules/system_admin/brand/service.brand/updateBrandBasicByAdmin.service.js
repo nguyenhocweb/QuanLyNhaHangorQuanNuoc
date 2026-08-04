@@ -16,7 +16,14 @@ export const updateBrandBasicByAdminService = async (_id, data) => {
         }
     }
 
-    const isUpdated = await updateBrandById(_id, data);
+    // Map fields for Prisma
+    const payload = { ...data };
+    if (payload.is_featured !== undefined) {
+        payload.isFeatured = payload.is_featured;
+        delete payload.is_featured;
+    }
+
+    const isUpdated = await updateBrandById(_id, payload);
     
     if (!isUpdated) {
         throw new NotFoundError("Thương hiệu không tồn tại hoặc đã bị xóa");

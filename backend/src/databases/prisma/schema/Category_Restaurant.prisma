@@ -8,6 +8,7 @@ model Category_Restaurant {
   // Quan hệ ngược lại với Restaurant
   restaurantIds String[]     @db.ObjectId
   restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
+
   @@index([isActive])
   @@map("category_restaurant")
 }

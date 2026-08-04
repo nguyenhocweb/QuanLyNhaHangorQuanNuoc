@@ -1,0 +1,9 @@
+{
+  "current_step": "Bước 0",
+  "pending_gate": "Gate 0",
+  "audit_call_count": 0,
+  "velocity_log": [],
+  "incident_log": [],
+  "last_updated": "2024-01-01T00:00:00Z",
+  "context_summary": "Dự án mới khởi tạo. Đang thu thập NFRs và DoD từ User."
+}

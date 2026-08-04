@@ -27,10 +27,12 @@ const Create_Brand_form = () => {
     const [idBrandOwner, setIdBrandOwner] = useState<string | null>(null)
     const [logoImage, setLogoImage] = useState<string | null>(null);
     const [biaImage, setBiaImage] = useState<string | null>(null);
+    const [otherImages, setOtherImages] = useState<{file: File, url: string}[]>([]);
     const [searchUserTerm, setSearchUserTerm] = useState("");
 
     const logoInputRef = useRef<HTMLInputElement>(null);
     const biaInputRef = useRef<HTMLInputElement>(null);
+    const otherImagesInputRef = useRef<HTMLInputElement>(null);
 
     const debouncedSearchUser = useDebounce({ value: searchUserTerm, delay: 500 });
     const { data: usersData, isLoading: isLoadingUsers } = useFindUserBrandOwner(debouncedSearchUser as string);
@@ -63,6 +65,10 @@ const Create_Brand_form = () => {
         biaInputRef.current?.click();
     };
 
+    const handleOtherImagesClick = () => {
+        otherImagesInputRef.current?.click();
+    };
+
     const handleLogoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
@@ -81,6 +87,29 @@ const Create_Brand_form = () => {
         }
     };
 
+    const handleOtherImagesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(event.target.files || []);
+        if (files.length > 0) {
+            const newImages = files.map(file => ({
+                file,
+                url: URL.createObjectURL(file)
+            }));
+            const updatedImages = [...otherImages, ...newImages];
+            setOtherImages(updatedImages);
+            setValue("FileImages", updatedImages.map(img => img.file), { shouldValidate: true, shouldDirty: true });
+        }
+        // Reset input value to allow selecting same file again if removed
+        if (otherImagesInputRef.current) {
+            otherImagesInputRef.current.value = '';
+        }
+    };
+
+    const handleRemoveOtherImage = (indexToRemove: number) => {
+        const updatedImages = otherImages.filter((_, idx) => idx !== indexToRemove);
+        setOtherImages(updatedImages);
+        setValue("FileImages", updatedImages.length > 0 ? updatedImages.map(img => img.file) : undefined, { shouldValidate: true, shouldDirty: true });
+    };
+
     const HandleOnError = (fieldErrors: any) => {
         const errorValues = Object.values(fieldErrors);
         if (errorValues.length > 0) {
@@ -96,6 +125,7 @@ const Create_Brand_form = () => {
                 reset();
                 setLogoImage(null);
                 setBiaImage(null);
+                setOtherImages([]);
                 setIdBrandOwner(null);
             }
         });
@@ -260,6 +290,37 @@ const Create_Brand_form = () => {
                                                             <span className="text-xs text-slate-500 font-medium">Tải ảnh bìa (Banner)</span>
                                                         </>
                                                     )}
+                                                </div>
+                                            </div>
+
+                                            {/* Ảnh khác */}
+                                            <div>
+                                                <label className="block text-sm font-semibold text-slate-700 mb-2">Ảnh khác (Không bắt buộc)</label>
+                                                <input type="file" ref={otherImagesInputRef} onChange={handleOtherImagesChange} accept="image/*" multiple className="hidden" />
+                                                <div className="grid grid-cols-2 gap-4">
+                                                    {otherImages.map((img, idx) => (
+                                                        <div key={idx} className="relative w-full h-24 rounded-xl border border-slate-200 overflow-hidden group">
+                                                            <img src={img.url} alt={`Other ${idx}`} className="object-cover w-full h-full" />
+                                                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                                                <button 
+                                                                    type="button"
+                                                                    onClick={(e) => { e.stopPropagation(); handleRemoveOtherImage(idx); }}
+                                                                    className="p-1.5 bg-red-500 text-white rounded-full hover:bg-red-600"
+                                                                >
+                                                                    <IoClose className="text-sm" />
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                    <div 
+                                                        className="w-full h-24 rounded-xl bg-white border-2 border-dashed border-slate-200 hover:border-blue-400 hover:bg-blue-50/50 cursor-pointer overflow-hidden flex flex-col items-center justify-center transition-all group"
+                                                        onClick={handleOtherImagesClick}
+                                                    >
+                                                        <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center mb-1 group-hover:bg-blue-100 transition-colors">
+                                                            <span className="text-xl text-slate-400 group-hover:text-blue-500 font-medium">+</span>
+                                                        </div>
+                                                        <span className="text-xs text-slate-500 font-medium">Thêm ảnh</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

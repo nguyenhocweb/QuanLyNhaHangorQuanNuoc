@@ -7,9 +7,9 @@ export const updateBrandBasicByAdminValidator = z.object({
     }),
     body: z.object({
         name: demoValidator.chuoi("Tên thương hiệu").optional(),
-        tax_code: demoValidator.chuoi("Mã số thuế").max(100, "Mã số thuế không được vượt quá 100 ký tự").optional().nullable(),
-        email_contact: demoValidator.email().optional().nullable(),
-        phone_contact: demoValidator.chuoi("Số điện thoại liên hệ").max(20, "Số điện thoại không được vượt quá 20 ký tự").optional().nullable(),
+        tax_code: z.preprocess((val) => val === "" ? undefined : val, demoValidator.chuoi("Mã số thuế").max(100, "Mã số thuế không được vượt quá 100 ký tự").optional().nullable()),
+        email_contact: z.preprocess((val) => val === "" ? undefined : val, demoValidator.email().optional().nullable()),
+        phone_contact: z.preprocess((val) => val === "" ? undefined : val, demoValidator.chuoi("Số điện thoại liên hệ").max(20, "Số điện thoại không được vượt quá 20 ký tự").optional().nullable()),
         link: z.preprocess(
             (value) => {
                 if (typeof value !== "string") return undefined;

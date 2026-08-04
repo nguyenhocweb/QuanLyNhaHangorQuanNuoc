@@ -1,31 +1,15 @@
-import { Div, P, H } from "@/src/core/components/ui"
-import Dashboard_Stats_component from "@/src/features/system_admin/dashboard/dashboard/dashboard_component/dashBoard_stats_component"
-import DashboardBrand_component from "@/src/features/system_admin/dashboard/dashboard/dashboard_component/dashBoard_brand_component"
-import Create_Brand_form from "@/src/features/system_admin/brands/brands_components/Create_Brand_form"
-import SystemDashboardChart_component from "@/src/features/system_admin/dashboard/dashboard/dashboard_component/SystemDashboardChart_component";
+import React from 'react';
+import Dashboard_Stats_component from '@/src/features/system_admin/dashboard/dashboard/dashboard_component/dashBoard_stats_component';
 
-const SystemDashboardPage = () => {
+export default function SystemAdminDashboardPage() {
     return (
-        <Div
-            vitri="col_none"
-            size="full"
-            className="p-10"
-        >
-            <P className="text-gray-500">Quản trị viên hệ thống</P>
-            <H variant="text_black" className="text-2xl">Bảng điều khiển thổng quan</H>
-            <Div vitri="col_none" size="full" gap="g5_6">
-                <Dashboard_Stats_component />
-                <Div size="full" className="lg:justify-between items-start" gap="g4_5">
-                    <Div vitri="col_none" className="lg:w-2/3" gap="g5_6">
-                        <SystemDashboardChart_component />
-                        <DashboardBrand_component />
-                    </Div>
-                    <Div className="lg:w-1/3 " vitri="col_none">
-                        <Create_Brand_form />
-                    </Div>
-                </Div>
-            </Div>
-        </Div>
-    )
+        <div className="w-full flex flex-col gap-6 max-w-[1400px] mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col gap-1">
+                <h1 className="text-2xl font-bold text-gray-900">Tổng quan Hệ thống</h1>
+                <p className="text-gray-500 text-sm">Giám sát các chỉ số kinh doanh, quản lý thương hiệu và tài khoản người dùng.</p>
+            </div>
+            
+            <Dashboard_Stats_component />
+        </div>
+    );
 }
-export default SystemDashboardPage;

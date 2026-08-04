@@ -7,6 +7,7 @@ import { ReservationForm } from "@/src/features/customer/reservation/reservation
 import ScrollMenu from "@/src/core/components/layout/ScrollMenu";
 import { toast } from "sonner"
 import { useCreateReservation } from "@/src/features/customer/reservation/reservation_hook/useCreateReservation_hook";
+import useRealtimeUpdates from "@/src/core/hooks/useRealtimeUpdates";
 
 const tableLegend = [
     { key: "empty", label: "Còn trống" },
@@ -16,7 +17,7 @@ const tableLegend = [
 ];
 
 const TableComponent = ({ data1, onclick }: { data1: ReservationForm, onclick: () => void }) => {
-    
+    useRealtimeUpdates(data1.idRestaurant);
     const { mutate: createResvervation, isPending } = useCreateReservation()
     
     const { data, isLoading } = useTableHook({

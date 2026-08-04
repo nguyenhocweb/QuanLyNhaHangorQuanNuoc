@@ -25,13 +25,32 @@ export interface Brand {
     isFeatured: boolean;
     isNew: boolean;
     restaurantCount: number;
+    templateId?: string;
+    template?: {
+        code: string;
+    };
     subscriptions?: {
         plan: {
             name: string;
             price: number;
+            maxRestaurants: number;
         }
     }[];
-    restaurants: any[];
+    restaurants: {
+        id: string;
+        name: string;
+        imageMain?: string;
+        address?: {
+            street?: string;
+            ward?: string;
+            district?: string;
+            province?: string;
+        };
+        averageRating?: number;
+        categories?: { name: string }[];
+        tags?: { name: string }[];
+        createdAt: string;
+    }[];
     employments?: {
         user: {
             id: string;

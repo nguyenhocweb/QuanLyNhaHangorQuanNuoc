@@ -9,7 +9,7 @@ export const getRestaurantsService = async ({ page, limit, search, status, city,
         where.name = { contains: search, mode: 'insensitive' };
     }
     if (status !== 'all') {
-        where.isActive = status === 'true' ? 'ACTIVE' : 'INACTIVE';
+        where.statusByAdmin = status === 'true' ? 'ACTIVE' : 'INACTIVE';
     }
     if (city) {
         where.address = { is: { province: city } };
@@ -24,8 +24,8 @@ export const getRestaurantsService = async ({ page, limit, search, status, city,
     const [data, totalRecords, totalActive, totalInactive, totalNew] = await Promise.all([
         getRestaurants(where, skip, limit),
         countRestaurants(where),
-        countRestaurants({ isActive: 'ACTIVE' }),
-        countRestaurants({ isActive: 'INACTIVE' }),
+        countRestaurants({ statusByAdmin: 'ACTIVE' }),
+        countRestaurants({ statusByAdmin: { in: ['INACTIVE', 'TERMINATED'] } }),
         countRestaurants({ isNew: true })
     ]);
 

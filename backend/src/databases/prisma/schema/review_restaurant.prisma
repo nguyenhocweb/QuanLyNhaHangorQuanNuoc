@@ -16,9 +16,10 @@ model Review_Restaurant {
   ambiance_rating Int? // đánh giá không gian quán
 
   comment String? // bình luận 
+  images        String[]
+  helpful_count Int @default(0)
 
-  is_public Boolean @default(true) // có công khia bình luận hay không 
-
+  status ReviewStatus @default(APPROVED) // trạng thái duyệt bình luận
   staff_response String? // phản hồi từ nhà hàng
 
   createdAt DateTime @default(now())

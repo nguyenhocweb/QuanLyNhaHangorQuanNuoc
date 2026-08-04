@@ -17,12 +17,12 @@ type LoginResponse = {
       name:string,
       isSelect:boolean
    }[],
-   restaurantId?: {
+   restaurant?: {
       id:string
       name:string,
       isSelect:boolean
    }[],
-   permissios?:string[],
+   permissions?:string[],
    createdAt: Date,
    updatedAt: Date
 }

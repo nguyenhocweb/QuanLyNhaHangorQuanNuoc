@@ -1,0 +1,12 @@
+model ModifierGroup {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  menuItemId    String   @db.ObjectId
+  name          String   // e.g. "Lượng Đường", "Thêm Topping"
+  minSelections Int      @default(0)
+  maxSelections Int      @default(1)
+  
+  menuItem      MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  options       ModifierOption[]
+
+  @@map("modifier_groups")
+}

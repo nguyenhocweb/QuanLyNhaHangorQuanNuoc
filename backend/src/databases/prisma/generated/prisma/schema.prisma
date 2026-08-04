@@ -4,7 +4,7 @@ model Category_Restaurant {
   isActive      Boolean      @default(true)
   description   String?
   bgColor       String?      @default("#EEF2FF") // Default indigo-50
-  textColor     String?      @default("#6366F1") // Default indigo-500
+  textColor     String?      @default("#000000ff") // Default indigo-500
   // Quan hệ ngược lại với Restaurant
   restaurantIds String[]     @db.ObjectId
   restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
@@ -22,7 +22,7 @@ model Employment {
   userId String @db.ObjectId
   user   User   @relation(fields: [userId], references: [id])
 
-  // LÀM CHỨC VỤ GÌ?
+  // LÀM CHỨC VỤ GÌ? 
   per_vs_emp Permission_vs_Employment[]
 
   // Ở ĐÂU? (Ngữ cảnh)
@@ -46,11 +46,54 @@ model Employment {
   @@map("employments")
 }
 
+model Ingredient {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId     String @db.ObjectId
+  sku         String @unique
+  name        String
+  unit        String // "ml", "gram"
+  costPerUnit Float
+
+  recipes Recipe[]
+
+  @@map("ingredients")
+}
+
+model ItemCategoryMap {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  categoryId String       @db.ObjectId
+  category   MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  menuItemId String   @db.ObjectId
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  sort_order Int @default(0)
+
+  @@unique([categoryId, menuItemId])
+  @@index([categoryId])
+  @@index([menuItemId])
+  @@map("item_category_maps")
+}
+
+model ItemVariant {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  menuItemId String @db.ObjectId
+  name       String // e.g. "Size S", "Size M"
+  sku        String @unique
+  price      Float // Giá thay thế cho basePrice
+
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  recipes  Recipe[]
+
+  @@map("item_variants")
+}
+
 model MenuCategory {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  menuId String @db.ObjectId
-  menu   Menu   @relation(fields: [menuId], references: [id])
+  brandId String? @db.ObjectId
+  brand   Brand?  @relation(fields: [brandId], references: [id])
 
   name        String
   description String?
@@ -58,11 +101,53 @@ model MenuCategory {
   sort_order Int     @default(0)
   is_active  Boolean @default(true)
 
-  items MenuItem[]
+  menuMaps MenuCategoryMap[]
+  itemMaps ItemCategoryMap[]
 
-  @@unique([menuId, name])
-  @@index([menuId])
+  @@index([brandId])
   @@map("menu_categories")
+}
+
+model MenuCategoryMap {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  menuId String @db.ObjectId
+  menu   Menu   @relation(fields: [menuId], references: [id], onDelete: Cascade)
+
+  categoryId String       @db.ObjectId
+  category   MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  sort_order Int @default(0)
+
+  @@unique([menuId, categoryId])
+  @@index([menuId])
+  @@index([categoryId])
+  @@map("menu_category_maps")
+}
+
+model ModifierGroup {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  menuItemId    String @db.ObjectId
+  name          String // e.g. "Lượng Đường", "Thêm Topping"
+  minSelections Int    @default(0)
+  maxSelections Int    @default(1)
+
+  menuItem MenuItem         @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  options  ModifierOption[]
+
+  @@map("modifier_groups")
+}
+
+model ModifierOption {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  modifierGroupId String @db.ObjectId
+  name            String
+  priceExtra      Float  @default(0) // Phụ thu
+
+  group   ModifierGroup @relation(fields: [modifierGroupId], references: [id], onDelete: Cascade)
+  recipes Recipe[]
+
+  @@map("modifier_options")
 }
 
 model Notifications {
@@ -117,13 +202,50 @@ model Promotion {
   usage_limit Int? // Tổng số lần mã có thể dùng
   used_count  Int      @default(0)
 
-  brandId      String? @db.ObjectId
-  restaurantId String? @db.ObjectId
+  image String?
+
+  brandId      String?     @db.ObjectId
+  brand        Brand?      @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
   @@map("promotions")
+}
+
+model Recipe {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  ingredientId String @db.ObjectId
+
+  menuItemId       String? @db.ObjectId
+  variantId        String? @db.ObjectId
+  modifierOptionId String? @db.ObjectId
+
+  quantityRequired Float
+
+  ingredient     Ingredient      @relation(fields: [ingredientId], references: [id], onDelete: Cascade)
+  menuItem       MenuItem?       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  variant        ItemVariant?    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  modifierOption ModifierOption? @relation(fields: [modifierOptionId], references: [id], onDelete: Cascade)
+
+  @@map("recipes")
+}
+
+model RestaurantMenuItem {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String @db.ObjectId
+  menuItemId   String @db.ObjectId
+
+  isAvailable   Boolean @default(true) // Hết hàng cục bộ
+  overridePrice Float? // Giá bán ghi đè
+
+  menuItem   MenuItem   @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@unique([restaurantId, menuItemId])
+  @@map("restaurant_menu_items")
 }
 
 model RestaurantPaymentConfig {
@@ -132,7 +254,7 @@ model RestaurantPaymentConfig {
   restaurantId String @db.ObjectId
   brandId      String @db.ObjectId
 
-  provider PaymentMethod
+  systemPaymentMethodId String @db.ObjectId
 
   // JSON config (MongoDB rất hợp cho field này)
   configData Json
@@ -146,7 +268,9 @@ model RestaurantPaymentConfig {
   restaurant Restaurant @relation(fields: [restaurantId], references: [id])
   brand      Brand      @relation(fields: [brandId], references: [id])
 
-  @@unique([restaurantId, provider])
+  systemPaymentMethod SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
+
+  @@unique([restaurantId, systemPaymentMethodId])
   @@map("restaurant_payment_configs")
 }
 
@@ -156,7 +280,7 @@ model Transaction {
   orderId String @db.ObjectId
   amount  Float
 
-  provider PaymentMethod
+  systemPaymentMethodId String @db.ObjectId
 
   externalTransactionId String?
 
@@ -167,7 +291,8 @@ model Transaction {
   createdAt DateTime @default(now())
 
   // Relation
-  order Order @relation(fields: [orderId], references: [id])
+  order               Order               @relation(fields: [orderId], references: [id])
+  systemPaymentMethod SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
 
   @@index([orderId])
   @@index([externalTransactionId])
@@ -216,15 +341,16 @@ model User {
   //tạo liên kết 
 
   // --- Các Relations (Liên kết tới các vai trò của User) ---
-  employments           Employment[] // Liên kết: User này làm nhân viên ở đâu? có or ko 
-  roleId                String                  @db.ObjectId // Liên kết : User này là khách hàng hay admin
-  role                  Role                    @relation(fields: [roleId], references: [id])
-  reservations          Reservations[] //khách hàng đặt bàn
-  review_restaurant     Review_Restaurant[] // người đánh fias nhà hàng
-  reservation_audit_log Reservation_Audit_Log[] // thay đổi đặt 
-  notifications         Notifications[]
-  ordersTaken           Order[]                 @relation("EmployeeOrders")
-  upgradeRequest        UpgradeRequest?
+  employments                   Employment[] // Liên kết: User này làm nhân viên ở đâu? có or ko 
+  roleId                        String                         @db.ObjectId // Liên kết : User này là khách hàng hay admin
+  role                          Role                           @relation(fields: [roleId], references: [id])
+  reservations                  Reservations[] //khách hàng đặt bàn
+  review_restaurant             Review_Restaurant[] // người đánh fias nhà hàng
+  reservation_audit_log         Reservation_Audit_Log[] // thay đổi đặt 
+  notifications                 Notifications[]
+  ordersTaken                   Order[]                        @relation("EmployeeOrders")
+  upgradeRequest                UpgradeRequest?
+  brandSubscriptionTransactions BrandSubscriptionTransaction[]
 
   @@index([roleId])
   @@index([name])
@@ -253,35 +379,78 @@ datasource db {
 }
 
 model Brand {
-  id              String                    @id @default(auto()) @map("_id") @db.ObjectId
-  name            String                    @unique
-  logo            String?
-  email_contact   String?
-  phone_contact   String?
-  description     String?
-  tax_code        String?
-  link            String?
-  imageMain       String?
-  images          String[]
-  isActive        isActive                  @default(PENDING)
-  reason          String?
-  address         LocationAddress?
-  isFeatured      Boolean                   @default(false) // 👈 tiêu biểu
-  isNew           Boolean                   @default(true)
-  restaurantCount Int                       @default(0) // Số lượng nhà hàng hiện có
-  subscriptions   BrandSubscription[] // Lịch sử các gói cước đã đăng ký
-  restaurants     Restaurant[] // 1 Brand có nhiều Nhà hàng
-  employments     Employment[] // Nhân sự cấp Brand
-  menu            Menu[]
-  items           MenuItem[]
-  paymentConfigs  RestaurantPaymentConfig[]
-  createdAt       DateTime                  @default(now())
-  updatedAt       DateTime                  @updatedAt
+  id                  String                    @id @default(auto()) @map("_id") @db.ObjectId
+  name                String                    @unique
+  logo                String?
+  email_contact       String?
+  phone_contact       String?
+  description         String?
+  tax_code            String?
+  link                String?
+  imageMain           String?
+  images              String[]
+  isActive            isActive                  @default(PENDING)
+  reason              String?
+  address             LocationAddress?
+  isFeatured          Boolean                   @default(false) // 👈 tiêu biểu
+  isNew               Boolean                   @default(true)
+  restaurantCount     Int                       @default(0) // Số lượng nhà hàng hiện có
+  subscriptions       BrandSubscription[] // Lịch sử các gói cước đã đăng ký
+  restaurants         Restaurant[] // 1 Brand có nhiều Nhà hàng
+  employments         Employment[] // Nhân sự cấp Brand
+  menu                Menu[]
+  menuCategories      MenuCategory[]
+  items               MenuItem[]
+  paymentConfigs      RestaurantPaymentConfig[]
+  brandPaymentConfigs BrandPaymentConfig[]
+  brandRevenues       BrandRevenue[]
+  restaurantRevenues  RestaurantRevenue[]
+  promotions          Promotion[]
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
 
   @@index([isActive])
   @@index([createdAt])
   @@index([isActive, isFeatured])
   @@map("brands")
+}
+
+model BrandPaymentConfig {
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId               String @db.ObjectId
+  systemPaymentMethodId String @db.ObjectId
+
+  configData Json // API keys, secret keys của Brand
+  isActive   Boolean @default(true)
+  isTestMode Boolean @default(true)
+
+  brand               Brand               @relation(fields: [brandId], references: [id])
+  systemPaymentMethod SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([brandId, systemPaymentMethodId])
+  @@index([isActive])
+  @@map("brand_payment_configs")
+}
+
+model BrandRevenue {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  brandId     String  @db.ObjectId
+  amount      Float
+  source      String // VD: "RESTAURANT_ORDER"
+  referenceId String? @db.ObjectId
+  description String?
+
+  brand Brand @relation(fields: [brandId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([brandId])
+  @@index([brandId, createdAt])
+  @@index([brandId, source])
+  @@map("brand_revenues")
 }
 
 model BrandSubscription {
@@ -296,12 +465,43 @@ model BrandSubscription {
   brand Brand            @relation(fields: [brandId], references: [id])
   plan  SubscriptionPlan @relation(fields: [planId], references: [id])
 
+  transactions BrandSubscriptionTransaction[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([brandId])
   @@index([status])
   @@map("brand_subscriptions")
+}
+
+model BrandSubscriptionTransaction {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  brandSubscriptionId String            @db.ObjectId
+  brandSubscription   BrandSubscription @relation(fields: [brandSubscriptionId], references: [id])
+
+  amount Float
+
+  userId String @db.ObjectId // Người thanh toán
+  user   User   @relation(fields: [userId], references: [id])
+
+  systemPaymentMethodId String              @db.ObjectId
+  systemPaymentMethod   SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
+
+  externalTransactionId String? // VD: Mã giao dịch VNPay/Momo/VietQR
+
+  status TransactionStatus
+
+  rawResponse Json? // Lưu kết quả trả về từ cổng thanh toán
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandSubscriptionId])
+  @@index([userId])
+  @@index([externalTransactionId])
+  @@map("brand_subscription_transactions")
 }
 
 enum Gender {
@@ -345,12 +545,26 @@ enum TableShape {
   ROUND // table dạng tròn
   RECT // table dạng chữ nhật
   LONG // table dạng dài
+  SQUARE
+  CIRCLE
+  OVAL
+  TRIANGLE
+  HEXAGON
+  STAR
+  LINE
 }
 
 enum TableStatus {
   ACTIVE // hoạt động
   INACTIVE // không dùng
   MAINTENANCE // dang sữa
+}
+
+enum MaintenanceStatus {
+  SCHEDULED // Sắp diễn ra
+  IN_PROGRESS // Đang bảo trì
+  COMPLETED // Đã hoàn thành
+  CANCELLED // Đã hủy
 }
 
 enum ScheduleType {
@@ -429,13 +643,6 @@ enum KitchenStatus {
   CANCELLED //ĐÃ HỦY CHẾ BIẾN 
 }
 
-enum PaymentMethod {
-  CASH //ĐÃ HỦY CHẾ BIẾN
-  CARD //THẺ (ATM/VISA/MASTER)
-  MOMO // VÍ MOMO
-  ZALOPAY //VÍ ZALOPAY 
-}
-
 enum providerType {
   GOOGLE
   FACEBOOK
@@ -482,19 +689,34 @@ enum SubscriptionStatus {
   CANCELLED // Đã hủy
 }
 
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED_SPAM
+}
+
+enum TableType {
+  STANDARD // Bàn tiêu chuẩn
+  VIP // Bàn VIP
+  BAR_SEATING // Ghế quầy Bar
+  SOFA // Bàn Sofa
+  PRIVATE_ROOM // Phòng riêng
+  OUTDOOR // Bàn ngoài sân
+}
+
 model Menu {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   brandId String? @db.ObjectId
   brand   Brand?  @relation(fields: [brandId], references: [id])
 
-  restaurantId String?        @db.ObjectId
-  restaurant   Restaurant?    @relation(fields: [restaurantId], references: [id])
+  restaurantId String?           @db.ObjectId
+  restaurant   Restaurant?       @relation(fields: [restaurantId], references: [id])
   name         String // tên menu đó Main Menu
   description  String?
-  is_active    Boolean        @default(true) // còn sử dụng không hay tạm hết 
-  sort_order   Int            @default(0) // thứ tự nằm trong bảng menu 0 đứng trước ...
-  menucategory MenuCategory[]
+  is_active    Boolean           @default(true) // còn sử dụng không hay tạm hết 
+  sort_order   Int               @default(0) // thứ tự nằm trong bảng menu 0 đứng trước ...
+  categoryMaps MenuCategoryMap[]
 
   @@index([brandId])
   @@index([restaurantId])
@@ -504,44 +726,41 @@ model Menu {
 model MenuItem {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  categoryId String       @db.ObjectId
-  category   MenuCategory @relation(fields: [categoryId], references: [id])
+  categoryMaps ItemCategoryMap[]
 
   brandId String? @db.ObjectId
   brand   Brand?  @relation(fields: [brandId], references: [id])
 
-  restaurantId String?     @db.ObjectId
-  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
-
+  sku         String   @unique
   name        String
   description String?
-  image       String
+  image       String?
   images      String[]
 
-  base_price Int // giá gốc
+  basePrice Float // Giá niêm yết chuẩn toàn hệ thống
 
-  discount_percent Float? // phần trăm giảm giá
-  discount_until   DateTime? // ngày kết thúc giảm giá
+  item_type   ItemType?
+  allergens   String[]
+  spice_level Int?
+  prep_time   Int?
 
-  item_type ItemType?
-  allergens String[] // thành phần món ăn để biết khách có bị dị ứng hay không
+  isActive    Boolean @default(true)
+  is_featured Boolean @default(false)
 
-  spice_level  Int? // độ cay
-  prep_time    Int? // thời gian chuẩn bị dự kiến 
-  is_available Boolean @default(true) // còn bán hay không
-  is_featured  Boolean @default(false) // món có hot không
+  sort_order Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  sort_order Int         @default(0)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
   orderItems OrderItem[]
 
-  @@index([restaurantId, is_available, sort_order])
-  @@index([restaurantId, categoryId, is_available])
-  @@index([brandId, is_available])
-  @@index([is_featured, is_available])
-  @@index([discount_until, is_available])
-  @@index([createdAt, is_featured, is_available])
+  variants       ItemVariant[]
+  modifierGroups ModifierGroup[]
+  restaurantMaps RestaurantMenuItem[]
+  recipes        Recipe[]
+
+  @@index([brandId, isActive])
+  @@index([is_featured, isActive])
+  @@index([createdAt, is_featured, isActive])
   @@index([name])
   @@map("menu_items")
 }
@@ -574,8 +793,15 @@ model Operating_Hours {
 model Order {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  reservationId String       @db.ObjectId
-  reservation   Reservations @relation(fields: [reservationId], references: [id])
+  reservationId String?       @db.ObjectId
+  reservation   Reservations? @relation(fields: [reservationId], references: [id])
+
+  isTakeaway Boolean @default(false)
+  version    Int     @default(1)
+  taxDetails Json?
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
 
   tableId String? @db.ObjectId
   table   Tables? @relation(fields: [tableId], references: [id])
@@ -592,8 +818,9 @@ model Order {
   tax_amount      Float
   total_amount    Float
 
-  payment_method PaymentMethod?
-  paid_at        DateTime?
+  systemPaymentMethodId String?              @db.ObjectId
+  systemPaymentMethod   SystemPaymentMethod? @relation(fields: [systemPaymentMethodId], references: [id])
+  paid_at               DateTime?
 
   items        OrderItem[]
   transactions Transaction[]
@@ -623,8 +850,9 @@ model OrderItem {
   discountAmount Float @default(0)
   totalPrice     Float
 
-  note   String?
-  status KitchenStatus @default(QUEUED)
+  note    String?
+  status  KitchenStatus @default(QUEUED)
+  version Int           @default(1)
 
   createdAt DateTime @default(now())
 
@@ -772,7 +1000,10 @@ model Restaurant {
   email_contact String?
   phone_contact String?
   description   String?
-  isActive      isActive         @default(ACTIVE)
+  statusByAdmin isActive         @default(PENDING)
+  reasonByAdmin String?
+  statusByBrand isActive         @default(ACTIVE)
+  reasonByBrand String?
   imageMain     String
   images        String[]
   slug          String?
@@ -791,8 +1022,9 @@ model Restaurant {
   operating_hours         Operating_Hours[]
   special_schedules       Special_Schedules[] // giờ mở cửa or đóng đặc biệt
   reservations            Reservations[]
+  orders                  Order[]
   review_restaurant       Review_Restaurant[]
-  items                   MenuItem[]
+  menuItems               RestaurantMenuItem[]
   weightedScore           Float
   totalRating             Int // tổng luyowtj đánh giá
   averageRating           Float                     @default(0.0) // trung bình đánh giá
@@ -800,15 +1032,46 @@ model Restaurant {
   average_service_rating  Float                     @default(0.0) // trung bình đnahs giá phục vụ
   average_ambiance_rating Float                     @default(0.0) // trung bình đánh giá không gian quán
   paymentConfigs          RestaurantPaymentConfig[]
+  restaurantRevenues      RestaurantRevenue[]
   categoryIds             String[]                  @db.ObjectId
   categories              Category_Restaurant[]     @relation(fields: [categoryIds], references: [id])
 
-  @@index([brandId, isActive]) // theo brand
-  @@index([isActive, createdAt]) // list + pagination
-  @@index([averageRating]) // sort rating
-  @@index([averageRating, isActive]) // sort rating và còn hoạt động
-  @@index([weightedScore, isActive, isNew]) // đang hoạt động và có điểm cao 
+  promotions Promotion[]
+  events     Restaurant_Event[]
+
+  amenityIds String[]               @db.ObjectId
+  amenities  Restaurant_Amenities[] @relation(fields: [amenityIds], references: [id])
+
+  tagIds String[] @db.ObjectId
+  tags   Tags[]   @relation(fields: [tagIds], references: [id])
+
+  policies          RestaurantPolicy[]
+  social_links      SocialLink[]
+  faqs              Faq[]
+  delivery_partners DeliveryPartner[]
+
+  table_maintenance_schedules Table_Maintenance_Schedules[]
+
+  @@index([brandId, statusByAdmin]) // Admin filter theo brand
+  @@index([brandId, statusByBrand]) // Brand tự filter theo trạng thái của họ
+  @@index([statusByAdmin, statusByBrand, createdAt]) // list + pagination (lọc cả 2 trạng thái)
+  @@index([averageRating]) // sort rating cơ bản
+  @@index([averageRating, statusByAdmin, statusByBrand]) // sort rating cho các nhà hàng còn hoạt động
+  @@index([weightedScore, statusByAdmin, statusByBrand, isNew]) // đang hoạt động cả 2 phía và có điểm cao 
   @@map("restaurants")
+}
+
+model Restaurant_Amenities {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  icon        String?
+  description String?
+  createdAt   DateTime @default(now())
+
+  restaurantIds String[]     @db.ObjectId
+  restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
+
+  @@map("restaurant_amenities")
 }
 
 // khu vực tầng or table
@@ -823,11 +1086,77 @@ model Restaurant_Areas {
   floor_number    Int // tầng mấy
   is_active       isActive   @default(ACTIVE)
 
+  width          Float?  @default(1200) // Chiều rộng mặc định của Canvas
+  height         Float?  @default(800) // Chiều cao mặc định của Canvas
+  background_url String? // Background floor plan
+  obstacles      Json? // Mảng lưu trữ vật cản (tường, cửa, cây...)
+
   tabels Tables[]
 
   @@index([name])
   @@index([restaurantId, is_active])
   @@map("restaurant_areas")
+}
+
+type RestaurantPolicy {
+  name        String
+  description String
+}
+
+type SocialLink {
+  platform String
+  url      String
+}
+
+type Faq {
+  question String
+  answer   String
+}
+
+type DeliveryPartner {
+  name String
+  url  String
+  icon String?
+}
+
+model Restaurant_Event {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String?
+  image       String?
+  startDate   DateTime
+  endDate     DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([restaurantId, startDate])
+  @@map("restaurant_events")
+}
+
+model RestaurantRevenue {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String  @db.ObjectId
+  brandId      String  @db.ObjectId
+  amount       Float
+  source       String // VD: "ORDER_PAYMENT"
+  referenceId  String? @db.ObjectId // orderId
+  description  String?
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+  brand      Brand      @relation(fields: [brandId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([restaurantId])
+  @@index([brandId])
+  @@index([restaurantId, createdAt])
+  @@index([restaurantId, source])
+  @@index([referenceId])
+  @@map("restaurant_revenues")
 }
 
 model Review_Restaurant {
@@ -847,10 +1176,11 @@ model Review_Restaurant {
   service_rating  Int? // đánh giá dịch vụ
   ambiance_rating Int? // đánh giá không gian quán
 
-  comment String? // bình luận 
+  comment       String? // bình luận 
+  images        String[]
+  helpful_count Int      @default(0)
 
-  is_public Boolean @default(true) // có công khia bình luận hay không 
-
+  status         ReviewStatus @default(APPROVED) // trạng thái duyệt bình luận
   staff_response String? // phản hồi từ nhà hàng
 
   createdAt DateTime @default(now())
@@ -922,6 +1252,67 @@ model SubscriptionPlan {
   @@map("subscription_plans")
 }
 
+model SystemPaymentMethod {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String // Tên hiển thị (VD: MoMo, VNPay, Tiền mặt)
+  code        String  @unique // Mã code (VD: MOMO, VNPAY, CASH)
+  description String?
+  iconUrl     String?
+  isActive    Boolean @default(true)
+
+  systemConfig Json? // Các setting chung của hệ thống
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  brandConfigs                  BrandPaymentConfig[]
+  restaurantConfigs             RestaurantPaymentConfig[]
+  transactions                  Transaction[]
+  brandSubscriptionTransactions BrandSubscriptionTransaction[]
+  orders                        Order[]
+
+  @@index([isActive])
+  @@map("system_payment_methods")
+}
+
+model SystemRevenue {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  amount      Float
+  source      String // VD: "BRAND_SUBSCRIPTION", "SERVICE_FEE"
+  referenceId String? @db.ObjectId
+  description String?
+
+  createdAt DateTime @default(now())
+
+  @@index([source])
+  @@index([createdAt])
+  @@index([source, createdAt])
+  @@map("system_revenues")
+}
+
+model Table_Maintenance_Schedules {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  tableIds String[] @db.ObjectId
+  tables   Tables[] @relation(fields: [tableIds], references: [id])
+
+  start_time DateTime
+  end_time   DateTime
+  reason     String?
+  status     MaintenanceStatus @default(SCHEDULED)
+
+  created_by_staff_id String? @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([restaurantId])
+  @@index([start_time, end_time])
+  @@map("table_maintenance_schedules")
+}
+
 // tạo tabels cho nhà hàng 
 
 model Tables {
@@ -934,15 +1325,20 @@ model Tables {
   area         Restaurant_Areas @relation(fields: [areaId], references: [id])
   is_vip       Boolean          @default(false)
   table_number String
+  table_type   TableType        @default(STANDARD) // Phân loại bàn
 
   min_capacity Int // số lượng khách ít nhất
   max_capacity Int // số lượng khách nhiều nhất
 
   shape         TableShape?
+  color         String?
   is_combinable Boolean?    @default(false) // cho phép ghép table vs người khác hay không
 
-  pos_x Float? //  sơ đồ 
-  pos_y Float? //  table nhà hàng
+  pos_x    Float? //  sơ đồ tọa độ X
+  pos_y    Float? //  tọa độ Y
+  width    Float? @default(80) // Chiều rộng hiển thị trên sơ đồ
+  height   Float? @default(80) // Chiều cao hiển thị trên sơ đồ
+  rotation Float? @default(0) // Góc xoay của bàn
 
   status TableStatus @default(ACTIVE)
 
@@ -953,6 +1349,24 @@ model Tables {
   updatedAt DateTime @updatedAt
   orders    Order[]
 
+  maintenanceScheduleIds String[]                      @db.ObjectId
+  maintenance_schedules  Table_Maintenance_Schedules[] @relation(fields: [maintenanceScheduleIds], references: [id])
+
   @@unique([restaurantId, table_number])
   @@map("tables")
+}
+
+model Tags {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  textColor   String?  @default("#000000")
+  bgColor     String?  @default("#f3f4f6")
+  createdAt   DateTime @default(now())
+
+  restaurantIds String[]     @db.ObjectId
+  restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
+
+  @@map("tags")
 }

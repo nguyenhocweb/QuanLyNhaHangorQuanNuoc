@@ -11,11 +11,11 @@ model SystemPaymentMethod {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  brandConfigs                BrandPaymentConfig[]
-  restaurantConfigs           RestaurantPaymentConfig[]
-  transactions                Transaction[]
+  brandConfigs                  BrandPaymentConfig[]
+  restaurantConfigs             RestaurantPaymentConfig[]
+  transactions                  Transaction[]
   brandSubscriptionTransactions BrandSubscriptionTransaction[]
-  orders                      Order[]
+  orders                        Order[]
 
   @@index([isActive])
   @@map("system_payment_methods")

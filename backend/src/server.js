@@ -2,6 +2,7 @@ import app from "./app.js";
 import { appConfig } from "./config/app.config.js";
 
 import { connectDB, disconnectDB } from './databases/init.mongodb.js'; // Import logic DB bạn vừa viết
+import { initSocket } from './core/utils/socket.js';
 const port = appConfig.port;
 
 
@@ -13,8 +14,10 @@ const startServer = async () => {
     // 2. Nếu DB ngon lành -> Mới bật Server
     const server = app.listen(port, () => {
       console.log(`🚀 Server is running on: http://localhost:${port}`);
-
     });
+
+    // 3. Khởi tạo Socket.io
+    initSocket(server);
 
     // --- GRACEFUL SHUTDOWN (Tắt server an toàn chuẩn Senior) ---
     // Khi bấm Ctrl + C hoặc Server bị kill, code này sẽ chạy

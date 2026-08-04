@@ -1,7 +1,7 @@
 "use client"; // Đừng quên dòng này nếu dùng hook của Next.js App Router
 import { useSearchParams, useRouter } from "next/navigation";
 
-type CleanKey = "all" | "search" | "city" | "page" | "limit" | "pageMenuItem" | "pageRestaurant" | "categoryRestaurant" | "review";
+type CleanKey = "all" | "search" | "city" | "page" | "limit" | "pageMenuItem" | "pageRestaurant" | "categoryRestaurant" | "review" | "filter";
 
 export const usePagination = () => {
   const searchParams = useSearchParams();
@@ -9,15 +9,27 @@ export const usePagination = () => {
 
   // --- LẤY GIÁ TRỊ TỪ URL ---
   const currentPage = Number(searchParams.get("page") || 1);
-  const limit = Number(searchParams.get("limit") || 10);
+  const limit = Number(searchParams.get("limit") || 6);
   const MenuItemPage = Number(searchParams.get("pageMenuItem") || 1);
   const pageRestaurant = Number(searchParams.get("pageRestaurant") || 1);
   const searchKeyword = searchParams.get("search");
   const city = searchParams.get("city");
   const categoryRestaurant = searchParams.getAll("categoryRestaurant") || [];
   const review = Number(searchParams.get("review")) || undefined;
+  const brandFilter = searchParams.get("filter") || "all";
 
   // --- CÁC HÀM SET ĐƠN LẺ ---
+  const setBrandFilter = (filterKey: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (filterKey === "all" || !filterKey) {
+      params.delete("filter");
+    } else {
+      params.set("filter", filterKey);
+    }
+    params.set("page", "1");
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
+
   const setPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("page", String(page));
@@ -39,6 +51,7 @@ export const usePagination = () => {
   const setLimit = (newLimit: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set("limit", String(newLimit));
+    params.set("page", "1");
     router.replace(`?${params.toString()}`, { scroll: false });
   };
 
@@ -110,6 +123,7 @@ export const usePagination = () => {
     pageRestaurant,
     categoryRestaurant,
     review,
+    brandFilter,
     
     // Các hàm hành động
     setPageRestaurant,
@@ -118,6 +132,7 @@ export const usePagination = () => {
     setLimit,
     setSearch,
     setCity,
+    setBrandFilter,
     clean,
     applyFiltersRestaurant, // Đã thêm hàm này vào đây!
   };

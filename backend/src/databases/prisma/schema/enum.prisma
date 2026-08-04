@@ -39,12 +39,27 @@ enum TableShape {
   ROUND // table dạng tròn
   RECT // table dạng chữ nhật
   LONG // table dạng dài
+  SQUARE
+  CIRCLE
+  OVAL
+  TRIANGLE
+  HEXAGON
+  STAR
+  LINE
 }
 
 enum TableStatus {
   ACTIVE // hoạt động
   INACTIVE // không dùng
   MAINTENANCE // dang sữa
+  CLEANING // đang dọn dẹp
+}
+
+enum MaintenanceStatus {
+  SCHEDULED // Sắp diễn ra
+  IN_PROGRESS // Đang bảo trì
+  COMPLETED // Đã hoàn thành
+  CANCELLED // Đã hủy
 }
 
 enum ScheduleType {
@@ -168,3 +183,24 @@ enum SubscriptionStatus {
   EXPIRED // Đã hết hạn
   CANCELLED // Đã hủy
 }
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED_SPAM
+}
+
+enum TableType {
+  STANDARD      // Bàn tiêu chuẩn
+  VIP           // Bàn VIP
+  BAR_SEATING   // Ghế quầy Bar
+  SOFA          // Bàn Sofa
+  PRIVATE_ROOM  // Phòng riêng
+  OUTDOOR       // Bàn ngoài sân
+}
+
+enum TemplateType {
+  BRAND_TEMPLATE
+  RESTAURANT_TEMPLATE
+}
+

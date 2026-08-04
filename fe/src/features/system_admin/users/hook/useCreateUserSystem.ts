@@ -14,7 +14,7 @@ export const useCreateUserSystem = () => {
     onSuccess: () => {
       toast.success("Tạo người dùng thành công!");
       // Invalidate the users query to trigger a refetch
-      queryClient.invalidateQueries({ queryKey: ["users-system"] });
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     },
     onError: (error: any) => {
       const message = error?.response?.data?.message || "Có lỗi xảy ra khi tạo người dùng";

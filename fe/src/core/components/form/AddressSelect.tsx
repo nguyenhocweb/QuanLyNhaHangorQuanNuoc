@@ -33,9 +33,9 @@ interface AddressSelectProps {
 const AddressSelect: React.FC<AddressSelectProps> = ({ value, onChange }) => {
     const [provinces, setProvinces] = useState<Province[]>([]);
     
-    // Internal state to hold selected objects
-    const [selectedProvince, setSelectedProvince] = useState<Province | null>(null);
-    const [selectedDistrict, setSelectedDistrict] = useState<District | null>(null);
+    // Derived state based on the current value prop
+    const selectedProvince = provinces.find((x: any) => x.code.toString() === value?.provinceCode) || null;
+    const selectedDistrict = selectedProvince?.districts?.find((x: any) => x.code.toString() === value?.districtCode) || null;
 
     useEffect(() => {
         // Load data from local JSON
@@ -43,27 +43,33 @@ const AddressSelect: React.FC<AddressSelectProps> = ({ value, onChange }) => {
             .then(res => res.json())
             .then(data => {
                 setProvinces(data);
-                
-                // Initialize selections based on passed value
-                if (value?.provinceCode) {
-                    const p = data.find((x: any) => x.code.toString() === value.provinceCode);
-                    if (p) {
-                        setSelectedProvince(p);
-                        if (value?.districtCode) {
-                            const d = p.districts?.find((x: any) => x.code.toString() === value.districtCode);
-                            if (d) setSelectedDistrict(d);
-                        }
-                    }
-                }
             })
             .catch(err => console.error("Error loading provinces:", err));
     }, []);
 
+    // Auto-detect codes if only names are provided (backward compatibility)
+    useEffect(() => {
+        const provinceName = value?.province || (value as any)?.city;
+        if (provinces.length > 0 && provinceName && !value?.provinceCode) {
+            const p = provinces.find(x => x.name === provinceName);
+            if (p) {
+                const d = p.districts?.find(x => x.name === value?.district);
+                const w = d?.wards?.find(x => x.name === value?.ward);
+                
+                onChange({
+                    ...value,
+                    provinceCode: p.code.toString(),
+                    province: p.name,
+                    districtCode: d ? d.code.toString() : "",
+                    wardCode: w ? w.code.toString() : ""
+                });
+            }
+        }
+    }, [provinces, value?.province, (value as any)?.city, value?.provinceCode]);
+
     const handleProvinceChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const code = e.target.value;
         const p = provinces.find(x => x.code.toString() === code) || null;
-        setSelectedProvince(p);
-        setSelectedDistrict(null); // Reset district & ward
         
         onChange({
             ...value,
@@ -79,7 +85,6 @@ const AddressSelect: React.FC<AddressSelectProps> = ({ value, onChange }) => {
     const handleDistrictChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const code = e.target.value;
         const d = selectedProvince?.districts?.find(x => x.code.toString() === code) || null;
-        setSelectedDistrict(d);
         
         onChange({
             ...value,

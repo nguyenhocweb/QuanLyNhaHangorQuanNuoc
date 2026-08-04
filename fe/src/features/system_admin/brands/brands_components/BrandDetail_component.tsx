@@ -226,13 +226,13 @@ const BrandDetailComponent = ({ brandId }: { brandId: string }) => {
                     )}
 
                     {/* Representative Card */}
-                    {brand.employments && brand.employments.length > 0 && (
-                        <div className="bg-white p-6 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 border-l-4 border-l-indigo-500">
-                            <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wider flex items-center gap-2">
-                                <FiUser className="text-indigo-500" /> Người đứng tên
-                            </h3>
-                            <div className="space-y-4">
-                                {brand.employments.map((emp, idx) => (
+                    <div className="bg-white p-6 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 border-l-4 border-l-indigo-500">
+                        <h3 className="text-sm font-bold text-slate-800 mb-4 uppercase tracking-wider flex items-center gap-2">
+                            <FiUser className="text-indigo-500" /> Người đứng tên
+                        </h3>
+                        <div className="space-y-4">
+                            {brand.employments && brand.employments.length > 0 ? (
+                                brand.employments.map((emp, idx) => (
                                     <div key={idx} className="flex items-center gap-3">
                                         {emp.user.avatar ? (
                                             <img src={emp.user.avatar} alt={emp.user.name} className="w-10 h-10 rounded-full border border-slate-200 object-cover" />
@@ -246,10 +246,12 @@ const BrandDetailComponent = ({ brandId }: { brandId: string }) => {
                                             <p className="text-xs text-slate-500 truncate">{emp.user.email} {emp.user.sdt ? `• ${emp.user.sdt}` : ''}</p>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
+                                ))
+                            ) : (
+                                <p className="text-sm text-slate-500 italic">Chưa có thông tin chủ sở hữu/người quản lý.</p>
+                            )}
                         </div>
-                    )}
+                    </div>
 
                     {/* Metadata Card */}
                     <div className="bg-white p-6 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100">

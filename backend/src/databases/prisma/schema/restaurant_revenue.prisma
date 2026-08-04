@@ -10,7 +10,7 @@ model RestaurantRevenue {
   restaurant Restaurant @relation(fields: [restaurantId], references: [id])
   brand      Brand      @relation(fields: [brandId], references: [id])
 
-  createdAt    DateTime @default(now())
+  createdAt DateTime @default(now())
 
   @@index([restaurantId])
   @@index([brandId])

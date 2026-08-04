@@ -3,6 +3,10 @@ model Restaurant {
 
   brandId       String?          @db.ObjectId
   brand         Brand?           @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  
+  templateId    String?          @db.ObjectId
+  template      Template?        @relation(fields: [templateId], references: [id])
+  
   logo          String?
   isNew         Boolean          @default(true)
   name          String?
@@ -10,7 +14,10 @@ model Restaurant {
   email_contact String?
   phone_contact String?
   description   String?
-  isActive      isActive         @default(ACTIVE)
+  statusByAdmin isActive         @default(PENDING)
+  reasonByAdmin String?
+  statusByBrand isActive         @default(ACTIVE)
+  reasonByBrand String?
   imageMain     String
   images        String[]
   slug          String?
@@ -29,8 +36,9 @@ model Restaurant {
   operating_hours         Operating_Hours[]
   special_schedules       Special_Schedules[] // giờ mở cửa or đóng đặc biệt
   reservations            Reservations[]
+  orders                  Order[]
   review_restaurant       Review_Restaurant[]
-  items                   MenuItem[]
+  menuItems               RestaurantMenuItem[]
   weightedScore           Float
   totalRating             Int // tổng luyowtj đánh giá
   averageRating           Float                     @default(0.0) // trung bình đánh giá
@@ -42,10 +50,28 @@ model Restaurant {
   categoryIds             String[]                  @db.ObjectId
   categories              Category_Restaurant[]     @relation(fields: [categoryIds], references: [id])
 
-  @@index([brandId, isActive]) // theo brand
-  @@index([isActive, createdAt]) // list + pagination
-  @@index([averageRating]) // sort rating
-  @@index([averageRating, isActive]) // sort rating và còn hoạt động
-  @@index([weightedScore, isActive, isNew]) // đang hoạt động và có điểm cao 
+  promotions Promotion[]
+  events     Restaurant_Event[]
+
+  amenityIds String[]               @db.ObjectId
+  amenities  Restaurant_Amenities[] @relation(fields: [amenityIds], references: [id])
+
+  tagIds String[] @db.ObjectId
+  tags   Tags[]   @relation(fields: [tagIds], references: [id])
+
+  policies          RestaurantPolicy[]
+  social_links      SocialLink[]
+  faqs              Faq[]
+  delivery_partners DeliveryPartner[]
+
+  table_maintenance_schedules Table_Maintenance_Schedules[]
+
+
+  @@index([brandId, statusByAdmin]) // Admin filter theo brand
+  @@index([brandId, statusByBrand]) // Brand tự filter theo trạng thái của họ
+  @@index([statusByAdmin, statusByBrand, createdAt]) // list + pagination (lọc cả 2 trạng thái)
+  @@index([averageRating]) // sort rating cơ bản
+  @@index([averageRating, statusByAdmin, statusByBrand]) // sort rating cho các nhà hàng còn hoạt động
+  @@index([weightedScore, statusByAdmin, statusByBrand, isNew]) // đang hoạt động cả 2 phía và có điểm cao 
   @@map("restaurants")
 }

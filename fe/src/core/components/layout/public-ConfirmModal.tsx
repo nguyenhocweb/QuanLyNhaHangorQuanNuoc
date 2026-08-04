@@ -131,33 +131,37 @@ export function ConfirmModal({
         </Div>
 
         {/* Footer Actions */}
-        <div className=" px-4 py-4 flex flex-row items-center justify-end gap-4 w-full rounded-b-2xl ">
+        <div className=" px-4 py-4 flex flex-row items-center justify-end gap-3 w-full rounded-b-2xl ">
           <Button
             variant="white"
             shape="square"
             sizea="p4_2"
-            className="w-28  disabled:opacity-70 disabled:cursor-not-allowed"
+            className="min-w-[7rem] max-w-[10rem] disabled:opacity-70 disabled:cursor-not-allowed"
             onClick={onClose}
             disabled={isLoading}
           >
-            {cancelText} 
+            <span className="truncate w-full text-center">
+              {cancelText} 
+            </span>
           </Button>
           
           <Button
             variant={currentStyle.btnVariant}
             shape="square"
             sizea="p4_2"
-            className="w-28 disabled:opacity-70 disabled:cursor-not-allowed"
+            className="min-w-[7rem] max-w-[12rem] disabled:opacity-70 disabled:cursor-not-allowed"
             onClick={onConfirm}
             disabled={isLoading}
           >
             {isLoading ? (
-              <>
-                <FiLoader className="mr-2 h-4 w-4 animate-spin" />
-                ...
-              </>
+              <span className="flex items-center justify-center truncate w-full">
+                <FiLoader className="mr-2 h-4 w-4 animate-spin shrink-0" />
+                Đang xử lý...
+              </span>
             ) : (
-              confirmText
+              <span className="truncate w-full text-center">
+                {confirmText}
+              </span>
             )}
           </Button>
         </div>

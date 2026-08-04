@@ -24,6 +24,9 @@ export const demoValidator = {
         required_error: `${name} là bắt buộc`,
         invalid_type_error: `${name} phải là chuỗi`
     }).trim().min(1, `${name} không để trống`),
+    chuoiKhongBatBuoc: (name) => z.string({
+        invalid_type_error: `${name} phải là chuỗi`
+    }).trim().optional(),
     soDienThoai: () => z.string({
         required_error: "Số điện thoại là bắt buộc",
         invalid_type_error: "Số điện thoại phải là chuỗi"

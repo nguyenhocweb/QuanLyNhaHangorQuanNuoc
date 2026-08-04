@@ -1,12 +1,15 @@
-"use client"
-import { Div } from "@/src/core/components/ui"
-import RestaurantComponent from "@/src/features/system_admin/restaurants/component/Restaurant_components"
+import React from 'react';
+import Restaurant_components from '@/src/features/system_admin/restaurants/component/Restaurant_components';
+import FadeIn from "@/src/core/components/animation/FadeIn";
 
-const SytemRestaurant = () => {
+export default function RestaurantsPage() {
     return (
-        <Div vitri="col_none" size="full" className="p-4 md:p-10 min-h-screen bg-gray-50/30">
-            <RestaurantComponent />
-        </Div>
-    )
+        <FadeIn className="w-full flex flex-col gap-6 max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+            <div className="flex flex-col gap-1">
+                <h1 className="text-2xl font-bold text-gray-900">Quản lý Nhà hàng</h1>
+                <p className="text-gray-500 text-sm">Danh sách toàn bộ nhà hàng, chi nhánh trên hệ thống.</p>
+            </div>
+            <Restaurant_components />
+        </FadeIn>
+    );
 }
-export default SytemRestaurant

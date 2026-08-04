@@ -12,11 +12,32 @@ model Promotion {
   usage_limit Int? // Tổng số lần mã có thể dùng
   used_count  Int      @default(0)
 
-  brandId      String? @db.ObjectId
-  restaurantId String? @db.ObjectId
+  image           String?
+
+  brandId      String?     @db.ObjectId
+  brand        Brand?      @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
 
+  userPromotions UserPromotion[]
+
   @@map("promotions")
+}
+
+model UserPromotion {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
+  user        User      @relation("UserSavedPromotions", fields: [userId], references: [id], onDelete: Cascade)
+  promotionId String    @db.ObjectId
+  promotion   Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+  isUsed      Boolean   @default(false)
+  usedAt      DateTime?
+  savedAt     DateTime  @default(now())
+
+  @@unique([userId, promotionId])
+  @@index([userId])
+  @@map("user_promotions")
 }

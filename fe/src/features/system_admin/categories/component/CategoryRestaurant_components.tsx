@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Div, Button, Input, Select, H, P } from "@/src/core/components/ui"
 import { FiSearch, FiEdit2, FiTrash2, FiLayers, FiChevronLeft, FiChevronRight, FiLoader, FiPlus, FiPlusCircle, FiLock } from "react-icons/fi";

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import FadeIn from "@/src/core/components/animation/FadeIn";
 import { useRevenueList } from "../hook/useRevenue_hook";
 import { useGetSubscriptions } from "../../subscriptions/hook/useSubscription_hook";
 import { H } from "../../../../core/components/ui";
@@ -62,6 +63,7 @@ export default function RevenueList() {
     const startIndex = (currentPage - 1) * itemsPerPage;
 
     return (
+        <FadeIn>
         <div className="p-6 max-w-7xl mx-auto space-y-6 w-full">
             {/* Header & Total */}
             <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
@@ -345,5 +347,6 @@ export default function RevenueList() {
                 />
             )}
         </div>
+        </FadeIn>
     );
 }

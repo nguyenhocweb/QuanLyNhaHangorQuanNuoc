@@ -6,4 +6,9 @@ import { A } from "./A";
 import { P } from "./P";
 import { Select } from "./Select";
 import { H } from "./H";
-export {Input,Div,Label,Button,A,P,Select,H}
+import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "./Table";
+
+export {
+  Input, Div, Label, Button, A, P, Select, H,
+  Table, TableHeader, TableBody, TableRow, TableHead, TableCell
+};

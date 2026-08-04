@@ -21,6 +21,9 @@ echo ==========================================
 echo Khoi dong Backend va Frontend
 echo ==========================================
 
+echo Dang khoi dong cac dich vu Docker (Redis)...
+call docker-compose up -d
+
 echo Dang don dep cac cong (port) bi ket de tranh loi...
 FOR /F "tokens=5" %%T IN ('netstat -a -n -o ^| findstr :4000') DO (
     taskkill /F /PID %%T >nul 2>&1

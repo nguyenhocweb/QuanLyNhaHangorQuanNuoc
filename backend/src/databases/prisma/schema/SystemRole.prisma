@@ -1,8 +1,0 @@
-model SystemRole {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  name        String  @unique
-  description String?
-  users       User[]
-
-  @@map("SystemRole")
-}

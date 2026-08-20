@@ -1,8 +1,0 @@
-model WorkspaceRole {
-  id          String       @id @default(auto()) @map("_id") @db.ObjectId
-  name        String       @unique
-  description String?
-  employments Employment[]
-
-  @@map("WorkspaceRole")
-}

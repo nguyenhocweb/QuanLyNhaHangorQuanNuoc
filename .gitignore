@@ -9,3 +9,10 @@ backend/.env
 # file hướng đẫn
 huongdanGithub.text
 node_modules
+
+# Ignore all markdown files except root README
+*.md
+!/README.md
+
+# Ignore agents config
+.agents/

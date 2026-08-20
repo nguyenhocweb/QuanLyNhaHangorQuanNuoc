@@ -16,3 +16,6 @@ node_modules
 
 # Ignore agents config
 .agents/
+
+!fe/README.md
+!backend/README.md

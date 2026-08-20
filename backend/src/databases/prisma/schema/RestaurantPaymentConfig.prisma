@@ -1,0 +1,23 @@
+model RestaurantPaymentConfig {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  restaurantId String   @db.ObjectId
+  brandId      String   @db.ObjectId
+
+  provider     PaymentMethod
+
+  // JSON config (MongoDB rất hợp cho field này)
+  configData   Json
+
+  isActive     Boolean  @default(true)
+  isTestMode   Boolean  @default(true)
+
+  createdAt    DateTime @default(now())
+
+  // Relations (optional nếu bạn đã có model)
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  brand        Brand      @relation(fields: [brandId], references: [id])
+  
+  @@unique([restaurantId, provider])
+  @@map("restaurant_payment_configs")
+}

@@ -1,0 +1,33 @@
+
+
+// 7. BẢNG PHÂN CÔNG CÔNG VIỆC (Mảnh ghép quan trọng nhất)
+// Trả lời câu hỏi: Ai? Làm chức vụ gì? Ở đâu?
+model Employment {
+  id           String      @id @default(auto()) @map("_id") @db.ObjectId
+  
+  // AI?
+  userId       String      @db.ObjectId
+  user         User        @relation(fields: [userId], references: [id])
+  
+  // LÀM CHỨC VỤ GÌ?
+  per_vs_emp   Permission_vs_Employment[]
+  
+  // Ở ĐÂU? (Ngữ cảnh)
+  brandId      String?     @db.ObjectId
+  brand        Brand?      @relation(fields: [brandId], references: [id])
+  
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+  
+  // lương
+  salary_type  salary_type?  // tính theo giờ or tháng sau này mở rộng ra table khác
+
+  createdAt    DateTime    @default(now())        // cho biết ngày vào làm
+  updatedAt    DateTime    @updatedAt             // cho biết cập nhật lúc nào
+
+  // Đảm bảo 1 user không bị gán trùng 1 role ở cùng 1 nhà hàng 2 lần
+  reservations   Reservations[]   // nhân viên phụ trách đặt bàn cho khách 
+  reservation_tables   Reservation_Tables[]   // nhân viên phụ trách phân table nếu có 
+  @@unique([userId,  restaurantId]) 
+  @@map("employments")
+}

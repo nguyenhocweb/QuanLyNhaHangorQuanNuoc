@@ -1,0 +1,130 @@
+enum Gender {
+    Nam
+    Nu
+    Khac
+}
+enum AccountStatus {
+  PENDING         // chờ xác minh
+  ACTIVE          // Hoạt động bình thường
+  INACTIVE        // Tạm khóa (Nghỉ việc/Chưa kích hoạt)
+  BANNED          // Cấm vĩnh viễn (Vi phạm)
+}
+enum isActive {
+    ACTIVE  // đang hoạt động
+    INACTIVE // tạm thời nghĩ
+    TERMINATED // nghĩ vĩnh viễn
+}
+enum role_enum {
+    BRAND
+    RESTAURANT
+}
+enum salary_type {
+     MONTHLY 
+     HOURLY
+}
+enum TableShape {
+    ROUND        // table dạng tròn
+    RECT         // table dạng chữ nhật
+    LONG          // table dạng dài
+}
+enum TableStatus {
+    ACTIVE         // hoạt động
+    INACTIVE       // không dùng
+    MAINTENANCE    // dang sữa
+}
+enum  ScheduleType {
+    HOLIDAY           // NGÀY LỄ
+    SPECIAL_HOURS     // thay đổi h mở của tạm thời
+    PRIVATE_EVENT      // sự kiện riêng
+    CLOSURE         // đóng tạm bảo trì....
+
+}
+enum  ReservationStatus{
+    PENDING         // chờ xác nhận
+    CONFIRMED       // đã xác nhận
+    SEATED          // khách đã tới
+    COMPLETED       //  khách đã ăn xong
+    CANCELLED      // khách đã hủy
+    NO_SHOW        // khách không tới
+}
+enum  ReservationSource {
+    WEB
+    MOBILE
+    PHONE
+    WALK_IN  // khách vãng lai đặt  ik bộ tới đặt
+    THIRD_PARTY // bên thứ 3 đặt dùm
+}
+enum  Occasion {
+    NORMAL      // Dùng bữa bình thường
+    BIRTHDAY    // Sinh nhật
+    ANNIVERSARY // Kỷ niệm (ngày cưới, yêu nhau...)
+    BUSINESS    // Tiếp khách/Công việc
+    DATE        // Hẹn hò cặp đôi
+    OTHER       // Khác
+}
+enum  NotificationStatus {
+    PENDING // ĐANG CHỜ GỬI
+    SENT // ĐÃ GỬI
+    DELIVERED // ĐÃ ĐẾN THIẾT BỊ
+    FAILED // GỬI LỖI
+    BOUNCED // EMAIL BỊ TRẢ LẠI
+}
+enum NotificationType {
+    
+    CONFIRMATION // XÁC NHẬN ĐẶT BÀN
+    REMINDER // NHẮC LỊCH
+    CANCELLATION // THÔNG BÁO HỦY
+    WAITLIST // THÔNG BÁO CÓ BÀN TRỐNG
+    CUSTOM // THÔNG BÁO KHÁC
+} 
+enum NotificationChannel {
+    EMAIL // SENDGRID
+    SMS // TWILIO
+    PUSH // FIREBASE
+    ZALO // ZALO OA
+    WHATSAPP // WHATSAPP API
+}
+enum OrderStatus {
+  OPEN  //ĐANG MỞ (ĐANG GỌI MÓN)
+  SENT_TO_KITCHEN //ĐÃ GỬI XUỐNG BẾP 
+  PARTIALLY_SERVED //ĐÃ PHỤC VỤ MỘT PHẦN 
+  SERVED  //ĐÃ PHỤC VỤ XONG (ĐỦ MÓN)
+  BILL_REQUESTED //KHÁCH YÊU CẦU THANH TOÁN
+  PAID //ĐÃ THANH TOÁN
+  CANCELLED //ĐÃ HỦY ĐƠN
+}
+
+enum KitchenStatus {
+  QUEUED  //ĐANG TRONG HÀNG ĐỢI
+  PREPARING //ĐANG CHẾ BIẾN
+  READY  // MÓN ĂN ĐÃ SẴN SÀNG (CHỜ LÊN MÓN)
+  SERVING // ĐANG MANG RA BÀN 
+  SERVED //ĐÃ PHỤC VỤ XONG 
+  CANCELLED //ĐÃ HỦY CHẾ BIẾN 
+}
+
+enum PaymentMethod {
+  CASH //ĐÃ HỦY CHẾ BIẾN
+  CARD //THẺ (ATM/VISA/MASTER)
+  MOMO  // VÍ MOMO
+  ZALOPAY //VÍ ZALOPAY 
+}
+enum providerType {
+    GOOGLE
+    FACEBOOK
+    GITHUB 
+}
+enum PaymentStatus {
+  PENDING  //đang chờ thanh toán
+  PAID       //Đã thanh toán đủ 100%
+  PARTIALLY_PAID //Thanh toán một phần đặt cọ trả trước
+  REFUNDED  //Đã hoàn tiền
+  FAILED  //Thanh toán thất bại hoàn toàn
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  VOIDED
+}

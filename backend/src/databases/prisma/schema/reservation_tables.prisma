@@ -1,0 +1,24 @@
+model Reservation_Tables {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  reservationId String   @db.ObjectId
+  reservation   Reservations @relation(fields: [reservationId], references: [id])
+
+  tableId       String   @db.ObjectId
+  table         Tables   @relation(fields: [tableId], references: [id])
+
+  assigned_at   DateTime @default(now())  // ngày đc phân bàn 
+
+  assigned_by_staff_id   String? @db.ObjectId
+  assigned_by_staff      Employment? @relation(fields: [assigned_by_staff_id], references: [id])
+
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@unique([reservationId, tableId])
+  @@index([reservationId])
+  @@index([tableId])
+
+  @@map("reservation_tables")
+}

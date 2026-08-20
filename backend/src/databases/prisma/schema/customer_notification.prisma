@@ -1,0 +1,22 @@
+model CustomerNotification {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId 
+  
+  title       String
+  body        String
+  type        NotificationType 
+  
+  referenceId String?
+  referenceType String?
+  
+  isRead      Boolean  @default(false) 
+  isDeleted   Boolean  @default(false)
+  
+  createdAt   DateTime @default(now())
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId, isRead])
+  @@index([createdAt])
+  @@map("customer_notifications")
+}

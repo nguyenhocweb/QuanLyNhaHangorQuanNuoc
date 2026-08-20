@@ -1,0 +1,46 @@
+model MenuItem {
+
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  categoryId   String   @db.ObjectId
+  category     MenuCategory @relation(fields: [categoryId], references: [id])
+
+  brandId      String?  @db.ObjectId
+  brand        Brand?   @relation(fields: [brandId], references: [id])
+
+  restaurantId String?  @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+
+  name         String
+  slug         String
+  description  String?
+  image        String
+  images       String[]
+
+  base_price   Int
+
+  discount_percent Float?
+  discount_until   DateTime?
+
+  item_type    String?
+  dietary_tags String[]
+  allergens    String[]
+
+  spice_level  Int?
+  prep_time    Int?
+  calories     Int?
+  is_available Boolean @default(true)  // còn bán hay không
+  is_featured  Boolean @default(false) // món có hot không
+
+  sort_order   Int @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+orderItems   OrderItem[]
+ @@index([restaurantId, is_available, sort_order])
+ @@index([restaurantId, categoryId, is_available])
+ @@index([brandId, is_available])
+ @@index([is_featured, is_available])
+ @@index([discount_until, is_available])
+ @@index([createdAt,is_featured,is_available])
+  @@map("menu_items")
+}

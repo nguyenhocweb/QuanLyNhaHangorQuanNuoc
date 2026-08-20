@@ -1,0 +1,25 @@
+model Reservation_Audit_Log {
+
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  reservationId String   @db.ObjectId
+  reservation   Reservations @relation(fields: [reservationId], references: [id])
+
+  changedByUserId String? @db.ObjectId
+  changedByUser   User?   @relation(fields: [changedByUserId], references: [id])
+
+  action        String
+
+  old_values    Json?
+  new_values    Json?
+
+  ip_address    String?  // địa chỉ ip máy nếu cần
+  user_agent    String?  // loại thiết bị 
+
+  createdAt     DateTime @default(now())
+
+  @@index([reservationId])
+  @@index([changedByUserId])
+
+  @@map("reservation_audit_logs")
+}

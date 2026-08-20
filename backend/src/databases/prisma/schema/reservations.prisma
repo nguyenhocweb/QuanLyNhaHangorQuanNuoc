@@ -1,0 +1,61 @@
+model Reservations {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  confirmation_code  String   @unique     // mã xác nhận để khách có thể thay đổi or hủy đặt 
+
+  restaurantId       String   @db.ObjectId
+  restaurant         Restaurant @relation(fields: [restaurantId], references: [id])
+
+  userId             String?  @db.ObjectId      // khách hàng
+  user               User?    @relation(fields: [userId], references: [id])
+
+  created_by_staff_id String? @db.ObjectId   // lấy từ table employment
+  created_by_staff          Employment? @relation(fields: [created_by_staff_id], references: [id])
+  // thông tin khách
+  guest_name         String      
+  guest_phone        String
+  guest_email        String?
+
+  // Booking details
+  reservation_date   DateTime     // ngày đến  
+  start_time         String     // giờ khách đến 
+  end_time           String     // giờ khách đi
+
+  party_size         Int          // số lượng ngừoi
+
+  status             ReservationStatus
+  source             ReservationSource?
+
+  // Special requests
+  special_requests     String?     // yêu cầu đặt biệt của khách đặt bàn
+  dietary_restrictions Json?       // các hạn chế và dị ứng nếu có
+
+  occasion           Occasion?
+
+  internal_notes     String?      // ghi chú nội bộ nhân viên chỉ có nhân viên thấy đc
+
+  // Payment
+  deposit_paid       Boolean  @default(false)   // khách đặt cọc chưa
+  deposit_amount     Int?                       // đặt bao nhiêu
+
+  // Timeline
+  confirmed_at       DateTime?                  // thời gian nhân viên xác nhận đơn
+  cancelled_at       DateTime?                  // thời gian nhân viên hủy đơn
+  cancellation_reason String?                   // lý do hủy
+
+  seated_at          DateTime?                  // thời gian khách đến
+  completed_at       DateTime?                  // thời gian khách đã dùng xong
+
+  reservation_tables   Reservation_Tables[]
+  review_restaurant  Review_Restaurant?
+  reservation_audit_log Reservation_Audit_Log[]
+  notifications      Notifications[]
+  createdAt          DateTime @default(now())   
+  updatedAt          DateTime @updatedAt
+  order          Order[]
+  @@index([restaurantId])
+  @@index([reservation_date])
+  @@index([status])
+
+  @@map("reservations")
+}

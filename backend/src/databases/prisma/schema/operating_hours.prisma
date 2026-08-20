@@ -1,0 +1,24 @@
+model Operating_Hours {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  restaurantId  String   @db.ObjectId
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
+
+  day_of_week   Int      // // xác định ngày trong tuần mở cửa 0 chủ nhật -> 6 thứ 7 
+
+  open_time     String  // thời gian mở cửa
+  close_time    String  // thời gian đóng cửa
+
+  is_closed     Boolean  @default(false) // ngày nghỉ (nguyên ngày) hay ngày mở cửa
+
+  break_start   String?  // thời gian bắt đầu nghĩ
+  break_end     String?  // thời gian kết thúc nghĩ
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([restaurantId])
+  @@index([day_of_week])
+  @@unique([restaurantId, day_of_week])
+  @@map("operating_hours")
+}

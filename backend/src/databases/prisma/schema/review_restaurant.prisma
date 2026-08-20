@@ -1,0 +1,31 @@
+model Review_Restaurant {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  reservationId   String   @unique @db.ObjectId
+  reservation     Reservations @relation(fields: [reservationId], references: [id])
+
+  userId        String   @db.ObjectId
+  user          User     @relation(fields: [userId], references: [id])
+  
+  restaurantId  String   @db.ObjectId
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
+
+  overall_rating   Int  // đánh giá từ 1 đến 5
+  food_rating      Int? // đánh giá đồ ăn
+  service_rating   Int?  // đánh giá dịch vụ
+  ambiance_rating  Int?  // đánh giá không gian quán
+
+  comment       String?  // bình luận 
+
+  is_public     Boolean  @default(true) // có công khia bình luận hay không 
+
+  staff_response String? // phản hồi từ nhà hàng
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([restaurantId])
+  @@index([userId])
+
+  @@map("reviews_restaurant")
+}

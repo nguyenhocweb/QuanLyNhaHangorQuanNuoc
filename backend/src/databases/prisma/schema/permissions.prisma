@@ -1,0 +1,10 @@
+model Permission {
+     id          String       @id @default(auto()) @map("_id") @db.ObjectId
+     name        String       // Lưu mảng các quyền: ["CREATE_ORDER", "VIEW_REPORT"]
+     description String
+     // 1 chức năng có thể có nhiều người dùng
+     type   role_enum
+     per_vs_emp   Permission_vs_Employment[]
+     @@index([name])
+     @@map("permissions")
+}

@@ -1,0 +1,17 @@
+model Recipe {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  menuItemId       String? @db.ObjectId
+  variantId        String? @db.ObjectId
+  modifierOptionId String? @db.ObjectId
+
+  quantityRequired Float
+
+  inventoryItem  InventoryItem   @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+  menuItem       MenuItem?       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  variant        ItemVariant?    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  modifierOption ModifierOption? @relation(fields: [modifierOptionId], references: [id], onDelete: Cascade)
+
+  @@map("recipes")
+}

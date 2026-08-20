@@ -1,0 +1,32 @@
+model Invoice {
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+  brandSubscriptionId String @db.ObjectId
+  brandId             String @db.ObjectId
+
+  invoiceNumber String @unique // Mã hóa đơn (VD: INV-2023-0001)
+
+  // Số tiền
+  subTotal       Float // Tổng tiền chưa thuế/giảm giá
+  discountAmount Float  @default(0)
+  taxAmount      Float  @default(0)
+  total          Float // Tổng tiền phải thanh toán
+  currency       String @default("VND")
+
+  // Trạng thái
+  status  InvoiceStatus @default(DRAFT)
+  dueDate DateTime // Hạn chót thanh toán
+  paidAt  DateTime? // Ngày thanh toán xong
+
+  // Thông tin xuất hóa đơn đỏ (VAT) chụp tại thời điểm xuất
+  billingCompanyName String?
+  billingTaxCode     String?
+  billingAddress     String?
+  paymentUrl         String? // Link thanh toán của cổng thanh toán
+
+  // Relations
+  subscription BrandSubscription              @relation(fields: [brandSubscriptionId], references: [id])
+  brand        Brand                          @relation(fields: [brandId], references: [id])
+  transactions BrandSubscriptionTransaction[]
+
+  @@map("invoices")
+}

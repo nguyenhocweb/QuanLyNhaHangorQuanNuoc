@@ -1,0 +1,39 @@
+model PurchaseOrder {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String @db.ObjectId
+  supplierId   String @db.ObjectId
+  createdBy    String @db.ObjectId
+
+  poNumber String @unique // Mã đơn (PO-20260805-01)
+  status   String @default("DRAFT") // DRAFT, PENDING, PARTIAL, COMPLETED, CANCELLED
+
+  totalAmount     Float   @default(0)
+  invoiceImageUrl String? // Hình ảnh hóa đơn
+
+  items    PurchaseOrderItem[]
+  supplier Supplier            @relation(fields: [supplierId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([restaurantId, createdAt])
+  @@index([restaurantId, status, createdAt])
+  @@index([supplierId])
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderItem {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  purchaseOrderId String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  orderQty     Float // Đặt
+  receivedQty  Float @default(0) // Thực nhận
+  unitPrice    Float // Đơn giá
+  actualAmount Float @default(0) // Thành tiền thực tế
+
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  @@map("purchase_order_items")
+}

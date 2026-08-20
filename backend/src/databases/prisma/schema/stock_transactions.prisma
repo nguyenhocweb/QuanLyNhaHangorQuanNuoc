@@ -1,0 +1,21 @@
+model StockTransaction {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId    String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+  userId          String @db.ObjectId // Người thực hiện
+
+  type           StockTransactionType
+  quantityChange Float // (+/-) Số lượng thay đổi
+  balanceAfter   Float // Tồn kho SAU KHI giao dịch (Dùng để dò sai lệch)
+  unitCost       Float? // Giá vốn tại thời điểm giao dịch
+
+  referenceId String? @db.ObjectId // Tham chiếu đến PO, Order, hoặc Audit
+  notes       String?
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([restaurantId, inventoryItemId, createdAt])
+  @@map("stock_transactions")
+}

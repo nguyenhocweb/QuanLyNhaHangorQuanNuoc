@@ -1,0 +1,50 @@
+model Restaurant {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  brandId   String   @db.ObjectId
+  brand     Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  logo        String?
+  isNew        Boolean @default(true)
+  name      String?
+  address   String?
+  city      String?
+  email_contact  String?
+  phone_contact  String?
+  description  String?
+  isActive  isActive  @default(ACTIVE)
+  imageMain   String
+  images      String[]
+  slug             String?
+  employments Employment[]  // nhẫn viên cấp nhà hàng
+  
+  restaurant_areas        Restaurant_Areas[]
+  tabels                  Tables[]
+  max_party_size          Int            // số lượng khách tối đa cho nhà hàng
+  booking_window_days     Int             // đặt trước mấy ngày
+  cancellation_hours      Int             //   hủy trước mấy giờ
+  deposit_required        Boolean     @default(false)  //  có cần đặt cọc ko
+  deposit_amount          Int? // đặt cọc trước bao nhiêu
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  menu        Menu[]
+  operating_hours       Operating_Hours[]
+  special_schedules     Special_Schedules[]   // giờ mở cửa or đóng đặc biệt
+  reservations          Reservations[]
+  review_restaurant     Review_Restaurant[]
+   items                MenuItem[]
+  weightedScore         Float
+  totalRating           Int   // tổng luyowtj đánh giá
+  averageRating         Float    @default(0.0)  // trung bình đánh giá
+  average_food_rating     Float    @default(0.0) // trung bình đánh giá đồ ăn
+  average_service_rating   Float    @default(0.0)  // trung bình đnahs giá phục vụ
+  average_ambiance_rating  Float    @default(0.0)  // trung bình đánh giá không gian quán
+ paymentConfigs RestaurantPaymentConfig[]
+  @@index([brandId, isActive])        // theo brand
+  @@index([isActive, createdAt])     // list + pagination
+  @@index([city, isActive])          // filter location
+  @@index([averageRating])           // sort rating
+  @@index([averageRating,isActive])           // sort rating và còn hoạt động
+  @@index([city, isActive, averageRating]) // top theo city
+  @@index([weightedScore,isActive,isNew])  // đang hoạt động và có điểm cao 
+  @@map("restaurants")
+}

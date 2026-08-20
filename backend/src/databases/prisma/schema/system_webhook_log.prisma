@@ -1,0 +1,13 @@
+model SystemWebhookLog {
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  systemPaymentMethodId String @db.ObjectId
+
+  event     String // Tên sự kiện (VD: vnpay.payment_success)
+  payload   Json // Toàn bộ dữ liệu cổng thanh toán đẩy về
+  processed Boolean @default(false) // Đã xử lý thành công chưa
+  errorMsg  String? // Lỗi nếu xử lý thất bại
+
+  createdAt DateTime @default(now())
+
+  @@map("system_webhook_logs")
+}

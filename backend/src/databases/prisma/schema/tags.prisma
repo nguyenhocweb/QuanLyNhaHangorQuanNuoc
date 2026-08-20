@@ -1,0 +1,14 @@
+model Tags {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  textColor   String?  @default("#000000")
+  bgColor     String?  @default("#f3f4f6")
+  createdAt   DateTime @default(now())
+
+  restaurantIds String[]     @db.ObjectId
+  restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
+
+  @@map("tags")
+}

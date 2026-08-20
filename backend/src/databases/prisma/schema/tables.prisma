@@ -1,0 +1,34 @@
+// tạo tabels cho nhà hàng 
+
+model Tables {
+    id            String   @id @default(auto()) @map("_id") @db.ObjectId
+
+    restaurantId  String   @db.ObjectId
+    restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
+
+    areaId        String   @db.ObjectId
+    area          Restaurant_Areas @relation(fields: [areaId], references: [id])
+
+    table_number  String
+
+    min_capacity  Int        // số lượng khách ít nhất
+    max_capacity  Int         // số lượng khách nhiều nhất
+
+    shape         TableShape
+    is_combinable Boolean? @default(false)   // cho phép ghép table vs người khác hay không
+
+    pos_x         Float?        //  sơ đồ 
+    pos_y         Float?        //  table nhà hàng
+
+    status        TableStatus @default(ACTIVE)
+
+     qr_code       String? @unique    // mở link để đặt món tiếp
+     reservation_tables   Reservation_Tables[]   // bàn đc phân khi có đơn đặt 
+
+      createdAt     DateTime @default(now())
+      updatedAt     DateTime @updatedAt
+    orders  Order[]
+     @@unique([restaurantId, table_number])
+     @@map("tables")
+
+  }

@@ -1,0 +1,5 @@
+# loại các dile rác không cần up lên 
+node_modules/
+huongdanGithub.text
+# các file bảo mật thông tin
+.env

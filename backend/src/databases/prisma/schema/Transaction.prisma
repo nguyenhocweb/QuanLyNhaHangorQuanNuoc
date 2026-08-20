@@ -1,0 +1,23 @@
+model Transaction {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  orderId     String   @db.ObjectId
+  amount      Float
+
+  provider    PaymentMethod
+
+  externalTransactionId String?
+
+  status      TransactionStatus
+
+  rawResponse Json?
+
+  createdAt   DateTime @default(now())
+
+  // Relation
+  order       Order @relation(fields: [orderId], references: [id])
+
+  @@index([orderId])
+  @@index([externalTransactionId])
+  @@map("transactions")
+}

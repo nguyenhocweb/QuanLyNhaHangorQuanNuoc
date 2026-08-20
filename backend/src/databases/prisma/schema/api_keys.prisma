@@ -1,0 +1,81 @@
+// 1. Table AI Chatbox (Nhà cung cấp)
+model AiChatbox {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String  @unique // Vd: OpenAI, Gemini
+  isActive Boolean @default(true)
+
+  models  AiModel[]
+  apiKeys ApiKey[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ai_chatboxes")
+}
+
+// 2. Table AI Model (Các mô hình cụ thể)
+model AiModel {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String // Vd: gpt-4o
+  displayName String // Vd: GPT-4 Omni
+
+  chatboxId String    @db.ObjectId
+  chatbox   AiChatbox @relation(fields: [chatboxId], references: [id], onDelete: Cascade)
+
+  // Quan hệ 1-N với ApiKey (1 Model có thể có nhiều Key bị giới hạn riêng cho nó)
+  apiKeys ApiKey[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ai_models")
+}
+
+// 3. Enum Status & Type
+enum ApiKeyStatus {
+  ACTIVE
+  SUSPENDED // [MỚI] Tạm ngưng
+  REVOKED // Thu hồi
+  EXPIRED // Hết hạn
+}
+
+enum ApiKeyType {
+  ADMIN // Admin
+  CUSTOMER // Khách hàng
+  BRAND // Thương hiệu
+}
+
+// 4. Table API Key (Cốt lõi)
+model ApiKey {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String // Tên gợi nhớ
+
+  // Bảo mật lõi
+  encryptedKey String // Khóa thực tế đã bị mã hóa
+  keyHash      String @unique // Hash 1 chiều để truy vấn
+  prefix       String // Ký tự đầu/cuối để hiển thị (Vd: sk-123)
+
+  // Phân loại & Phân quyền
+  keyType ApiKeyType @default(BRAND)
+  brandId String?    @db.ObjectId
+
+  status       ApiKeyStatus @default(ACTIVE)
+  contactEmail String? // Email người sở hữu key
+
+  // Quan hệ (Relations)
+  chatboxId         String    @db.ObjectId
+  chatbox           AiChatbox @relation(fields: [chatboxId], references: [id])
+  restrictedModelId String?   @db.ObjectId // [Tùy chọn] Giới hạn chỉ xài cho 1 model
+  restrictedModel   AiModel?  @relation(fields: [restrictedModelId], references: [id])
+
+  // Audit Trail (Dấu vết - Vá lỗ hổng mất dấu)
+  lastUsedAt DateTime?
+  lastIp     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([chatboxId])
+  @@map("api_keys")
+}

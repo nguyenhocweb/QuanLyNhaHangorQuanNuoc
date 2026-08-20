@@ -1,0 +1,16 @@
+// khu vực tầng or table
+model Restaurant_Areas{
+    id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+    restaurantId       String   @db.ObjectId
+    restaurant         Restaurant  @relation(fields:[restaurantId],references:[id])
+    name               String
+    description        String?
+    smoking_allowed     Boolean  @default(true)  // cho phép huốc thuốc không 
+    is_outdoor          Boolean  // ngoài trời hay trong Nhà
+    floor_number        Int      // tầng mấy
+    is_active           isActive   @default(ACTIVE) 
+    
+    tabels              Tables[]
+    @@index([name])
+    @@map("restaurant_areas")
+}

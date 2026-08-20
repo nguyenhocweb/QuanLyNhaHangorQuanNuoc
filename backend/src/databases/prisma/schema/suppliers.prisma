@@ -1,0 +1,16 @@
+model Supplier {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String  @db.ObjectId
+  name    String
+  taxCode String?
+  contact String? // JSON
+  status  String  @default("ACTIVE") // ACTIVE, INACTIVE
+
+  purchaseOrders PurchaseOrder[]
+  inventoryItems InventoryItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("suppliers")
+}

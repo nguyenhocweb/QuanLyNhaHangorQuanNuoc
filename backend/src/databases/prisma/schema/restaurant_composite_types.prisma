@@ -1,0 +1,20 @@
+type RestaurantPolicy {
+  name        String
+  description String
+}
+
+type SocialLink {
+  platform String
+  url      String
+}
+
+type Faq {
+  question String
+  answer   String
+}
+
+type DeliveryPartner {
+  name String
+  url  String
+  icon String?
+}

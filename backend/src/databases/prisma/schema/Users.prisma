@@ -1,0 +1,35 @@
+model User{
+    id             String       @id @default(auto()) @map("_id") @db.ObjectId
+    user_name      String       @unique
+    email          String       @unique
+    sdt            String?
+    password       String?
+    providerId          String?    
+    providerType   providerType?
+    // thông tin cơ bản
+
+    name           String?
+    avatar         String?
+    gender         Gender?       
+    date_of_birth  DateTime?
+    is_active      AccountStatus @default(PENDING)
+
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+
+    //tạo liên kết 
+    
+    // --- Các Relations (Liên kết tới các vai trò của User) ---
+    employments   Employment[]  // Liên kết: User này làm nhân viên ở đâu? có or ko 
+    roleId        String?    @db.ObjectId // Liên kết : User này là khách hàng hay admin
+    role          Role?       @relation(fields:[roleId],references:[id]) 
+    reservations          Reservations[] //khách hàng đặt bàn
+    review_restaurant     Review_Restaurant[]  // người đánh fias nhà hàng
+    reservation_audit_log Reservation_Audit_Log[] // thay đổi đặt 
+    notifications  Notifications[]
+    ordersTaken    Order[]        @relation("EmployeeOrders")
+    @@index([roleId])
+    @@index([name])
+    @@index([sdt])
+    @@map("users")
+}

@@ -1,0 +1,12 @@
+model Restaurant_Amenities {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  icon        String?
+  description String?
+  createdAt   DateTime @default(now())
+
+  restaurantIds String[]     @db.ObjectId
+  restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
+
+  @@map("restaurant_amenities")
+}

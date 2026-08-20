@@ -1,0 +1,26 @@
+model OrderItem {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  orderId         String   @db.ObjectId
+  order           Order    @relation(fields: [orderId], references: [id])
+
+  menuItemId      String   @db.ObjectId
+  // optional relation (không bắt buộc vì đã snapshot)
+  menuItem        MenuItem? @relation(fields: [menuItemId], references: [id])
+  isNew        Boolean @default(true)
+  name            String
+  quantity        Int
+
+  unitPrice       Float
+  subtotal        Float
+
+  discountAmount  Float   @default(0)
+  totalPrice      Float
+
+  note            String?
+  status          KitchenStatus @default(QUEUED)
+
+  createdAt       DateTime @default(now())
+
+  @@index([orderId])
+}

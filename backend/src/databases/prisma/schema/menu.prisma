@@ -1,0 +1,29 @@
+model Menu {
+
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  brandId       String?  @db.ObjectId
+  brand         Brand?   @relation(fields: [brandId], references: [id])
+
+  restaurantId  String?  @db.ObjectId
+  restaurant    Restaurant? @relation(fields: [restaurantId], references: [id])
+  name          String        // tên menu đó Main Menu
+  type          String       // loại menu
+  description   String?     
+
+  available_days Int[]       // menu mở ngày nào trong tuần
+
+  available_from  String?    // thời gian phục vụ trong ngày bắt đầu mấy h null thì cả ngày
+  available_until String?    //thời gian phục vụ trong ngày kết thúc mấy h
+
+  valid_from   DateTime?    // menu hiệu lực bbawts đầu từ ngày nào  nếu null thì quanh năm
+  valid_until  DateTime?    // menu hiệu lực kết thúc từ ngày nào
+
+  is_active    Boolean  @default(true)  // còn sử dụng không hay tạm hết 
+  sort_order   Int      @default(0) // thứ tự nằm trong bảng menu 0 đứng trước ...
+  menucategory  MenuCategory[] 
+  @@index([brandId])
+  @@index([restaurantId])
+
+  @@map("menus")
+}

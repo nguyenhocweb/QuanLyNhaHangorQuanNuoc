@@ -1,0 +1,31 @@
+model StockTransfer {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  fromRestaurantId String @db.ObjectId
+  toRestaurantId   String @db.ObjectId
+  createdBy        String @db.ObjectId
+
+  transferNumber String  @unique
+  status         String  @default("DRAFT") // DRAFT, IN_TRANSIT, COMPLETED, CANCELLED
+  notes          String?
+
+  items StockTransferItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("stock_transfers")
+}
+
+model StockTransferItem {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  stockTransferId String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  transferQty Float // Số lượng xuất kho
+  receivedQty Float @default(0) // Số lượng thực nhận
+
+  stockTransfer StockTransfer @relation(fields: [stockTransferId], references: [id], onDelete: Cascade)
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  @@map("stock_transfer_items")
+}

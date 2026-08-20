@@ -1,0 +1,7 @@
+model Permission_vs_Employment {
+    id                String      @id @default(auto()) @map("_id") @db.ObjectId
+    permissionId      String   @db.ObjectId
+    permissions       Permission  @relation(fields:[permissionId],references:[id])
+    employmentId      String  @db.ObjectId
+    employment        Employment @relation(fields:[employmentId],references:[id])
+}

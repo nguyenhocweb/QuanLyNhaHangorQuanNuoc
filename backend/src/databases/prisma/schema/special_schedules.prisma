@@ -1,0 +1,23 @@
+// thay đổi lịch tạm thời or nghĩ tạm thời 
+model Special_Schedules {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+
+  restaurantId  String   @db.ObjectId
+  restaurant    Restaurant @relation(fields: [restaurantId], references: [id])
+
+  date          DateTime     //Ngày áp dụng lịch đặc biệt
+ 
+  type          ScheduleType
+
+  open_time     String?      // giờ mở đặc biệt null nếu cả nagyf đều đóng
+  close_time    String?      // giờ đóng đặc biệt null nếu cả nagyf đều đóng
+
+  reason        String?        // lý do cho nagyf này
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([restaurantId])
+  @@index([date])
+  @@map("special_schedules")
+}

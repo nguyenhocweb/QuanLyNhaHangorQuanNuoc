@@ -6,11 +6,11 @@ Chào mừng bạn đến với dự án Quản lý Nhà hàng Đa điểm (Mult
 
 ## 🗺️ Bản Đồ Kiến Trúc Cơ Sở Dữ Liệu (Database Schema 3D-View)
 
-> Do quy mô của hệ thống cực kỳ đồ sộ (hơn 70 bảng cơ sở dữ liệu và 2200 dòng schema), sơ đồ đã được chia nhỏ thành 5 phân hệ (Domains) để GitHub có thể hiển thị mượt mà. 
-> **Lưu ý:** Giao diện đã được chuyển sang chế độ Dark Mode (Màu Đen) và sử dụng định dạng danh sách thuộc tính chuẩn để dễ đọc hơn. Mọi bảng đều hiển thị tối thiểu 5 thuộc tính quan trọng nhất!
+> Với quy mô **hơn 70 bảng cơ sở dữ liệu**, sơ đồ đã được tổng hợp không sót 1 bảng nào và chia nhỏ thành 7 phân hệ (Domains). 
+> **Lưu ý:** Giao diện đã được chuyển sang chế độ Dark Mode, định dạng `id : kiểu_dữ_liệu` chuẩn cho Developer, và TẤT CẢ các bảng đều show ra 5 thuộc tính lõi quan trọng nhất!
 
-### 1. Phân Hệ Lõi (Core Domain: Brand, Restaurant, HR)
-Đây là trái tim của hệ thống Multi-tenant, xử lý logic chuỗi thương hiệu, chi nhánh và nhân sự.
+### 1. Phân Hệ Lõi (Core Domain & Tenant)
+Xử lý logic chuỗi thương hiệu, chi nhánh, nhân sự, phân quyền và các yêu cầu cấp tài nguyên hệ thống.
 
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
@@ -23,6 +23,8 @@ classDiagram
     WorkspaceRole "1" --> "*" Employment : vị trí
     Permission "*" --> "*" Employment : gán quyền
     Category_Restaurant "*" --> "*" Restaurant : thuộc loại
+    Template "1" --> "*" Restaurant : dùng giao diện
+    User "1" --> "*" UpgradeRequest : gửi yêu cầu
 
     class Brand {
         id : ObjectId
@@ -80,10 +82,24 @@ classDiagram
         image : String
         isActive : Boolean
     }
+    class Template {
+        id : ObjectId
+        name : String
+        code : String
+        type : String
+        isActive : Boolean
+    }
+    class UpgradeRequest {
+        id : ObjectId
+        userId : ObjectId
+        brandName : String
+        status : String
+        createdAt : DateTime
+    }
 ```
 
-### 2. Phân Hệ Thực Đơn & Gọi Món (Menu & Order Domain)
-Hệ thống xử lý cấu trúc Menu phân tầng phức tạp (Menu > Category > Item > Variant/Modifier).
+### 2. Phân Hệ Thực Đơn & Gọi Món (Menu & Order)
+Xử lý cấu trúc Menu phân tầng phức tạp và luồng tạo Đơn hàng.
 
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
@@ -98,6 +114,7 @@ classDiagram
     MenuItem "1" --> "*" OrderItem : nằm trong đơn
     Order "1" --> "*" OrderItem : bao gồm
     Restaurant "1" --> "*" Order : thuộc nhà hàng
+    MenuItem "1" --> "*" RestaurantMenuItem : tuỳ biến giá
 
     class Menu {
         id : ObjectId
@@ -155,10 +172,17 @@ classDiagram
         unitPrice : Float
         totalPrice : Float
     }
+    class RestaurantMenuItem {
+        id : ObjectId
+        restaurantId : ObjectId
+        menuItemId : ObjectId
+        isAvailable : Boolean
+        overridePrice : Float
+    }
 ```
 
-### 3. Phân Hệ Đặt Bàn & Khu Vực (Reservation & Table Domain)
-Quản lý sơ đồ bàn 2D/3D (tọa độ X, Y), đặt bàn trước và lịch bảo trì bàn.
+### 3. Phân Hệ Đặt Bàn & Lịch Trình (Reservation & Scheduling)
+Quản lý sơ đồ bàn 2D/3D (pos_x, pos_y), đặt bàn, bảo trì bàn và giờ hoạt động chi tiết.
 
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
@@ -170,6 +194,8 @@ classDiagram
     Tables "1" --> "*" Table_Maintenance_Schedules : sửa chữa
     Reservations "1" --> "*" Reservation_Audit_Log : lịch sử đổi
     Reservations "1" --> "*" Order : sinh ra đơn
+    Restaurant "1" --> "*" Operating_Hours : giờ làm việc
+    Restaurant "1" --> "*" Special_Schedules : lịch đặc biệt
 
     class Restaurant_Areas {
         id : ObjectId
@@ -213,10 +239,24 @@ classDiagram
         new_values : Json
         createdAt : DateTime
     }
+    class Operating_Hours {
+        id : ObjectId
+        restaurantId : ObjectId
+        day_of_week : Int
+        open_time : String
+        close_time : String
+    }
+    class Special_Schedules {
+        id : ObjectId
+        restaurantId : ObjectId
+        date : DateTime
+        type : String
+        open_time : String
+    }
 ```
 
-### 4. Phân Hệ Kho Bãi & Khuyến Mãi (Inventory & Promotion Domain)
-Theo dõi công thức nấu ăn (Recipe), kiểm kho (StockCount) và quản lý chiến dịch khuyến mãi phức tạp.
+### 4. Phân Hệ Kho Bãi & Chuỗi Cung Ứng (Inventory & Supply Chain)
+Theo dõi nguyên liệu (Recipe), kiểm kho (StockCount), luân chuyển kho (Transfer) và đặt hàng NCC (PO).
 
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
@@ -227,10 +267,11 @@ classDiagram
     InventoryItem "1" --> "*" StockTransaction : lịch sử XNT
     InventoryItem "1" --> "*" StockCountItem : trong phiếu kiểm
     StockCount "1" --> "*" StockCountItem : chi tiết kiểm
+    Supplier "1" --> "*" PurchaseOrder : cấp hàng
     PurchaseOrder "1" --> "*" PurchaseOrderItem : đặt hàng
     InventoryItem "1" --> "*" PurchaseOrderItem : hàng được đặt
-    Promotion "1" --> "*" PromotionUsageLog : đã sử dụng
-    Promotion "1" --> "*" UserPromotionWallet : khách lưu ví
+    InventoryItem "1" --> "*" StockTransfer : điều chuyển
+    InventoryItem "1" --> "*" PurchaseRequest : yêu cầu mua
 
     class InventoryItem {
         id : ObjectId
@@ -281,6 +322,44 @@ classDiagram
         unitPrice : Float
         actualAmount : Float
     }
+    class Supplier {
+        id : ObjectId
+        name : String
+        brandId : ObjectId
+        status : String
+        createdAt : DateTime
+    }
+    class StockTransfer {
+        id : ObjectId
+        transferNumber : String
+        status : String
+        fromRestaurantId : ObjectId
+        toRestaurantId : ObjectId
+    }
+    class PurchaseRequest {
+        id : ObjectId
+        requestCode : String
+        status : String
+        brandId : ObjectId
+        createdAt : DateTime
+    }
+```
+
+### 5. Phân Hệ Khuyến Mãi, CRM & CSKH (Promotion, CRM & Loyalty)
+Quản lý Khách hàng thân thiết (Loyalty), ví Voucher, Đánh giá nhà hàng và sự kiện tiếp thị.
+
+```mermaid
+%%{init: {'theme': 'dark'}}%%
+classDiagram
+    Promotion "1" --> "*" PromotionUsageLog : đã sử dụng
+    Promotion "1" --> "*" UserPromotionWallet : khách lưu ví
+    User "1" --> "*" RestaurantCustomer : là khách hàng
+    User "1" --> "*" LoyaltyTransaction : tích điểm
+    Reservations "1" --> "*" Review_Restaurant : đánh giá
+    Restaurant "1" --> "*" Tags : gắn tag
+    Restaurant "1" --> "*" Restaurant_Amenities : tiện ích
+    Restaurant "1" --> "*" Restaurant_Event : sự kiện
+
     class Promotion {
         id : ObjectId
         code : String
@@ -302,24 +381,68 @@ classDiagram
         promotionId : ObjectId
         user : ObjectId
     }
+    class RestaurantCustomer {
+        id : ObjectId
+        restaurantId : ObjectId
+        userId : ObjectId
+        totalSpent : Float
+        loyaltyPoints : Float
+    }
+    class LoyaltyTransaction {
+        id : ObjectId
+        userId : ObjectId
+        points : Float
+        type : String
+        createdAt : DateTime
+    }
+    class Review_Restaurant {
+        id : ObjectId
+        reservationId : ObjectId
+        overall_rating : Int
+        comment : String
+        status : String
+    }
+    class Tags {
+        id : ObjectId
+        name : String
+        slug : String
+        bgColor : String
+        createdAt : DateTime
+    }
+    class Restaurant_Amenities {
+        id : ObjectId
+        name : String
+        icon : String
+        description : String
+        createdAt : DateTime
+    }
+    class Restaurant_Event {
+        id : ObjectId
+        title : String
+        startDate : DateTime
+        isActive : Boolean
+        createdAt : DateTime
+    }
 ```
 
-### 5. Phân Hệ Thanh Toán, AI & Thuê Bao (Billing & AI Domain)
-Hệ thống thanh toán đa luồng (Subscription của Brand, Payment của Khách) và trợ lý AI Chatbot.
+### 6. Phân Hệ Thanh Toán & Doanh Thu (Billing, Payment & Revenue)
+Giao dịch thanh toán cổng (Webhook), luồng Subscriptions của chuỗi và các báo cáo doanh thu độc lập.
 
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
 classDiagram
     SystemPaymentMethod "1" --> "*" AdminPaymentConfig : cấu hình gốc
     SystemPaymentMethod "1" --> "*" BrandPaymentConfig : cấu hình brand
+    SystemPaymentMethod "1" --> "*" RestaurantPaymentConfig : cấu hình quán
     Brand "1" --> "*" BrandSubscription : đăng ký gói
     SubscriptionPlan "1" --> "*" BrandSubscription : thuộc gói
     BrandSubscription "1" --> "*" Invoice : sinh hoá đơn
     Invoice "1" --> "*" BrandSubscriptionTransaction : chi tiết TT
-    AiChatbox "1" --> "*" AiModel : cung cấp
-    Brand "1" --> "*" AIBrandConfig : cấu hình AI
-    Brand "1" --> "*" AIChatSession : log chat
-    AIChatSession "1" --> "*" AIChatMessage : tin nhắn
+    Order "1" --> "*" Transaction : giao dịch
+    Restaurant "1" --> "*" RestaurantRevenue : ghi nhận DT
+    Brand "1" --> "*" BrandRevenue : ghi nhận DT
+    SystemPaymentMethod "1" --> "*" SystemWebhookLog : log cổng TT
+    SystemPaymentMethod "1" --> "*" SystemRevenue : ghi nhận phí
 
     class SystemPaymentMethod {
         id : ObjectId
@@ -340,6 +463,13 @@ classDiagram
         configData : Json
         isActive : Boolean
         brandId : ObjectId
+        systemPaymentMethodId : ObjectId
+    }
+    class RestaurantPaymentConfig {
+        id : ObjectId
+        configData : Json
+        isActive : Boolean
+        restaurantId : ObjectId
         systemPaymentMethodId : ObjectId
     }
     class BrandSubscription {
@@ -370,6 +500,59 @@ classDiagram
         paymentDate : DateTime
         brandSubscriptionId : ObjectId
     }
+    class Transaction {
+        id : ObjectId
+        orderId : ObjectId
+        amount : Float
+        status : String
+        systemPaymentMethodId : ObjectId
+    }
+    class RestaurantRevenue {
+        id : ObjectId
+        restaurantId : ObjectId
+        amount : Float
+        source : String
+        createdAt : DateTime
+    }
+    class BrandRevenue {
+        id : ObjectId
+        brandId : ObjectId
+        amount : Float
+        source : String
+        createdAt : DateTime
+    }
+    class SystemRevenue {
+        id : ObjectId
+        amount : Float
+        source : String
+        referenceId : ObjectId
+        createdAt : DateTime
+    }
+    class SystemWebhookLog {
+        id : ObjectId
+        systemPaymentMethodId : ObjectId
+        event : String
+        payload : Json
+        processed : Boolean
+    }
+```
+
+### 7. Phân Hệ AI Trợ Lý & Thông Báo (AI Agent & Notifications)
+Tích hợp AI LLM, RAG (Retrieval-Augmented Generation) và hệ thống đẩy thông báo đa luồng (Brand, Restaurant, Customer).
+
+```mermaid
+%%{init: {'theme': 'dark'}}%%
+classDiagram
+    AiChatbox "1" --> "*" AiModel : cung cấp
+    Brand "1" --> "*" AIBrandConfig : cấu hình AI
+    Brand "1" --> "*" AIChatSession : log chat
+    AIChatSession "1" --> "*" AIChatMessage : tin nhắn
+    Brand "1" --> "*" ApiKey : quản lý key
+    Brand "1" --> "*" BrandNotification : thông báo
+    Restaurant "1" --> "*" RestaurantNotification : thông báo
+    User "1" --> "*" CustomerNotification : thông báo
+    SystemRole "1" --> "*" SystemNotification : thông báo chung
+
     class AiChatbox {
         id : ObjectId
         name : String
@@ -405,22 +588,58 @@ classDiagram
         intent : String
         metadata : Json
     }
+    class ApiKey {
+        id : ObjectId
+        name : String
+        encryptedKey : String
+        brandId : ObjectId
+        createdAt : DateTime
+    }
+    class BrandNotification {
+        id : ObjectId
+        brandId : ObjectId
+        title : String
+        body : String
+        createdAt : DateTime
+    }
+    class RestaurantNotification {
+        id : ObjectId
+        restaurantId : ObjectId
+        title : String
+        body : String
+        createdAt : DateTime
+    }
+    class CustomerNotification {
+        id : ObjectId
+        userId : ObjectId
+        title : String
+        body : String
+        createdAt : DateTime
+    }
+    class SystemNotification {
+        id : ObjectId
+        title : String
+        body : String
+        type : String
+        createdAt : DateTime
+    }
 ```
 
 ---
 
 ## 🕵️‍♂️ ĐÁNH GIÁ KIẾN TRÚC TỔNG THỂ (SENIOR PRO MAX LEADER MODE)
 
-Với tư cách là một Tech Lead/Architect khó tính (áp dụng chuẩn V5.2), tôi đã audit toàn bộ cấu trúc 70 bảng Database của dự án này. Đây là một hệ thống có tham vọng lớn, bao trùm hầu hết mọi ngóc ngách của một nền tảng F&B SaaS đa khách hàng (Multi-tenant).
+Với tư cách là một Tech Lead/Architect khó tính (áp dụng chuẩn V5.2), tôi đã audit toàn bộ cấu trúc **73 bảng Database** của dự án này. Đây là một hệ thống có tham vọng cực kỳ lớn, bao trùm hầu hết mọi ngóc ngách của một nền tảng F&B SaaS đa khách hàng.
 
-**🏆 Điểm đánh giá tổng quan: 7.8 / 10**
+**🏆 Điểm đánh giá tổng quan: 8.5 / 10**
 
 ### ✅ ĐIỂM SÁNG TRONG THIẾT KẾ (The Good)
-1. **Kiến trúc Multi-tenant Tốt:** Việc tách biệt `Brand` và `Restaurant` rất rạch ròi. Việc đẩy cấu hình Thuế/Phí (`isVatInclusive`, `defaultVatRate`) lên cả 2 cấp cho phép sự linh hoạt tuyệt vời cho các chuỗi nhượng quyền.
-2. **Hệ thống AI Chatbot Tiên tiến:** Việc lưu trữ Intent, Metadata trong `AIChatMessage` và hỗ trợ RAG (`knowledgeBaseUrl` trong `AIBrandConfig`) cho thấy tư duy bắt kịp thời đại, sẵn sàng cho các luồng Agentic AI.
+1. **Kiến trúc Multi-tenant Rất Sâu Tốt:** Việc tách biệt `Brand` và `Restaurant` rất rạch ròi, thậm chí cả `Revenue` và `PaymentConfig` cũng tách bạch đến từng cấp (System, Brand, Restaurant).
+2. **Hệ thống AI Chatbot Tiên tiến:** Việc lưu trữ Intent, Metadata trong `AIChatMessage` và hỗ trợ RAG (`knowledgeBaseUrl` trong `AIBrandConfig`) cho thấy tư duy bắt kịp thời đại, sẵn sàng cho Agentic AI.
 3. **Quản lý Bàn Nâng Cao (Advanced Table Management):** Lưu trữ cả tọa độ (`pos_x`, `pos_y`, `width`, `height`, `rotation`) và `shape` của bàn trực tiếp trong DB. Rất ít dự án F&B mã nguồn mở làm được tính năng sơ đồ bàn 2D trực quan thế này.
-4. **Hệ sinh thái Khuyến mãi (Promotion Engine):** Bảng `Promotion` bao gồm các trường linh hoạt (Tiers, Days of Week, Time, Budget) kết hợp với JSON `conditions` cho phép tạo ra các rule giảm giá vô cùng phức tạp (giống các app giao đồ ăn lớn).
+4. **Hệ sinh thái Khuyến mãi (Promotion Engine):** Bảng `Promotion` bao gồm các trường linh hoạt kết hợp với JSON `conditions` cho phép tạo ra các rule giảm giá vô cùng phức tạp.
 5. **Audit Trail Đầy Đủ:** Bảng `Reservation_Audit_Log`, `StockTransaction`, `LoyaltyTransaction` lưu trữ `old_values`, `new_values` và `balanceAfter` là chuẩn mực của hệ thống tài chính/kho bãi để truy vết gian lận.
+6. **Notification Đa Luồng:** Hệ thống phân mảnh Notification ra làm 4 bảng rõ ràng (Brand, Restaurant, Customer, System) giúp cho Query siêu nhanh thay vì dồn chung vào 1 bảng khổng lồ.
 
 ### 🛑 CÁC LỖ HỔNG & TECH DEBT CHẾT NGƯỜI (The Bad & The Ugly)
 Để dự án này có thể scale lên hàng ngàn nhà hàng và không bị "sập" ở môi trường Production thực tế, hệ thống đang vướng phải những thiết kế sai lầm cực kỳ nghiêm trọng cần khắc phục:
@@ -446,4 +665,6 @@ Với tư cách là một Tech Lead/Architect khó tính (áp dụng chuẩn V5.
    - Mã hóa Token Webhook (`webhookTokenHash`) ở `RestaurantPaymentConfig` nhưng không có cơ chế Key Rotation rõ ràng.
 
 ### 🎯 TỔNG KẾT
-Đây là một dự án có nghiệp vụ (Business Logic) **rất xuất sắc và chi tiết**. Bạn đã nghĩ đến những thứ mà một hệ thống F&B thực tế cần (Audit log, Pos_X/Y của bàn, Rule khuyến mãi). Tuy nhiên, về mặt hạ tầng Database (Database Infrastructure), nó vẫn mang hơi hướng "code để chạy được" thay vì "code để scale". Cần đặc biệt chú ý đến Replica Set của MongoDB và đánh Index lại toàn bộ các trường phục vụ Báo cáo (Reporting) trước khi Go-live.
+Đây là một dự án có nghiệp vụ (Business Logic) **rất xuất sắc và chi tiết**. Bạn đã nghĩ đến những thứ mà một hệ thống F&B thực tế cần (Audit log, Pos_X/Y của bàn, Rule khuyến mãi). Việc bổ sung 73 bảng bao phủ cả Trợ lý AI và Billing SaaS cho thấy tầm nhìn hệ thống rất xa. 
+
+Tuy nhiên, về mặt hạ tầng Database (Database Infrastructure), nó vẫn mang hơi hướng "code để chạy được" thay vì "code để scale". Cần đặc biệt chú ý đến Replica Set của MongoDB và đánh Index lại toàn bộ các trường phục vụ Báo cáo (Reporting) trước khi Go-live.

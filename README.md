@@ -6,44 +6,79 @@ Chào mừng bạn đến với dự án Quản lý Nhà hàng Đa điểm (Mult
 
 ## 🗺️ Bản Đồ Kiến Trúc Cơ Sở Dữ Liệu (Database Schema 3D-View)
 
-> Do quy mô của hệ thống cực kỳ đồ sộ (hơn 70 bảng cơ sở dữ liệu và 2200 dòng schema), sơ đồ đã được chia nhỏ thành 5 phân hệ (Domains) để GitHub có thể hiển thị mượt mà dưới dạng Entity-Relationship Diagrams.
+> Do quy mô của hệ thống cực kỳ đồ sộ (hơn 70 bảng cơ sở dữ liệu và 2200 dòng schema), sơ đồ đã được chia nhỏ thành 5 phân hệ (Domains) để GitHub có thể hiển thị mượt mà. 
+> **Lưu ý:** Giao diện đã được chuyển sang chế độ Dark Mode (Màu Đen) và sử dụng định dạng danh sách thuộc tính chuẩn để dễ đọc hơn. Mọi bảng đều hiển thị tối thiểu 5 thuộc tính quan trọng nhất!
 
 ### 1. Phân Hệ Lõi (Core Domain: Brand, Restaurant, HR)
 Đây là trái tim của hệ thống Multi-tenant, xử lý logic chuỗi thương hiệu, chi nhánh và nhân sự.
 
 ```mermaid
-erDiagram
-    User ||--o{ Employment : "làm việc như"
-    SystemRole ||--o{ User : "có quyền"
-    Brand ||--o{ Restaurant : "sở hữu"
-    Brand ||--o{ Employment : "quản lý"
-    Restaurant ||--o{ Employment : "có nhân viên"
-    WorkspaceRole ||--o{ Employment : "vị trí"
-    Permission }o--o{ Employment : "gán quyền"
-    Category_Restaurant }o--o{ Restaurant : "thuộc loại"
+%%{init: {'theme': 'dark'}}%%
+classDiagram
+    User "1" --> "*" Employment : làm việc như
+    SystemRole "1" --> "*" User : có quyền
+    Brand "1" --> "*" Restaurant : sở hữu
+    Brand "1" --> "*" Employment : quản lý
+    Restaurant "1" --> "*" Employment : có nhân viên
+    WorkspaceRole "1" --> "*" Employment : vị trí
+    Permission "*" --> "*" Employment : gán quyền
+    Category_Restaurant "*" --> "*" Restaurant : thuộc loại
 
-    Brand {
-        ObjectId id PK
-        String name
-        Boolean forceGlobalTaxConfig
+    class Brand {
+        id : ObjectId
+        name : String
+        forceGlobalTaxConfig : Boolean
+        logo : String
+        status : String
     }
-    Restaurant {
-        ObjectId id PK
-        String name
-        String statusByAdmin
-        String statusByBrand
-        Float averageRating
+    class Restaurant {
+        id : ObjectId
+        name : String
+        statusByAdmin : String
+        statusByBrand : String
+        averageRating : Float
     }
-    User {
-        ObjectId id PK
-        String email
-        String is_active
+    class User {
+        id : ObjectId
+        email : String
+        user_name : String
+        is_active : String
+        createdAt : DateTime
     }
-    Employment {
-        ObjectId id PK
-        ObjectId userId FK
-        ObjectId brandId FK
-        ObjectId restaurantId FK
+    class Employment {
+        id : ObjectId
+        userId : ObjectId
+        brandId : ObjectId
+        restaurantId : ObjectId
+        isActive : Boolean
+    }
+    class SystemRole {
+        id : ObjectId
+        name : String
+        description : String
+        createdAt : DateTime
+        updatedAt : DateTime
+    }
+    class WorkspaceRole {
+        id : ObjectId
+        name : String
+        description : String
+        createdAt : DateTime
+        updatedAt : DateTime
+    }
+    class Permission {
+        id : ObjectId
+        name : String
+        description : String
+        type : String
+        createdAt : DateTime
+    }
+    class Category_Restaurant {
+        id : ObjectId
+        name : String
+        description : String
+        image : String
+        isActive : Boolean
     }
 ```
 
@@ -51,35 +86,74 @@ erDiagram
 Hệ thống xử lý cấu trúc Menu phân tầng phức tạp (Menu > Category > Item > Variant/Modifier).
 
 ```mermaid
-erDiagram
-    Menu ||--o{ MenuCategoryMap : "chứa"
-    MenuCategory ||--o{ MenuCategoryMap : "thuộc"
-    MenuCategory ||--o{ ItemCategoryMap : "chứa"
-    MenuItem ||--o{ ItemCategoryMap : "nằm trong"
-    MenuItem ||--o{ ItemVariant : "có size/loại"
-    MenuItem ||--o{ ModifierGroup : "có tuỳ chọn"
-    ModifierGroup ||--o{ ModifierOption : "chi tiết tuỳ chọn"
-    MenuItem ||--o{ OrderItem : "nằm trong đơn"
-    Order ||--o{ OrderItem : "bao gồm"
-    Order }|--|| Restaurant : "thuộc nhà hàng"
+%%{init: {'theme': 'dark'}}%%
+classDiagram
+    Menu "1" --> "*" MenuCategoryMap : chứa
+    MenuCategory "1" --> "*" MenuCategoryMap : thuộc
+    MenuCategory "1" --> "*" ItemCategoryMap : chứa
+    MenuItem "1" --> "*" ItemCategoryMap : nằm trong
+    MenuItem "1" --> "*" ItemVariant : có size/loại
+    MenuItem "1" --> "*" ModifierGroup : có tuỳ chọn
+    ModifierGroup "1" --> "*" ModifierOption : chi tiết
+    MenuItem "1" --> "*" OrderItem : nằm trong đơn
+    Order "1" --> "*" OrderItem : bao gồm
+    Restaurant "1" --> "*" Order : thuộc nhà hàng
 
-    Order {
-        ObjectId id PK
-        String order_number
-        String status
-        Float total_amount
+    class Menu {
+        id : ObjectId
+        name : String
+        brandId : ObjectId
+        is_active : Boolean
+        sort_order : Int
     }
-    MenuItem {
-        ObjectId id PK
-        String sku
-        Float basePrice
-        Boolean isTaxExempt
+    class MenuCategory {
+        id : ObjectId
+        name : String
+        description : String
+        is_active : Boolean
+        sort_order : Int
     }
-    OrderItem {
-        ObjectId id PK
-        Int quantity
-        Float subtotal
-        String status
+    class MenuItem {
+        id : ObjectId
+        sku : String
+        name : String
+        basePrice : Float
+        is_featured : Boolean
+    }
+    class ItemVariant {
+        id : ObjectId
+        name : String
+        sku : String
+        price : Float
+        menuItemId : ObjectId
+    }
+    class ModifierGroup {
+        id : ObjectId
+        name : String
+        minSelections : Int
+        maxSelections : Int
+        menuItemId : ObjectId
+    }
+    class ModifierOption {
+        id : ObjectId
+        name : String
+        priceExtra : Float
+        modifierGroupId : ObjectId
+        recipes : List
+    }
+    class Order {
+        id : ObjectId
+        order_number : String
+        status : String
+        total_amount : Float
+        paymentStatus : String
+    }
+    class OrderItem {
+        id : ObjectId
+        name : String
+        quantity : Int
+        unitPrice : Float
+        totalPrice : Float
     }
 ```
 
@@ -87,29 +161,57 @@ erDiagram
 Quản lý sơ đồ bàn 2D/3D (tọa độ X, Y), đặt bàn trước và lịch bảo trì bàn.
 
 ```mermaid
-erDiagram
-    Restaurant ||--o{ Restaurant_Areas : "có khu vực"
-    Restaurant_Areas ||--o{ Tables : "chứa bàn"
-    Reservations ||--o{ Reservation_Tables : "giữ bàn"
-    Tables ||--o{ Reservation_Tables : "được giữ"
-    Tables ||--o{ Table_Maintenance_Schedules : "đang sửa chữa"
-    Reservations ||--o{ Reservation_Audit_Log : "lịch sử đổi"
-    Reservations ||--o{ Order : "sinh ra đơn"
+%%{init: {'theme': 'dark'}}%%
+classDiagram
+    Restaurant "1" --> "*" Restaurant_Areas : có khu vực
+    Restaurant_Areas "1" --> "*" Tables : chứa bàn
+    Reservations "1" --> "*" Reservation_Tables : giữ bàn
+    Tables "1" --> "*" Reservation_Tables : được giữ
+    Tables "1" --> "*" Table_Maintenance_Schedules : sửa chữa
+    Reservations "1" --> "*" Reservation_Audit_Log : lịch sử đổi
+    Reservations "1" --> "*" Order : sinh ra đơn
 
-    Tables {
-        ObjectId id PK
-        String table_number
-        Int min_capacity
-        Int max_capacity
-        Float pos_x
-        Float pos_y
+    class Restaurant_Areas {
+        id : ObjectId
+        name : String
+        is_outdoor : Boolean
+        floor_number : Int
+        is_active : Boolean
     }
-    Reservations {
-        ObjectId id PK
-        String guest_name
-        DateTime reservation_date
-        String status
-        Boolean deposit_paid
+    class Tables {
+        id : ObjectId
+        table_number : String
+        min_capacity : Int
+        max_capacity : Int
+        status : String
+    }
+    class Reservations {
+        id : ObjectId
+        guest_name : String
+        reservation_date : DateTime
+        status : String
+        deposit_paid : Boolean
+    }
+    class Reservation_Tables {
+        id : ObjectId
+        reservationId : ObjectId
+        tableId : ObjectId
+        assigned_at : DateTime
+        assigned_by : ObjectId
+    }
+    class Table_Maintenance_Schedules {
+        id : ObjectId
+        start_time : DateTime
+        end_time : DateTime
+        reason : String
+        status : String
+    }
+    class Reservation_Audit_Log {
+        id : ObjectId
+        action : String
+        old_values : Json
+        new_values : Json
+        createdAt : DateTime
     }
 ```
 
@@ -117,35 +219,88 @@ erDiagram
 Theo dõi công thức nấu ăn (Recipe), kiểm kho (StockCount) và quản lý chiến dịch khuyến mãi phức tạp.
 
 ```mermaid
-erDiagram
-    InventoryItem ||--o{ InventoryStock : "tồn kho thực"
-    InventoryItem ||--o{ Recipe : "là nguyên liệu của"
-    MenuItem ||--o{ Recipe : "được nấu từ"
-    InventoryItem ||--o{ StockTransaction : "lịch sử XNT"
-    InventoryItem ||--o{ StockCountItem : "nằm trong phiếu kiểm"
-    StockCount ||--o{ StockCountItem : "chi tiết kiểm"
-    PurchaseOrder ||--o{ PurchaseOrderItem : "đặt hàng"
-    InventoryItem ||--o{ PurchaseOrderItem : "hàng được đặt"
-    
-    Promotion ||--o{ PromotionUsageLog : "đã sử dụng"
-    Promotion ||--o{ UserPromotionWallet : "khách lưu ví"
+%%{init: {'theme': 'dark'}}%%
+classDiagram
+    InventoryItem "1" --> "*" InventoryStock : tồn kho thực
+    InventoryItem "1" --> "*" Recipe : là nguyên liệu
+    MenuItem "1" --> "*" Recipe : được nấu từ
+    InventoryItem "1" --> "*" StockTransaction : lịch sử XNT
+    InventoryItem "1" --> "*" StockCountItem : trong phiếu kiểm
+    StockCount "1" --> "*" StockCountItem : chi tiết kiểm
+    PurchaseOrder "1" --> "*" PurchaseOrderItem : đặt hàng
+    InventoryItem "1" --> "*" PurchaseOrderItem : hàng được đặt
+    Promotion "1" --> "*" PromotionUsageLog : đã sử dụng
+    Promotion "1" --> "*" UserPromotionWallet : khách lưu ví
 
-    InventoryItem {
-        ObjectId id PK
-        String sku
-        Float minStockLevel
+    class InventoryItem {
+        id : ObjectId
+        sku : String
+        baseUnit : String
+        minPrice : Float
+        minStockLevel : Float
     }
-    StockTransaction {
-        ObjectId id PK
-        String type
-        Float quantityChange
-        Float balanceAfter
+    class InventoryStock {
+        id : ObjectId
+        quantity : Float
+        minStockLevel : Float
+        location : String
+        inventoryItemId : ObjectId
     }
-    Promotion {
-        ObjectId id PK
-        String code
-        String discountType
-        Json conditions
+    class StockTransaction {
+        id : ObjectId
+        type : String
+        quantityChange : Float
+        balanceAfter : Float
+        unitCost : Float
+    }
+    class StockCount {
+        id : ObjectId
+        code : String
+        status : String
+        reason : String
+        approvedBy : ObjectId
+    }
+    class StockCountItem {
+        id : ObjectId
+        systemQty : Float
+        actualQty : Float
+        discrepancy : Float
+        inventoryItemId : ObjectId
+    }
+    class PurchaseOrder {
+        id : ObjectId
+        poNumber : String
+        status : String
+        totalAmount : Float
+        supplierId : ObjectId
+    }
+    class PurchaseOrderItem {
+        id : ObjectId
+        orderQty : Float
+        receivedQty : Float
+        unitPrice : Float
+        actualAmount : Float
+    }
+    class Promotion {
+        id : ObjectId
+        code : String
+        discountType : String
+        conditions : Json
+        status : String
+    }
+    class PromotionUsageLog {
+        id : ObjectId
+        discountAmount : Float
+        usedAt : DateTime
+        promotionId : ObjectId
+        userId : ObjectId
+    }
+    class UserPromotionWallet {
+        id : ObjectId
+        savedAt : DateTime
+        userId : ObjectId
+        promotionId : ObjectId
+        user : ObjectId
     }
 ```
 
@@ -153,28 +308,102 @@ erDiagram
 Hệ thống thanh toán đa luồng (Subscription của Brand, Payment của Khách) và trợ lý AI Chatbot.
 
 ```mermaid
-erDiagram
-    SystemPaymentMethod ||--o{ AdminPaymentConfig : "cấu hình gốc"
-    SystemPaymentMethod ||--o{ BrandPaymentConfig : "brand cấu hình"
-    Brand ||--o{ BrandSubscription : "đăng ký gói"
-    SubscriptionPlan ||--o{ BrandSubscription : "thuộc gói"
-    BrandSubscription ||--o{ Invoice : "sinh hoá đơn"
-    Invoice ||--o{ BrandSubscriptionTransaction : "chi tiết TT"
-    
-    AiChatbox ||--o{ AiModel : "cung cấp"
-    Brand ||--o{ AIBrandConfig : "cấu hình AI"
-    Brand ||--o{ AIChatSession : "log chat"
-    AIChatSession ||--o{ AIChatMessage : "tin nhắn"
+%%{init: {'theme': 'dark'}}%%
+classDiagram
+    SystemPaymentMethod "1" --> "*" AdminPaymentConfig : cấu hình gốc
+    SystemPaymentMethod "1" --> "*" BrandPaymentConfig : cấu hình brand
+    Brand "1" --> "*" BrandSubscription : đăng ký gói
+    SubscriptionPlan "1" --> "*" BrandSubscription : thuộc gói
+    BrandSubscription "1" --> "*" Invoice : sinh hoá đơn
+    Invoice "1" --> "*" BrandSubscriptionTransaction : chi tiết TT
+    AiChatbox "1" --> "*" AiModel : cung cấp
+    Brand "1" --> "*" AIBrandConfig : cấu hình AI
+    Brand "1" --> "*" AIChatSession : log chat
+    AIChatSession "1" --> "*" AIChatMessage : tin nhắn
 
-    BrandSubscription {
-        ObjectId id PK
-        String status
-        DateTime endDate
+    class SystemPaymentMethod {
+        id : ObjectId
+        name : String
+        code : String
+        isActive : Boolean
+        iconUrl : String
     }
-    AIChatSession {
-        ObjectId id PK
-        String platform
-        String status
+    class AdminPaymentConfig {
+        id : ObjectId
+        configData : Json
+        isActive : Boolean
+        systemPaymentMethodId : ObjectId
+        createdAt : DateTime
+    }
+    class BrandPaymentConfig {
+        id : ObjectId
+        configData : Json
+        isActive : Boolean
+        brandId : ObjectId
+        systemPaymentMethodId : ObjectId
+    }
+    class BrandSubscription {
+        id : ObjectId
+        status : String
+        startDate : DateTime
+        endDate : DateTime
+        nextBillingDate : DateTime
+    }
+    class SubscriptionPlan {
+        id : ObjectId
+        name : String
+        price : Float
+        billingCycle : String
+        maxRestaurants : Int
+    }
+    class Invoice {
+        id : ObjectId
+        invoiceNumber : String
+        subTotal : Float
+        total : Float
+        status : String
+    }
+    class BrandSubscriptionTransaction {
+        id : ObjectId
+        amount : Float
+        status : String
+        paymentDate : DateTime
+        brandSubscriptionId : ObjectId
+    }
+    class AiChatbox {
+        id : ObjectId
+        name : String
+        systemPrompt : String
+        temperature : Float
+        maxTokens : Int
+    }
+    class AiModel {
+        id : ObjectId
+        name : String
+        provider : String
+        modelId : String
+        isActive : Boolean
+    }
+    class AIBrandConfig {
+        id : ObjectId
+        isEnabled : Boolean
+        autoReplyOrder : Boolean
+        knowledgeBaseUrl : String
+        brandId : ObjectId
+    }
+    class AIChatSession {
+        id : ObjectId
+        platform : String
+        status : String
+        brandId : ObjectId
+        restaurantId : ObjectId
+    }
+    class AIChatMessage {
+        id : ObjectId
+        role : String
+        content : String
+        intent : String
+        metadata : Json
     }
 ```
 

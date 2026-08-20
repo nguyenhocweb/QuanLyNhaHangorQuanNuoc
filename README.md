@@ -1522,7 +1522,7 @@ Backend áp dụng triệt để nguyên lý **Single Responsibility Principle (
 
 ---
 
-## 🕵️‍♂️ ĐÁNH GIÁ THỰC CHIẾN (GÓC NHÌN SENIOR PRO MAX LEADER)
+## 🕵️‍♂️ ĐÁNH GIÁ THỰC CHIẾN (GÓC NHÌN TECHNICAL ARCHITECT)
 *Đây là bài toán thẩm định khắt khe nhất khi mang hệ thống này đi gọi vốn hoặc Deploy lên môi trường thực tế với quy mô hàng triệu người dùng.*
 
 **🏆 Điểm đánh giá khả năng thực chiến: 8.5 / 10**
@@ -1547,4 +1547,4 @@ Dưới góc nhìn của một Leader khắt khe, nếu đưa hệ thống này 
    - **Thực tế:** Admin tập đoàn bấm nút "Xem doanh thu tháng qua của 100 chi nhánh". Nếu hệ thống query trực tiếp vào bảng `OrderItem` với hàng chục triệu dòng dữ liệu để SUM() và GROUP BY, Database MongoDB sẽ "đứng tim" (Timeout).
    - **Khắc phục:** Thiếu hẳn một hệ thống Data Warehouse (ETL). Cần có CronJob chạy lúc 2h sáng để tổng hợp dữ liệu từ `Order` sang một bảng `Report_Aggregated` (Dữ liệu đã được cộng dồn theo ngày), hoặc sử dụng ElasticSearch cho việc thống kê.
 
-> **Tổng Kết Của Leader:** Dự án đạt mức xuất sắc về mặt phân tích nghiệp vụ (Business Analyst) và quy hoạch Database Schema. Nhưng để lên tầm "Kỳ Lân công nghệ" (Enterprise-scale), kiến trúc Backend cần phải được đập đi xây lại theo hướng Event-Driven và Microservices. Tuy nhiên, ở tầm vóc 1 kĩ sư phần mềm/Fullstack Developer, đây là một kiệt tác hiếm có!
+> **Đánh giá tổng quan (Architect):** Dự án đạt mức xuất sắc về mặt phân tích nghiệp vụ (Business Analyst) và quy hoạch Database Schema. Nhưng để lên tầm "Kỳ Lân công nghệ" (Enterprise-scale), kiến trúc Backend cần phải được đập đi xây lại theo hướng Event-Driven và Microservices. Tuy nhiên, ở tầm vóc 1 kĩ sư phần mềm/Fullstack Developer, đây là một kiệt tác hiếm có!

@@ -11,9 +11,9 @@ export const getUpgradeRequestsController = async (req, res) => {
 
 export const updateUpgradeRequestStatusController = async (req, res) => {
     const { id } = req.params;
-    const { status } = req.body;
+    const { status, planId } = req.body;
     
-    const result = await updateUpgradeRequestStatusService(id, status);
+    const result = await updateUpgradeRequestStatusService(id, status, planId);
     
     return res.status(200).json({
         message: status === "APPROVED" ? "Phê duyệt yêu cầu nâng cấp thành công" : "Từ chối yêu cầu nâng cấp thành công",

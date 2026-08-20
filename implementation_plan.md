@@ -1,80 +1,61 @@
-# Kế Hoạch Triển Khai: Thanh Toán VietQR (Mô hình Webhook Cá Nhân - Không lưu API Key)
+# Kế hoạch "Đập đi xây lại" (Rebuild from scratch) - Module Payment
 
-Dựa trên việc đọc và phân tích các file Prisma Schema hiện tại trong hệ thống, dưới đây là bản kế hoạch chi tiết để áp dụng mô hình thanh toán chuyển khoản trực tiếp cho nhà hàng thông qua SePay/Casso (bằng đường link Webhook có Token) mà không cần lưu khóa bảo mật.
+Dựa trên yêu cầu khắt khe chuẩn Senior Pro Max Leader, tôi đã **XÓA SẠCH** 2 folder `payment_methods` và `admin_payment_configs` ở Frontend để loại bỏ những tư duy kiến trúc rời rạc cũ. Chúng ta sẽ làm lại một tính năng hợp nhất (Unified Feature) chặt chẽ, an toàn và có UI/UX đẳng cấp nhất.
 
-## 1. Phân Tích Schema: Dư Thừa & Thiếu Sót
+## 🧐 Đánh Giá Tổng Thể Lỗi Hệ Thống Cũ (Tỉ mỉ từng khâu)
 
-### Cái Dư Thừa (Redundant)
-1. **Sự tồn tại song song của `BrandPaymentConfig` và `RestaurantPaymentConfig`**
-   - **Lý do dư thừa:** Nếu nghiệp vụ của bạn là **Mỗi nhà hàng (chi nhánh) có một tài khoản ngân hàng riêng** để nhận tiền từ khách, thì bạn chỉ cần `RestaurantPaymentConfig`. Việc tồn tại thêm `BrandPaymentConfig` sẽ làm logic code phức tạp lên rất nhiều vì hệ thống phải if/else xem "Đơn hàng này dùng tài khoản của Brand hay của Restaurant?".
-   - **Khuyến nghị:** Nếu toàn bộ tiền của các chi nhánh đều gom về 1 tài khoản chung của công ty mẹ (Brand), hãy XÓA `RestaurantPaymentConfig`. Nếu tiền về từng quán, hãy XÓA `BrandPaymentConfig`. (Mình giả định bạn chọn Tiền về từng quán).
+### 1. Kiến trúc Rời rạc & Trải nghiệm (UX) Kém
+**Thiếu sót:** 
+- Tách làm 2 tính năng riêng biệt: Người dùng phải "Thêm phương thức" ở một nơi, rồi lại chuyển sang trang "Cấu hình API" ở một nơi khác.
+- UI/UX lỏng lẻo: Danh sách hiển thị những tham số trống rỗng, form API Key thì hardcode chỉ hỗ trợ PAYOS, các cổng khác bị bỏ mặc.
+**Mục tiêu (10/10):** Hợp nhất toàn bộ trải nghiệm vào một Feature thống nhất. Admin chỉ cần click vào "VNPAY", hệ thống sẽ tự động mở ra một Modal (hoặc Slide-over panel) chứa đầy đủ thông tin chung và cấu hình API ở các tab khác nhau.
 
-### Cái Còn Thiếu (Missing)
-1. **Model `Order` thiếu `paymentConfigId` (hoặc cách mapping nguồn tiền)**
-   - Hiện tại `Order` chỉ có `systemPaymentMethodId` (biết là trả bằng VIETQR), nhưng không trỏ tới cấu hình nào. Dù BE có thể query qua `Restaurant` để lấy `RestaurantPaymentConfig`, nhưng lưu cứng ID cấu hình vào Order sẽ an toàn hơn (lịch sử không bị đổi nếu quán đổi STK).
+### 2. Sự "Dễ Dãi" Của Zod Validation & Schema
+**Thiếu sót:**
+- Dùng `z.any()` cho API Config, dẫn đến việc lưu trữ data rác, thiếu cấu trúc.
+- Không có Discriminator (phân loại nhánh) cho từng cổng thanh toán. Ví dụ VNPAY bắt buộc phải có `vnp_TmnCode`, trong khi MOMO bắt buộc phải có `partnerCode`. Schema cũ gộp chung lại và cho "optional" toàn bộ.
+**Mục tiêu (10/10):** Xây dựng Zod Schema sử dụng `z.discriminatedUnion` dựa trên `providerCode` để bắt lỗi chính xác từng ký tự cho từng loại cổng thanh toán (Strict Type Checking).
 
-2. **Cấu trúc JSON `configData` chưa được định hình rõ ràng**
-   - Vì chúng ta không lưu API Key, field `configData` (thuộc `RestaurantPaymentConfig`) cần được quy định chuẩn format để phục vụ cho Webhook.
-
----
-
-## 2. Kế Hoạch Thay Đổi Database (Prisma)
-
-Không cần xóa bảng (nếu bạn muốn giữ linh hoạt), nhưng chúng ta sẽ quy chuẩn lại data sẽ lưu vào JSON.
-
-### Chuẩn hóa `configData` trong `RestaurantPaymentConfig`
-Field `configData` kiểu `Json` bắt buộc phải lưu theo Interface sau:
-```typescript
-{
-  "bankId": "970436",           // BIN của ngân hàng Vietcombank
-  "accountNo": "0123456789",    // Số tài khoản của chủ quán
-  "accountName": "NGUYEN VAN A",// Tên chủ quán
-  "webhookToken": "secret_abc123" // Chuỗi Token ngẫu nhiên BE tự sinh ra cho quán này
-}
-```
-*Lưu ý: Không có bất kỳ API Key nào của SePay ở đây.*
+### 3. Hiệu Năng & Fetching (React Query)
+**Thiếu sót:** 
+- Gộp quá nhiều queries rời rạc, không tận dụng staleTime, dễ sinh lỗi đồng bộ dữ liệu giữa bảng `SystemPaymentMethod` và `AdminPaymentConfig`.
+**Mục tiêu (10/10):** Viết lại Custom Hooks chuẩn xác, tận dụng `useQueries` nếu cần, và quản lý cache invalidation một cách khoa học.
 
 ---
 
-## 3. Quy Trình Cài Đặt Cho Nhà Hàng
+## 🚀 Proposed Changes (Kế hoạch thực thi)
 
-1. **FE (Trang Quản Trị Nhà Hàng):** Cung cấp Form cho chủ quán nhập Ngân hàng, Số tài khoản, Tên tài khoản.
-2. **BE (Lưu Cấu Hình):** Nhận data từ FE. Tự động dùng thư viện `crypto.randomBytes(16)` sinh ra một cái `webhookToken` duy nhất. Lưu toàn bộ vào DB dưới dạng JSON.
-3. **FE (Hiển thị Link):** FE hiển thị cho chủ quán một URL: 
-   `https://api.quanlynhahang.com/v1/payment/sepay-webhook?token=secret_abc123`
-4. **Hành động của Chủ Quán:** Chủ quán tải App SePay về máy, copy cái link trên kia dán vào App SePay của họ. Xong!
+Chúng ta sẽ chỉ xây dựng lại **MỘT FOLDER DUY NHẤT** là `fe/src/features/system_admin/payment_methods` (đóng vai trò Controller trung tâm cho cả thông tin chung lẫn cấu hình bảo mật).
 
----
+### 1. Cấu trúc Schema Tiên Tiến (Zod Discriminated Union)
+Tạo `fe/src/features/system_admin/payment_methods/schema/payment.schema.ts`.
+Sẽ định nghĩa 2 Schema:
+- **`methodMetadataSchema`**: Dành cho tên, mô tả, trạng thái hoạt động.
+- **`apiConfigSchema`**: Sử dụng `z.discriminatedUnion("providerCode", [...])`.
+  - Nhánh `VNPAY`: Bắt buộc `vnp_TmnCode`, `vnp_HashSecret`, `vnp_Url`.
+  - Nhánh `MOMO`: Bắt buộc `partnerCode`, `accessKey`, `secretKey`.
+  - Nhánh `PAYOS`: Bắt buộc `clientId`, `apiKey`, `checksumKey`.
 
-## 4. Kế Hoạch Triển Khai Backend & API
+### 2. Services & Hooks (API Layer)
+Tạo thư mục `hook/` và `service/` tập trung:
+- `usePaymentMethods.ts`: Lấy danh sách tổng.
+- `usePaymentConfig.ts`: Lấy và Cập nhật cấu hình API của một phương thức. Sẽ gọi đến endpoint của backend `admin_payment_config`.
+*(Lưu ý: Chúng ta sẽ tái sử dụng các API Backend hiện có, vì Backend chia ra 2 Router `system-admin/payment-methods` và `system-admin/payment-configs` là hợp lý về mặt Micro-service & DB separation. Việc gộp trải nghiệm là trách nhiệm của Frontend).*
 
-### A. API Tạo QR Code (GET/POST `/api/v1/payment/qr-generate/:orderId`)
-1. Lấy thông tin `Order` và `RestaurantPaymentConfig` từ DB.
-2. Dùng thư viện tĩnh (hoặc gọi free qua `img.vietqr.io`) để lấy ảnh QR. 
-   - `addInfo` (Nội dung) = `PAY O${order.order_number}`
-   - `amount` = `order.total_amount`
-3. Trả URL ảnh về cho FE hiển thị.
-
-### B. API Webhook Nhận Tiền (POST `/api/v1/payment/sepay-webhook`)
-API này là Public, SePay sẽ gọi vào khi quán có tiền vào.
-1. Lấy `token` từ `req.query.token`.
-2. Truy vấn DB: `findFirst` trong `RestaurantPaymentConfig` xem có cấu hình nào chứa `"webhookToken": "cái_token_kia"` không.
-   - Nếu không có -> Ném lỗi 403 (Chống hack giả mạo).
-3. Nếu có, trích xuất chuỗi nội dung chuyển khoản từ Body của SePay gửi sang. (VD: `... PAY O10293 ...`).
-4. Lấy mã đơn hàng `O10293`, tìm trong DB bảng `Order`.
-5. Kiểm tra số tiền `amount` nhận được >= `total_amount` của đơn hàng chưa.
-6. Nếu đủ: Đổi `status` đơn hàng thành `PAID`. Kích hoạt Real-time (Socket/SSE) xuống thiết bị của quán báo có tiền.
-
----
+### 3. Giao diện (UI Components - Premium Feel)
+Xây dựng các component với Animation và Styling cao cấp:
+- **`PaymentMethodList.tsx`**: Dạng lưới (Grid), thẻ Card bo góc mềm mại, hiển thị Logo lớn, Badge trạng thái.
+- **`PaymentConfigSlideOver.tsx`**: (Slide-over panel trượt từ phải sang thay vì Modal nhỏ). Panel này chia làm 2 Tabs:
+  - **Tab 1: Thông tin chung** (Tên, Trạng thái bật/tắt toàn cầu).
+  - **Tab 2: Kết nối API** (Form render động dựa theo `apiConfigSchema` đã định nghĩa. Có chức năng ẩn/hiện Secret Keys (masking)).
 
 ## User Review Required
+> [!IMPORTANT]
+> Đây là một cuộc đại tu toàn diện cho Frontend. Giao diện Slide-over và Zod Schema Strict (bắt buộc nhập đúng key của từng cổng) sẽ đòi hỏi code khá phức tạp nhưng đổi lại UX sẽ đạt 10/10. Bạn có đồng ý triển khai cấu trúc Frontend mới này không?
 
-> [!CAUTION]
-> Theo schema hiện tại, dự án của bạn có bảng `Transaction` (dành cho thanh toán của khách) và `BrandSubscriptionTransaction` (dành cho chủ Brand mua gói phần mềm).
-> - Bạn có muốn giữ lại `BrandPaymentConfig` để tương lai dùng cho việc chi nhánh Brand dùng chung 1 STK không, hay muốn mình vứt bỏ nó khỏi logic và chỉ focus vào `RestaurantPaymentConfig`?
-
-## Open Questions
-
-> [!WARNING]
-> Webhook từ SePay sẽ gọi liên tục vào Server bất cứ khi nào điện thoại chủ quán có tin nhắn biến động số dư (kể cả người nhà chuyển khoản cho chủ quán không liên quan tới đơn hàng). 
-> - BE sẽ phải dùng Regex để bóc tách xem nội dung có chữ `PAY O...` hay không rồi mới xử lý. Bạn đã rõ ràng về đặc thù này của mô hình SePay chưa?
+## Verification Plan
+### Manual Verification
+- Test giao diện Grid danh sách cổng thanh toán.
+- Bấm vào một cổng bất kỳ (VD: VNPAY), Slide-over trượt ra.
+- Chuyển sang Tab "Kết nối API", form bắt lỗi đỏ rực (Validation Error) nếu cố tình để trống `vnp_TmnCode`.
+- Submit thành công, dữ liệu được ghi vào đúng 2 bảng (thông qua 2 API độc lập).

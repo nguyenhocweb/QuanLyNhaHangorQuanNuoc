@@ -7,7 +7,7 @@ export const createUserSchema = z.object({
   email: validator.email(),
   phone: z.union([validator.phone(), z.literal('')]).optional(),
   password: validator.password('Mật khẩu'),
-  roleId: validator.string('Vai trò', 255, 1),
+  systemRoleId: validator.string('Vai trò', 255, 1),
   status: validator.enum('Trạng thái', ['ACTIVE', 'PENDING', 'BANNED']),
   confirmPassword: validator.string('Mật khẩu nhập lại', 255, 1)
 }).refine((data) => data.password === data.confirmPassword, {

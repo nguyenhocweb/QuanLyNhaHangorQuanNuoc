@@ -1,4 +1,4 @@
-import PayOS from "@payos/node";
+import { PayOS } from "@payos/node";
 
 /**
  * Khởi tạo đối tượng PayOS với cấu hình từ System, Brand hoặc Restaurant
@@ -10,11 +10,12 @@ export const createPayOSInstance = (config) => {
     throw new Error("Cấu hình PayOS không hợp lệ hoặc bị thiếu");
   }
 
-  return new PayOS(
-    config.clientId,
-    config.apiKey,
-    config.checksumKey
-  );
+  // PayOS SDK v2 requires an object
+  return new PayOS({
+    clientId: config.clientId,
+    apiKey: config.apiKey,
+    checksumKey: config.checksumKey
+  });
 };
 
 /**
@@ -27,7 +28,7 @@ export const verifyPayOSWebhookData = (webhookData, config) => {
   const payos = createPayOSInstance(config);
   try {
     // verifyPaymentWebhookData sẽ kiểm tra signature và trả về data nếu hợp lệ
-    const verifiedData = payos.verifyPaymentWebhookData(webhookData);
+    const verifiedData = payos.webhooks.verify(webhookData);
     return verifiedData;
   } catch (error) {
     console.error("Lỗi xác thực chữ ký Webhook PayOS:", error.message);

@@ -13,7 +13,9 @@ export const getAdminUpgradeRequests = async (params: GetUpgradeRequestsParams):
   return response.data.metadata;
 };
 
-export const updateAdminUpgradeRequestStatus = async (id: string, status: "APPROVED" | "REJECTED"): Promise<any> => {
-  const response = await axiosClient.patch(`/system-admin/upgrade-request/${id}/status`, { status });
+export const updateAdminUpgradeRequestStatus = async (id: string, status: "APPROVED" | "REJECTED", planId?: string) => {
+  const payload: any = { status };
+  if (planId) payload.planId = planId;
+  const response = await axiosClient.patch(`/system-admin/upgrade-request/${id}/status`, payload);
   return response.data;
 };

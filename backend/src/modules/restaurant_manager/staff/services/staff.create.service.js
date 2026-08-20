@@ -30,7 +30,7 @@ export const createStaffService = async (restaurantId, payload, user) => {
   if (!isManager && permissionIds && permissionIds.length > 0) {
     throw new ForbiddenError("Chỉ Quản lý nhà hàng mới có quyền phân quyền chi tiết cho nhân viên!");
   }
-  if (roleName === "Admin" || roleName === "Quản lý thương hiệu") {
+  if (roleName === "Admin" || roleName === "Chủ thương hiệu") {
     throw new ForbiddenError("Không thể cấp vai trò Quản trị viên cấp cao tại chi nhánh");
   }
 
@@ -71,7 +71,7 @@ export const createStaffService = async (restaurantId, payload, user) => {
     email,
     passwordHash,
     phone,
-    roleId: role.id,
+    workspaceRoleId: role.id,
     brandId: restaurant.brandId,
     restaurantId,
     permissionIds,

@@ -232,7 +232,7 @@ const Card_Restaurant_Component = ({
                                         <FaUsers className="text-indigo-400" /> Sức chứa tối đa:
                                     </span>
                                     <strong className="text-white">
-                                        {dataRestaurant.max_party_size ? `${dataRestaurant.max_party_size} khách` : "Đang cập nhật"}
+                                        {dataRestaurant.maxPartySize ? `${dataRestaurant.maxPartySize} khách` : "Đang cập nhật"}
                                     </strong>
                                 </div>
 
@@ -241,7 +241,7 @@ const Card_Restaurant_Component = ({
                                         <FaCalendarCheck className="text-emerald-400" /> Đặt trước tối đa:
                                     </span>
                                     <strong className="text-white">
-                                        {dataRestaurant.booking_window_days ? `${dataRestaurant.booking_window_days} ngày` : "Theo quy định"}
+                                        {dataRestaurant.bookingWindowDays ? `${dataRestaurant.bookingWindowDays} ngày` : "Theo quy định"}
                                     </strong>
                                 </div>
 
@@ -250,21 +250,21 @@ const Card_Restaurant_Component = ({
                                         <FaMoneyBillWave className="text-rose-400" /> Yêu cầu cọc:
                                     </span>
                                     <strong className="text-white text-right">
-                                        {dataRestaurant.deposit_required
-                                            ? dataRestaurant.deposit_amount
-                                                ? formatCurrency(dataRestaurant.deposit_amount)
+                                        {dataRestaurant.depositRequired
+                                            ? dataRestaurant.depositPerPax
+                                                ? formatCurrency(dataRestaurant.depositPerPax)
                                                 : "Có yêu cầu"
                                             : "Không yêu cầu"}
                                     </strong>
                                 </div>
 
                                 {/* Thông tin liên hệ */}
-                                {dataRestaurant.phone_contact && (
+                                {dataRestaurant.phoneContact && (
                                     <div className="flex items-center justify-between py-0.5 border-b border-white/5">
                                         <span className="flex items-center gap-1.5 text-slate-400">
                                             <FaPhoneAlt className="text-cyan-400" /> Hotline:
                                         </span>
-                                        <strong className="text-white truncate max-w-[150px]">{dataRestaurant.phone_contact}</strong>
+                                        <strong className="text-white truncate max-w-[150px]">{dataRestaurant.phoneContact}</strong>
                                     </div>
                                 )}
                                 

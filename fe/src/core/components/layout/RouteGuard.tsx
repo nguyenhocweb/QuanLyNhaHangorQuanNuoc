@@ -28,19 +28,19 @@ export const RouteGuard = ({ children }: { children: ReactNode }) => {
         let allowed = true;
 
         if (pathname.startsWith("/brand_owner")) {
-            if (user?.role !== "Chủ thương hiệu" && user?.role !== "Quản lý thương hiệu") {
+            if (activeWorkspace?.role !== "Chủ thương hiệu" && activeWorkspace?.role !== "Quản lý thương hiệu") {
                 allowed = false;
             } else if (activeWorkspace?.type === "RESTAURANT" || activeWorkspace?.type === "CUSTOMER") {
                 allowed = false;
             }
         } else if (pathname.startsWith("/quan-ly-nha-hang")) {
-            if (user?.role === "Khách hàng" || user?.role === "Admin") {
-                allowed = false;
+            if (user?.systemRole === "Khách hàng" && (!activeWorkspace || activeWorkspace?.type === "CUSTOMER")) {
+                allowed = false; // nếu là khách thuần túy
             } else if (activeWorkspace?.type === "BRAND" || activeWorkspace?.type === "CUSTOMER") {
                 allowed = false;
             } else {
                 // Kiểm tra quyền theo từng trang nếu là nhân viên
-                if (user?.role !== "Quản lý nhà hàng" && user?.role !== "Chủ thương hiệu" && user?.role !== "Admin" && user?.role !== "Quản lý thương hiệu") {
+                if (activeWorkspace?.role !== "Quản lý nhà hàng" && activeWorkspace?.role !== "Chủ thương hiệu" && user?.systemRole !== "Admin" && activeWorkspace?.role !== "Quản lý thương hiệu") {
                     const matchedMenu = SidebarMenuQuanLyNhaHang.find(item => pathname.startsWith(item.link));
                     if (matchedMenu && matchedMenu.permissions && matchedMenu.permissions.length > 0) {
                         const userPerms = user?.permissions || [];
@@ -52,7 +52,7 @@ export const RouteGuard = ({ children }: { children: ReactNode }) => {
                 }
             }
         } else if (pathname.startsWith("/system")) {
-             if (user?.role !== "Admin") {
+             if (user?.systemRole !== "Admin") {
                  allowed = false;
              }
         }

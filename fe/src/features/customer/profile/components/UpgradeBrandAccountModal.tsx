@@ -38,7 +38,7 @@ export const UpgradeBrandAccountModal: React.FC<Props> = ({ isOpen, onClose, use
     resolver: zodResolver(upgradeSchema),
     defaultValues: {
       brandName: "",
-      tax_code: "",
+      taxCode: "",
       businessLicenseFile: null
     }
   });
@@ -82,7 +82,7 @@ export const UpgradeBrandAccountModal: React.FC<Props> = ({ isOpen, onClose, use
       // Gửi request nâng cấp
       await createUpgradeRequest({
         brandName: data.brandName,
-        tax_code: data.tax_code,
+        taxCode: data.taxCode,
         businessLicenseFile: data.businessLicenseFile, // fix type mismatch
         businessLicense: uploadedUrl
       } as UpgradeFormValues & { businessLicense: string });
@@ -147,11 +147,11 @@ export const UpgradeBrandAccountModal: React.FC<Props> = ({ isOpen, onClose, use
           <div className="space-y-2 flex flex-col w-full text-left">
             <Label className="text-sm font-semibold text-slate-700 w-full block">Mã số thuế</Label>
             <Input
-              {...register("tax_code")}
+              {...register("taxCode")}
               placeholder="Nhập mã số thuế (nếu có)..."
               className="rounded-lg focus-visible:ring-amber-500 w-full block"
             />
-            {errors.tax_code && <p className="text-red-500 text-xs mt-1">{errors.tax_code.message}</p>}
+            {errors.taxCode && <p className="text-red-500 text-xs mt-1">{errors.taxCode.message}</p>}
           </div>
 
           <div className="space-y-2 flex flex-col w-full text-left">

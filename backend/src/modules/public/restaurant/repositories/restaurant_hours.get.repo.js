@@ -9,12 +9,12 @@ export const getPublicRestaurantHoursRepo = async (restaurantId) => {
         },
         select: {
             id: true,
-            operating_hours: {
+            operatingHours: {
                 orderBy: {
                     day_of_week: 'asc'
                 }
             },
-            special_schedules: {
+            specialSchedules: {
                 where: {
                     date: {
                         gte: new Date(), // Chỉ lấy các lịch đặc biệt trong tương lai

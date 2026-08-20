@@ -21,7 +21,31 @@ export const useLoginSuccess = () => {
         mutationFn: loginSuccessSevice,
         onSuccess: (data: User) => {
             setUser(data);
-            route.push("/")
+            if (data.systemRole === "Admin") {
+                route.push("/system/dashboard");
+                return;
+            }
+
+            const brandCount = data.brand ? data.brand.length : 0;
+            const restCount = data.restaurant ? data.restaurant.length : 0;
+            const totalWorkspaces = brandCount + restCount;
+
+            if (totalWorkspaces > 1) {
+                route.push("/select-workspace");
+            } else if (totalWorkspaces === 1) {
+                if (brandCount === 1) {
+                    route.push("/brand_owner/dashboard");
+                } else if (restCount === 1) {
+                    const role = data.restaurant![0].role;
+                    if (role === "Quản lý nhà hàng") {
+                        route.push("/quan-ly-nha-hang/dashboard");
+                    } else {
+                        route.push("/quan-ly-nha-hang/profile");
+                    }
+                }
+            } else {
+                route.push("/");
+            }
         },
         onError: (error) => {             
             // 1. Nếu đây là lỗi do gọi API (Server ném lỗi 400, 401, 404...)

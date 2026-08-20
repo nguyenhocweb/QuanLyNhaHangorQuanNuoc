@@ -10,10 +10,14 @@ export const getPromotionsRepo = async (brandId, filter, skip, limit) => {
             take: limit,
             orderBy: { createdAt: "desc" },
             include: {
-                restaurant: {
-                    select: {
-                        id: true,
-                        name: true
+                promotionRestaurants: {
+                    include: {
+                        restaurant: {
+                            select: {
+                                id: true,
+                                name: true
+                            }
+                        }
                     }
                 }
             }
@@ -22,4 +26,21 @@ export const getPromotionsRepo = async (brandId, filter, skip, limit) => {
     ]);
 
     return { promotions, total };
+};
+
+export const getPromotionByIdRepo = async (brandId, promotionId) => {
+    return await prisma.promotion.findFirst({
+        where: {
+            id: promotionId,
+            brandId
+        },
+        include: {
+            promotionRestaurants: {
+                select: { restaurantId: true }
+            },
+            promotionMenuItems: {
+                select: { menuItemId: true }
+            }
+        }
+    });
 };

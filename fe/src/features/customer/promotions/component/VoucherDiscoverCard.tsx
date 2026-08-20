@@ -18,7 +18,7 @@ export const VoucherDiscoverCard: React.FC<VoucherDiscoverCardProps> = ({ promot
         }
     };
 
-    const isPercentage = promotion.discount_type === "PERCENTAGE";
+    const isPercentage = promotion.discountType === "PERCENTAGE";
     const bgBadge = isPercentage ? "bg-amber-500" : "bg-indigo-600";
     const borderAccent = isPercentage ? "border-l-amber-500" : "border-l-indigo-600";
 
@@ -58,28 +58,28 @@ export const VoucherDiscoverCard: React.FC<VoucherDiscoverCardProps> = ({ promot
                         <h3 className="text-lg font-bold text-gray-800">
                             {isPercentage ? (
                                 <>
-                                    Giảm <span className="text-amber-600">{promotion.discount_value}%</span>
-                                    {promotion.max_discount ? ` tối đa ${promotion.max_discount.toLocaleString("vi-VN")}đ` : ""}
+                                    Giảm <span className="text-amber-600">{promotion.discountValue}%</span>
+                                    {promotion.maxDiscount ? ` tối đa ${promotion.maxDiscount.toLocaleString("vi-VN")}đ` : ""}
                                 </>
                             ) : (
                                 <>
-                                    Giảm thẳng <span className="text-indigo-600">{promotion.discount_value.toLocaleString("vi-VN")}đ</span>
+                                    Giảm thẳng <span className="text-indigo-600">{promotion.discountValue.toLocaleString("vi-VN")}đ</span>
                                 </>
                             )}
                         </h3>
                     </div>
 
                     <p className="text-sm text-gray-600 line-clamp-2 mb-2">
-                        {promotion.description || `Đơn tối thiểu ${promotion.min_order_value ? promotion.min_order_value.toLocaleString("vi-VN") + "đ" : "0đ"}`}
+                        {promotion.description || `Đơn tối thiểu ${promotion.minOrderValue ? promotion.minOrderValue.toLocaleString("vi-VN") + "đ" : "0đ"}`}
                     </p>
 
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
                         <span>
-                            Đơn tối thiểu: <strong className="text-gray-700">{promotion.min_order_value ? `${promotion.min_order_value.toLocaleString("vi-VN")}đ` : "0đ"}</strong>
+                            Đơn tối thiểu: <strong className="text-gray-700">{promotion.minOrderValue ? `${promotion.minOrderValue.toLocaleString("vi-VN")}đ` : "0đ"}</strong>
                         </span>
                         <span>•</span>
                         <span>
-                            HSD: <strong className="text-gray-700">{new Date(promotion.valid_until).toLocaleDateString("vi-VN")}</strong>
+                            HSD: <strong className="text-gray-700">{new Date(promotion.validUntil).toLocaleDateString("vi-VN")}</strong>
                         </span>
                     </div>
                 </div>

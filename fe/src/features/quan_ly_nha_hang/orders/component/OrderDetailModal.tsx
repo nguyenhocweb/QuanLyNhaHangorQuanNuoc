@@ -21,10 +21,15 @@ export const OrderDetailModal: React.FC<OrderDetailModalProps> = ({ order, onClo
               Chi tiết đơn hàng {order.order_number}
               <OrderStatusBadge status={order.status} />
             </H>
-            <span className="text-sm text-gray-500">
-              {order.table ? `Bàn: ${order.table.table_number}` : (order.isTakeaway ? 'Đơn mang đi' : '')} 
-              {' • '} {new Date(order.createdAt).toLocaleString('vi-VN')}
-            </span>
+            <div className="text-sm text-gray-500 flex flex-col gap-1 mt-1">
+              <span>{order.table ? `Bàn: ${order.table.table_number}` : (order.isTakeaway ? 'Đơn mang đi' : '')} • Tạo lúc: {new Date(order.createdAt).toLocaleString('vi-VN')}</span>
+              {order.status === 'PAID' && order.paid_at && (
+                <span className="text-green-600 font-medium">Thanh toán lúc: {new Date(order.paid_at).toLocaleString('vi-VN')}</span>
+              )}
+              {order.status === 'CANCELLED' && (
+                <span className="text-red-500 font-medium">Đã hủy lúc: {order.updatedAt ? new Date(order.updatedAt).toLocaleString('vi-VN') : ''}</span>
+              )}
+            </div>
           </div>
           <button onClick={onClose} className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors focus:outline-none">
             <FiX className="text-xl" />

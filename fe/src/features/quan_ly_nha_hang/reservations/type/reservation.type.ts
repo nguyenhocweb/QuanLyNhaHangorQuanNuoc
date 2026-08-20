@@ -19,7 +19,7 @@ export interface Reservation {
     special_requests?: string;
     internal_notes?: string;
     deposit_paid: boolean;
-    deposit_amount?: number;
+    depositPerPax?: number;
     createdAt: string;
     updatedAt: string;
     // Relationships

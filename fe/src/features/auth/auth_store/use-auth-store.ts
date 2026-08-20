@@ -3,11 +3,16 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import {User} from "../auth_types/login_type"
+import { useAiStore } from '../../ai/store/useAiStore';
+
 interface WorkspaceState {
     type: 'CUSTOMER' | 'BRAND' | 'RESTAURANT';
     id?: string;
+    brandId?: string;
+    restaurantId?: string;
     name?: string;
     role?: string;
+    features?: Record<string, boolean> | null;
 }
 
 interface AuthState {
@@ -31,15 +36,44 @@ export const useAuthStore = create<AuthState>()(
 
             // 2. Action Login: Chỉ cập nhật State, KHÔNG CẦN gọi localStorage.setItem nữa
             login: (userData) => {
+                let defaultWorkspaceType: 'CUSTOMER' | 'BRAND' | 'RESTAURANT' = 'CUSTOMER';
+                let workspaceId = undefined;
+                let workspaceName = undefined;
+                let workspaceRole = undefined;
+                let workspaceFeatures = undefined;
+
+                const brandCount = userData.brand ? userData.brand.length : 0;
+                const restCount = userData.restaurant ? userData.restaurant.length : 0;
+                const totalWorkspaces = brandCount + restCount;
+
+                // CHỈ auto-select nếu user có ĐÚNG 1 nơi làm việc
+                if (totalWorkspaces === 1) {
+                    if (brandCount === 1) {
+                        defaultWorkspaceType = 'BRAND';
+                        workspaceId = userData.brand![0].id;
+                        workspaceName = userData.brand![0].name;
+                        workspaceRole = userData.brand![0].role;
+                        workspaceFeatures = userData.brand![0].features;
+                    } else if (restCount === 1) {
+                        defaultWorkspaceType = 'RESTAURANT';
+                        workspaceId = userData.restaurant![0].id;
+                        workspaceName = userData.restaurant![0].name;
+                        workspaceRole = userData.restaurant![0].role;
+                        workspaceFeatures = userData.restaurant![0].features;
+                    }
+                }
+                // Nếu > 1 nơi làm việc, giữ nguyên là CUSTOMER (không có ID) để bắt buộc phải chọn
+
                 set({ 
                     user: userData, 
                     isAuthenticated: true,
-                    activeWorkspace: { type: 'CUSTOMER' }
+                    activeWorkspace: { type: defaultWorkspaceType, id: workspaceId, name: workspaceName, role: workspaceRole, features: workspaceFeatures }
                 });
             },
 
             // 3. Action Logout
             logout: () => {
+                useAiStore.getState().clearMessages();
                 set({ user: null, isAuthenticated: false, activeWorkspace: { type: 'CUSTOMER' } });
             },
             updateUser: (updatedUser) => {
@@ -51,7 +85,27 @@ export const useAuthStore = create<AuthState>()(
                 });
             },
             switchWorkspace: (workspace) => {
-                set({ activeWorkspace: workspace });
+                useAiStore.getState().clearMessages();
+                set(state => {
+                    let role = workspace.role;
+                    let features = workspace.features;
+                    if (!role && state.user && workspace.id) {
+                        if (workspace.type === 'BRAND') {
+                            const b = state.user.brand?.find((x: any) => x.id === workspace.id);
+                            if (b) {
+                                role = b.role;
+                                features = b.features;
+                            }
+                        } else if (workspace.type === 'RESTAURANT') {
+                            const r = state.user.restaurant?.find((x: any) => x.id === workspace.id);
+                            if (r) {
+                                role = r.role;
+                                features = r.features;
+                            }
+                        }
+                    }
+                    return { activeWorkspace: { ...workspace, role, features } };
+                });
             }
         }),
         {

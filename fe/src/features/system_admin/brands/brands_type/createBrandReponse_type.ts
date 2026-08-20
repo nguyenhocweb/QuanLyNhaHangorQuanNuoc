@@ -10,9 +10,9 @@ export interface CloudinarySignatureResponse {
 
 export interface CreateBrandRequest {
     name: string;
-    tax_code: string;
-    email_contact: string;
-    phone_contact: string;
+    taxCode: string;
+    emailContact: string;
+    phoneContact: string;
     link?: string | null;
     address: string;
     brand_owner_id: string;

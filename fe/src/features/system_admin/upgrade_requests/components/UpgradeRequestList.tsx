@@ -2,10 +2,12 @@
 import FadeIn from "@/src/core/components/animation/FadeIn";
 
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { FiSearch, FiCheck, FiX, FiExternalLink, FiClock } from "react-icons/fi";
 import { H, P, Div, Button, Input, Select } from "@/src/core/components/ui";
 import { Table } from "@/src/core/components/ui/Table";
 import { useAdminUpgradeRequests, useUpdateAdminUpgradeRequestStatus } from "../hook/useUpgradeRequests_hook";
+import { useGetSubscriptions } from "../../subscriptions/hook/useSubscription_hook";
 import { AdminUpgradeRequest } from "../type/upgrade-request.type";
 import { ConfirmModal } from "@/src/core/components/layout/public-ConfirmModal";
 import Pagination from "@/src/core/components/layout/Pagination";
@@ -25,6 +27,10 @@ export const UpgradeRequestList = () => {
   });
 
   const { mutateAsync: updateStatus, isPending: isUpdating } = useUpdateAdminUpgradeRequestStatus();
+  
+  // Lấy danh sách gói cước (không phân trang để lấy tất cả)
+  const { data: plansData, isLoading: isLoadingPlans } = useGetSubscriptions({ limit: 100 });
+  const plans = plansData?.data || [];
 
   // State cho Confirm Modal
   const [confirmModal, setConfirmModal] = useState<{
@@ -34,6 +40,7 @@ export const UpgradeRequestList = () => {
     content: string;
     targetId: string | null;
     actionType: "APPROVED" | "REJECTED" | null;
+    planId: string;
   }>({
     isOpen: false,
     type: "success",
@@ -41,10 +48,14 @@ export const UpgradeRequestList = () => {
     content: "",
     targetId: null,
     actionType: null,
+    planId: "",
   });
 
   const openConfirmModal = (request: AdminUpgradeRequest, type: "APPROVED" | "REJECTED") => {
     if (type === "APPROVED") {
+      // Tìm gói Free mặc định (price = 0) nếu có
+      const defaultFreePlan = plans.find(p => p.price === 0);
+      
       setConfirmModal({
         isOpen: true,
         type: "success",
@@ -52,6 +63,7 @@ export const UpgradeRequestList = () => {
         content: `Bạn có chắc chắn muốn phê duyệt yêu cầu trở thành đối tác của Khách hàng: ${request.user.name} cho Thương hiệu "${request.brandName}"? Hệ thống sẽ tự động tạo Thương hiệu mới.`,
         targetId: request.id,
         actionType: "APPROVED",
+        planId: defaultFreePlan ? defaultFreePlan.id : (plans.length > 0 ? plans[0].id : ""),
       });
     } else {
       setConfirmModal({
@@ -61,13 +73,23 @@ export const UpgradeRequestList = () => {
         content: `Bạn có chắc chắn muốn từ chối yêu cầu nâng cấp tài khoản của Khách hàng: ${request.user.name}?`,
         targetId: request.id,
         actionType: "REJECTED",
+        planId: "",
       });
     }
   };
 
   const handleConfirm = async () => {
     if (confirmModal.targetId && confirmModal.actionType) {
-      await updateStatus({ id: confirmModal.targetId, status: confirmModal.actionType });
+      if (confirmModal.actionType === "APPROVED" && !confirmModal.planId) {
+        toast.error("Vui lòng chọn một Gói cước để gán cho Thương hiệu!");
+        return;
+      }
+      
+      await updateStatus({ 
+        id: confirmModal.targetId, 
+        status: confirmModal.actionType,
+        planId: confirmModal.actionType === "APPROVED" ? confirmModal.planId : undefined
+      });
       setConfirmModal((prev) => ({ ...prev, isOpen: false }));
     }
   };
@@ -144,7 +166,7 @@ export const UpgradeRequestList = () => {
                   </td>
                   <td className="p-4">
                     <div className="font-medium text-amber-600">{req.brandName}</div>
-                    <div className="text-sm text-gray-500">MST: {req.tax_code || "Không có"}</div>
+                    <div className="text-sm text-gray-500">MST: {req.taxCode || "Không có"}</div>
                   </td>
                   <td className="p-4">
                     {req.businessLicense ? (
@@ -226,7 +248,35 @@ export const UpgradeRequestList = () => {
       <ConfirmModal
         open={confirmModal.isOpen}
         title={confirmModal.title}
-        content={confirmModal.content}
+        content={
+          <div className="space-y-4">
+            <p>{confirmModal.content}</p>
+            {confirmModal.actionType === "APPROVED" && (
+              <div className="space-y-2 mt-4">
+                <label className="block text-sm font-medium text-gray-700">
+                  Chọn gói cước cấp phát <span className="text-red-500">*</span>
+                </label>
+                {isLoadingPlans ? (
+                  <div className="text-sm text-gray-500">Đang tải danh sách gói cước...</div>
+                ) : (
+                  <Select
+                    value={confirmModal.planId}
+                    onChange={(e) => setConfirmModal({ ...confirmModal, planId: e.target.value })}
+                    className="w-full text-black"
+                  >
+                    <option value="" disabled>-- Vui lòng chọn gói cước --</option>
+                    {plans.map((plan) => (
+                      <option key={plan.id} value={plan.id}>
+                        {plan.name} - {plan.price === 0 ? "Miễn phí" : `${plan.price.toLocaleString("vi-VN")}đ`} 
+                        ({plan.billingCycle === "MONTHLY" ? "Tháng" : plan.billingCycle === "YEARLY" ? "Năm" : "Trọn đời"})
+                      </option>
+                    ))}
+                  </Select>
+                )}
+              </div>
+            )}
+          </div>
+        }
         type={confirmModal.type}
         confirmText={confirmModal.actionType === "APPROVED" ? "Phê duyệt" : "Từ chối"}
         onClose={() => setConfirmModal({ ...confirmModal, isOpen: false })}

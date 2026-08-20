@@ -2,7 +2,7 @@ import { prisma } from "../../../../databases/init.mongodb.js";
 
 export const accountCreateRepository = {
   findRoleByName: async (roleName) => {
-    return prisma.role.findFirst({
+    return prisma.systemRole.findFirst({
       where: {
         name: roleName
       }

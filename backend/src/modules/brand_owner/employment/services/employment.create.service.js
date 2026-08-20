@@ -20,8 +20,10 @@ export const createEmploymentService = async (brandId, payload) => {
     const existingUser = await prisma.user.findUnique({
       where: { id: userId },
       include: {
-        employments: true,
-        role: true,
+        employments: {
+          include: { workspaceRole: true }
+        },
+        systemRole: true,
       }
     });
 
@@ -29,8 +31,12 @@ export const createEmploymentService = async (brandId, payload) => {
       throw new NotFoundError("Không tìm thấy người dùng này trong hệ thống");
     }
 
-    if (existingUser.role?.name === "Admin" || existingUser.role?.name === "Quản lý thương hiệu") {
+    if (existingUser.systemRole?.name === "Admin") {
       throw new ConflictError("Không thể gán quyền nhân viên cho quản lý cấp cao");
+    }
+    const isBrandOwner = existingUser.employments.some(emp => emp.brandId === brandId && emp.workspaceRole?.name === "Chủ thương hiệu");
+    if (isBrandOwner) {
+      throw new ConflictError("Người dùng này đã là Chủ thương hiệu, không thể gán quyền nhân viên");
     }
 
     const alreadyEmployed = existingUser.employments.some(emp => emp.brandId === brandId);
@@ -41,7 +47,7 @@ export const createEmploymentService = async (brandId, payload) => {
 
   // 2. Tìm Role ID
   const roleName = (restaurantId && isManager) ? "Quản lý nhà hàng" : "Nhân viên";
-  const staffRole = await prisma.role.findUnique({
+  const staffRole = await prisma.workspaceRole.findUnique({
     where: { name: roleName },
   });
 
@@ -62,7 +68,7 @@ export const createEmploymentService = async (brandId, payload) => {
     email,
     passwordHash,
     phone,
-    roleId: staffRole.id,
+    workspaceRoleId: staffRole.id,
     brandId,
     restaurantId,
     permissionIds,

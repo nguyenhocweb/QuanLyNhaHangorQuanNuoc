@@ -10,7 +10,10 @@ export const subscriptionSchema = z.object({
   discountEndDate: validator.date("Ngày kết thúc KM").optional().or(z.literal("").transform(() => undefined)),
   billingCycle: validator.enum("Chu kỳ thanh toán", ['MONTHLY', 'YEARLY', 'LIFETIME']),
   maxRestaurants: validator.number("Giới hạn số nhà hàng", -1),
-  features: validator.array("Các tính năng", validator.string("Tính năng", 255, 1), { min: 1 }),
+  trialPeriodDays: validator.number("Số ngày dùng thử", 0, 365).default(0),
+  setupFee: validator.number("Phí khởi tạo", 0, 1_000_000_000).default(0),
+  featuresData: z.record(z.string(), z.any()).optional().nullable(),
+  isPublic: z.boolean().default(true),
   isActive: z.boolean().default(true),
 });
 

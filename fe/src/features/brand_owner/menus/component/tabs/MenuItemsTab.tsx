@@ -87,6 +87,34 @@ const MenuItemsTab = () => {
                                                 <div>
                                                     <p className="text-sm font-bold text-gray-800">{item.name}</p>
                                                     <p className="text-xs text-gray-500 line-clamp-1">{item.description}</p>
+                                                    
+                                                    {/* Variants */}
+                                                    {item.variants && item.variants.length > 0 && (
+                                                        <div className="mt-1.5 flex flex-wrap gap-1.5">
+                                                            {item.variants.map((v: any) => (
+                                                                <span key={v.id} className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700 border border-blue-100">
+                                                                    {v.name}: {v.price > 0 ? (v.price / 1000) + 'k' : '0đ'}
+                                                                </span>
+                                                            ))}
+                                                        </div>
+                                                    )}
+                                                    
+                                                    {/* Modifier Groups & Options */}
+                                                    {item.modifierGroups && item.modifierGroups.length > 0 && (
+                                                        <div className="mt-1 flex flex-col gap-0.5">
+                                                            {item.modifierGroups.map((g: any) => (
+                                                                <div key={g.id} className="flex flex-wrap items-center gap-1 text-[11px]">
+                                                                    <span className="font-semibold text-gray-600 bg-gray-100 px-1.5 py-0.5 rounded">{g.name}:</span>
+                                                                    {g.options?.map((opt: any, index: number) => (
+                                                                        <span key={opt.id} className="text-gray-500">
+                                                                            {opt.name} {opt.priceExtra > 0 ? <span className="text-orange-500">(+{opt.priceExtra / 1000}k)</span> : ''}
+                                                                            {index < g.options.length - 1 ? ',' : ''}
+                                                                        </span>
+                                                                    ))}
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
                                         </td>

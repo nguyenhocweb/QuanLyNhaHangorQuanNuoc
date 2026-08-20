@@ -2,12 +2,11 @@
 
 import React, { useState } from 'react';
 import { Div, H, Button, Input } from "@/src/core/components/ui";
-import { FiSearch, FiEye, FiDollarSign } from "react-icons/fi";
+import { FiSearch, FiEye } from "react-icons/fi";
 import useDebounce from "@/src/core/hooks/useDebounce";
 import { useGetOrders } from "../hook/useGetOrders";
 import { OrderStatusBadge } from "./OrderStatusBadge";
 import { OrderDetailModal } from "./OrderDetailModal";
-import { CheckoutModal } from "./CheckoutModal";
 import { Order } from "../type/order.type";
 import FadeIn from "@/src/core/components/animation/FadeIn";
 import { useRealtimeUpdates } from "@/src/core/hooks/useRealtimeUpdates";
@@ -19,7 +18,6 @@ export default function RestaurantOrderList({ restaurantId }: { restaurantId: st
   const [searchInput, setSearchInput] = useState("");
   const debouncedSearch = useDebounce({ value: searchInput, delay: 500 });
   const [selectedOrderDetails, setSelectedOrderDetails] = useState<Order | null>(null);
-  const [selectedOrderCheckout, setSelectedOrderCheckout] = useState<Order | null>(null);
 
   const {
     orders,
@@ -62,7 +60,10 @@ export default function RestaurantOrderList({ restaurantId }: { restaurantId: st
                 className="h-[42px] px-3 rounded-xl border border-gray-200 bg-white text-[14px] outline-none"
               >
                 <option value="all">Tất cả trạng thái</option>
-                <option value="OPEN">Đang phục vụ</option>
+                <option value="OPEN">Đang gọi món</option>
+                <option value="SENT_TO_KITCHEN">Đã gửi bếp</option>
+                <option value="PARTIALLY_SERVED">Đã ra 1 phần</option>
+                <option value="SERVED">Đã lên đủ món</option>
                 <option value="BILL_REQUESTED">Chờ thanh toán</option>
                 <option value="PAID">Đã thanh toán</option>
                 <option value="CANCELLED">Đã hủy</option>
@@ -100,8 +101,20 @@ export default function RestaurantOrderList({ restaurantId }: { restaurantId: st
                       <td className="py-3 px-4 text-right font-medium text-gray-900">
                         {order.total_amount.toLocaleString()} đ
                       </td>
-                      <td className="py-3 px-4 text-sm text-gray-500">
-                        {new Date(order.createdAt).toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'})}
+                      <td className="py-3 px-4 text-sm text-gray-500 flex flex-col gap-1">
+                        <div>
+                          <span className="font-medium text-gray-700">Tạo:</span> {new Date(order.createdAt).toLocaleString('vi-VN', {hour: '2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric'})}
+                        </div>
+                        {order.status === "PAID" && order.paid_at && (
+                          <div className="text-green-600">
+                            <span className="font-medium">Thanh toán:</span> {new Date(order.paid_at).toLocaleString('vi-VN', {hour: '2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric'})}
+                          </div>
+                        )}
+                        {order.status === "CANCELLED" && (
+                          <div className="text-red-500">
+                            <span className="font-medium">Đã hủy:</span> {order.updatedAt ? new Date(order.updatedAt).toLocaleString('vi-VN', {hour: '2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric'}) : ''}
+                          </div>
+                        )}
                       </td>
                       <td className="py-3 px-4">
                         <div className="flex items-center justify-center gap-2">
@@ -114,17 +127,6 @@ export default function RestaurantOrderList({ restaurantId }: { restaurantId: st
                           >
                             <FiEye />
                           </Button>
-                          {(order.status === 'OPEN' || order.status === 'BILL_REQUESTED' || order.status === 'SERVED') && (
-                            <Button 
-                              variant="default" 
-                              sizea="p2_1" 
-                              onClick={() => setSelectedOrderCheckout(order)}
-                              className="rounded-lg bg-green-500 hover:bg-green-600 text-white"
-                              title="Thanh toán"
-                            >
-                              <FiDollarSign />
-                            </Button>
-                          )}
                         </div>
                       </td>
                     </tr>
@@ -141,13 +143,6 @@ export default function RestaurantOrderList({ restaurantId }: { restaurantId: st
         <OrderDetailModal 
           order={selectedOrderDetails} 
           onClose={() => setSelectedOrderDetails(null)} 
-        />
-      )}
-      
-      {selectedOrderCheckout && (
-        <CheckoutModal 
-          order={selectedOrderCheckout} 
-          onClose={() => setSelectedOrderCheckout(null)} 
         />
       )}
     </Div>

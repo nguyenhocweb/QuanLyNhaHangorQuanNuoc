@@ -13,7 +13,7 @@ import { asyncHandler } from "../../../core/utils/asyncHandler.js";
 const route = Router();
 
 route.use(authenticateToken);
-route.use(authorizeRole("Quản lý nhà hàng", "Nhân viên", "Admin", "Quản lý thương hiệu"));
+route.use(authorizeRole("Quản lý nhà hàng", "Nhân viên", "Admin", "Chủ thương hiệu"));
 
 route.get("/", asyncHandler(getStaffsController));
 route.post("/", validate(createStaffValidator), asyncHandler(createStaffController));

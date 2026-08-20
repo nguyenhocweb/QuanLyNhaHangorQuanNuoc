@@ -3,18 +3,18 @@ model Table_Maintenance_Schedules {
   restaurantId String     @db.ObjectId
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 
-  tableIds     String[]   @db.ObjectId
-  tables       Tables[]   @relation(fields: [tableIds], references: [id])
+  tableIds String[] @db.ObjectId
+  tables   Tables[] @relation(fields: [tableIds], references: [id])
 
-  start_time   DateTime
-  end_time     DateTime
-  reason       String?
-  status       MaintenanceStatus @default(SCHEDULED)
+  start_time DateTime
+  end_time   DateTime
+  reason     String?
+  status     MaintenanceStatus @default(SCHEDULED)
 
   created_by_staff_id String? @db.ObjectId
 
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([restaurantId])
   @@index([start_time, end_time])

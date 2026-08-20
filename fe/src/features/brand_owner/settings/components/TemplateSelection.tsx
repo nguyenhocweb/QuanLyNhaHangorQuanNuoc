@@ -36,13 +36,37 @@ const TemplateSelection = () => {
     const brandTemplates = (templates || []).filter(t => t.type === "BRAND_TEMPLATE");
     const restaurantTemplates = (templates || []).filter(t => t.type === "RESTAURANT_TEMPLATE");
 
+    const [restaurantModalOpen, setRestaurantModalOpen] = useState(false);
+    const [selectedTemplateId, setSelectedTemplateId] = useState<string | null>(null);
+    const [isApplyAllRestaurants, setIsApplyAllRestaurants] = useState<boolean>(true);
+    const [selectedRestaurantIds, setSelectedRestaurantIds] = useState<string[]>([]);
+
     const handleApplyBrand = (id: string) => {
         updateBrandTemplate(id);
     };
 
-    const handleApplyRestaurant = (id: string) => {
-        if (!brandRes?.id) return;
-        updateRestaurantTemplate({ brandId: brandRes.id, templateId: id });
+    const handleApplyRestaurantClick = (id: string) => {
+        setSelectedTemplateId(id);
+        setIsApplyAllRestaurants(true);
+        setSelectedRestaurantIds([]);
+        setRestaurantModalOpen(true);
+    };
+
+    const handleConfirmApplyRestaurant = () => {
+        if (!brandRes?.id || !selectedTemplateId) return;
+        const payload: any = { brandId: brandRes.id, templateId: selectedTemplateId };
+        
+        if (!isApplyAllRestaurants) {
+            if (selectedRestaurantIds.length === 0) {
+                // If they chose specific but didn't select any, maybe fallback or show error? 
+                // Let's just return to prevent error
+                return;
+            }
+            payload.restaurantIds = selectedRestaurantIds;
+        }
+        
+        updateRestaurantTemplate(payload);
+        setRestaurantModalOpen(false);
     };
 
     if (isLoadingTemplates || isLoadingBrand || isLoadingRestaurants) {
@@ -254,7 +278,7 @@ const TemplateSelection = () => {
                                 Lựa chọn này sẽ áp dụng đồng loạt cho tất cả các nhà hàng thuộc hệ thống.
                             </div>
                         </div>
-                        {renderTemplateGrid(restaurantTemplates, currentRestaurantTemplateId, handleApplyRestaurant, isUpdatingRestaurant)}
+                        {renderTemplateGrid(restaurantTemplates, currentRestaurantTemplateId, handleApplyRestaurantClick, isUpdatingRestaurant)}
                     </FadeIn>
                 )}
             </div>
@@ -330,6 +354,108 @@ const TemplateSelection = () => {
                                     </div>
                                 );
                             })()}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Apply Restaurant Modal */}
+            {restaurantModalOpen && (
+                <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+                    <div className="bg-white w-full max-w-md rounded-2xl p-6 shadow-xl flex flex-col gap-5 relative max-h-[90vh]">
+                        <button 
+                            onClick={() => setRestaurantModalOpen(false)}
+                            className="absolute top-4 right-4 p-1.5 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors"
+                        >
+                            <FiX className="text-xl" />
+                        </button>
+                        
+                        <h3 className="text-xl font-bold text-gray-900 pr-8">Tùy chọn áp dụng</h3>
+                        <p className="text-sm text-gray-500">Bạn muốn áp dụng mẫu giao diện này cho nhà hàng nào?</p>
+                        
+                        <div className="flex flex-col gap-3 mt-2 overflow-y-auto pr-2">
+                            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input 
+                                    type="radio" 
+                                    name="restaurantTarget" 
+                                    checked={isApplyAllRestaurants}
+                                    onChange={() => setIsApplyAllRestaurants(true)}
+                                    className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                                />
+                                <span className="font-medium text-gray-800">Tất cả nhà hàng</span>
+                            </label>
+
+                            <label className="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
+                                <input 
+                                    type="radio" 
+                                    name="restaurantTarget" 
+                                    checked={!isApplyAllRestaurants}
+                                    onChange={() => setIsApplyAllRestaurants(false)}
+                                    className="w-4 h-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
+                                />
+                                <span className="font-medium text-gray-800">Chọn nhà hàng cụ thể</span>
+                            </label>
+                            
+                            {!isApplyAllRestaurants && (
+                                <div className="flex flex-col gap-2 pl-8 mt-1">
+                                    <div className="flex items-center justify-between mb-1">
+                                        <span className="text-xs font-semibold text-gray-500 uppercase">Danh sách chi nhánh</span>
+                                        <button 
+                                            type="button"
+                                            onClick={() => {
+                                                if (selectedRestaurantIds.length === restaurants.length) {
+                                                    setSelectedRestaurantIds([]);
+                                                } else {
+                                                    setSelectedRestaurantIds(restaurants.map(r => r.id));
+                                                }
+                                            }}
+                                            className="text-xs font-medium text-indigo-600 hover:text-indigo-800"
+                                        >
+                                            {selectedRestaurantIds.length === restaurants.length ? "Bỏ chọn tất cả" : "Chọn tất cả"}
+                                        </button>
+                                    </div>
+                                    <div className="flex flex-col gap-2 max-h-48 overflow-y-auto p-1">
+                                        {restaurants.map(res => (
+                                            <label key={res.id} className="flex items-center gap-3 p-2 bg-gray-50 border border-gray-100 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
+                                                <input 
+                                                    type="checkbox"
+                                                    checked={selectedRestaurantIds.includes(res.id)}
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) {
+                                                            setSelectedRestaurantIds([...selectedRestaurantIds, res.id]);
+                                                        } else {
+                                                            setSelectedRestaurantIds(selectedRestaurantIds.filter(id => id !== res.id));
+                                                        }
+                                                    }}
+                                                    className="w-4 h-4 text-indigo-600 rounded border-gray-300 focus:ring-indigo-500"
+                                                />
+                                                <span className="text-sm font-medium text-gray-700 line-clamp-1">{res.name}</span>
+                                            </label>
+                                        ))}
+                                        {restaurants.length === 0 && (
+                                            <div className="text-sm text-gray-500 italic py-2 text-center">Chưa có chi nhánh nào</div>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <div className="flex justify-end gap-3 mt-4 pt-2 border-t border-gray-100">
+                            <button 
+                                onClick={() => setRestaurantModalOpen(false)}
+                                className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-xl transition-colors"
+                            >
+                                Hủy bỏ
+                            </button>
+                            <button 
+                                onClick={handleConfirmApplyRestaurant}
+                                disabled={isUpdatingRestaurant || (!isApplyAllRestaurants && selectedRestaurantIds.length === 0)}
+                                className="px-5 py-2.5 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                            >
+                                {isUpdatingRestaurant ? (
+                                    <><div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> Đang xử lý...</>
+                                ) : "Xác nhận áp dụng"}
+                            </button>
                         </div>
                     </div>
                 </div>

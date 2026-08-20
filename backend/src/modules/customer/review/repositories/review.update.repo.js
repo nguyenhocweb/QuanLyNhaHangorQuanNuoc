@@ -40,9 +40,9 @@ export const recalculateRestaurantRatingRepo = async (restaurantId) => {
         data: {
             totalRating: totalRating,
             averageRating: averageRating,
-            average_food_rating: stats._avg.food_rating ? Number(stats._avg.food_rating.toFixed(1)) : 0,
-            average_service_rating: stats._avg.service_rating ? Number(stats._avg.service_rating.toFixed(1)) : 0,
-            average_ambiance_rating: stats._avg.ambiance_rating ? Number(stats._avg.ambiance_rating.toFixed(1)) : 0,
+            averageFoodRating: stats._avg.food_rating ? Number(stats._avg.food_rating.toFixed(1)) : 0,
+            averageServiceRating: stats._avg.service_rating ? Number(stats._avg.service_rating.toFixed(1)) : 0,
+            averageAmbianceRating: stats._avg.ambiance_rating ? Number(stats._avg.ambiance_rating.toFixed(1)) : 0,
             weightedScore: weightedScore
         }
     });

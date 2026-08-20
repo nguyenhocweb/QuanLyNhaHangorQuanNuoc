@@ -15,20 +15,7 @@ export const deleteEmploymentService = async (employmentId) => {
   // Gọi Repo để xóa
   const deleted = await deleteEmploymentRepo(employmentId);
 
-  // Check xem User có còn employment nào khác không, nếu không có thì set về Role SYSTEM (Người dùng)
-  const otherEmployments = await prisma.employment.findFirst({
-    where: { userId: deleted.userId }
-  });
-
-  if (!otherEmployments) {
-    const userRole = await prisma.role.findUnique({ where: { name: "Người dùng" } });
-    if (userRole) {
-      await prisma.user.update({
-        where: { id: deleted.userId },
-        data: { roleId: userRole.id }
-      });
-    }
-  }
+  // User roles are now derived from their remaining employments or their default systemRole. No need to update the User record.
 
   if (existingEmployment.restaurantId) {
     emitStaffUpdate(existingEmployment.restaurantId);

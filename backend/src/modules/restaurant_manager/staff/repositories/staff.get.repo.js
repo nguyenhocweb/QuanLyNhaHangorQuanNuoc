@@ -3,10 +3,8 @@ import { prisma } from "../../../../databases/init.mongodb.js";
 export const getStaffsRepo = async (restaurantId, { skip, take, search, salary_type }) => {
   const where = {
     restaurantId,
-    user: {
-      role: {
-        name: "Nhân viên"
-      }
+    workspaceRole: {
+      name: "Nhân viên"
     }
   };
 
@@ -47,11 +45,16 @@ export const getStaffsRepo = async (restaurantId, { skip, take, search, salary_t
             email: true,
             avatar: true,
             sdt: true,
-            role: {
+            systemRole: {
               select: {
                 name: true,
               }
             }
+          }
+        },
+        workspaceRole: {
+          select: {
+            name: true,
           }
         },
         restaurant: {

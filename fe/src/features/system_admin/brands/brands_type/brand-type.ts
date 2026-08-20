@@ -4,10 +4,10 @@ export interface Brand {
     id: string;
     name: string;
     logo?: string;
-    email_contact?: string;
-    phone_contact?: string;
+    emailContact?: string;
+    phoneContact?: string;
     description?: string;
-    tax_code?: string;
+    taxCode?: string;
     link?: string;
     imageMain?: string;
     images: string[];
@@ -24,7 +24,15 @@ export interface Brand {
     };
     isFeatured: boolean;
     isNew: boolean;
-    restaurantCount: number;
+    restaurantCount?: number;
+    inventoryApprovalThreshold?: number;
+
+    // Tax & Fee
+    isVatInclusive?: boolean;
+    defaultVatRate?: number;
+    serviceChargeRate?: number;
+    applyServiceCharge?: boolean;
+    forceGlobalTaxConfig?: boolean;
     templateId?: string;
     template?: {
         code: string;

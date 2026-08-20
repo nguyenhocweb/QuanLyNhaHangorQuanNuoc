@@ -82,7 +82,7 @@ const DashboardBrand_component = () => {
                                                 </div>
                                             </TableCell>
                                             <TableCell><P variant={STATUS_CONFIG[e.isActive]?.color || "default"} className="text-sm rounded-lg w-fit px-2.5 py-1" >{STATUS_CONFIG[e.isActive]?.label || e.isActive}</P></TableCell>
-                                            <TableCell className="text-slate-600 font-medium">{e.tax_code || "N/A"}</TableCell>
+                                            <TableCell className="text-slate-600 font-medium">{e.taxCode || "N/A"}</TableCell>
                                             <TableCell className="text-right text-slate-500">{new Date(e.createdAt).toLocaleDateString('vi-VN')}</TableCell>
                                             <TableCell className="text-right">
                                                 <Div gap="g3_4" className="justify-center">

@@ -20,24 +20,24 @@ export const LoginService = async ({ user_name, passwordfe }) => {
   }
   if (unActive[is_active]) return { code: 403, mes: unActive[is_active] }
   
-  return { 
-    code: 200, 
-    data: User ,
-    token:{
-      accessToken:createTokenAccess(
-        {
-          id:User.id,
-          role:User.role,
-          employmentType:User.brand?"BRAND":(User.restaurant?"RESTAURANT":NULL),
-          permissions:User.permissions??null
-        }
-      ),
-      refreshToken:createTokenRefresh({
-         id:User.id,
-          role:User.role,
-          employmentType:User.brand?"BRAND":(User.restaurant?"RESTAURANT":NULL),
-          permissions:User.permissions??null
-      })
+    return { 
+      code: 200, 
+      data: User,
+      token: {
+        accessToken: createTokenAccess({
+          id: User.id,
+          systemRole: User.systemRole,
+          brand: User.brand,
+          restaurant: User.restaurant,
+          permissions: User.permissions ?? null
+        }),
+        refreshToken: createTokenRefresh({
+          id: User.id,
+          systemRole: User.systemRole,
+          brand: User.brand,
+          restaurant: User.restaurant,
+          permissions: User.permissions ?? null
+        })
+      }
     }
-  }
 }

@@ -13,7 +13,7 @@ const selectUser = {
     is_active: true,
     createdAt: true,
     updatedAt: true,
-    role: {
+    systemRole: {
         select: {
             name: true
         }
@@ -23,12 +23,33 @@ const selectUser = {
             brand: {
                 select: {
                     id: true,
-                    name: true
+                    name: true,
+                    subscriptions: {
+                        where: { status: 'ACTIVE' },
+                        orderBy: { createdAt: 'desc' },
+                        take: 1,
+                        select: { featuresData: true }
+                    }
                 }
             },
             restaurant: {
                 select: {
                     id: true,
+                    name: true,
+                    brand: {
+                        select: {
+                            subscriptions: {
+                                where: { status: 'ACTIVE' },
+                                orderBy: { createdAt: 'desc' },
+                                take: 1,
+                                select: { featuresData: true }
+                            }
+                        }
+                    }
+                }
+            },
+            workspaceRole: {
+                select: {
                     name: true
                 }
             },
@@ -48,18 +69,23 @@ const selectUser = {
 }
 const dataUser=(result)=>{
    if(!result) return false
-    const { role, employments, ...User } = result;
+    const { systemRole, employments, ...User } = result;
     let brand = [], restaurant = [], permissions = [];
     
     if (employments && employments.length > 0) {
         employments.forEach(element => {
+            const empRole = element.workspaceRole ? element.workspaceRole.name : null;
             if (element.restaurant) {
                 if (!restaurant.some(r => r.id === element.restaurant.id)) {
-                    restaurant.push({ ...element.restaurant, isSelect: false })
+                    const activeSub = element.restaurant.brand?.subscriptions?.[0];
+                    const features = activeSub ? activeSub.featuresData : null;
+                    restaurant.push({ id: element.restaurant.id, name: element.restaurant.name, isSelect: false, role: empRole, features })
                 }
             } else if (element.brand) {
                 if (!brand.some(b => b.id === element.brand.id)) {
-                    brand.push({ ...element.brand, isSelect: false })
+                    const activeSub = element.brand.subscriptions?.[0];
+                    const features = activeSub ? activeSub.featuresData : null;
+                    brand.push({ id: element.brand.id, name: element.brand.name, isSelect: false, role: empRole, features })
                 }
             }
         });
@@ -83,7 +109,7 @@ const dataUser=(result)=>{
     
     return {
         ...User,
-        role: role ? role.name : null,
+        systemRole: systemRole ? systemRole.name : null,
         brand,
         restaurant,
         permissions,

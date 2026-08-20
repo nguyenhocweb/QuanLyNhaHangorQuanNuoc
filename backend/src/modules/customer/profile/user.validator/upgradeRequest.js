@@ -7,7 +7,7 @@ const upgradeRequest = {
             invalid_type_error: "Tên thương hiệu phải là chuỗi"
         }).min(2, "Tên thương hiệu phải có ít nhất 2 ký tự"),
         
-        tax_code: z.string({
+        taxCode: z.string({
             invalid_type_error: "Mã số thuế phải là chuỗi"
         }).optional(),
         

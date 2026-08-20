@@ -1,0 +1,35 @@
+model StockCount {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String @db.ObjectId
+  brandId      String @db.ObjectId
+  createdBy    String @db.ObjectId
+
+  code       String             @unique // Mã phiếu kiểm, vd: CHK-20260805-01
+  status     InventoryDocStatus @default(DRAFT)
+  notes      String?
+  reason     String? // Lý do duyệt/từ chối
+  approvedBy String?            @db.ObjectId
+  approvedAt DateTime?
+
+  items StockCountItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("stock_counts")
+}
+
+model StockCountItem {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  stockCountId    String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  systemQty   Float @default(0) // Tồn kho trên hệ thống lúc tạo
+  actualQty   Float @default(0) // Tồn kho thực tế đếm được
+  discrepancy Float @default(0) // Độ lệch = actualQty - systemQty
+
+  stockCount    StockCount    @relation(fields: [stockCountId], references: [id], onDelete: Cascade)
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  @@map("stock_count_items")
+}

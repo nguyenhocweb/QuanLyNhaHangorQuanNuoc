@@ -28,11 +28,11 @@ const BranchOverviewTab: React.FC<BranchOverviewTabProps> = ({ branch, id_brand 
                         </div>
                         <div className="flex flex-col">
                             <span className="text-xs text-gray-400 font-semibold mb-1">Số điện thoại</span>
-                            <span className="text-sm font-medium text-gray-700">{branch.phone_contact || "Chưa cập nhật"}</span>
+                            <span className="text-sm font-medium text-gray-700">{branch.phoneContact || "Chưa cập nhật"}</span>
                         </div>
                         <div className="flex flex-col">
                             <span className="text-xs text-gray-400 font-semibold mb-1">Email</span>
-                            <span className="text-sm font-medium text-gray-700">{branch.email_contact || "Chưa cập nhật"}</span>
+                            <span className="text-sm font-medium text-gray-700">{branch.emailContact || "Chưa cập nhật"}</span>
                         </div>
                     </div>
                 </div>
@@ -46,13 +46,38 @@ const BranchOverviewTab: React.FC<BranchOverviewTabProps> = ({ branch, id_brand 
                             <div className="flex items-center gap-2 text-blue-800">
                                 <FiUsers className="text-blue-500" /> Sức chứa
                             </div>
-                            <span className="font-bold text-blue-900">{branch.max_party_size} khách</span>
+                            <span className="font-bold text-blue-900">{branch.maxPartySize} khách</span>
                         </div>
                         <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-blue-50">
                             <div className="flex items-center gap-2 text-blue-800">
                                 <FiCreditCard className="text-blue-500" /> Tiền cọc
                             </div>
-                            <span className="font-bold text-blue-900">{branch.deposit_required ? `${branch.deposit_amount?.toLocaleString()} VNĐ` : "Không yêu cầu"}</span>
+                            <span className="font-bold text-blue-900">{branch.depositRequired ? `${branch.depositPerPax?.toLocaleString()} VNĐ` : "Không yêu cầu"}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="bg-amber-50/50 p-6 rounded-3xl border border-amber-100/50 shadow-sm mt-6">
+                    <h3 className="text-base font-bold text-amber-900 mb-4 flex items-center gap-2">
+                        <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" className="text-amber-500"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        Cấu hình Thuế & Phí
+                    </h3>
+                    <div className="space-y-4">
+                        <div className="flex flex-col bg-white p-3 rounded-xl border border-amber-50">
+                            <span className="text-xs text-gray-400 font-semibold mb-1">VAT</span>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-gray-700">{branch.isVatInclusive ? "Đã bao gồm VAT" : "Chưa bao gồm VAT"}</span>
+                                <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md text-xs font-bold">{branch.defaultVatRate}%</span>
+                            </div>
+                        </div>
+                        <div className="flex flex-col bg-white p-3 rounded-xl border border-amber-50">
+                            <span className="text-xs text-gray-400 font-semibold mb-1">Phí dịch vụ</span>
+                            <div className="flex justify-between items-center">
+                                <span className="text-sm font-medium text-gray-700">{branch.applyServiceCharge ? "Có áp dụng" : "Không áp dụng"}</span>
+                                {branch.applyServiceCharge && (
+                                    <span className="px-2 py-0.5 bg-rose-100 text-rose-700 rounded-md text-xs font-bold">{branch.serviceChargeRate}%</span>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>

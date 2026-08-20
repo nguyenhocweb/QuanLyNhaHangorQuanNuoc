@@ -5,7 +5,8 @@ export const accountUpdateRepository = {
     return prisma.user.findUnique({
       where: { id },
       include: {
-        role: true
+        systemRole: true,
+        employments: { include: { workspaceRole: true } }
       }
     });
   },

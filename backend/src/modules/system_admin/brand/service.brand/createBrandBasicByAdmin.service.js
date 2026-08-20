@@ -23,10 +23,10 @@ export const createBrandBasicByAdminService = async (data) => {
 
     const payload = {
         name: data.name,
-        tax_code: data.tax_code,
+        taxCode: data.taxCode,
         description: data.description,
-        email_contact: data.email_contact,
-        phone_contact: data.phone_contact,
+        emailContact: data.emailContact,
+        phoneContact: data.phoneContact,
         link: data.link,
         address: data.address,
         isFeatured: data.is_featured,

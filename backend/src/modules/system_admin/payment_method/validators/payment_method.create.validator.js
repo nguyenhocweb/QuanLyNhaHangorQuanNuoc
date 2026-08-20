@@ -6,7 +6,6 @@ export const createPaymentMethodValidator = z.object({
         code: z.string({ required_error: "Mã code không được để trống" }).min(1, "Mã code không được để trống").toUpperCase(),
         description: z.string().optional(),
         iconUrl: z.string().optional(),
-        isActive: z.boolean().optional(),
-        systemConfig: z.any().optional()
+        isActive: z.boolean().optional()
     }),
 });

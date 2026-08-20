@@ -39,9 +39,9 @@ export const createRestaurantService = async (data) => {
     const payload = {
         ...restData,
         imageMain: restData.imageMain || "default.png",
-        max_party_size: restData.max_party_size ? parseInt(restData.max_party_size) : 50,
-        booking_window_days: restData.booking_window_days ? parseInt(restData.booking_window_days) : 7,
-        cancellation_hours: restData.cancellation_hours ? parseInt(restData.cancellation_hours) : 24,
+        maxPartySize: restData.maxPartySize ? parseInt(restData.maxPartySize) : 50,
+        bookingWindowDays: restData.bookingWindowDays ? parseInt(restData.bookingWindowDays) : 7,
+        cancellationHours: restData.cancellationHours ? parseInt(restData.cancellationHours) : 24,
         weightedScore: restData.weightedScore ? parseFloat(restData.weightedScore) : 0,
         totalRating: restData.totalRating ? parseInt(restData.totalRating) : 0,
         averageRating: restData.averageRating ? parseFloat(restData.averageRating) : 0.0,

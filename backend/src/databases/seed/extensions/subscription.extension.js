@@ -49,8 +49,8 @@ export const Subscription_Extension = async (prisma) => {
 
     const firstUser = await prisma.user.findFirst();
 
-    // Tạo lịch sử giao dịch cho từng gói cước
-    const transactions = subscriptions.map((sub, index) => {
+    // Tạo Invoice cho từng BrandSubscription
+    const invoices = subscriptions.map((sub, index) => {
         let price = 0;
         if (sub.planId === subscriptionPlansData[0].id) price = 0;
         else if (sub.planId === subscriptionPlansData[1].id) price = 499000;
@@ -58,8 +58,28 @@ export const Subscription_Extension = async (prisma) => {
 
         return {
             brandSubscriptionId: sub.id,
+            brandId: sub.brandId,
+            invoiceNumber: `INV-SEED-${Math.floor(Math.random() * 1000000)}`,
+            subTotal: price,
+            total: price,
+            status: "PAID",
+            dueDate: new Date(),
+            paidAt: new Date()
+        };
+    });
+
+    await prisma.invoice.createMany({
+        data: invoices
+    });
+
+    const createdInvoices = await prisma.invoice.findMany();
+
+    // Tạo lịch sử giao dịch cho từng gói cước
+    const transactions = createdInvoices.map((inv, index) => {
+        return {
+            invoiceId: inv.id,
             systemPaymentMethodId: vnpay.id,
-            amount: price,
+            amount: inv.total,
             externalTransactionId: `VNPAY${Math.floor(Math.random() * 100000000)}`,
             userId: firstUser.id,
             status: "SUCCESS",

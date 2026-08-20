@@ -16,8 +16,8 @@ export interface RestaurantDetailResponse {
     imageMain: string;
     images: string[];
     address: string;
-    phone_contact: string;
-    email_contact: string;
+    phoneContact: string;
+    emailContact: string;
     brandName:string,
     city:string,
     timeWeek: DailySchedule[]; // Gọi lại interface ở trên

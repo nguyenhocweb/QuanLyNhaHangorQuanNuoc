@@ -19,7 +19,8 @@ export const getRoleUI = (role: any) => {
 
   const configs: Record<string, { label: string; className: string }> = {
     "Admin": { label: "Admin hệ thống", className: "bg-red-50 text-red-500" },
-    "Quản lý thương hiệu": { label: "Chủ thương hiệu", className: "bg-indigo-50 text-indigo-600" },
+    "Quản lý thương hiệu": { label: "Quản lý thương hiệu", className: "bg-indigo-50 text-indigo-600" },
+    "Chủ thương hiệu": { label: "Chủ thương hiệu", className: "bg-indigo-50 text-indigo-600" },
     "Quản lý nhà hàng": { label: "Quản lý nhà hàng", className: "bg-blue-50 text-blue-600" },
     "Nhân viên": { label: "Nhân viên", className: "bg-purple-50 text-purple-600" },
     "Khách hàng": { label: "Khách hàng", className: "bg-green-50 text-green-600" }
@@ -142,7 +143,7 @@ const GlobalAccountManagement = () => {
                 <span className="absolute -top-2 left-3 bg-white px-1 text-[12px] text-gray-500 z-10 font-medium group-hover:text-indigo-500 transition-colors">Vai trò hệ thống</span>
                 <Select value={roleFilter} onChange={handleFilterChange(setRoleFilter)} className="w-full text-gray-700 rounded-xl border-gray-200 h-[46px] bg-white focus:shadow-md transition-shadow">
                   <option value="all">Tất cả</option>
-                  <option value="Quản lý thương hiệu">Chủ thương hiệu</option>
+                  <option value="Chủ thương hiệu">Chủ thương hiệu</option>
                   <option value="Quản lý nhà hàng">Quản lý nhà hàng</option>
                   <option value="Nhân viên">Nhân viên</option>
                   <option value="Khách hàng">Khách hàng</option>
@@ -305,6 +306,8 @@ const GlobalAccountManagement = () => {
             </div>
           )}
         </FadeIn>
+
+
 
         {/* PAGINATION */}
         <Div className="w-full flex-wrap justify-between items-center mt-4 pt-4 border-t border-gray-50">

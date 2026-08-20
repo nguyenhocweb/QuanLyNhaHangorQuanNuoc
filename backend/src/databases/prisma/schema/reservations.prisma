@@ -35,8 +35,11 @@ model Reservations {
   internal_notes String? // ghi chú nội bộ nhân viên chỉ có nhân viên thấy đc
 
   // Payment
-  deposit_paid   Boolean @default(false) // khách đặt cọc chưa
-  deposit_amount Int? // đặt bao nhiêu
+  deposit_paid           Boolean       @default(false) // khách đặt cọc chưa
+  deposit_amount         Int? // đặt bao nhiêu
+  deposit_status         PaymentStatus @default(PENDING) // trạng thái tiền cọc
+  deposit_transaction_id String?       @db.ObjectId // ID giao dịch
+  deposit_transaction    Transaction?  @relation(fields: [deposit_transaction_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   // Timeline
   confirmed_at        DateTime? // thời gian nhân viên xác nhận đơn
@@ -49,7 +52,7 @@ model Reservations {
   reservation_tables    Reservation_Tables[]
   review_restaurant     Review_Restaurant?
   reservation_audit_log Reservation_Audit_Log[]
-  notifications         Notifications[]
+
   createdAt             DateTime                @default(now())
   updatedAt             DateTime                @updatedAt
   order                 Order[]

@@ -16,6 +16,9 @@ const homeSelect={
             },
             brand: {
                 select: { name: true }
+            },
+            variants: {
+                select: { name: true, price: true }
             }
 };
 const brandSelect={
@@ -24,6 +27,9 @@ const brandSelect={
     name: true,
     basePrice: true,
     image: true,
+    variants: {
+        select: { name: true, price: true }
+    }
 }
 
 export const getDishs = async ({page, limit, where, type}) => {
@@ -39,13 +45,18 @@ export const getDishs = async ({page, limit, where, type}) => {
         select: type === "home" ? homeSelect : brandSelect
     });
     
-    if(type !== "home") return result ? result.map(({ basePrice, ...e }) => ({ ...e, base_price: basePrice })) : null;
+    if(type !== "home") return result ? result.map(({ basePrice, variants, ...e }) => ({ 
+        ...e, 
+        base_price: basePrice,
+        variants: variants?.length ? variants : undefined
+    })) : null;
 
-    return result ? result.map(({ restaurantMaps, brand, basePrice, ...e }) => ({
+    return result ? result.map(({ restaurantMaps, brand, basePrice, variants, ...e }) => ({
         ...e,
         base_price: basePrice,
         restaurantName: restaurantMaps?.[0]?.restaurant?.name ?? undefined,
-        brandName: brand?.name ?? undefined
+        brandName: brand?.name ?? undefined,
+        variants: variants?.length ? variants : undefined
     })) : null
 }
 export const countDishs = async (where) => {

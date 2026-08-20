@@ -5,9 +5,9 @@ export interface BrandCardType {
   imageMain: string;
   logo?: string; // VD: "AS", "LA", "VI" trong vòng tròn
   numberRestaurant?: number;
-  tax_code?: string;
-  email_contact?: string;
-  phone_contact?: string;
+  taxCode?: string;
+  emailContact?: string;
+  phoneContact?: string;
   address?: any;
   createdAt?: string;
   isActive?: string;

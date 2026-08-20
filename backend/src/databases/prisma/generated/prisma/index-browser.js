@@ -127,20 +127,12 @@ exports.Prisma.Category_RestaurantScalarFieldEnum = {
 exports.Prisma.EmploymentScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  workspaceRoleId: 'workspaceRoleId',
   brandId: 'brandId',
   restaurantId: 'restaurantId',
   salary_type: 'salary_type',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
-};
-
-exports.Prisma.IngredientScalarFieldEnum = {
-  id: 'id',
-  brandId: 'brandId',
-  sku: 'sku',
-  name: 'name',
-  unit: 'unit',
-  costPerUnit: 'costPerUnit'
 };
 
 exports.Prisma.ItemCategoryMapScalarFieldEnum = {
@@ -189,57 +181,62 @@ exports.Prisma.ModifierOptionScalarFieldEnum = {
   priceExtra: 'priceExtra'
 };
 
-exports.Prisma.NotificationsScalarFieldEnum = {
-  id: 'id',
-  reservationId: 'reservationId',
-  userId: 'userId',
-  type: 'type',
-  channel: 'channel',
-  recipient: 'recipient',
-  subject: 'subject',
-  body: 'body',
-  status: 'status',
-  sent_at: 'sent_at',
-  delivered_at: 'delivered_at',
-  external_id: 'external_id',
-  error_message: 'error_message',
-  is_read: 'is_read',
-  read_at: 'read_at',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-};
-
 exports.Prisma.PromotionScalarFieldEnum = {
   id: 'id',
   code: 'code',
   description: 'description',
-  discount_type: 'discount_type',
-  discount_value: 'discount_value',
-  min_order_value: 'min_order_value',
-  max_discount: 'max_discount',
-  valid_from: 'valid_from',
-  valid_until: 'valid_until',
-  usage_limit: 'usage_limit',
-  used_count: 'used_count',
+  discountType: 'discountType',
+  discountValue: 'discountValue',
+  minOrderValue: 'minOrderValue',
+  maxDiscount: 'maxDiscount',
+  validFrom: 'validFrom',
+  validUntil: 'validUntil',
+  daysOfWeek: 'daysOfWeek',
+  timeStart: 'timeStart',
+  timeEnd: 'timeEnd',
+  conditions: 'conditions',
+  usageLimit: 'usageLimit',
+  usageLimitPerUser: 'usageLimitPerUser',
+  usedCount: 'usedCount',
+  maxBudget: 'maxBudget',
   image: 'image',
   brandId: 'brandId',
-  restaurantId: 'restaurantId',
-  isActive: 'isActive',
-  createdAt: 'createdAt'
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
-exports.Prisma.UserPromotionScalarFieldEnum = {
+exports.Prisma.PromotionMenuItemScalarFieldEnum = {
+  id: 'id',
+  promotionId: 'promotionId',
+  menuItemId: 'menuItemId'
+};
+
+exports.Prisma.UserPromotionWalletScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   promotionId: 'promotionId',
-  isUsed: 'isUsed',
-  usedAt: 'usedAt',
   savedAt: 'savedAt'
+};
+
+exports.Prisma.PromotionUsageLogScalarFieldEnum = {
+  id: 'id',
+  promotionId: 'promotionId',
+  userId: 'userId',
+  orderId: 'orderId',
+  discountAmount: 'discountAmount',
+  usedAt: 'usedAt'
+};
+
+exports.Prisma.PromotionRestaurantScalarFieldEnum = {
+  id: 'id',
+  promotionId: 'promotionId',
+  restaurantId: 'restaurantId'
 };
 
 exports.Prisma.RecipeScalarFieldEnum = {
   id: 'id',
-  ingredientId: 'ingredientId',
+  inventoryItemId: 'inventoryItemId',
   menuItemId: 'menuItemId',
   variantId: 'variantId',
   modifierOptionId: 'modifierOptionId',
@@ -260,9 +257,16 @@ exports.Prisma.RestaurantPaymentConfigScalarFieldEnum = {
   brandId: 'brandId',
   systemPaymentMethodId: 'systemPaymentMethodId',
   configData: 'configData',
+  webhookTokenHash: 'webhookTokenHash',
   isActive: 'isActive',
   isTestMode: 'isTestMode',
   createdAt: 'createdAt'
+};
+
+exports.Prisma.SystemRoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
 };
 
 exports.Prisma.TransactionScalarFieldEnum = {
@@ -302,17 +306,106 @@ exports.Prisma.UserScalarFieldEnum = {
   is_active: 'is_active',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  roleId: 'roleId'
+  systemRoleId: 'systemRoleId'
+};
+
+exports.Prisma.WorkspaceRoleScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description'
+};
+
+exports.Prisma.AdminPaymentConfigScalarFieldEnum = {
+  id: 'id',
+  systemPaymentMethodId: 'systemPaymentMethodId',
+  configData: 'configData',
+  isActive: 'isActive',
+  isTestMode: 'isTestMode',
+  verificationStatus: 'verificationStatus',
+  lastVerifiedAt: 'lastVerifiedAt',
+  lastTestOrderCode: 'lastTestOrderCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AIChatSessionScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  restaurantId: 'restaurantId',
+  platform: 'platform',
+  externalId: 'externalId',
+  customerName: 'customerName',
+  customerPhone: 'customerPhone',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AIChatMessageScalarFieldEnum = {
+  id: 'id',
+  sessionId: 'sessionId',
+  sender: 'sender',
+  content: 'content',
+  intent: 'intent',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.AIBrandConfigScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  isActive: 'isActive',
+  greetingMessage: 'greetingMessage',
+  fallbackMessage: 'fallbackMessage',
+  agentEscalation: 'agentEscalation',
+  knowledgeBaseUrl: 'knowledgeBaseUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AiChatboxScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AiModelScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  displayName: 'displayName',
+  chatboxId: 'chatboxId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ApiKeyScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  encryptedKey: 'encryptedKey',
+  keyHash: 'keyHash',
+  prefix: 'prefix',
+  keyType: 'keyType',
+  brandId: 'brandId',
+  status: 'status',
+  contactEmail: 'contactEmail',
+  chatboxId: 'chatboxId',
+  restrictedModelId: 'restrictedModelId',
+  lastUsedAt: 'lastUsedAt',
+  lastIp: 'lastIp',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.BrandScalarFieldEnum = {
   id: 'id',
   name: 'name',
   logo: 'logo',
-  email_contact: 'email_contact',
-  phone_contact: 'phone_contact',
+  emailContact: 'emailContact',
+  phoneContact: 'phoneContact',
   description: 'description',
-  tax_code: 'tax_code',
+  taxCode: 'taxCode',
   link: 'link',
   imageMain: 'imageMain',
   images: 'images',
@@ -321,9 +414,47 @@ exports.Prisma.BrandScalarFieldEnum = {
   isFeatured: 'isFeatured',
   isNew: 'isNew',
   restaurantCount: 'restaurantCount',
+  inventoryApprovalThreshold: 'inventoryApprovalThreshold',
   templateId: 'templateId',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  isVatInclusive: 'isVatInclusive',
+  defaultVatRate: 'defaultVatRate',
+  serviceChargeRate: 'serviceChargeRate',
+  applyServiceCharge: 'applyServiceCharge',
+  forceGlobalTaxConfig: 'forceGlobalTaxConfig'
+};
+
+exports.Prisma.BrandCustomerScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  userId: 'userId',
+  totalSpent: 'totalSpent',
+  loyaltyPoints: 'loyaltyPoints',
+  orderCount: 'orderCount',
+  tier: 'tier',
+  createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.BrandNotificationScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  targetUserId: 'targetUserId',
+  title: 'title',
+  body: 'body',
+  type: 'type',
+  referenceId: 'referenceId',
+  referenceType: 'referenceType',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.BrandNotificationReadReceiptScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  userId: 'userId',
+  readAt: 'readAt',
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.BrandPaymentConfigScalarFieldEnum = {
@@ -354,21 +485,116 @@ exports.Prisma.BrandSubscriptionScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   status: 'status',
+  planName: 'planName',
+  price: 'price',
+  maxRestaurants: 'maxRestaurants',
+  featuresData: 'featuresData',
+  autoRenew: 'autoRenew',
+  currentPeriodStart: 'currentPeriodStart',
+  currentPeriodEnd: 'currentPeriodEnd',
+  trialEndDate: 'trialEndDate',
+  cancellationDate: 'cancellationDate',
+  cancellationReason: 'cancellationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
 
 exports.Prisma.BrandSubscriptionTransactionScalarFieldEnum = {
   id: 'id',
-  brandSubscriptionId: 'brandSubscriptionId',
+  invoiceId: 'invoiceId',
   amount: 'amount',
   userId: 'userId',
   systemPaymentMethodId: 'systemPaymentMethodId',
   externalTransactionId: 'externalTransactionId',
   status: 'status',
   rawResponse: 'rawResponse',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  idempotencyKey: 'idempotencyKey',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CustomerNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  body: 'body',
+  type: 'type',
+  referenceId: 'referenceId',
+  referenceType: 'referenceType',
+  isRead: 'isRead',
+  isDeleted: 'isDeleted',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.InventoryAlertScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  inventoryItemId: 'inventoryItemId',
+  type: 'type',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InventoryItemScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  sku: 'sku',
+  name: 'name',
+  categoryId: 'categoryId',
+  supplierId: 'supplierId',
+  baseUnit: 'baseUnit',
+  minPrice: 'minPrice',
+  maxPrice: 'maxPrice',
+  minStockLevel: 'minStockLevel',
+  type: 'type',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.InventoryStockScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  inventoryItemId: 'inventoryItemId',
+  quantity: 'quantity',
+  minStockLevel: 'minStockLevel',
+  location: 'location'
+};
+
+exports.Prisma.InvoiceScalarFieldEnum = {
+  id: 'id',
+  brandSubscriptionId: 'brandSubscriptionId',
+  brandId: 'brandId',
+  invoiceNumber: 'invoiceNumber',
+  subTotal: 'subTotal',
+  discountAmount: 'discountAmount',
+  taxAmount: 'taxAmount',
+  total: 'total',
+  currency: 'currency',
+  status: 'status',
+  dueDate: 'dueDate',
+  paidAt: 'paidAt',
+  billingCompanyName: 'billingCompanyName',
+  billingTaxCode: 'billingTaxCode',
+  billingAddress: 'billingAddress',
+  paymentUrl: 'paymentUrl'
+};
+
+exports.Prisma.LoyaltyTransactionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  restaurantId: 'restaurantId',
+  brandId: 'brandId',
+  orderId: 'orderId',
+  cashierId: 'cashierId',
+  points: 'points',
+  type: 'type',
+  isSuspicious: 'isSuspicious',
+  description: 'description',
+  createdAt: 'createdAt'
 };
 
 exports.Prisma.MenuScalarFieldEnum = {
@@ -396,6 +622,8 @@ exports.Prisma.MenuItemScalarFieldEnum = {
   prep_time: 'prep_time',
   isActive: 'isActive',
   is_featured: 'is_featured',
+  taxRateOverride: 'taxRateOverride',
+  isTaxExempt: 'isTaxExempt',
   sort_order: 'sort_order',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -417,9 +645,11 @@ exports.Prisma.Operating_HoursScalarFieldEnum = {
 exports.Prisma.OrderScalarFieldEnum = {
   id: 'id',
   reservationId: 'reservationId',
+  userId: 'userId',
   isTakeaway: 'isTakeaway',
   version: 'version',
   taxDetails: 'taxDetails',
+  claimCode: 'claimCode',
   restaurantId: 'restaurantId',
   tableId: 'tableId',
   takenByEmpId: 'takenByEmpId',
@@ -427,11 +657,18 @@ exports.Prisma.OrderScalarFieldEnum = {
   status: 'status',
   subtotal: 'subtotal',
   discount_amount: 'discount_amount',
+  discount_reason: 'discount_reason',
+  surcharge_amount: 'surcharge_amount',
   tax_amount: 'tax_amount',
+  tip_amount: 'tip_amount',
   total_amount: 'total_amount',
-  systemPaymentMethodId: 'systemPaymentMethodId',
+  loyaltyPointsUsed: 'loyaltyPointsUsed',
+  loyaltyDiscountAmount: 'loyaltyDiscountAmount',
+  appliedPromotionIds: 'appliedPromotionIds',
+  paymentStatus: 'paymentStatus',
   paid_at: 'paid_at',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.OrderItemScalarFieldEnum = {
@@ -444,6 +681,9 @@ exports.Prisma.OrderItemScalarFieldEnum = {
   unitPrice: 'unitPrice',
   subtotal: 'subtotal',
   discountAmount: 'discountAmount',
+  taxAmount: 'taxAmount',
+  isFree: 'isFree',
+  appliedPromotionId: 'appliedPromotionId',
   totalPrice: 'totalPrice',
   note: 'note',
   status: 'status',
@@ -462,6 +702,49 @@ exports.Prisma.Permission_vs_EmploymentScalarFieldEnum = {
   id: 'id',
   permissionId: 'permissionId',
   employmentId: 'employmentId'
+};
+
+exports.Prisma.PurchaseOrderScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  supplierId: 'supplierId',
+  createdBy: 'createdBy',
+  poNumber: 'poNumber',
+  status: 'status',
+  totalAmount: 'totalAmount',
+  invoiceImageUrl: 'invoiceImageUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PurchaseOrderItemScalarFieldEnum = {
+  id: 'id',
+  purchaseOrderId: 'purchaseOrderId',
+  inventoryItemId: 'inventoryItemId',
+  orderQty: 'orderQty',
+  receivedQty: 'receivedQty',
+  unitPrice: 'unitPrice',
+  actualAmount: 'actualAmount'
+};
+
+exports.Prisma.PurchaseRequestScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  restaurantId: 'restaurantId',
+  requestCode: 'requestCode',
+  status: 'status',
+  notes: 'notes',
+  expectedDate: 'expectedDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.PurchaseRequestItemScalarFieldEnum = {
+  id: 'id',
+  purchaseRequestId: 'purchaseRequestId',
+  inventoryItemId: 'inventoryItemId',
+  requestedQty: 'requestedQty',
+  approvedQty: 'approvedQty'
 };
 
 exports.Prisma.Reservation_Audit_LogScalarFieldEnum = {
@@ -507,6 +790,8 @@ exports.Prisma.ReservationsScalarFieldEnum = {
   internal_notes: 'internal_notes',
   deposit_paid: 'deposit_paid',
   deposit_amount: 'deposit_amount',
+  deposit_status: 'deposit_status',
+  deposit_transaction_id: 'deposit_transaction_id',
   confirmed_at: 'confirmed_at',
   cancelled_at: 'cancelled_at',
   cancellation_reason: 'cancellation_reason',
@@ -520,12 +805,12 @@ exports.Prisma.RestaurantScalarFieldEnum = {
   id: 'id',
   brandId: 'brandId',
   templateId: 'templateId',
-  themeConfig: 'themeConfig',
   logo: 'logo',
   isNew: 'isNew',
   name: 'name',
-  email_contact: 'email_contact',
-  phone_contact: 'phone_contact',
+  timezone: 'timezone',
+  emailContact: 'emailContact',
+  phoneContact: 'phoneContact',
   description: 'description',
   statusByAdmin: 'statusByAdmin',
   reasonByAdmin: 'reasonByAdmin',
@@ -534,22 +819,26 @@ exports.Prisma.RestaurantScalarFieldEnum = {
   imageMain: 'imageMain',
   images: 'images',
   slug: 'slug',
-  max_party_size: 'max_party_size',
-  booking_window_days: 'booking_window_days',
-  cancellation_hours: 'cancellation_hours',
-  deposit_required: 'deposit_required',
-  deposit_amount: 'deposit_amount',
+  maxPartySize: 'maxPartySize',
+  bookingWindowDays: 'bookingWindowDays',
+  cancellationHours: 'cancellationHours',
+  depositRequired: 'depositRequired',
+  depositPerPax: 'depositPerPax',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   weightedScore: 'weightedScore',
   totalRating: 'totalRating',
   averageRating: 'averageRating',
-  average_food_rating: 'average_food_rating',
-  average_service_rating: 'average_service_rating',
-  average_ambiance_rating: 'average_ambiance_rating',
+  averageFoodRating: 'averageFoodRating',
+  averageServiceRating: 'averageServiceRating',
+  averageAmbianceRating: 'averageAmbianceRating',
   categoryIds: 'categoryIds',
   amenityIds: 'amenityIds',
-  tagIds: 'tagIds'
+  tagIds: 'tagIds',
+  isVatInclusive: 'isVatInclusive',
+  defaultVatRate: 'defaultVatRate',
+  serviceChargeRate: 'serviceChargeRate',
+  applyServiceCharge: 'applyServiceCharge'
 };
 
 exports.Prisma.Restaurant_AmenitiesScalarFieldEnum = {
@@ -576,6 +865,19 @@ exports.Prisma.Restaurant_AreasScalarFieldEnum = {
   obstacles: 'obstacles'
 };
 
+exports.Prisma.RestaurantCustomerScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  userId: 'userId',
+  totalSpent: 'totalSpent',
+  loyaltyPoints: 'loyaltyPoints',
+  orderCount: 'orderCount',
+  lastVisit: 'lastVisit',
+  tier: 'tier',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.Restaurant_EventScalarFieldEnum = {
   id: 'id',
   restaurantId: 'restaurantId',
@@ -587,6 +889,26 @@ exports.Prisma.Restaurant_EventScalarFieldEnum = {
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.RestaurantNotificationScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  targetUserId: 'targetUserId',
+  title: 'title',
+  body: 'body',
+  type: 'type',
+  referenceId: 'referenceId',
+  referenceType: 'referenceType',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.RestaurantNotificationReadReceiptScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  userId: 'userId',
+  readAt: 'readAt',
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.RestaurantRevenueScalarFieldEnum = {
@@ -618,12 +940,6 @@ exports.Prisma.Review_RestaurantScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
-exports.Prisma.RoleScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description'
-};
-
 exports.Prisma.Special_SchedulesScalarFieldEnum = {
   id: 'id',
   restaurantId: 'restaurantId',
@@ -639,6 +955,64 @@ exports.Prisma.Special_SchedulesScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.StockCountScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  brandId: 'brandId',
+  createdBy: 'createdBy',
+  code: 'code',
+  status: 'status',
+  notes: 'notes',
+  reason: 'reason',
+  approvedBy: 'approvedBy',
+  approvedAt: 'approvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StockCountItemScalarFieldEnum = {
+  id: 'id',
+  stockCountId: 'stockCountId',
+  inventoryItemId: 'inventoryItemId',
+  systemQty: 'systemQty',
+  actualQty: 'actualQty',
+  discrepancy: 'discrepancy'
+};
+
+exports.Prisma.StockTransactionScalarFieldEnum = {
+  id: 'id',
+  restaurantId: 'restaurantId',
+  inventoryItemId: 'inventoryItemId',
+  userId: 'userId',
+  type: 'type',
+  quantityChange: 'quantityChange',
+  balanceAfter: 'balanceAfter',
+  unitCost: 'unitCost',
+  referenceId: 'referenceId',
+  notes: 'notes',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.StockTransferScalarFieldEnum = {
+  id: 'id',
+  fromRestaurantId: 'fromRestaurantId',
+  toRestaurantId: 'toRestaurantId',
+  createdBy: 'createdBy',
+  transferNumber: 'transferNumber',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.StockTransferItemScalarFieldEnum = {
+  id: 'id',
+  stockTransferId: 'stockTransferId',
+  inventoryItemId: 'inventoryItemId',
+  transferQty: 'transferQty',
+  receivedQty: 'receivedQty'
+};
+
 exports.Prisma.SubscriptionPlanScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -649,10 +1023,43 @@ exports.Prisma.SubscriptionPlanScalarFieldEnum = {
   discountEndDate: 'discountEndDate',
   billingCycle: 'billingCycle',
   maxRestaurants: 'maxRestaurants',
-  features: 'features',
+  trialPeriodDays: 'trialPeriodDays',
+  setupFee: 'setupFee',
+  featuresData: 'featuresData',
+  isPublic: 'isPublic',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SupplierScalarFieldEnum = {
+  id: 'id',
+  brandId: 'brandId',
+  name: 'name',
+  taxCode: 'taxCode',
+  contact: 'contact',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.SystemNotificationScalarFieldEnum = {
+  id: 'id',
+  targetUserId: 'targetUserId',
+  title: 'title',
+  body: 'body',
+  type: 'type',
+  referenceId: 'referenceId',
+  referenceType: 'referenceType',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SystemNotificationReadReceiptScalarFieldEnum = {
+  id: 'id',
+  notificationId: 'notificationId',
+  userId: 'userId',
+  readAt: 'readAt',
+  isDeleted: 'isDeleted'
 };
 
 exports.Prisma.SystemPaymentMethodScalarFieldEnum = {
@@ -662,7 +1069,6 @@ exports.Prisma.SystemPaymentMethodScalarFieldEnum = {
   description: 'description',
   iconUrl: 'iconUrl',
   isActive: 'isActive',
-  systemConfig: 'systemConfig',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -673,6 +1079,16 @@ exports.Prisma.SystemRevenueScalarFieldEnum = {
   source: 'source',
   referenceId: 'referenceId',
   description: 'description',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.SystemWebhookLogScalarFieldEnum = {
+  id: 'id',
+  systemPaymentMethodId: 'systemPaymentMethodId',
+  event: 'event',
+  payload: 'payload',
+  processed: 'processed',
+  errorMsg: 'errorMsg',
   createdAt: 'createdAt'
 };
 
@@ -754,28 +1170,30 @@ exports.salary_type = exports.$Enums.salary_type = {
   HOURLY: 'HOURLY'
 };
 
-exports.NotificationType = exports.$Enums.NotificationType = {
-  CONFIRMATION: 'CONFIRMATION',
-  REMINDER: 'REMINDER',
-  CANCELLATION: 'CANCELLATION',
-  WAITLIST: 'WAITLIST',
-  CUSTOM: 'CUSTOM'
+exports.DiscountType = exports.$Enums.DiscountType = {
+  PERCENTAGE: 'PERCENTAGE',
+  FIXED_AMOUNT: 'FIXED_AMOUNT',
+  FREE_ITEM: 'FREE_ITEM',
+  FREE_SHIPPING: 'FREE_SHIPPING'
 };
 
-exports.NotificationChannel = exports.$Enums.NotificationChannel = {
-  EMAIL: 'EMAIL',
-  SMS: 'SMS',
-  PUSH: 'PUSH',
-  ZALO: 'ZALO',
-  WHATSAPP: 'WHATSAPP'
+exports.PromotionStatus = exports.$Enums.PromotionStatus = {
+  DRAFT: 'DRAFT',
+  SCHEDULED: 'SCHEDULED',
+  ACTIVE: 'ACTIVE',
+  PAUSED: 'PAUSED',
+  EXPIRED: 'EXPIRED',
+  DEPLETED: 'DEPLETED'
 };
 
-exports.NotificationStatus = exports.$Enums.NotificationStatus = {
-  PENDING: 'PENDING',
-  SENT: 'SENT',
-  DELIVERED: 'DELIVERED',
-  FAILED: 'FAILED',
-  BOUNCED: 'BOUNCED'
+exports.DayOfWeek = exports.$Enums.DayOfWeek = {
+  MONDAY: 'MONDAY',
+  TUESDAY: 'TUESDAY',
+  WEDNESDAY: 'WEDNESDAY',
+  THURSDAY: 'THURSDAY',
+  FRIDAY: 'FRIDAY',
+  SATURDAY: 'SATURDAY',
+  SUNDAY: 'SUNDAY'
 };
 
 exports.TransactionStatus = exports.$Enums.TransactionStatus = {
@@ -810,6 +1228,43 @@ exports.AccountStatus = exports.$Enums.AccountStatus = {
   BANNED: 'BANNED'
 };
 
+exports.ConfigVerificationStatus = exports.$Enums.ConfigVerificationStatus = {
+  UNVERIFIED: 'UNVERIFIED',
+  VERIFIED: 'VERIFIED',
+  FAILED: 'FAILED'
+};
+
+exports.ChatPlatform = exports.$Enums.ChatPlatform = {
+  ZALO: 'ZALO',
+  FACEBOOK: 'FACEBOOK',
+  WEB: 'WEB'
+};
+
+exports.SessionStatus = exports.$Enums.SessionStatus = {
+  ACTIVE: 'ACTIVE',
+  RESOLVED: 'RESOLVED',
+  ESCALATED: 'ESCALATED'
+};
+
+exports.MessageSender = exports.$Enums.MessageSender = {
+  USER: 'USER',
+  AI: 'AI',
+  AGENT: 'AGENT'
+};
+
+exports.ApiKeyType = exports.$Enums.ApiKeyType = {
+  ADMIN: 'ADMIN',
+  CUSTOMER: 'CUSTOMER',
+  BRAND: 'BRAND'
+};
+
+exports.ApiKeyStatus = exports.$Enums.ApiKeyStatus = {
+  ACTIVE: 'ACTIVE',
+  SUSPENDED: 'SUSPENDED',
+  REVOKED: 'REVOKED',
+  EXPIRED: 'EXPIRED'
+};
+
 exports.isActive = exports.$Enums.isActive = {
   PENDING: 'PENDING',
   ACTIVE: 'ACTIVE',
@@ -817,11 +1272,54 @@ exports.isActive = exports.$Enums.isActive = {
   TERMINATED: 'TERMINATED'
 };
 
+exports.CustomerTier = exports.$Enums.CustomerTier = {
+  NEW: 'NEW',
+  MEMBER: 'MEMBER',
+  SILVER: 'SILVER',
+  GOLD: 'GOLD',
+  VIP: 'VIP'
+};
+
+exports.NotificationType = exports.$Enums.NotificationType = {
+  SYSTEM: 'SYSTEM',
+  RESERVATION: 'RESERVATION',
+  ORDER: 'ORDER',
+  INVENTORY: 'INVENTORY',
+  SUBSCRIPTION: 'SUBSCRIPTION',
+  PROMOTION: 'PROMOTION',
+  CUSTOM: 'CUSTOM'
+};
+
 exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
   PENDING_PAYMENT: 'PENDING_PAYMENT',
   ACTIVE: 'ACTIVE',
   EXPIRED: 'EXPIRED',
   CANCELLED: 'CANCELLED'
+};
+
+exports.InventoryAlertType = exports.$Enums.InventoryAlertType = {
+  LOW_STOCK: 'LOW_STOCK',
+  EXPIRING: 'EXPIRING'
+};
+
+exports.InventoryAlertStatus = exports.$Enums.InventoryAlertStatus = {
+  UNREAD: 'UNREAD',
+  READ: 'READ',
+  RESOLVED: 'RESOLVED'
+};
+
+exports.InvoiceStatus = exports.$Enums.InvoiceStatus = {
+  DRAFT: 'DRAFT',
+  OPEN: 'OPEN',
+  PAID: 'PAID',
+  VOID: 'VOID',
+  UNCOLLECTIBLE: 'UNCOLLECTIBLE'
+};
+
+exports.TransactionType = exports.$Enums.TransactionType = {
+  EARN: 'EARN',
+  SPEND: 'SPEND',
+  EXPIRED: 'EXPIRED'
 };
 
 exports.ItemType = exports.$Enums.ItemType = {
@@ -843,7 +1341,16 @@ exports.OrderStatus = exports.$Enums.OrderStatus = {
   SERVED: 'SERVED',
   BILL_REQUESTED: 'BILL_REQUESTED',
   PAID: 'PAID',
+  PARTIALLY_PAID: 'PARTIALLY_PAID',
   CANCELLED: 'CANCELLED'
+};
+
+exports.PaymentStatus = exports.$Enums.PaymentStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  PARTIALLY_PAID: 'PARTIALLY_PAID',
+  REFUNDED: 'REFUNDED',
+  FAILED: 'FAILED'
 };
 
 exports.KitchenStatus = exports.$Enums.KitchenStatus = {
@@ -900,6 +1407,25 @@ exports.ScheduleType = exports.$Enums.ScheduleType = {
   CLOSURE: 'CLOSURE'
 };
 
+exports.InventoryDocStatus = exports.$Enums.InventoryDocStatus = {
+  DRAFT: 'DRAFT',
+  PENDING_APPROVAL: 'PENDING_APPROVAL',
+  APPROVED: 'APPROVED',
+  COMPLETED: 'COMPLETED',
+  REJECTED: 'REJECTED',
+  CANCELLED: 'CANCELLED'
+};
+
+exports.StockTransactionType = exports.$Enums.StockTransactionType = {
+  IN_PO: 'IN_PO',
+  OUT_SALE: 'OUT_SALE',
+  OUT_SPOILAGE: 'OUT_SPOILAGE',
+  IN_TRANSFER: 'IN_TRANSFER',
+  OUT_TRANSFER: 'OUT_TRANSFER',
+  ADJ_AUDIT: 'ADJ_AUDIT',
+  ADJ_MANUAL: 'ADJ_MANUAL'
+};
+
 exports.BillingCycle = exports.$Enums.BillingCycle = {
   MONTHLY: 'MONTHLY',
   YEARLY: 'YEARLY',
@@ -950,27 +1476,46 @@ exports.TemplateType = exports.$Enums.TemplateType = {
 exports.Prisma.ModelName = {
   Category_Restaurant: 'Category_Restaurant',
   Employment: 'Employment',
-  Ingredient: 'Ingredient',
   ItemCategoryMap: 'ItemCategoryMap',
   ItemVariant: 'ItemVariant',
   MenuCategory: 'MenuCategory',
   MenuCategoryMap: 'MenuCategoryMap',
   ModifierGroup: 'ModifierGroup',
   ModifierOption: 'ModifierOption',
-  Notifications: 'Notifications',
   Promotion: 'Promotion',
-  UserPromotion: 'UserPromotion',
+  PromotionMenuItem: 'PromotionMenuItem',
+  UserPromotionWallet: 'UserPromotionWallet',
+  PromotionUsageLog: 'PromotionUsageLog',
+  PromotionRestaurant: 'PromotionRestaurant',
   Recipe: 'Recipe',
   RestaurantMenuItem: 'RestaurantMenuItem',
   RestaurantPaymentConfig: 'RestaurantPaymentConfig',
+  SystemRole: 'SystemRole',
   Transaction: 'Transaction',
   UpgradeRequest: 'UpgradeRequest',
   User: 'User',
+  WorkspaceRole: 'WorkspaceRole',
+  AdminPaymentConfig: 'AdminPaymentConfig',
+  AIChatSession: 'AIChatSession',
+  AIChatMessage: 'AIChatMessage',
+  AIBrandConfig: 'AIBrandConfig',
+  AiChatbox: 'AiChatbox',
+  AiModel: 'AiModel',
+  ApiKey: 'ApiKey',
   Brand: 'Brand',
+  BrandCustomer: 'BrandCustomer',
+  BrandNotification: 'BrandNotification',
+  BrandNotificationReadReceipt: 'BrandNotificationReadReceipt',
   BrandPaymentConfig: 'BrandPaymentConfig',
   BrandRevenue: 'BrandRevenue',
   BrandSubscription: 'BrandSubscription',
   BrandSubscriptionTransaction: 'BrandSubscriptionTransaction',
+  CustomerNotification: 'CustomerNotification',
+  InventoryAlert: 'InventoryAlert',
+  InventoryItem: 'InventoryItem',
+  InventoryStock: 'InventoryStock',
+  Invoice: 'Invoice',
+  LoyaltyTransaction: 'LoyaltyTransaction',
   Menu: 'Menu',
   MenuItem: 'MenuItem',
   Operating_Hours: 'Operating_Hours',
@@ -978,20 +1523,35 @@ exports.Prisma.ModelName = {
   OrderItem: 'OrderItem',
   Permission: 'Permission',
   Permission_vs_Employment: 'Permission_vs_Employment',
+  PurchaseOrder: 'PurchaseOrder',
+  PurchaseOrderItem: 'PurchaseOrderItem',
+  PurchaseRequest: 'PurchaseRequest',
+  PurchaseRequestItem: 'PurchaseRequestItem',
   Reservation_Audit_Log: 'Reservation_Audit_Log',
   Reservation_Tables: 'Reservation_Tables',
   Reservations: 'Reservations',
   Restaurant: 'Restaurant',
   Restaurant_Amenities: 'Restaurant_Amenities',
   Restaurant_Areas: 'Restaurant_Areas',
+  RestaurantCustomer: 'RestaurantCustomer',
   Restaurant_Event: 'Restaurant_Event',
+  RestaurantNotification: 'RestaurantNotification',
+  RestaurantNotificationReadReceipt: 'RestaurantNotificationReadReceipt',
   RestaurantRevenue: 'RestaurantRevenue',
   Review_Restaurant: 'Review_Restaurant',
-  Role: 'Role',
   Special_Schedules: 'Special_Schedules',
+  StockCount: 'StockCount',
+  StockCountItem: 'StockCountItem',
+  StockTransaction: 'StockTransaction',
+  StockTransfer: 'StockTransfer',
+  StockTransferItem: 'StockTransferItem',
   SubscriptionPlan: 'SubscriptionPlan',
+  Supplier: 'Supplier',
+  SystemNotification: 'SystemNotification',
+  SystemNotificationReadReceipt: 'SystemNotificationReadReceipt',
   SystemPaymentMethod: 'SystemPaymentMethod',
   SystemRevenue: 'SystemRevenue',
+  SystemWebhookLog: 'SystemWebhookLog',
   Table_Maintenance_Schedules: 'Table_Maintenance_Schedules',
   Tables: 'Tables',
   Tags: 'Tags',

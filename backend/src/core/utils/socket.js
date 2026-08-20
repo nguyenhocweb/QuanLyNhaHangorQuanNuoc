@@ -44,8 +44,25 @@ export const initSocket = (server) => {
 
     // Tham gia vào một room cụ thể (ví dụ: room của nhà hàng)
     socket.on("join_restaurant", (restaurantId) => {
+      socket.join(`restaurant_${restaurantId}`); // Chuẩn hóa prefix
+      // Backward compatibility
       socket.join(restaurantId);
       console.log(`Socket ${socket.id} joined restaurant room: ${restaurantId}`);
+    });
+
+    socket.on("join_workspace", (data) => {
+      if (data.restaurantId) {
+        socket.join(`restaurant_${data.restaurantId}`);
+        console.log(`Socket ${socket.id} joined restaurant workspace: ${data.restaurantId}`);
+      }
+      if (data.brandId) {
+        socket.join(`brand_${data.brandId}`);
+        console.log(`Socket ${socket.id} joined brand workspace: ${data.brandId}`);
+      }
+      if (data.isSystemAdmin) {
+        socket.join(`system_admin`);
+        console.log(`Socket ${socket.id} joined system admin workspace`);
+      }
     });
 
     socket.on("disconnect", () => {
@@ -63,6 +80,22 @@ export const getIO = () => {
   return io;
 };
 
+// --- Thông báo đa luồng (Multi-tenant Notifications) ---
+export const emitNewNotification = (targetRoom, data) => {
+  if (io && targetRoom) {
+    io.to(targetRoom).emit("new_notification", data);
+    console.log(`📡 Emitted new_notification to room: ${targetRoom}`, data.title);
+  }
+};
+
+export const emitGlobalNotification = (data) => {
+  if (io) {
+    io.emit("new_notification", data);
+    console.log(`📡 Emitted global new_notification to EVERYONE`, data.title);
+  }
+};
+
+// --- Các hàm cũ ---
 export const emitTableUpdate = (restaurantId) => {
   if (io && restaurantId) {
     io.to(restaurantId).emit("table_updated", { restaurantId });
@@ -118,3 +151,9 @@ export const emitUserPermissionUpdate = (userId) => {
   }
 };
 
+export const emitBrandSubscriptionUpdate = (brandId) => {
+  if (io && brandId) {
+    io.emit("brand_subscription_updated", { brandId });
+    console.log(`📡 Emitted brand_subscription_updated globally for brand: ${brandId}`);
+  }
+};

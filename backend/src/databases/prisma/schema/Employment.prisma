@@ -8,7 +8,9 @@ model Employment {
   user   User   @relation(fields: [userId], references: [id])
 
   // LÀM CHỨC VỤ GÌ? 
-  per_vs_emp Permission_vs_Employment[]
+  per_vs_emp      Permission_vs_Employment[]
+  workspaceRoleId String?                    @db.ObjectId
+  workspaceRole   WorkspaceRole?             @relation(fields: [workspaceRoleId], references: [id])
 
   // Ở ĐÂU? (Ngữ cảnh)
   brandId String? @db.ObjectId

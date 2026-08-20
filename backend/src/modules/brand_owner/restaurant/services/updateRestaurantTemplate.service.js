@@ -1,8 +1,9 @@
 import { NotFoundError, ForbiddenError } from "../../../../core/constants/error/index.js";
 import { findEmploymentByUserId } from "../../brand/repositories/brand.get.repo.js";
 import { getTemplateByIdRepo, getActiveSubscriptionByBrandRepo, updateRestaurantTemplateRepo } from "../repositories/updateRestaurantTemplate.repo.js";
+import { prisma } from "../../../../databases/init.mongodb.js";
 
-export const updateRestaurantTemplateService = async (userId, templateId) => {
+export const updateRestaurantTemplateService = async (userId, templateId, restaurantIds = null) => {
     // 0. Resolve brandId từ DB thông qua employment
     const employment = await findEmploymentByUserId(userId);
     if (!employment || !employment.brandId) {
@@ -34,8 +35,21 @@ export const updateRestaurantTemplateService = async (userId, templateId) => {
         }
     }
 
-    // 3. Cập nhật cho tất cả nhà hàng của brand
-    await updateRestaurantTemplateRepo(brandId, templateId);
+    // 3. Nếu có restaurantIds, kiểm tra xem tất cả có thuộc brand không
+    if (restaurantIds && restaurantIds.length > 0) {
+        const count = await prisma.restaurant.count({
+            where: {
+                id: { in: restaurantIds },
+                brandId: brandId
+            }
+        });
+        if (count !== restaurantIds.length) {
+            throw new ForbiddenError("Một hoặc nhiều chi nhánh không hợp lệ hoặc không thuộc thương hiệu này.");
+        }
+    }
+
+    // 4. Cập nhật cho danh sách nhà hàng cụ thể hoặc tất cả nhà hàng của brand
+    await updateRestaurantTemplateRepo(brandId, templateId, restaurantIds);
 
     return {
         code: 200,

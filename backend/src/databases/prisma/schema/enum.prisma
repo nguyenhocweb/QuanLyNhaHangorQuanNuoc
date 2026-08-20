@@ -104,11 +104,13 @@ enum NotificationStatus {
 }
 
 enum NotificationType {
-  CONFIRMATION // XÁC NHẬN ĐẶT BÀN
-  REMINDER // NHẮC LỊCH
-  CANCELLATION // THÔNG BÁO HỦY
-  WAITLIST // THÔNG BÁO CÓ BÀN TRỐNG
-  CUSTOM // THÔNG BÁO KHÁC
+  SYSTEM // Bảo trì, cập nhật hệ thống chung
+  RESERVATION // Đặt bàn
+  ORDER // Đơn hàng mới, Hủy đơn
+  INVENTORY // Cảnh báo kho (hết nguyên liệu)
+  SUBSCRIPTION // Gói cước (Gần hết hạn, Gia hạn thành công)
+  PROMOTION // Khuyến mãi (Voucher)
+  CUSTOM // Thông báo tùy chỉnh
 }
 
 enum NotificationChannel {
@@ -126,6 +128,7 @@ enum OrderStatus {
   SERVED //ĐÃ PHỤC VỤ XONG (ĐỦ MÓN)
   BILL_REQUESTED //KHÁCH YÊU CẦU THANH TOÁN
   PAID //ĐÃ THANH TOÁN
+  PARTIALLY_PAID //THANH TOÁN MỘT PHẦN
   CANCELLED //ĐÃ HỦY ĐƠN
 }
 
@@ -136,6 +139,25 @@ enum KitchenStatus {
   SERVING // ĐANG MANG RA BÀN 
   SERVED //ĐÃ PHỤC VỤ XONG 
   CANCELLED //ĐÃ HỦY CHẾ BIẾN 
+}
+
+// --- AI Chatbot Enums ---
+enum ChatPlatform {
+  ZALO
+  FACEBOOK
+  WEB
+}
+
+enum SessionStatus {
+  ACTIVE
+  RESOLVED
+  ESCALATED
+}
+
+enum MessageSender {
+  USER
+  AI
+  AGENT
 }
 
 enum providerType {
@@ -191,12 +213,12 @@ enum ReviewStatus {
 }
 
 enum TableType {
-  STANDARD      // Bàn tiêu chuẩn
-  VIP           // Bàn VIP
-  BAR_SEATING   // Ghế quầy Bar
-  SOFA          // Bàn Sofa
-  PRIVATE_ROOM  // Phòng riêng
-  OUTDOOR       // Bàn ngoài sân
+  STANDARD // Bàn tiêu chuẩn
+  VIP // Bàn VIP
+  BAR_SEATING // Ghế quầy Bar
+  SOFA // Bàn Sofa
+  PRIVATE_ROOM // Phòng riêng
+  OUTDOOR // Bàn ngoài sân
 }
 
 enum TemplateType {
@@ -204,3 +226,87 @@ enum TemplateType {
   RESTAURANT_TEMPLATE
 }
 
+enum InventoryDocStatus {
+  DRAFT
+  PENDING_APPROVAL
+  APPROVED
+  COMPLETED
+  REJECTED
+  CANCELLED
+}
+
+enum StockTransactionType {
+  IN_PO
+  OUT_SALE
+  OUT_SPOILAGE
+  IN_TRANSFER
+  OUT_TRANSFER
+  ADJ_AUDIT
+  ADJ_MANUAL
+}
+
+enum InventoryAlertType {
+  LOW_STOCK
+  EXPIRING
+}
+
+enum InventoryAlertStatus {
+  UNREAD
+  READ
+  RESOLVED
+}
+
+enum TargetAudience {
+  ALL
+  NEW_CUSTOMER
+  VIP
+  STUDENT
+}
+
+enum DayOfWeek {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+  FREE_ITEM
+  FREE_SHIPPING
+}
+
+enum PromotionStatus {
+  DRAFT
+  SCHEDULED
+  ACTIVE
+  PAUSED
+  EXPIRED
+  DEPLETED
+}
+
+enum CustomerTier {
+  NEW
+  MEMBER
+  SILVER
+  GOLD
+  VIP
+}
+
+enum ConfigVerificationStatus {
+  UNVERIFIED
+  VERIFIED
+  FAILED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  OPEN
+  PAID
+  VOID
+  UNCOLLECTIBLE
+}

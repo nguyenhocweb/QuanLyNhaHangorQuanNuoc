@@ -20,12 +20,18 @@ export const getAccountsService = async (query) => {
 
   // 2. Filter by Role
   if (role) {
-    where.role = {
-      name: role
-    };
+    if (role === "Admin" || role === "Khách hàng") {
+      where.systemRole = { name: role };
+    } else {
+      where.employments = {
+        some: {
+          workspaceRole: { name: role }
+        }
+      };
+    }
   } else {
     // Không lấy tài khoản Admin hệ thống khi xem tất cả
-    where.role = {
+    where.systemRole = {
       name: { not: "Admin" }
     };
   }
@@ -72,7 +78,7 @@ export const getAccountsService = async (query) => {
     name: user.name || user.user_name,
     email: user.email,
     phone: user.sdt,
-    role: user.role?.name || "UNKNOWN",
+    role: user.systemRole?.name === "Admin" ? "Admin" : (user.employments?.length > 0 ? user.employments[0].workspaceRole?.name : user.systemRole?.name) || "UNKNOWN",
     status: user.is_active,
     createdAt: user.createdAt,
     avatar: user.avatar,

@@ -28,17 +28,17 @@ export const getRestaurants = async ({ page, limit, where }) => {
             address: true,
             isNew: true,
             description: true,
-            phone_contact: true,
-            email_contact: true,
-            max_party_size: true,
-            booking_window_days: true,
-            cancellation_hours: true,
-            deposit_required: true,
-            deposit_amount: true,
+            phoneContact: true,
+            emailContact: true,
+            maxPartySize: true,
+            bookingWindowDays: true,
+            cancellationHours: true,
+            depositRequired: true,
+            depositPerPax: true,
             totalRating: true,
-            average_food_rating: true,
-            average_service_rating: true,
-            average_ambiance_rating: true,
+            averageFoodRating: true,
+            averageServiceRating: true,
+            averageAmbianceRating: true,
             categories: {
                 select: {
                     name: true,
@@ -46,7 +46,7 @@ export const getRestaurants = async ({ page, limit, where }) => {
                     textColor: true,
                 }
             },
-            operating_hours: {
+            operatingHours: {
                 where: { day_of_week: day },
                 take: 1,
                 select: {
@@ -58,9 +58,9 @@ export const getRestaurants = async ({ page, limit, where }) => {
         },
     });
 
-    return result ? result.map(({ operating_hours, brand, ...rest }) => {
+    return result ? result.map(({ operatingHours, brand, ...rest }) => {
         // Lấy phần tử đầu tiên nếu mảng có dữ liệu an toàn
-        const hours = operating_hours?.[0];
+        const hours = operatingHours?.[0];
 
         return {
             ...rest,
@@ -93,14 +93,14 @@ export const getRestaurantById = async (id) => {
             imageMain: true,
             images: true,
             address: true,
-            phone_contact: true,
-            email_contact: true,
+            phoneContact: true,
+            emailContact: true,
             brand:{
                select:{
                 name:true
                }
             },
-            operating_hours: {
+            operatingHours: {
                 select: {
                     open_time: true,
                     close_time: true,
@@ -109,7 +109,7 @@ export const getRestaurantById = async (id) => {
                 }
             },
 
-            special_schedules: {
+            specialSchedules: {
                 where: {
                     OR: [
                         // Trường hợp 1: Ngày cụ thể nằm trong khoảng đầu tuần -> cuối tuần
@@ -138,11 +138,11 @@ export const getRestaurantById = async (id) => {
         }
     })
     if(result){
-        const {operating_hours,special_schedules,brand,...data}=result
+        const {operatingHours,specialSchedules,brand,...data}=result
         return {
             ...data,
             brandName: brand?.name || "Nhà hàng Foleat",
-            timeWeek:mergeWeeklySchedules(operating_hours,special_schedules,today)
+            timeWeek:mergeWeeklySchedules(operatingHours,specialSchedules,today)
         }
     }
     return result

@@ -201,14 +201,14 @@ const Brand_Card_Components = ({
                                     <span className="flex items-center gap-1.5 text-slate-400">
                                         <FaPhoneAlt className="text-emerald-400" /> Hotline:
                                     </span>
-                                    <strong className="text-white truncate max-w-[150px]">{dataBrand.phone_contact || "Đang cập nhật"}</strong>
+                                    <strong className="text-white truncate max-w-[150px]">{dataBrand.phoneContact || "Đang cập nhật"}</strong>
                                 </div>
 
                                 <div className="flex items-center justify-between py-0.5 border-b border-white/5">
                                     <span className="flex items-center gap-1.5 text-slate-400">
                                         <FaEnvelope className="text-amber-400" /> Email:
                                     </span>
-                                    <strong className="text-white truncate max-w-[150px]">{dataBrand.email_contact || "Đang cập nhật"}</strong>
+                                    <strong className="text-white truncate max-w-[150px]">{dataBrand.emailContact || "Đang cập nhật"}</strong>
                                 </div>
 
                                 <div className="flex items-center justify-between py-0.5 border-b border-white/5">

@@ -13,4 +13,4 @@ export const ChangePasswordSchemas=z.object({
         path:["confirmNewPassword"]  // nơi thông báo lỗi
     }
 )
-export type ChangePasswordForm=z.Infer<typeof ChangePasswordSchemas>
+export type ChangePasswordForm=z.infer<typeof ChangePasswordSchemas>

@@ -7,9 +7,10 @@ export const accountGetRepository = {
       skip,
       take: limit,
       include: {
-        role: true,
+        systemRole: true,
         employments: {
           include: {
+            workspaceRole: true,
             brand: {
               select: { name: true }
             },

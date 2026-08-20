@@ -27,6 +27,7 @@ export interface Order {
   systemPaymentMethodId?: string;
   paid_at?: string;
   createdAt: string;
+  updatedAt?: string;
   
   table?: { id: string; table_number: string };
   takenByEmp?: { id: string; name: string };

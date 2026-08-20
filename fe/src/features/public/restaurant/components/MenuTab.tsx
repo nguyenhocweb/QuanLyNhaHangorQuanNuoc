@@ -209,17 +209,17 @@ const MenuTab: React.FC<Props> = ({ restaurantId }) => {
                                     <div className="flex flex-col mt-3">
                                         {item.variants && item.variants.length > 0 ? (
                                             <>
-                                                <div className="text-xs text-gray-400 mb-1">Từ <span className="text-indigo-600 font-bold text-lg">{formatPrice(Math.min(...item.variants.map(v => v.price)))}</span></div>
+                                                <div className="text-xs text-gray-400 mb-1">Từ <span className="text-gray-900 font-bold text-lg">{formatPrice(Math.min(...item.variants.map(v => v.price)))}</span></div>
                                                 <div className="flex flex-wrap gap-2">
                                                     {item.variants.map(v => (
                                                         <div key={v.id} className="px-2 py-0.5 bg-gray-50 rounded text-xs border border-gray-100 text-gray-600">
-                                                            <span className="font-semibold">{v.name}:</span> {formatPrice(v.price)}
+                                                            <span className="font-semibold">{v.name}:</span> <span className="text-gray-900 font-medium">{formatPrice(v.price)}</span>
                                                         </div>
                                                     ))}
                                                 </div>
                                             </>
                                         ) : (
-                                            <span className="font-extrabold text-indigo-600 text-lg">
+                                            <span className="font-extrabold text-gray-900 text-lg">
                                                 {formatPrice(item.price)}
                                             </span>
                                         )}

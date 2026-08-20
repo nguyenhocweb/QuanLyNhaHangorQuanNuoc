@@ -1,0 +1,15 @@
+model InventoryStock {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId    String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  quantity      Float   @default(0) // Số lượng hiện tại
+  minStockLevel Float   @default(0) // Ngưỡng cảnh báo hết hàng
+  location      String? // Vị trí (Kệ A, Tủ đông 1)
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+
+  @@unique([restaurantId, inventoryItemId])
+  @@index([restaurantId])
+  @@map("inventory_stocks")
+}

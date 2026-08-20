@@ -1,0 +1,60 @@
+model AIChatSession {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String @db.ObjectId
+  brand   Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  platform      ChatPlatform @default(WEB) // Nền tảng (ZALO, FACEBOOK, WEB)
+  externalId    String? // ID của người dùng trên nền tảng (Zalo ID, FB PSID)
+  customerName  String?
+  customerPhone String?
+
+  status SessionStatus @default(ACTIVE) // ACTIVE, RESOLVED, ESCALATED (chuyển cho nhân viên thật)
+
+  messages AIChatMessage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([externalId])
+  @@index([createdAt]) // Cần tạo TTL Index trên MongoDB để tự xóa sau 30 ngày tránh phình DB
+  @@map("ai_chat_sessions")
+}
+
+model AIChatMessage {
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String        @db.ObjectId
+  session   AIChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  sender  MessageSender // USER (Khách), AI (Bot), AGENT (Nhân viên)
+  content String
+  intent  String? // Mục đích nhận diện được (VD: BOOK_TABLE, MENU_INQUIRY)
+
+  metadata Json? // Lưu trữ thông tin context (VD: {"extractedDate": "2023-12-01", "guests": 4})
+
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+  @@map("ai_chat_messages")
+}
+
+// Cấu hình AI riêng cho từng Brand
+model AIBrandConfig {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String @unique @db.ObjectId
+  brand   Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  isActive         Boolean @default(false)
+  greetingMessage  String  @default("Xin chào! Tôi là trợ lý ảo của nhà hàng. Tôi có thể giúp gì cho bạn?")
+  fallbackMessage  String  @default("Xin lỗi, tôi chưa hiểu ý bạn. Vui lòng đợi chút để tôi chuyển máy cho nhân viên nhé!")
+  agentEscalation  Boolean @default(true) // Cho phép chuyển cho nhân viên thật khi AI không hiểu
+  knowledgeBaseUrl String? // Đường dẫn tới tài liệu training (Menu, Giờ mở cửa) để RAG
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ai_brand_configs")
+}

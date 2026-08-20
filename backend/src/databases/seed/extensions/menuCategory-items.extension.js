@@ -1,105 +1,111 @@
-// extensions/categoriesAndItemsExtension.js
-import { menuCategoriesData, menuItemsData } from "../constants/menucategory-items.data.js";
+import { 
+    generateMenus, 
+    generateMenuCategories, 
+    generateMenuCategoryMaps, 
+    generateMenuItems, 
+    generateItemCategoryMaps, 
+    generateItemVariants, 
+    generateModifierGroups, 
+    generateModifierOptions, 
+    generateRestaurantMenuItems 
+} from "../constants/menucategory-items.data.js";
+import brandData from "../constants/brand.data.js";
+import restaurantData from "../constants/restaurant.data.js";
 import { upsertVector } from "../../../modules/shared/vector/service/vectorDB.service.js";
 import { embedText } from "../../../modules/shared/vector/service/embedding.service.js";
 import { tableVector } from "../../../config/tableVector.js";
-import { buildMenuItemVector } from "../../../modules/shared/vector/builders/menuItem.builder.js";
+import { buildMenuItemVector } from "../../../modules/shared/vector/core_builders/menuItem.builder.js";
+
 export const categoriesAndItemsExtension = async (prisma) => {
-  console.log("Creating Menu Categories & Items...");
+    console.log("Creating Menus, Categories, Items, Variants & Modifiers...");
 
-  // ==========================================
-  // 1️⃣ SEEDING MENU CATEGORIES
-  // ==========================================
-  const categoryResult = await prisma.menuCategory.createMany({
-    data: menuCategoriesData
-  });
-  console.log(`✅ Created ${categoryResult.count} menu categories`);
+    // 1. Menus
+    const menus = generateMenus(brandData);
+    const menuResult = await prisma.menu.createMany({ data: menus });
+    console.log(`✅ Created ${menuResult.count} menus`);
 
-  // ==========================================
-  // 2️⃣ SEEDING MENU ITEMS & RESTAURANT MAPS
-  // ==========================================
+    // 2. MenuCategories
+    const categories = generateMenuCategories(brandData);
+    const catResult = await prisma.menuCategory.createMany({ data: categories });
+    console.log(`✅ Created ${catResult.count} menu categories`);
 
-  // Chuẩn bị dữ liệu cho MenuItem chuẩn Enterprise
-  const mappedItems = menuItemsData.map((item, index) => {
-    return {
-      id: item.id,
-      categoryId: item.categoryId,
-      brandId: item.brandId,
-      sku: `SKU-${item.id ? item.id.substring(18) : index}-${Date.now().toString().slice(-4)}`,
-      name: item.name,
-      description: item.description,
-      image: item.image,
-      images: item.images || [],
-      basePrice: item.base_price || 0,
-      item_type: item.item_type,
-      allergens: item.allergens || [],
-      spice_level: item.spice_level,
-      prep_time: item.prep_time,
-      isActive: item.is_available ?? true,
-      is_featured: item.is_featured ?? false,
-      sort_order: item.sort_order ?? 0,
-    };
-  });
+    // 3. MenuCategoryMaps
+    const menuCatMaps = generateMenuCategoryMaps(menus, categories);
+    const menuCatMapResult = await prisma.menuCategoryMap.createMany({ data: menuCatMaps });
+    console.log(`✅ Created ${menuCatMapResult.count} menu category maps`);
 
-  const itemResult = await prisma.menuItem.createMany({
-    data: mappedItems
-  });
+    // 4. MenuItems
+    const items = generateMenuItems(brandData);
+    const itemResult = await prisma.menuItem.createMany({ data: items });
+    console.log(`✅ Created ${itemResult.count} menu items`);
 
-  // Chuẩn bị dữ liệu Phân phối cho RestaurantMenuItem
-  const restaurantMaps = menuItemsData
-    .filter(item => item.restaurantId)
-    .map(item => ({
-      restaurantId: item.restaurantId,
-      menuItemId: item.id,
-      isAvailable: item.is_available ?? true,
-      overridePrice: null // Khởi tạo chưa ghi đè giá
-    }));
+    // 5. ItemCategoryMaps
+    const itemCatMaps = generateItemCategoryMaps(items, categories);
+    const itemCatMapResult = await prisma.itemCategoryMap.createMany({ data: itemCatMaps });
+    console.log(`✅ Created ${itemCatMapResult.count} item category maps`);
 
-  if (restaurantMaps.length > 0) {
-    const rmResult = await prisma.restaurantMenuItem.createMany({
-      data: restaurantMaps
-    });
+    // 6. ItemVariants
+    const variants = generateItemVariants(items);
+    const varResult = await prisma.itemVariant.createMany({ data: variants });
+    console.log(`✅ Created ${varResult.count} item variants`);
+
+    // 7. ModifierGroups
+    const modifierGroups = generateModifierGroups(items);
+    const modGroupResult = await prisma.modifierGroup.createMany({ data: modifierGroups });
+    console.log(`✅ Created ${modGroupResult.count} modifier groups`);
+
+    // 8. ModifierOptions
+    const modifierOptions = generateModifierOptions(modifierGroups);
+    const modOptResult = await prisma.modifierOption.createMany({ data: modifierOptions });
+    console.log(`✅ Created ${modOptResult.count} modifier options`);
+
+    // 9. RestaurantMenuItems (Distribution)
+    const restaurantMenuItems = generateRestaurantMenuItems(restaurantData, items);
+    const rmResult = await prisma.restaurantMenuItem.createMany({ data: restaurantMenuItems });
     console.log(`✅ Distributed ${rmResult.count} items to restaurants`);
-  }
 
-  // ==========================================
-  // 3️⃣ CẬP NHẬT VECTOR DB CHO AI SEARCH
-  // ==========================================
-  for (const item of menuItemsData) {
-    const text = [
-        `Món ăn: ${item.name || "Món ăn ẩn danh"} là 1 món ăn.`,
-        ` ${item.restaurantName? `món ăn này thuộc nhà hàng: ${item.restaurantName}`:""}. `,
-        `${item.brandName?`món ăn này thuộc thương hiệu: ${item.brandName}`:""}.`,
-        
-        ` Giá cơ bản: ${item.base_price || 0}.`,
-        ` Phần trăm giảm giá: ${item.discount_percent??0}%`,
-        ` hạn ngày hết giảm giá: ${item.discount_until??"Không có thông tin"}`,
-         item.is_featured?"là món hot":"",
-        ` Menu: ${item.menuName|| "chưa cập nhật danh mục"}.`,
-        ` Danh mục: ${item.categoryName || "chưa cập nhật danh mục"}.`,
-       
-        ` Mô tả: ${item.description || "chưa cập nhật mô tả"}.`,
-        ` thành phần món ăn gồm: ${item.allergens ? item.allergens.join(", ") : "Không có thông tin"}. `,
-      
-    ].join(" ");
-    const embedding = await embedText(text);
-    const MenuItemVector = buildMenuItemVector({
-      id: `menuItem_${item.id}`,
-      name: item.name,
-      description: item.description,
-      allergens: item.allergens,
-      embedding: embedding,
+    // ==========================================
+    // 10. CẬP NHẬT VECTOR DB CHO AI SEARCH (GIỚI HẠN)
+    // ==========================================
+    const LIMIT_VECTOR_SEED = 50; 
+    console.log(`⏳ Embedding vectors for the first ${LIMIT_VECTOR_SEED} items to save API quota...`);
+    
+    let vectorCount = 0;
+    for (const item of items) {
+        if (vectorCount >= LIMIT_VECTOR_SEED) break;
 
-      basePrice: item.base_price || 0, // Dùng schema mới
-      brandName:item.brandName,
-      menuName:item.menuName,
-      restaurantName: item.restaurantName,
-      categoryName: item.categoryName
-    });
-     await upsertVector(MenuItemVector, tableVector.menu);
-  
-    
-    
-  }
-  console.log(`✅ Created ${itemResult.count} menu items`);
+        // Fetch brand Name & category name (giả lập vì array data chỉ có id)
+        const brand = brandData.find(b => b.id === item.brandId);
+        const itemMap = itemCatMaps.find(m => m.menuItemId === item.id);
+        const category = categories.find(c => c.id === itemMap.categoryId);
+
+        const text = [
+            `Món ăn: ${item.name} là 1 món ăn.`,
+            `món ăn này thuộc thương hiệu: ${brand ? brand.name : ""}.`,
+            `Giá cơ bản: ${item.basePrice}.`,
+            item.is_featured ? "là món hot" : "",
+            `Danh mục: ${category ? category.name : "chưa cập nhật"}.`,
+            `Mô tả: ${item.description}.`,
+            `thành phần: ${item.allergens.length ? item.allergens.join(", ") : "Không có thông tin"}.`
+        ].join(" ");
+
+        try {
+            const embedding = await embedText(text);
+            const MenuItemVector = buildMenuItemVector({
+                id: `menuItem_${item.id}`,
+                name: item.name,
+                description: item.description,
+                allergens: item.allergens,
+                embedding: embedding,
+                basePrice: item.basePrice,
+                brandName: brand ? brand.name : null,
+                categoryName: category ? category.name : null
+            });
+            await upsertVector(MenuItemVector, tableVector.menu);
+            vectorCount++;
+        } catch (error) {
+            console.error(`❌ Lỗi khi vectorise item ${item.id}:`, error.message);
+        }
+    }
+    console.log(`✅ Đã đẩy thành công ${vectorCount} vectors lên Pinecone!`);
 };

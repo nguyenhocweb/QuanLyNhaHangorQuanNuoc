@@ -63,8 +63,8 @@ const RestaurantTemplate1 = ({ id }: { id: string }) => {
                         <FadeIn delay={0.1} className="w-full">
                             <OverviewPage
                                 name={data.name}
-                                email_contact={data?.email_contact}
-                                phone_contact={data?.phone_contact}
+                                emailContact={data?.emailContact}
+                                phoneContact={data?.phoneContact}
                                 address={`${data.address}, ${data.city}`}
                                 time={time && time.is_open ? `${time.open_time}-${time.close_time}` : undefined}
                             />

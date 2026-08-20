@@ -6,7 +6,7 @@ export const useUpdateRestaurantTemplate_hook = () => {
     const queryClient = useQueryClient();
 
     return useMutation({
-        mutationFn: async (data: { brandId: string, templateId: string }) => {
+        mutationFn: async (data: { brandId: string, templateId: string, restaurantIds?: string[] }) => {
             return await updateRestaurantTemplateService(data);
         },
         onSuccess: (data) => {

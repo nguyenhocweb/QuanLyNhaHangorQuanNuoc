@@ -16,7 +16,7 @@ export const updateStaffService = async (restaurantId, employmentId, payload, us
 
   const employment = await prisma.employment.findUnique({
     where: { id: employmentId },
-    include: { user: { include: { role: true } } }
+    include: { user: { include: { systemRole: true } }, workspaceRole: true }
   });
 
   if (!employment || employment.restaurantId !== restaurantId) {
@@ -29,19 +29,19 @@ export const updateStaffService = async (restaurantId, employmentId, payload, us
     throw new ForbiddenError("Chỉ Quản lý nhà hàng mới có quyền phân quyền chi tiết cho nhân viên!");
   }
   
-  let roleId = undefined;
+  let workspaceRoleId = undefined;
 
   if (roleName) {
-    if (roleName === "Admin" || roleName === "Quản lý thương hiệu") {
+    if (roleName === "Admin" || roleName === "Chủ thương hiệu") {
       throw new ForbiddenError("Không thể thăng chức thành Quản trị viên cấp cao tại chi nhánh");
     }
-    const role = await prisma.role.findUnique({ where: { name: roleName } });
+    const role = await prisma.workspaceRole.findUnique({ where: { name: roleName } });
     if (!role) throw new NotFoundError(`Vai trò '${roleName}' không tồn tại`);
-    roleId = role.id;
+    workspaceRoleId = role.id;
   }
 
   const result = await updateStaffRepo(employment.id, {
-    roleId,
+    workspaceRoleId,
     permissionIds,
     salary_type,
   });

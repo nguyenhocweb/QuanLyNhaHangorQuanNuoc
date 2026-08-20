@@ -6,4 +6,4 @@ export const InformationProfileSchema = z.object({
     date_of_birth: validator.dob("Ngày sinh", { minAge: 14, maxAge: 120 }).optional(),
     gender: validator.enum("Giới tính", ["Nam", "Nu", "Khac"] as const).optional()
 })
-export type InformationProfileForm = z.Infer<typeof InformationProfileSchema>;
+export type InformationProfileForm = z.infer<typeof InformationProfileSchema>;

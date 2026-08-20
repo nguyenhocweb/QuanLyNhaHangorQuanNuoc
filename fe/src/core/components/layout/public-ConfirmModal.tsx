@@ -17,11 +17,12 @@ type ModalType = "success" | "warning" | "danger" | "info";
 interface ConfirmModalProps {
   open: boolean;
   title: string;
-  content: string;
+  content: React.ReactNode;
   type?: ModalType;
   isLoading?: boolean;
   confirmText?: string;
   cancelText?: string;
+  hideConfirmButton?: boolean;
   onClose: () => void;
   onConfirm: () => void;
 }
@@ -62,6 +63,7 @@ export function ConfirmModal({
   isLoading = false,
   confirmText = "Xác nhận",
   cancelText = "Hủy",
+  hideConfirmButton = false,
   onClose,
   onConfirm,
 }: ConfirmModalProps) {
@@ -124,9 +126,9 @@ export function ConfirmModal({
             <H variant="text_black" className="text-lg">
               {title}
             </H>
-            <P className="mt-2 text-sm text-gray-600 leading-relaxed">
+            <div className="mt-2 text-sm text-gray-600 leading-relaxed">
               {content}
-            </P>
+            </div>
           </Div>
         </Div>
 
@@ -145,25 +147,27 @@ export function ConfirmModal({
             </span>
           </Button>
           
-          <Button
-            variant={currentStyle.btnVariant}
-            shape="square"
-            sizea="p4_2"
-            className="min-w-[7rem] max-w-[12rem] disabled:opacity-70 disabled:cursor-not-allowed"
-            onClick={onConfirm}
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <span className="flex items-center justify-center truncate w-full">
-                <FiLoader className="mr-2 h-4 w-4 animate-spin shrink-0" />
-                Đang xử lý...
-              </span>
-            ) : (
-              <span className="truncate w-full text-center">
-                {confirmText}
-              </span>
-            )}
-          </Button>
+          {!hideConfirmButton && (
+            <Button
+              variant={currentStyle.btnVariant}
+              shape="square"
+              sizea="p4_2"
+              className="min-w-[7rem] max-w-[12rem] disabled:opacity-70 disabled:cursor-not-allowed"
+              onClick={onConfirm}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="flex items-center justify-center truncate w-full">
+                  <FiLoader className="mr-2 h-4 w-4 animate-spin shrink-0" />
+                  Đang xử lý...
+                </span>
+              ) : (
+                <span className="truncate w-full text-center">
+                  {confirmText}
+                </span>
+              )}
+            </Button>
+          )}
         </div>
       </Div>
     </div>,

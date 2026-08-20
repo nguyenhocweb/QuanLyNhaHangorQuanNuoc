@@ -22,7 +22,7 @@ const allowedOrigins = appConfig.url_client?.split(',') || [];
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
 
   // 4. Các Headers được phép gửi lên
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'x-workspace-id'],
   
   // 5. Cache kết quả Preflight request (OPTIONS) trong 10 phút
   // Giúp giảm tải server, trình duyệt không cần hỏi "Được phép không?" liên tục

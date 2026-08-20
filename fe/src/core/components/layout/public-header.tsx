@@ -1,7 +1,8 @@
 "use client"
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
-
+import { NotificationBell } from "@/src/features/public/notifications/component/NotificationBell";
 const NAV_LINKS = [
     { name: "Trang chủ", href: "/" },
     { name: "Thương hiệu", href: "/brands" },
@@ -57,8 +58,10 @@ const PublicHeader = () => {
                 {/* 4. Action Buttons (Khu vực bên phải) */}
                 {
                     getUser ?
-                        <div className="relative" ref={menuRef}>
-                            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none">
+                        <div className="flex items-center gap-4">
+                            <NotificationBell />
+                            <div className="relative" ref={menuRef}>
+                                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="flex items-center gap-2 hover:opacity-80 transition-opacity focus:outline-none">
                                 {
                                     getUser.avatar ?
                                     <div style={{ backgroundImage: `url(${getUser.avatar})` }}
@@ -81,7 +84,7 @@ const PublicHeader = () => {
                                     </div>
 
                                     <div className="max-h-[60vh] overflow-y-auto custom-scrollbar">
-                                        {getUser.role === "Admin" ? (
+                                        {getUser.systemRole === "Admin" ? (
                                             <div className="p-2 border-b border-gray-100">
                                                 <p className="text-xs font-bold text-red-500 uppercase px-3 py-2 flex items-center gap-1">🛠️ Quản trị viên</p>
                                                 <a href="/system/dashboard" className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-red-50 hover:text-red-700 rounded-xl transition-colors">
@@ -93,36 +96,36 @@ const PublicHeader = () => {
                                                 {/* Phần Khách Hàng */}
                                                 <div className="p-2 border-b border-gray-100">
                                                     <p className="text-xs font-bold text-gray-400 uppercase px-3 py-2">Khách hàng</p>
-                                                    <a href="/user/profile" onClick={() => { switchWorkspace({ type: 'CUSTOMER' }); setIsMenuOpen(false); }} className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
+                                                    <Link href="/user/profile" onClick={() => { switchWorkspace({ type: 'CUSTOMER' }); setIsMenuOpen(false); }} className="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-xl transition-colors">
                                                         Tài khoản của tôi
-                                                    </a>
+                                                    </Link>
                                                 </div>
 
                                                 {/* Phần Nơi làm việc */}
-                                                {( ((getUser.role === "Chủ thương hiệu" || getUser.role === "Quản lý thương hiệu") && getUser.brand?.length > 0) || (getUser.restaurant?.length > 0) ) && (
+                                                {( (getUser.brand && getUser.brand.length > 0) || (getUser.restaurant && getUser.restaurant.length > 0) ) && (
                                                     <div className="p-2 border-b border-gray-100">
                                                         <p className="text-xs font-bold text-indigo-400 uppercase px-3 py-2 flex items-center gap-1">🏪 Nơi làm việc</p>
                                                         
                                                         {/* Danh sách Thương hiệu */}
-                                                        {(getUser.role === "Chủ thương hiệu" || getUser.role === "Quản lý thương hiệu") && getUser.brand?.map((b: any) => (
-                                                            <a key={b.id} href="/brand_owner/dashboard" 
-                                                                onClick={() => { switchWorkspace({ type: 'BRAND', id: b.id, name: b.name }); setIsMenuOpen(false); }} 
+                                                        {getUser.brand && getUser.brand.length > 0 && getUser.brand.map((b: any) => (
+                                                            <Link key={b.id} href="/brand_owner/dashboard" 
+                                                                onClick={() => { switchWorkspace({ type: 'BRAND', id: b.id, name: b.name, role: b.role }); setIsMenuOpen(false); }} 
                                                                 className="flex flex-col px-3 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-xl transition-colors"
                                                             >
                                                                 <span className="font-semibold">{b.name}</span>
-                                                                <span className="text-xs text-gray-500">{getUser.role || "Thương hiệu"}</span>
-                                                            </a>
+                                                                <span className="text-xs text-gray-500">{b.role || "Thương hiệu"}</span>
+                                                            </Link>
                                                         ))}
 
                                                         {/* Danh sách Chi nhánh */}
                                                         {getUser.restaurant?.map((r: any) => (
-                                                            <a key={r.id} href={(getUser.role === "Nhân viên") ? "/quan-ly-nha-hang/profile" : "/quan-ly-nha-hang/dashboard"} 
-                                                                onClick={() => { switchWorkspace({ type: 'RESTAURANT', id: r.id, name: r.name }); setIsMenuOpen(false); }} 
+                                                            <Link key={r.id} href={(r.role === "Nhân viên") ? "/quan-ly-nha-hang/profile" : "/quan-ly-nha-hang/dashboard"} 
+                                                                onClick={() => { switchWorkspace({ type: 'RESTAURANT', id: r.id, name: r.name, role: r.role }); setIsMenuOpen(false); }} 
                                                                 className="flex flex-col px-3 py-2 text-sm text-gray-700 hover:bg-indigo-50 hover:text-indigo-700 rounded-xl transition-colors"
                                                             >
                                                                 <span className="font-semibold">{r.name}</span>
-                                                                <span className="text-xs text-gray-500">{getUser.role || "Chi nhánh"}</span>
-                                                            </a>
+                                                                <span className="text-xs text-gray-500">{r.role || "Chi nhánh"}</span>
+                                                            </Link>
                                                         ))}
                                                     </div>
                                                 )}
@@ -139,8 +142,9 @@ const PublicHeader = () => {
                                 </div>
                             )}
                         </div>
-                        :
-                        <Div gap="g3_4">
+                    </div>
+                    :
+                    <Div gap="g3_4">
                             <A href="/login" sizea="p3_2">Đăng nhập</A>
                             <A href="/register" variant="green" sizea="p4_2">Đăng ký</A>
                         </Div>

@@ -15,11 +15,11 @@ model Review_Restaurant {
   service_rating  Int? // đánh giá dịch vụ
   ambiance_rating Int? // đánh giá không gian quán
 
-  comment String? // bình luận 
+  comment       String? // bình luận 
   images        String[]
-  helpful_count Int @default(0)
+  helpful_count Int      @default(0)
 
-  status ReviewStatus @default(APPROVED) // trạng thái duyệt bình luận
+  status         ReviewStatus @default(APPROVED) // trạng thái duyệt bình luận
   staff_response String? // phản hồi từ nhà hàng
 
   createdAt DateTime @default(now())

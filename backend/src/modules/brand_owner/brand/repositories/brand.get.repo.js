@@ -11,7 +11,13 @@ export const getBrandById = async (brandId) => {
     return await prisma.brand.findUnique({
         where: { id: brandId },
         include: {
-            employments: true
+            employments: true,
+            _count: {
+                select: {
+                    employments: true,
+                    restaurants: true
+                }
+            }
         }
     });
 };

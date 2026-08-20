@@ -26,25 +26,25 @@ export const verifyOAuthUserService = async (profileData) => {
             providerType: providerType[profileData.provider],
             avatar: profileData.avatar,
             is_active: "ACTIVE",
-            roleId: UserCustomer.id
+            systemRoleId: UserCustomer.id
         }
     )
     // tạo token
     if (result) return {
        token: {
           
-                accessToken: createTokenAccess(
-                    {
-                        id: result.id,
-                        role: result.role,
-                        employmentType: result.brand ? "BRAND" : (result.restaurant ? "RESTAURANT" : NULL),
-                        permissions: result.permissions ?? null
-                    }
-                ),
+                accessToken: createTokenAccess({
+                    id: result.id,
+                    systemRole: result.systemRole,
+                    brand: result.brand,
+                    restaurant: result.restaurant,
+                    permissions: result.permissions ?? null
+                }),
                 refreshToken: createTokenRefresh({
                     id: result.id,
-                    role: result.role,
-                    employmentType: result.brand ? "BRAND" : (result.restaurant ? "RESTAURANT" : NULL),
+                    systemRole: result.systemRole,
+                    brand: result.brand,
+                    restaurant: result.restaurant,
                     permissions: result.permissions ?? null
                 })
             

@@ -14,8 +14,28 @@ export const useLogin = () => {
         mutationFn: loginSevice,
         onSuccess: (data: LoginResponse) => {
             setUser(data);
-            if (data.role === "Admin") {
+            if (data.systemRole === "Admin") {
                 router.push("/system/dashboard");
+                return;
+            }
+
+            const brandCount = data.brand ? data.brand.length : 0;
+            const restCount = data.restaurant ? data.restaurant.length : 0;
+            const totalWorkspaces = brandCount + restCount;
+
+            if (totalWorkspaces > 1) {
+                router.push("/select-workspace");
+            } else if (totalWorkspaces === 1) {
+                if (brandCount === 1) {
+                    router.push("/brand_owner/dashboard");
+                } else if (restCount === 1) {
+                    const role = data.restaurant![0].role;
+                    if (role === "Quản lý nhà hàng") {
+                        router.push("/quan-ly-nha-hang/dashboard");
+                    } else {
+                        router.push("/quan-ly-nha-hang/profile");
+                    }
+                }
             } else {
                 router.push("/");
             }

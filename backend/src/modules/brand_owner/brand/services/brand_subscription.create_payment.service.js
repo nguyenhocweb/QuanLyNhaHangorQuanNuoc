@@ -57,7 +57,8 @@ export const createPaymentService = async (userId, planId, systemPaymentMethodId
         amount: plan.price,
         userId,
         systemPaymentMethodId: paymentMethodId,
-        endDate
+        endDate,
+        plan
     });
 
     // 5. Tích hợp Factory Pattern để gọi đúng cổng thanh toán

@@ -1,0 +1,24 @@
+model AdminPaymentConfig {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  systemPaymentMethodId String @db.ObjectId
+
+  // JSON config (API Keys, Checksum Keys của Admin)
+  configData Json
+
+  isActive   Boolean @default(true)
+  isTestMode Boolean @default(true)
+
+  verificationStatus ConfigVerificationStatus @default(UNVERIFIED)
+  lastVerifiedAt     DateTime?
+  lastTestOrderCode  String? // Dùng để track mã đơn hàng test 1000đ
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  systemPaymentMethod SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
+
+  @@unique([systemPaymentMethodId])
+  @@map("admin_payment_configs")
+}

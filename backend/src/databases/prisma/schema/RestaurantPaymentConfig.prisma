@@ -7,7 +7,8 @@ model RestaurantPaymentConfig {
   systemPaymentMethodId String @db.ObjectId
 
   // JSON config (MongoDB rất hợp cho field này)
-  configData Json
+  configData       Json
+  webhookTokenHash String? // Mã hóa token cho bảo mật Webhook
 
   isActive   Boolean @default(true)
   isTestMode Boolean @default(true)

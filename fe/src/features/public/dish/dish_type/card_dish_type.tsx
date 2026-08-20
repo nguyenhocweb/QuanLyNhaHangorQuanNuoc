@@ -6,7 +6,8 @@ export interface Card_Dish_Type {
     base_price:number,
     description?:string,
     image:string,
-    is_featured:boolean
+    is_featured:boolean,
+    variants?: { name: string, price: number }[]
 }
 export interface Card_Brand_Dish_Type {
     id:string,
@@ -14,7 +15,8 @@ export interface Card_Brand_Dish_Type {
     base_price:number,
     description?:string,
     image:string,
-    is_featured:boolean
+    is_featured:boolean,
+    variants?: { name: string, price: number }[]
 }
 export interface DishCardRequestType {
   id?:string,// dùng để phân biệt khi gọi api theo brand hay restaurant

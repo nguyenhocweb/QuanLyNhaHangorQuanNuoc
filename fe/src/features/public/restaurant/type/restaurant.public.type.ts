@@ -4,8 +4,8 @@ export interface IPublicRestaurantCore {
     logo?: string;
     imageMain: string;
     images: string[];
-    phone_contact?: string;
-    email_contact?: string;
+    phoneContact?: string;
+    emailContact?: string;
     address: {
         street?: string;
         ward?: string;
@@ -19,11 +19,11 @@ export interface IPublicRestaurantCore {
     social_links?: { platform: string; url: string }[];
     faqs?: { question: string; answer: string }[];
     delivery_partners?: { name: string; url: string; icon?: string }[];
-    max_party_size: number;
-    booking_window_days: number;
-    cancellation_hours: number;
-    deposit_required: boolean;
-    deposit_amount?: number;
+    maxPartySize: number;
+    bookingWindowDays: number;
+    cancellationHours: number;
+    depositRequired: boolean;
+    depositPerPax?: number;
     brand?: {
         id: string;
         name: string;

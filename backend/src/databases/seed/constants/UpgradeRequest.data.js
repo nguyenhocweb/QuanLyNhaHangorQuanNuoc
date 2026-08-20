@@ -1,3 +1,5 @@
+import { generateSeedId } from "./user.data.js";
+
 // Helper tạo ngày (để dữ liệu rải rác các tháng cho biểu đồ đẹp hơn)
 const pastDate = (daysAgo) => {
   const date = new Date();
@@ -11,9 +13,9 @@ const pastDate = (daysAgo) => {
 export const Upgrade_Request = async () => [
   {
     id: "65b2a1c0d4f3e2a1b0c9d91e",
-    userId: "65b2a1c0d4f3e2a1b0c9d901", // Khớp với: Trần Thị B (Đã là Quản lý thương hiệu)
+    userId: generateSeedId("b0b0b0b0b0b0b0b0b0", 1), // Khớp với: Chủ thương hiệu 1
     brandName: "Golden Gate Group",
-    tax_code: "0101234567", // Đã sửa
+    tax_code: "0101234567",
     businessLicense: "https://res.cloudinary.com/demo/image/upload/license_golden_gate.jpg",
     status: "APPROVED",
     createdAt: pastDate(45), // Nộp từ tháng trước rưỡi
@@ -21,9 +23,9 @@ export const Upgrade_Request = async () => [
   },
   {
     id: "65b2a1c0d4f3e2a1b0c9d91f",
-    userId: "65b2a1c0d4f3e2a1b0c9d915", // Khớp với: Khách hàng 1
+    userId: generateSeedId("c0c0c0c0c0c0c0c0c0", 1), // Khớp với: Khách hàng 1
     brandName: "Phở Lý Quốc Sư",
-    tax_code: "0107654321", // Đã sửa
+    tax_code: "0107654321",
     businessLicense: "https://res.cloudinary.com/demo/image/upload/license_pho_ly.jpg",
     status: "PENDING",
     createdAt: pastDate(2), // Vừa nộp 2 ngày trước
@@ -31,9 +33,9 @@ export const Upgrade_Request = async () => [
   },
   {
     id: "65b2a1c0d4f3e2a1b0c9d920",
-    userId: "65b2a1c0d4f3e2a1b0c9d916", // Khớp với: Khách hàng 2
+    userId: generateSeedId("c0c0c0c0c0c0c0c0c0", 2), // Khớp với: Khách hàng 2
     brandName: "Cà phê Vợt 1990",
-    tax_code: null, // Đã sửa
+    tax_code: null,
     businessLicense: "https://res.cloudinary.com/demo/image/upload/license_cafe_vot.jpg",
     status: "PENDING",
     createdAt: pastDate(5), // Vừa nộp 5 ngày trước
@@ -41,9 +43,9 @@ export const Upgrade_Request = async () => [
   },
   {
     id: "65b2a1c0d4f3e2a1b0c9d921",
-    userId: "65b2a1c0d4f3e2a1b0c9d917", // Khớp với: Khách hàng 3
+    userId: generateSeedId("c0c0c0c0c0c0c0c0c0", 3), // Khớp với: Khách hàng 3
     brandName: "Bún Đậu Mắm Tôm Cô Ba",
-    tax_code: "0109988776", // Đã sửa
+    tax_code: "0109988776",
     businessLicense: "https://res.cloudinary.com/demo/image/upload/license_bun_dau.jpg",
     status: "REJECTED",
     createdAt: pastDate(15), 
@@ -51,9 +53,9 @@ export const Upgrade_Request = async () => [
   },
   {
     id: "65b2a1c0d4f3e2a1b0c9d922",
-    userId: "65b2a1c0d4f3e2a1b0c9d918", // Khớp với: Khách hàng 4
+    userId: generateSeedId("c0c0c0c0c0c0c0c0c0", 4), // Khớp với: Khách hàng 4
     brandName: "Nhà Hàng Chay Sen Trắng",
-    tax_code: "0105556667", // Đã sửa
+    tax_code: "0105556667",
     businessLicense: "https://res.cloudinary.com/demo/image/upload/license_chay.jpg",
     status: "PENDING",
     createdAt: new Date(), // Nộp đúng hôm nay

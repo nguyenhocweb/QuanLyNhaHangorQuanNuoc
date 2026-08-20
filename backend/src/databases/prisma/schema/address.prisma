@@ -6,4 +6,6 @@ type LocationAddress {
   districtCode String?
   province     String?
   provinceCode String?
+  latitude     Float?
+  longitude    Float?
 }

@@ -10,10 +10,10 @@ model Restaurant_Areas {
   floor_number    Int // tầng mấy
   is_active       isActive   @default(ACTIVE)
 
-  width           Float?     @default(1200) // Chiều rộng mặc định của Canvas
-  height          Float?     @default(800)  // Chiều cao mặc định của Canvas
-  background_url  String?    // Background floor plan
-  obstacles       Json?      // Mảng lưu trữ vật cản (tường, cửa, cây...)
+  width          Float?  @default(1200) // Chiều rộng mặc định của Canvas
+  height         Float?  @default(800) // Chiều cao mặc định của Canvas
+  background_url String? // Background floor plan
+  obstacles      Json? // Mảng lưu trữ vật cản (tường, cửa, cây...)
 
   tabels Tables[]
 

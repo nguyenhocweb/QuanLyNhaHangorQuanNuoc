@@ -49,21 +49,21 @@ const CreateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand }) => {
         defaultValues: {
             name: "",
             address: {},
-            email_contact: "",
-            phone_contact: "",
+            emailContact: "",
+            phoneContact: "",
             description: "",
-            max_party_size: 50,
-            booking_window_days: 7,
-            cancellation_hours: 24,
-            deposit_required: false,
-            deposit_amount: 0,
+            maxPartySize: 50,
+            bookingWindowDays: 7,
+            cancellationHours: 24,
+            depositRequired: false,
+            depositPerPax: 0,
             categoryIds: [],
             amenityIds: [],
             tagIds: []
         }
     });
 
-    const isDepositRequired = useWatch({ control, name: "deposit_required" });
+    const isDepositRequired = useWatch({ control, name: "depositRequired" });
 
     if (!isOpen) return null;
 
@@ -175,14 +175,14 @@ const CreateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand }) => {
             delete payload.imageMainFile;
             delete payload.imagesFiles;
 
-            if (!payload.deposit_required) {
-                delete payload.deposit_amount;
+            if (!payload.depositRequired) {
+                delete payload.depositPerPax;
             }
 
-            if (payload.max_party_size) payload.max_party_size = Number(payload.max_party_size);
-            if (payload.booking_window_days) payload.booking_window_days = Number(payload.booking_window_days);
-            if (payload.cancellation_hours) payload.cancellation_hours = Number(payload.cancellation_hours);
-            if (payload.deposit_amount) payload.deposit_amount = Number(payload.deposit_amount);
+            if (payload.maxPartySize) payload.maxPartySize = Number(payload.maxPartySize);
+            if (payload.bookingWindowDays) payload.bookingWindowDays = Number(payload.bookingWindowDays);
+            if (payload.cancellationHours) payload.cancellationHours = Number(payload.cancellationHours);
+            if (payload.depositPerPax) payload.depositPerPax = Number(payload.depositPerPax);
 
             await createBranch({ id_brand, payload });
             toast.success("Tạo chi nhánh thành công!", { id: toastId });
@@ -347,22 +347,22 @@ const CreateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand }) => {
                                         <FiMail className="text-gray-400 group-focus-within:text-purple-500 transition-colors" /> Email liên hệ
                                     </label>
                                     <input
-                                        {...register("email_contact")}
+                                        {...register("emailContact")}
                                         className="w-full px-5 py-3.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 outline-none transition-all duration-300 font-medium text-gray-800 placeholder-gray-400"
                                         placeholder="contact@restaurant.com"
                                     />
-                                    {errors.email_contact && <p className="text-red-500 text-xs font-medium pl-1 mt-1">{errors.email_contact.message as string}</p>}
+                                    {errors.emailContact && <p className="text-red-500 text-xs font-medium pl-1 mt-1">{errors.emailContact.message as string}</p>}
                                 </div>
                                 <div className="group">
                                     <label className="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
                                         <FiPhone className="text-gray-400 group-focus-within:text-purple-500 transition-colors" /> Số điện thoại
                                     </label>
                                     <input
-                                        {...register("phone_contact")}
+                                        {...register("phoneContact")}
                                         className="w-full px-5 py-3.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 outline-none transition-all duration-300 font-medium text-gray-800 placeholder-gray-400"
                                         placeholder="0901234567"
                                     />
-                                    {errors.phone_contact && <p className="text-red-500 text-xs font-medium pl-1 mt-1">{errors.phone_contact.message as string}</p>}
+                                    {errors.phoneContact && <p className="text-red-500 text-xs font-medium pl-1 mt-1">{errors.phoneContact.message as string}</p>}
                                 </div>
                             </div>
 
@@ -432,7 +432,7 @@ const CreateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand }) => {
                                 <div className="relative">
                                     <input
                                         type="number"
-                                        {...register("max_party_size")}
+                                        {...register("maxPartySize")}
                                         className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-slate-500/10 focus:border-slate-500 outline-none transition-all duration-300 font-bold text-lg text-slate-800 shadow-sm"
                                         placeholder="50"
                                     />
@@ -445,7 +445,7 @@ const CreateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand }) => {
                                 <div className="relative">
                                     <input
                                         type="number"
-                                        {...register("booking_window_days")}
+                                        {...register("bookingWindowDays")}
                                         className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-slate-500/10 focus:border-slate-500 outline-none transition-all duration-300 font-bold text-lg text-slate-800 shadow-sm"
                                         placeholder="7"
                                     />
@@ -458,7 +458,7 @@ const CreateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand }) => {
                                 <div className="relative">
                                     <input
                                         type="number"
-                                        {...register("cancellation_hours")}
+                                        {...register("cancellationHours")}
                                         className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-slate-500/10 focus:border-slate-500 outline-none transition-all duration-300 font-bold text-lg text-slate-800 shadow-sm"
                                         placeholder="24"
                                     />
@@ -477,7 +477,7 @@ const CreateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand }) => {
                                         id="deposit-toggle"
                                         type="checkbox"
                                         className="sr-only peer"
-                                        {...register("deposit_required")}
+                                        {...register("depositRequired")}
                                     />
                                     <div className="w-12 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-500/20 rounded-full peer peer-checked:after:translate-x-5 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2.5px] after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-[23px] after:w-[23px] after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-orange-500 peer-checked:to-amber-500 shadow-inner"></div>
                                 </label>
@@ -489,13 +489,13 @@ const CreateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand }) => {
                                     <div className="relative">
                                         <input
                                             type="number"
-                                            {...register("deposit_amount")}
+                                            {...register("depositPerPax")}
                                             className="w-full pl-5 pr-14 py-3.5 bg-white border border-orange-200 rounded-xl focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all duration-300 font-bold text-xl text-orange-900 shadow-sm"
                                             placeholder="500000"
                                         />
                                         <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-orange-400">VNĐ</span>
                                     </div>
-                                    {errors.deposit_amount && <p className="text-red-500 text-xs font-medium pl-1">{errors.deposit_amount.message as string}</p>}
+                                    {errors.depositPerPax && <p className="text-red-500 text-xs font-medium pl-1">{errors.depositPerPax.message as string}</p>}
                                 </FadeIn>
                             )}
                         </div>

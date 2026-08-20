@@ -39,9 +39,10 @@ const Card_Brand_Dish_Components = ({
                     )}
 
                     {/* Huy hiệu Giá niêm yết góc trái ảnh */}
-                    <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl shadow-md border border-gray-100/80">
+                    <div className="absolute bottom-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-xl shadow-md border border-gray-100/80 flex items-baseline">
+                        <span className="text-[10px] font-bold text-gray-500 mr-1">Từ</span>
                         <span className="text-sm font-extrabold text-emerald-600">{formattedPrice}</span>
-                        <span className="text-[10px] font-bold text-gray-400 ml-0.5">đ</span>
+                        <span className="text-[10px] font-bold text-gray-500 ml-0.5">đ</span>
                     </div>
                 </div>
 
@@ -57,6 +58,20 @@ const Card_Brand_Dish_Components = ({
                         <p className="text-xs text-gray-500 line-clamp-2 leading-relaxed min-h-[32px]">
                             {dataDish.description || "Hương vị tuyệt hảo được chế biến bởi bếp trưởng giàu kinh nghiệm của NVNguyen."}
                         </p>
+
+                        {/* Variants / Sizes */}
+                        {dataDish.variants && dataDish.variants.length > 0 && (
+                            <div className="flex flex-wrap gap-1.5 mt-1">
+                                {dataDish.variants.slice(0, 3).map((variant, idx) => (
+                                    <span key={idx} className="text-[10px] font-medium bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-md border border-emerald-100/50">
+                                        {variant.name}: {new Intl.NumberFormat("vi-VN").format(Number(variant.price))}đ
+                                    </span>
+                                ))}
+                                {dataDish.variants.length > 3 && (
+                                    <span className="text-[10px] font-medium text-gray-400 px-1 py-0.5">...</span>
+                                )}
+                            </div>
+                        )}
                     </div>
 
                     {/* Footer Nút bấm */}

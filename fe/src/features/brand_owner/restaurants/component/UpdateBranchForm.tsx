@@ -38,32 +38,42 @@ const UpdateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand, branch }
         defaultValues: {
             name: "",
             address: {},
-            email_contact: "",
-            phone_contact: "",
+            emailContact: "",
+            phoneContact: "",
             description: "",
-            max_party_size: 50,
-            booking_window_days: 7,
-            cancellation_hours: 24,
-            deposit_required: false,
-            deposit_amount: 0,
+            maxPartySize: 50,
+            bookingWindowDays: 7,
+            cancellationHours: 24,
+            depositRequired: false,
+            depositPerPax: 0,
+            isVatInclusive: false,
+            defaultVatRate: 10,
+            applyServiceCharge: false,
+            serviceChargeRate: 0,
         }
     });
 
-    const isDepositRequired = useWatch({ control, name: "deposit_required" });
+    const isDepositRequired = useWatch({ control, name: "depositRequired" });
+    const isVatInclusive = useWatch({ control, name: "isVatInclusive" });
+    const applyServiceCharge = useWatch({ control, name: "applyServiceCharge" });
 
     useEffect(() => {
         if (branch && isOpen) {
             reset({
                 name: branch.name || "",
                 address: branch.address || {},
-                email_contact: branch.email_contact || "",
-                phone_contact: branch.phone_contact || "",
+                emailContact: branch.emailContact || "",
+                phoneContact: branch.phoneContact || "",
                 description: branch.description || "",
-                max_party_size: branch.max_party_size || 50,
-                booking_window_days: branch.booking_window_days || 7,
-                cancellation_hours: branch.cancellation_hours || 24,
-                deposit_required: branch.deposit_required || false,
-                deposit_amount: branch.deposit_amount || 0,
+                maxPartySize: branch.maxPartySize || 50,
+                bookingWindowDays: branch.bookingWindowDays || 7,
+                cancellationHours: branch.cancellationHours || 24,
+                depositRequired: branch.depositRequired || false,
+                depositPerPax: branch.depositPerPax || 0,
+                isVatInclusive: branch.isVatInclusive || false,
+                defaultVatRate: branch.defaultVatRate || 10,
+                applyServiceCharge: branch.applyServiceCharge || false,
+                serviceChargeRate: branch.serviceChargeRate || 0,
                 logo: branch.logo || "",
                 imageMain: branch.imageMain || "",
                 images: branch.images || [],
@@ -170,15 +180,17 @@ const UpdateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand, branch }
             delete payload.amenityIds;
             delete payload.tagIds;
 
-            if (!payload.deposit_required) {
-                delete payload.deposit_amount;
-                payload.deposit_amount = 0;
+            if (!payload.depositRequired) {
+                delete payload.depositPerPax;
+                payload.depositPerPax = 0;
             }
 
-            if (payload.max_party_size) payload.max_party_size = Number(payload.max_party_size);
-            if (payload.booking_window_days) payload.booking_window_days = Number(payload.booking_window_days);
-            if (payload.cancellation_hours) payload.cancellation_hours = Number(payload.cancellation_hours);
-            if (payload.deposit_amount) payload.deposit_amount = Number(payload.deposit_amount);
+            if (payload.maxPartySize) payload.maxPartySize = Number(payload.maxPartySize);
+            if (payload.bookingWindowDays) payload.bookingWindowDays = Number(payload.bookingWindowDays);
+            if (payload.cancellationHours) payload.cancellationHours = Number(payload.cancellationHours);
+            if (payload.depositPerPax) payload.depositPerPax = Number(payload.depositPerPax);
+            if (payload.defaultVatRate) payload.defaultVatRate = Number(payload.defaultVatRate);
+            if (payload.serviceChargeRate) payload.serviceChargeRate = Number(payload.serviceChargeRate);
 
             await updateBranch({ id_brand, id: branch.id, payload });
             toast.success("Cập nhật chi nhánh thành công!", { id: toastId });
@@ -349,20 +361,20 @@ const UpdateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand, branch }
                                         <FiMail className="text-gray-400 group-focus-within:text-purple-500 transition-colors" /> Email liên hệ
                                     </label>
                                     <input
-                                        {...register("email_contact")}
+                                        {...register("emailContact")}
                                         className="w-full px-5 py-3.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 outline-none transition-all duration-300 font-medium text-gray-800 placeholder-gray-400"
                                     />
-                                    {errors.email_contact && <p className="text-red-500 text-xs font-medium pl-1 mt-1">{errors.email_contact.message as string}</p>}
+                                    {errors.emailContact && <p className="text-red-500 text-xs font-medium pl-1 mt-1">{errors.emailContact.message as string}</p>}
                                 </div>
                                 <div className="group">
                                     <label className="text-sm font-semibold text-gray-700 flex items-center gap-2 mb-2">
                                         <FiPhone className="text-gray-400 group-focus-within:text-purple-500 transition-colors" /> Số điện thoại
                                     </label>
                                     <input
-                                        {...register("phone_contact")}
+                                        {...register("phoneContact")}
                                         className="w-full px-5 py-3.5 bg-gray-50/50 border border-gray-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-purple-500/10 focus:border-purple-500 outline-none transition-all duration-300 font-medium text-gray-800 placeholder-gray-400"
                                     />
-                                    {errors.phone_contact && <p className="text-red-500 text-xs font-medium pl-1 mt-1">{errors.phone_contact.message as string}</p>}
+                                    {errors.phoneContact && <p className="text-red-500 text-xs font-medium pl-1 mt-1">{errors.phoneContact.message as string}</p>}
                                 </div>
                             </div>
                         </div>
@@ -387,7 +399,7 @@ const UpdateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand, branch }
                                 <div className="relative">
                                     <input
                                         type="number"
-                                        {...register("max_party_size")}
+                                        {...register("maxPartySize")}
                                         className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-slate-500/10 focus:border-slate-500 outline-none transition-all duration-300 font-bold text-lg text-slate-800 shadow-sm"
                                     />
                                 </div>
@@ -399,7 +411,7 @@ const UpdateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand, branch }
                                 <div className="relative">
                                     <input
                                         type="number"
-                                        {...register("booking_window_days")}
+                                        {...register("bookingWindowDays")}
                                         className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-slate-500/10 focus:border-slate-500 outline-none transition-all duration-300 font-bold text-lg text-slate-800 shadow-sm"
                                     />
                                 </div>
@@ -411,7 +423,7 @@ const UpdateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand, branch }
                                 <div className="relative">
                                     <input
                                         type="number"
-                                        {...register("cancellation_hours")}
+                                        {...register("cancellationHours")}
                                         className="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-4 focus:ring-slate-500/10 focus:border-slate-500 outline-none transition-all duration-300 font-bold text-lg text-slate-800 shadow-sm"
                                     />
                                 </div>
@@ -429,7 +441,7 @@ const UpdateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand, branch }
                                         id="deposit-toggle-update"
                                         type="checkbox"
                                         className="sr-only peer"
-                                        {...register("deposit_required")}
+                                        {...register("depositRequired")}
                                     />
                                     <div className="w-12 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-500/20 rounded-full peer peer-checked:after:translate-x-5 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2.5px] after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-[23px] after:w-[23px] after:transition-all peer-checked:bg-gradient-to-r peer-checked:from-orange-500 peer-checked:to-amber-500 shadow-inner"></div>
                                 </label>
@@ -441,14 +453,84 @@ const UpdateBranchForm: React.FC<Props> = ({ isOpen, onClose, id_brand, branch }
                                     <div className="relative">
                                         <input
                                             type="number"
-                                            {...register("deposit_amount")}
+                                            {...register("depositPerPax")}
                                             className="w-full pl-5 pr-14 py-3.5 bg-white border border-orange-200 rounded-xl focus:ring-4 focus:ring-orange-500/10 focus:border-orange-500 outline-none transition-all duration-300 font-bold text-xl text-orange-900 shadow-sm"
                                         />
                                         <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold text-orange-400">VNĐ</span>
                                     </div>
-                                    {errors.deposit_amount && <p className="text-red-500 text-xs font-medium pl-1">{errors.deposit_amount.message as string}</p>}
+                                    {errors.depositPerPax && <p className="text-red-500 text-xs font-medium pl-1">{errors.depositPerPax.message as string}</p>}
                                 </FadeIn>
                             )}
+                        </div>
+                    </FadeIn>
+
+                    {/* 4. Tax & Service Configuration */}
+                    <FadeIn delay={0.4} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-[0_2px_10px_-3px_rgba(6,81,237,0.05)]">
+                        <div className="flex items-center justify-between mb-6">
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold text-sm">4</div>
+                                <h3 className="text-lg font-bold text-gray-800 tracking-wide">Cấu hình Thuế & Phí</h3>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            {/* VAT Config */}
+                            <div className={`p-5 rounded-2xl border transition-all duration-300 flex flex-col gap-4 ${isVatInclusive ? 'bg-amber-50/50 border-amber-200' : 'bg-slate-50 border-gray-200/60'}`}>
+                                <div className="flex items-center justify-between">
+                                    <label className={`text-sm font-bold cursor-pointer select-none transition-colors ${isVatInclusive ? 'text-amber-800' : 'text-slate-700'}`} htmlFor="vat-toggle-update">
+                                        Giá đã bao gồm VAT?
+                                    </label>
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            id="vat-toggle-update"
+                                            type="checkbox"
+                                            className="sr-only peer"
+                                            {...register("isVatInclusive")}
+                                        />
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-5 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-[20px] after:w-[20px] after:transition-all peer-checked:bg-amber-500 shadow-inner"></div>
+                                    </label>
+                                </div>
+
+                                <div className="pt-3 border-t border-gray-200/50">
+                                    <label className="text-sm font-bold text-slate-700 block mb-2">Phần trăm VAT mặc định (%)</label>
+                                    <input
+                                        type="number"
+                                        step="0.1"
+                                        {...register("defaultVatRate")}
+                                        className="w-full px-4 py-2.5 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 outline-none transition-all duration-300 font-bold text-slate-800"
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Service Charge Config */}
+                            <div className={`p-5 rounded-2xl border transition-all duration-300 flex flex-col gap-4 ${applyServiceCharge ? 'bg-rose-50/50 border-rose-200' : 'bg-slate-50 border-gray-200/60'}`}>
+                                <div className="flex items-center justify-between">
+                                    <label className={`text-sm font-bold cursor-pointer select-none transition-colors ${applyServiceCharge ? 'text-rose-800' : 'text-slate-700'}`} htmlFor="service-toggle-update">
+                                        Áp dụng Phí dịch vụ?
+                                    </label>
+                                    <label className="relative inline-flex items-center cursor-pointer">
+                                        <input
+                                            id="service-toggle-update"
+                                            type="checkbox"
+                                            className="sr-only peer"
+                                            {...register("applyServiceCharge")}
+                                        />
+                                        <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-5 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-[20px] after:w-[20px] after:transition-all peer-checked:bg-rose-500 shadow-inner"></div>
+                                    </label>
+                                </div>
+
+                                {applyServiceCharge && (
+                                    <FadeIn className="pt-3 border-t border-rose-200/50">
+                                        <label className="text-sm font-bold text-rose-800 block mb-2">Phần trăm Phí dịch vụ (%)</label>
+                                        <input
+                                            type="number"
+                                            step="0.1"
+                                            {...register("serviceChargeRate")}
+                                            className="w-full px-4 py-2.5 bg-white border border-rose-200 rounded-xl focus:ring-2 focus:ring-rose-500/20 focus:border-rose-500 outline-none transition-all duration-300 font-bold text-rose-900"
+                                        />
+                                    </FadeIn>
+                                )}
+                            </div>
                         </div>
                     </FadeIn>
                 </form>

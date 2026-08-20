@@ -23,11 +23,11 @@ const getStatusConfig = (status: string) => {
 export const ReservationCard = ({ reservation, onCancelClick }: Props) => {
     const statusConfig = getStatusConfig(reservation.status);
     
-    // Kiểm tra xem có thể hủy không (Nếu PENDING/CONFIRMED và thời gian còn lại lớn hơn cancellation_hours)
+    // Kiểm tra xem có thể hủy không (Nếu PENDING/CONFIRMED và thời gian còn lại lớn hơn cancellationHours)
     const canCancel = ['PENDING', 'CONFIRMED'].includes(reservation.status);
     let isTooLateToCancel = false;
     
-    if (canCancel && reservation.restaurant?.cancellation_hours) {
+    if (canCancel && reservation.restaurant?.cancellationHours) {
         const dateObj = new Date(reservation.reservation_date);
         const [hours, minutes] = reservation.start_time.split(':');
         dateObj.setHours(parseInt(hours), parseInt(minutes), 0, 0);
@@ -35,7 +35,7 @@ export const ReservationCard = ({ reservation, onCancelClick }: Props) => {
         const now = new Date();
         const diffInHours = (dateObj.getTime() - now.getTime()) / (1000 * 60 * 60);
         
-        if (diffInHours < reservation.restaurant.cancellation_hours) {
+        if (diffInHours < reservation.restaurant.cancellationHours) {
             isTooLateToCancel = true;
         }
     }
@@ -84,7 +84,7 @@ export const ReservationCard = ({ reservation, onCancelClick }: Props) => {
                 )}
                 {reservation.deposit_paid && (
                     <div className="inline-block mt-2 px-2 py-1 bg-green-50 text-green-700 text-xs font-medium rounded border border-green-200">
-                        ✓ Đã thanh toán cọc: {reservation.deposit_amount?.toLocaleString('vi-VN')}đ
+                        ✓ Đã thanh toán cọc: {reservation.depositPerPax?.toLocaleString('vi-VN')}đ
                     </div>
                 )}
             </div>
@@ -98,7 +98,7 @@ export const ReservationCard = ({ reservation, onCancelClick }: Props) => {
                     <button 
                         onClick={() => onCancelClick(reservation)}
                         disabled={isTooLateToCancel}
-                        title={isTooLateToCancel ? `Không thể hủy do đã quá hạn mức ${reservation.restaurant?.cancellation_hours} tiếng trước giờ nhận bàn` : 'Hủy đặt bàn'}
+                        title={isTooLateToCancel ? `Không thể hủy do đã quá hạn mức ${reservation.restaurant?.cancellationHours} tiếng trước giờ nhận bàn` : 'Hủy đặt bàn'}
                         className="flex-1 py-2 text-sm font-medium text-red-600 bg-red-50 rounded-xl hover:bg-red-100 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                     >
                         Hủy bàn

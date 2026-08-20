@@ -3,6 +3,7 @@ import Premium3DTemplate from "./templates/Premium3DTemplate";
 import StandardTemplate from "./templates/StandardTemplate";
 import LuxuryTemplate from "./templates/LuxuryTemplate";
 import VibrantTemplate from "./templates/VibrantTemplate";
+import ZenBrandTemplate from "./templates/ZenBrandTemplate";
 
 import { BrandTemplateTheme } from "@/src/core/lib/configTemplates";
 
@@ -22,6 +23,8 @@ const TemplateRenderer = ({ theme, data, idBrand }: TemplateRendererProps) => {
             return <LuxuryTemplate data={data} idBrand={idBrand} />;
         case "vibrant":
             return <VibrantTemplate data={data} idBrand={idBrand} />;
+        case "zen":
+            return <ZenBrandTemplate data={data} idBrand={idBrand} />;
         default:
             return <StandardTemplate data={data} idBrand={idBrand} />; // Fallback to current standard
     }

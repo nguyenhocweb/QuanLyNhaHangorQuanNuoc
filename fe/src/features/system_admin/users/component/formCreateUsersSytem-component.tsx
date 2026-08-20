@@ -24,7 +24,7 @@ export const FormCreateUsersSystemComponent: React.FC<FormCreateUsersSystemProps
       email: '',
       phone: '',
       password: '',
-      roleId: '',
+      systemRoleId: 'Khách hàng',
       status: 'ACTIVE',
       confirmPassword: ''
     }
@@ -173,18 +173,12 @@ export const FormCreateUsersSystemComponent: React.FC<FormCreateUsersSystemProps
               <Label className="text-[14px] font-semibold text-gray-700 ml-1">
                 Vai trò <span className="text-red-500 ml-1">*</span>
               </Label>
-              <Select 
-                {...register('roleId')}
-                className={`w-full text-[15px] px-4 h-[48px] rounded-xl focus:ring-2 transition-all bg-gray-50/50 hover:bg-white text-black ${errors.roleId ? 'border-red-500 focus:border-red-500 focus:ring-red-500' : 'border-gray-200 focus:border-indigo-500 focus:ring-indigo-100'}`}
-              >
-                <option value="" className="text-black">-- Chọn vai trò --</option>
-                <option value="Quản lý thương hiệu" className="text-black">Chủ thương hiệu</option>
-                <option value="Quản lý nhà hàng" className="text-black">Quản lý nhà hàng</option>
-                <option value="Nhân viên" className="text-black">Nhân viên</option>
-                <option value="Khách hàng" className="text-black">Khách hàng</option>
-              </Select>
-              {errors.roleId && <span className="text-red-500 text-[12px] absolute -bottom-5 left-1 font-medium">{errors.roleId.message}</span>}
-              <P className="text-[13px] text-gray-400 mt-2 ml-1">Lưu ý: Vai trò sẽ quyết định quyền truy cập của tài khoản trong hệ thống.</P>
+              <Input 
+                disabled
+                value="Khách hàng / Đối tác (Cơ bản)"
+                className="w-full text-[15px] px-4 h-[48px] rounded-xl bg-gray-100 border-transparent text-gray-500 cursor-not-allowed"
+              />
+              <P className="text-[13px] text-gray-400 mt-2 ml-1">Tài khoản tạo mới mặc định có quyền Khách hàng. Quyền Quản lý sẽ được cấp khi gán vào một Thương hiệu.</P>
             </div>
 
           </div>

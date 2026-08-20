@@ -9,7 +9,7 @@ export interface AdminUpgradeRequest {
   id: string;
   userId: string;
   brandName: string;
-  tax_code: string;
+  taxCode: string;
   businessLicense: string;
   status: "PENDING" | "APPROVED" | "REJECTED";
   createdAt: string;

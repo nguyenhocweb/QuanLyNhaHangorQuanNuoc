@@ -8,7 +8,10 @@ model SubscriptionPlan {
   discountEndDate   DateTime? // Ngày kết thúc khuyến mãi
   billingCycle      BillingCycle @default(MONTHLY)
   maxRestaurants    Int // Số nhà hàng tối đa (-1 = không giới hạn)
-  features          String[] // Danh sách các tính năng được mở khóa
+  trialPeriodDays   Int          @default(0) // Số ngày dùng thử miễn phí
+  setupFee          Float        @default(0) // Phí khởi tạo ban đầu (nếu có)
+  featuresData      Json? // Thay thế features [String]. Lưu dạng {"maxUsers": 10, "maxBranches": 2, "hasAnalytics": true}
+  isPublic          Boolean      @default(true) // Gói ẩn dành riêng cho Sale chốt deal Enterprise
   isActive          Boolean      @default(true)
 
   subscriptions BrandSubscription[]

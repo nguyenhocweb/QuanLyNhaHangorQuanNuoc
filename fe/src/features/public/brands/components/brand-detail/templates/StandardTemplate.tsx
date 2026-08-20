@@ -90,14 +90,14 @@ const StandardTemplate = ({ data, idBrand }: StandardTemplateProps) => {
                                     <FaPhoneAlt className="text-slate-400 mt-1 text-lg" />
                                     <div>
                                         <span className="block font-medium text-slate-900 mb-0.5">Hotline</span>
-                                        <a href={`tel:${data.phone_contact}`} className="hover:text-blue-600 font-semibold">{data.phone_contact || "Đang cập nhật"}</a>
+                                        <a href={`tel:${data.phoneContact}`} className="hover:text-blue-600 font-semibold">{data.phoneContact || "Đang cập nhật"}</a>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-3 text-slate-600">
                                     <FaEnvelope className="text-slate-400 mt-1 text-lg" />
                                     <div>
                                         <span className="block font-medium text-slate-900 mb-0.5">Email</span>
-                                        <a href={`mailto:${data.email_contact}`} className="hover:text-blue-600 font-semibold">{data.email_contact || "Đang cập nhật"}</a>
+                                        <a href={`mailto:${data.emailContact}`} className="hover:text-blue-600 font-semibold">{data.emailContact || "Đang cập nhật"}</a>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-3 text-slate-600">
@@ -111,7 +111,7 @@ const StandardTemplate = ({ data, idBrand }: StandardTemplateProps) => {
                                     <FaFileContract className="text-slate-400 mt-1 text-lg" />
                                     <div>
                                         <span className="block font-medium text-slate-900 mb-0.5">Mã số thuế</span>
-                                        {data.tax_code || "Đang cập nhật"}
+                                        {data.taxCode || "Đang cập nhật"}
                                     </div>
                                 </li>
                             </ul>

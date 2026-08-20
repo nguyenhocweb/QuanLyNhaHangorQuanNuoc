@@ -10,7 +10,7 @@ model Tables {
   area         Restaurant_Areas @relation(fields: [areaId], references: [id])
   is_vip       Boolean          @default(false)
   table_number String
-  table_type   TableType @default(STANDARD) // Phân loại bàn
+  table_type   TableType        @default(STANDARD) // Phân loại bàn
 
   min_capacity Int // số lượng khách ít nhất
   max_capacity Int // số lượng khách nhiều nhất
@@ -19,11 +19,11 @@ model Tables {
   color         String?
   is_combinable Boolean?    @default(false) // cho phép ghép table vs người khác hay không
 
-  pos_x Float? //  sơ đồ tọa độ X
-  pos_y Float? //  tọa độ Y
-  width Float? @default(80)    // Chiều rộng hiển thị trên sơ đồ
-  height Float? @default(80)   // Chiều cao hiển thị trên sơ đồ
-  rotation Float? @default(0)  // Góc xoay của bàn
+  pos_x    Float? //  sơ đồ tọa độ X
+  pos_y    Float? //  tọa độ Y
+  width    Float? @default(80) // Chiều rộng hiển thị trên sơ đồ
+  height   Float? @default(80) // Chiều cao hiển thị trên sơ đồ
+  rotation Float? @default(0) // Góc xoay của bàn
 
   status TableStatus @default(ACTIVE)
 
@@ -36,7 +36,6 @@ model Tables {
 
   maintenanceScheduleIds String[]                      @db.ObjectId
   maintenance_schedules  Table_Maintenance_Schedules[] @relation(fields: [maintenanceScheduleIds], references: [id])
-
 
   @@unique([restaurantId, table_number])
   @@map("tables")

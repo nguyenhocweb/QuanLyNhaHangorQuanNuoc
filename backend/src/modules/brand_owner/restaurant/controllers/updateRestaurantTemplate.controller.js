@@ -3,8 +3,8 @@ import { updateRestaurantTemplateService } from "../services/updateRestaurantTem
 
 export const updateRestaurantTemplateController = asyncHandler(async (req, res) => {
     const userId = req.user.id;
-    const { templateId } = req.body;
+    const { templateId, restaurantIds } = req.body;
 
-    const result = await updateRestaurantTemplateService(userId, templateId);
+    const result = await updateRestaurantTemplateService(userId, templateId, restaurantIds);
     res.status(result.code).json(result);
 });

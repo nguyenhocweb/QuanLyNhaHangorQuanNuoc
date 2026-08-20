@@ -8,8 +8,8 @@ export const useCreateUserSystem = () => {
 
   return useMutation({
     mutationFn: (data: CreateUserFormValues) => {
-      const { confirmPassword, ...payload } = data;
-      return UserService.createUser(payload);
+      const { confirmPassword, systemRoleId, ...payload } = data;
+      return UserService.createUser({ ...payload, roleId: systemRoleId });
     },
     onSuccess: () => {
       toast.success("Tạo người dùng thành công!");

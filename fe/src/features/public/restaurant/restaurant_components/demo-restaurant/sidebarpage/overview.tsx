@@ -8,11 +8,11 @@ import { IoMdTime } from "react-icons/io";
 type OverviewType = {
     name: string,
     address: string,
-    phone_contact?: string,
-    email_contact?: string,
+    phoneContact?: string,
+    emailContact?: string,
     time?: string
 }
-const OverviewPage = ({ name,address,phone_contact,email_contact,time }: OverviewType) => {
+const OverviewPage = ({ name,address,phoneContact,emailContact,time }: OverviewType) => {
     return (
         <Div vitri="col_none" variant="bg_white" size="full">
             <H variant="text_black" className="text-2xl font-bold mb-4">{name}</H>
@@ -24,20 +24,20 @@ const OverviewPage = ({ name,address,phone_contact,email_contact,time }: Overvie
                     </H>
                     <P variant="text_black" >{address}</P>
                 </Div>
-                {phone_contact &&
+                {phoneContact &&
                     <Div>
                         <H variant="text_green" className="text-lg font-semibold ">
                             <FaHeadphonesSimple className="text-2xl" />
                         </H>
-                        <P variant="text_black" >{phone_contact}</P>
+                        <P variant="text_black" >{phoneContact}</P>
                     </Div>
                 }
-                {email_contact &&
+                {emailContact &&
                     <Div>
                         <H variant="text_green" className="text-lg font-semibold ">
                             <MdOutlineMail className="text-2xl" />
                         </H>
-                        <P variant="text_black" className="mb-4">{email_contact}</P>
+                        <P variant="text_black" className="mb-4">{emailContact}</P>
                     </Div>
                 }
                 <Div className="md:col-span-2">

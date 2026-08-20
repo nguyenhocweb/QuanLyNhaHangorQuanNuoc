@@ -15,12 +15,14 @@ const Featured_Restaurant_Component = ({
     type,
     id,
     limit: propLimit,
-    grid
+    grid,
+    hideHeader
 }: {
     type: "home" | "page";
     id?: string;
     limit?: number;
     grid?: number;
+    hideHeader?: boolean;
 }) => {
     const { pageRestaurant, city, searchKeyword, setPageRestaurant, categoryRestaurant, review, limit: queryLimit, setLimit } = usePagination();
     const currentLimit = propLimit ?? (type === "page" ? queryLimit : 3);
@@ -47,8 +49,8 @@ const Featured_Restaurant_Component = ({
                 <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-amber-500/10 rounded-3xl blur-3xl pointer-events-none" />
             )}
 
-            {/* Chỉ hiển thị tiêu đề nếu KHÔNG phải ở trang home (vì trang home đã có header chuyên biệt tại HomeFeaturedShowcase) */}
-            {type !== "home" && (
+            {/* Chỉ hiển thị tiêu đề nếu KHÔNG phải ở trang home (vì trang home đã có header chuyên biệt tại HomeFeaturedShowcase) và không bị hideHeader */}
+            {type !== "home" && !hideHeader && (
                 <div className="w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100/80 pb-6 mb-2">
                     <div className="flex flex-col gap-2">
                         <FadeIn>

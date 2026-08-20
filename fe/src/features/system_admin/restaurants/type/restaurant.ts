@@ -4,8 +4,8 @@ export interface RestaurantTypeResponse {
     logo?: string;
     address?: string;
     city?: string;
-    email_contact?: string;
-    phone_contact?: string;
+    emailContact?: string;
+    phoneContact?: string;
     isActive: string; // 'ACTIVE' | 'INACTIVE'
     statusByAdmin?: string; // 'ACTIVE' | 'INACTIVE' | 'PENDING' | 'TERMINATED'
     reasonByAdmin?: string;
@@ -47,14 +47,14 @@ export interface CreateRestaurantProps {
     brandId?: string;
     address?: string;
     city?: string;
-    email_contact?: string;
-    phone_contact?: string;
+    emailContact?: string;
+    phoneContact?: string;
     description?: string;
-    max_party_size?: number | string;
-    booking_window_days?: number | string;
-    cancellation_hours?: number | string;
-    deposit_required?: boolean;
-    deposit_amount?: number | string;
+    maxPartySize?: number | string;
+    bookingWindowDays?: number | string;
+    cancellationHours?: number | string;
+    depositRequired?: boolean;
+    depositPerPax?: number | string;
     categoryIds?: string[];
     logo?: string;
     imageMain?: string;
@@ -67,8 +67,8 @@ export interface UpdateRestaurantProps {
     name?: string;
     address?: string;
     city?: string;
-    email_contact?: string;
-    phone_contact?: string;
+    emailContact?: string;
+    phoneContact?: string;
     isActive?: boolean;
     statusByAdmin?: string;
     reasonByAdmin?: string;

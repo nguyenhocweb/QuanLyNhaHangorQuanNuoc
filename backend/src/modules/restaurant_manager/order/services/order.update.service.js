@@ -57,7 +57,8 @@ class OrderUpdateService {
         if (!systemPaymentMethodId) {
           throw new BadRequestError("Vui lòng chọn phương thức thanh toán");
         }
-        updatedOrder = await orderUpdateRepo.processPayment(id, systemPaymentMethodId, order.total_amount, order.tableId);
+        const actualUserId = order.userId || order.reservation?.userId;
+        updatedOrder = await orderUpdateRepo.processPayment(id, systemPaymentMethodId, order.total_amount, order.tableId, restaurantId, actualUserId);
       } else {
         updatedOrder = await orderUpdateRepo.updateOrderStatus(id, status, order.tableId);
       }

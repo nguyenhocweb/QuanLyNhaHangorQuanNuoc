@@ -4,8 +4,8 @@ export const getBrandOwnersRepo = async (where) => {
     return await prisma.user.findMany({
         where: {
             ...where,
-            role: {
-                name: "Quản lý thương hiệu"
+            systemRole: {
+                name: "Khách hàng"
             },
             // Chỉ lấy những user chưa làm chủ thương hiệu nào (chưa có employment nào có restaurantId = null)
             employments: {

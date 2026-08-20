@@ -29,7 +29,7 @@ export const createAccountService = async (payload) => {
     email,
     sdt: phone || null,
     password: hashedPassword,
-    roleId: role.id,
+    systemRoleId: role.id,
     is_active: status === "LOCKED" ? "BANNED" : status, // Ánh xạ trạng thái nếu cần
     avatar: "" // Mặc định không có avatar
   });

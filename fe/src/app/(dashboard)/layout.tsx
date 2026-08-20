@@ -12,6 +12,7 @@ import { useSocket } from "@/src/core/hooks/useSocket";
 import axiosClient from "@/src/core/api/axios-instance";
 import { useAuthStore } from "@/src/features/auth/auth_store/use-auth-store";
 import { toast } from "sonner";
+import AiChatboxProvider from "@/src/features/ai/components/AiChatboxProvider";
 
 export default function DashboardLayout({ children }: PublicLayoutProps) {
     const { isConnected, socket } = useSocket();
@@ -61,6 +62,7 @@ export default function DashboardLayout({ children }: PublicLayoutProps) {
             </Div>
             {/* 4. Chân trang dùng chung */}
             {/* <PublicFooter /> */}
+            <AiChatboxProvider />
         </Div>
     )
 }

@@ -3,6 +3,7 @@ import { appConfig } from "./config/app.config.js";
 
 import { connectDB, disconnectDB } from './databases/init.mongodb.js'; // Import logic DB bạn vừa viết
 import { initSocket } from './core/utils/socket.js';
+import { startLoyaltyDowngradeJob } from './cron/loyaltyDowngrade.job.js';
 const port = appConfig.port;
 
 
@@ -18,6 +19,9 @@ const startServer = async () => {
 
     // 3. Khởi tạo Socket.io
     initSocket(server);
+
+    // 4. Khởi động Cron Jobs
+    startLoyaltyDowngradeJob();
 
     // --- GRACEFUL SHUTDOWN (Tắt server an toàn chuẩn Senior) ---
     // Khi bấm Ctrl + C hoặc Server bị kill, code này sẽ chạy

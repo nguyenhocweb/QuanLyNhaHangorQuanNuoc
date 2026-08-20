@@ -4,8 +4,8 @@ import { demoValidator } from "../../../../core/utils/validator.js";
 export const createRestaurantValidator = z.object({
     body: z.object({
         name: demoValidator.chuoi("Tên chi nhánh"),
-        email_contact: demoValidator.email().optional().or(z.literal("")),
-        phone_contact: demoValidator.soDienThoai().optional().or(z.literal("")),
+        emailContact: demoValidator.email().optional().or(z.literal("")),
+        phoneContact: demoValidator.soDienThoai().optional().or(z.literal("")),
         address: z.object({
             street: z.string().optional(),
             city: z.string().optional(),
@@ -20,10 +20,10 @@ export const createRestaurantValidator = z.object({
         categoryIds: z.array(demoValidator.chuoi("ID danh mục")).optional(),
         amenityIds: z.array(demoValidator.chuoi("ID tiện ích")).optional(),
         tagIds: z.array(demoValidator.chuoi("ID nhãn")).optional(),
-        max_party_size: z.number().int().min(1).optional(),
-        booking_window_days: z.number().int().min(0).optional(),
-        cancellation_hours: z.number().int().min(0).optional(),
-        deposit_required: z.boolean().optional(),
-        deposit_amount: z.number().int().min(0).optional(),
+        maxPartySize: z.number().int().min(1).optional(),
+        bookingWindowDays: z.number().int().min(0).optional(),
+        cancellationHours: z.number().int().min(0).optional(),
+        depositRequired: z.boolean().optional(),
+        depositPerPax: z.number().int().min(0).optional(),
     })
 });

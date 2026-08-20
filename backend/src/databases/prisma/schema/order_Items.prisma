@@ -14,12 +14,15 @@ model OrderItem {
   unitPrice Float
   subtotal  Float
 
-  discountAmount Float @default(0)
-  totalPrice     Float
+  discountAmount     Float   @default(0)
+  taxAmount          Float   @default(0)
+  isFree             Boolean @default(false)
+  appliedPromotionId String? @db.ObjectId
+  totalPrice         Float
 
-  note   String?
-  status KitchenStatus @default(QUEUED)
-  version Int @default(1)
+  note    String?
+  status  KitchenStatus @default(QUEUED)
+  version Int           @default(1)
 
   createdAt DateTime @default(now())
 

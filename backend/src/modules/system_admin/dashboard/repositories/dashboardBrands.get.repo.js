@@ -7,7 +7,7 @@ export const getDashboardBrandsRepo = async (limit) => {
             id: true,
             name: true,
             isActive: true,
-            tax_code: true,
+            taxCode: true,
             createdAt: true,
             logo: true,
             isFeatured: true

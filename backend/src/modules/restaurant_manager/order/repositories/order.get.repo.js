@@ -27,7 +27,7 @@ class OrderGetRepo {
           table: { select: { id: true, table_number: true } },
           takenByEmp: { select: { id: true, name: true } },
           items: {
-            select: { id: true, name: true, quantity: true, totalPrice: true, status: true }
+            select: { id: true, name: true, quantity: true, unitPrice: true, totalPrice: true, status: true, note: true }
           }
         },
         skip,

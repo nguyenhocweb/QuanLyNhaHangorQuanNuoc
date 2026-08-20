@@ -11,8 +11,8 @@ export const getPublicRestaurantHoursService = async (id) => {
     return {
         message: "Lấy giờ hoạt động thành công",
         metadata: {
-            operating_hours: restaurant.operating_hours,
-            special_schedules: restaurant.special_schedules
+            operating_hours: restaurant.operatingHours,
+            special_schedules: restaurant.specialSchedules
         },
     };
 };

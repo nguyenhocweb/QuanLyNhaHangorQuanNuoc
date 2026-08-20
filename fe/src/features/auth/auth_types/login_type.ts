@@ -11,16 +11,20 @@ type LoginResponse = {
    gender?: "NAM" | "NU" | "KHAC",
    date_of_birth?: Date,
    address?: string,
-   role: "Khách hàng"|"Admin"|"Quản lý thương hiệu"|"Quản lý nhà hàng"|"Nhân viên",
+   systemRole: "Khách hàng"|"Admin",
    brand?: {
       id:string
       name:string,
-      isSelect:boolean
+      isSelect:boolean,
+      role?: string,
+      features?: Record<string, boolean> | null
    }[],
    restaurant?: {
       id:string
       name:string,
-      isSelect:boolean
+      isSelect:boolean,
+      role?: string,
+      features?: Record<string, boolean> | null
    }[],
    permissions?:string[],
    createdAt: Date,

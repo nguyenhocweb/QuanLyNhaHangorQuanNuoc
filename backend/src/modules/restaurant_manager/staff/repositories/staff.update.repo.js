@@ -1,10 +1,14 @@
 import { prisma } from "../../../../databases/init.mongodb.js";
 
-export const updateStaffRepo = async (employmentId, { salary_type, roleId, permissionIds }) => {
+export const updateStaffRepo = async (employmentId, { salary_type, workspaceRoleId, permissionIds }) => {
   return await prisma.$transaction(async (tx) => {
     const dataToUpdate = {};
     if (salary_type !== undefined) {
       dataToUpdate.salary_type = salary_type || null;
+    }
+
+    if (workspaceRoleId) {
+      dataToUpdate.workspaceRoleId = workspaceRoleId;
     }
 
     const updatedEmployment = await tx.employment.update({
@@ -27,19 +31,13 @@ export const updateStaffRepo = async (employmentId, { salary_type, roleId, permi
       }
     }
 
-    if (roleId) {
-      await tx.user.update({
-        where: { id: updatedEmployment.userId },
-        data: { roleId },
-      });
-    }
-
     return await tx.employment.findUnique({
       where: { id: employmentId },
       include: {
         user: {
-          select: { id: true, name: true, email: true, sdt: true, avatar: true, role: { select: { name: true } } },
+          select: { id: true, name: true, email: true, sdt: true, avatar: true, systemRole: { select: { name: true } } },
         },
+        workspaceRole: { select: { name: true } },
         restaurant: {
           select: { id: true, name: true },
         },

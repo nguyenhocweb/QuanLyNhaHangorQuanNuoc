@@ -1,14 +1,15 @@
 // src/middlewares/validator.middleware.js
 import asyncHandler from '../utils/asyncHandler.js';
 import { BadRequestError } from '../constants/error/index.js';
-import { ZodError } from "zod";
+import { ZodError, z } from "zod";
 import { fi } from 'zod/v4/locales';
 
 export const validate = (schema) => asyncHandler(async (req, res, next) => {
   try {
     // Zod parse: Nếu dữ liệu sai nó sẽ throw error ngay lập tức
     // parse vs parseAsync: Dùng parse cho đồng bộ (nhanh hơn)
-    const validatedData = schema.parse({
+    const finalSchema = schema instanceof z.ZodType ? schema : z.object(schema);
+    const validatedData = finalSchema.parse({
       body: req.body,
       query: req.query,
       params: req.params,

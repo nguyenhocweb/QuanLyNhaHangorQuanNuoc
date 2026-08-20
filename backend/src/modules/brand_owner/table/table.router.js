@@ -16,7 +16,7 @@ import { saveTableLayout } from "./controllers/table.saveLayout.controller.js";
 const route = Router({ mergeParams: true });
 
 route.use(authenticateToken);
-route.use(authorizeRole("Chủ thương hiệu", "Quản lý thương hiệu"));
+route.use(authorizeRole("Chủ thương hiệu", "Chủ thương hiệu"));
 
 route.post("/", validate(tableCreateValidator), createTable);
 route.post("/save-layout", validate(tableSaveLayoutValidator), saveTableLayout);

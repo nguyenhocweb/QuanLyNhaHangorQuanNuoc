@@ -37,13 +37,14 @@ interface AreaProps {
     };
     selectedTableIds: string[];
     onSelectTable: (table: Table) => void;
-    variant?: 'default' | 'luxury';
+    variant?: 'default' | 'luxury' | 'immersive' | 'zen' | 'hotpot' | 'sushi';
 }
 
 const FloorPlanRenderer: React.FC<AreaProps> = ({ area, selectedTableIds, onSelectTable, variant = 'default' }) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
     const isLuxury = variant === 'luxury';
+    const isHotpot = variant === 'hotpot' || variant === 'sushi';
 
     // Responsive scaling to fit the container
     useEffect(() => {
@@ -78,10 +79,13 @@ const FloorPlanRenderer: React.FC<AreaProps> = ({ area, selectedTableIds, onSele
             if (isLuxury) {
                 return "bg-[#0a0a0a] border-4 border-yellow-600 shadow-xl z-20 scale-110 text-yellow-600";
             }
+            if (isHotpot) {
+                return "bg-[#2D1414] border-4 border-[#D32F2F] shadow-xl z-20 scale-110 text-white";
+            }
             return "bg-white border-4 border-indigo-600 shadow-xl z-20 scale-110 text-indigo-700";
         }
 
-        const baseVip = isVip ? "ring-2 ring-yellow-400 ring-offset-1" : (isLuxury ? "border border-[#444]" : "border border-white/20");
+        const baseVip = isVip ? "ring-2 ring-yellow-400 ring-offset-1" : (isLuxury || isHotpot ? "border border-[#444]" : "border border-white/20");
         
         switch(status) {
             case 'AVAILABLE':
@@ -95,7 +99,7 @@ const FloorPlanRenderer: React.FC<AreaProps> = ({ area, selectedTableIds, onSele
             case 'MAINTENANCE':
                 return `bg-[#FF5252] text-white shadow-md opacity-80 cursor-not-allowed ${baseVip}`;
             default:
-                return isLuxury 
+                return isLuxury || isHotpot
                     ? "bg-[#222] border-2 border-[#444] opacity-60 cursor-not-allowed text-zinc-500"
                     : "bg-gray-100 border-2 border-gray-300 opacity-60 cursor-not-allowed text-gray-400";
         }
@@ -106,7 +110,9 @@ const FloorPlanRenderer: React.FC<AreaProps> = ({ area, selectedTableIds, onSele
             {/* Legend (Chú thích 5 trạng thái chuẩn) */}
             <div className={cn(
                 "flex flex-wrap gap-4 items-center justify-center p-4 rounded-xl text-sm font-medium mt-2 shadow-sm",
-                isLuxury ? "bg-[#0a0a0a] border border-[#222] text-zinc-300" : "bg-white border border-gray-100 text-gray-700"
+                isLuxury ? "bg-[#0a0a0a] border border-[#222] text-zinc-300" : 
+                isHotpot ? "bg-[#1A1A1A] border border-[#333333] text-[#E0E0E0]" : 
+                "bg-white border border-gray-100 text-gray-700"
             )}>
                 <div className="flex items-center gap-2">
                     <div className="w-4 h-4 rounded-full bg-[#00C853]"></div>
@@ -128,26 +134,26 @@ const FloorPlanRenderer: React.FC<AreaProps> = ({ area, selectedTableIds, onSele
                     <div className="w-4 h-4 rounded-full bg-[#FF5252]"></div>
                     <span>Bảo trì</span>
                 </div>
-                <div className={cn("h-6 w-px mx-2", isLuxury ? "bg-[#333]" : "bg-gray-300")}></div>
+                <div className={cn("h-6 w-px mx-2", isLuxury || isHotpot ? "bg-[#333]" : "bg-gray-300")}></div>
                 <div className="flex items-center gap-2">
-                    <div className={cn("w-4 h-4 rounded-full border ring-2 ring-yellow-400 ring-offset-1", isLuxury ? "border-[#444]" : "border-gray-300")}></div>
+                    <div className={cn("w-4 h-4 rounded-full border ring-2 ring-yellow-400 ring-offset-1", isLuxury || isHotpot ? "border-[#444]" : "border-gray-300")}></div>
                     <span>Viền vàng: Bàn VIP</span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <div className={cn("w-4 h-4 rounded-full border-4 scale-110", isLuxury ? "border-yellow-600" : "border-indigo-600")}></div>
+                    <div className={cn("w-4 h-4 rounded-full border-4 scale-110", isLuxury ? "border-yellow-600" : isHotpot ? "border-[#D32F2F]" : "border-indigo-600")}></div>
                     <span>Đang chọn</span>
                 </div>
             </div>
 
             <div 
                 ref={containerRef} 
-                className={cn("w-full flex justify-center overflow-x-hidden py-8 relative rounded-xl", isLuxury ? "bg-[#111]" : "bg-gray-50")}
+                className={cn("w-full flex justify-center overflow-x-hidden py-8 relative rounded-xl", isLuxury ? "bg-[#111]" : isHotpot ? "bg-[#1A1A1A]" : "bg-gray-50")}
                 style={{ minHeight: `${(area.height * scale) + 80}px` }}
             >
                 <div 
                     className={cn(
                         "relative shadow-sm border-2 border-dashed rounded-lg",
-                        isLuxury ? "bg-[#1a1a1a] border-[#333]" : "bg-white border-gray-300"
+                        isLuxury ? "bg-[#1a1a1a] border-[#333]" : isHotpot ? "bg-[#222222] border-[#444444]" : "bg-white border-gray-300"
                     )}
                     style={{
                         width: `${area.width}px`,
@@ -161,10 +167,10 @@ const FloorPlanRenderer: React.FC<AreaProps> = ({ area, selectedTableIds, onSele
                     <div 
                         key={`obs-${idx}`}
                         className={`absolute flex items-center justify-center text-[10px] font-bold shadow-sm tracking-widest
-                            ${obs.type === 'WALL' ? (isLuxury ? 'bg-[#333] text-transparent' : 'bg-slate-300 text-transparent') : 
-                              obs.type === 'DOOR' ? (isLuxury ? 'bg-amber-900/30 border border-amber-900 text-amber-500' : 'bg-amber-100 border border-amber-300 text-amber-700') : 
-                              obs.type === 'PLANT' ? (isLuxury ? 'bg-emerald-900/30 border border-emerald-900 rounded-full text-emerald-500' : 'bg-emerald-100 border border-emerald-300 rounded-full text-emerald-700') : 
-                              (isLuxury ? 'bg-[#222]' : 'bg-gray-200')}`
+                            ${obs.type === 'WALL' ? (isLuxury || isHotpot ? 'bg-[#333] text-transparent' : 'bg-slate-300 text-transparent') : 
+                              obs.type === 'DOOR' ? (isLuxury || isHotpot ? 'bg-amber-900/30 border border-amber-900 text-amber-500' : 'bg-amber-100 border border-amber-300 text-amber-700') : 
+                              obs.type === 'PLANT' ? (isLuxury || isHotpot ? 'bg-emerald-900/30 border border-emerald-900 rounded-full text-emerald-500' : 'bg-emerald-100 border border-emerald-300 rounded-full text-emerald-700') : 
+                              (isLuxury || isHotpot ? 'bg-[#222]' : 'bg-gray-200')}`
                         }
                         style={{
                             left: `${obs.x}px`,

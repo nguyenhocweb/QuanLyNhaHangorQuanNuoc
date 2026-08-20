@@ -2,7 +2,7 @@ import { prisma } from "../../../../databases/init.mongodb.js";
 import { findUpgradeRequestById } from "../repositories/index.js";
 import { BadRequestError, NotFoundError, ConflictError } from "../../../../core/constants/error/index.js";
 
-export const updateUpgradeRequestStatusService = async (id, status) => {
+export const updateUpgradeRequestStatusService = async (id, status, planId) => {
     if (!["APPROVED", "REJECTED"].includes(status)) {
         throw new BadRequestError("Trạng thái không hợp lệ");
     }
@@ -31,25 +31,32 @@ export const updateUpgradeRequestStatusService = async (id, status) => {
             data: { status: "APPROVED" }
         });
 
-        // 1. Cập nhật role người dùng
-        const brandOwnerRole = await tx.role.findUnique({
-            where: { name: "Quản lý thương hiệu" }
+        // 1. Cập nhật role người dùng (Lấy role cho Workspace)
+        const brandOwnerRole = await tx.workspaceRole.findUnique({
+            where: { name: "Chủ thương hiệu" }
         });
         if (!brandOwnerRole) {
-            throw new BadRequestError("Hệ thống chưa cấu hình Role 'Quản lý thương hiệu'");
+            throw new BadRequestError("Hệ thống chưa cấu hình WorkspaceRole 'Chủ thương hiệu'");
         }
 
-        await tx.user.update({
-            where: { id: upgradeRequest.userId },
-            data: { roleId: brandOwnerRole.id }
-        });
-
         // 2. Tạo Brand mới
-        // Lấy gói miễn phí
-        const freePlan = await tx.subscriptionPlan.findFirst({
-            where: { price: 0 }
-        });
-        const freePlanId = freePlan ? freePlan.id : "60e9eb7a8d200d3b5098de40"; // Giá trị fallback nếu có (tốt nhất là DB phải có plan 0đ)
+        // Lấy gói cước (Dựa vào planId hoặc fallback lấy gói 0đ)
+        let selectedPlan = null;
+        if (planId) {
+            selectedPlan = await tx.subscriptionPlan.findUnique({
+                where: { id: planId }
+            });
+            if (!selectedPlan) {
+                throw new BadRequestError("Gói cước được chọn không tồn tại.");
+            }
+        } else {
+            selectedPlan = await tx.subscriptionPlan.findFirst({
+                where: { price: 0 }
+            });
+            if (!selectedPlan) {
+                throw new BadRequestError("Hệ thống chưa có Gói cước Miễn phí (0đ). Vui lòng yêu cầu Admin tạo gói cước trước hoặc chọn thủ công một gói.");
+            }
+        }
 
         // Lấy quyền BRAND
         const brandPermissions = await tx.permission.findMany({
@@ -70,15 +77,20 @@ export const updateUpgradeRequestStatusService = async (id, status) => {
         const newBrand = await tx.brand.create({
             data: {
                 name: upgradeRequest.brandName,
-                tax_code: upgradeRequest.tax_code,
+                taxCode: upgradeRequest.taxCode,
                 isActive: "ACTIVE", // Đã duyệt thì ACTIVE luôn
                 subscriptions: {
                     create: [
                         {
-                            planId: freePlanId,
+                            planId: selectedPlan.id,
                             status: "ACTIVE",
                             startDate: new Date(),
                             endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 10)), // 10 năm
+                            // Áp dụng chuẩn Snapshot Data
+                            planName: selectedPlan.name,
+                            price: selectedPlan.price,
+                            maxRestaurants: selectedPlan.maxRestaurants,
+                            featuresData: selectedPlan.featuresData,
                         }
                     ]
                 },
@@ -86,6 +98,7 @@ export const updateUpgradeRequestStatusService = async (id, status) => {
                     create: [
                         {
                             userId: upgradeRequest.userId,
+                            workspaceRoleId: brandOwnerRole.id, // Lưu role cụ thể cho nơi làm việc này
                             per_vs_emp: {
                                 create: perVsEmpData
                             }

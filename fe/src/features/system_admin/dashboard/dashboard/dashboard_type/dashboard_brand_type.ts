@@ -5,7 +5,7 @@ export interface getDashboardBrands_Reponse {
     id: string;
     name: string;
     isActive: StatusType; // Ràng buộc chỉ được nhận 1 trong 3 chuỗi trên
-    tax_code: string;
+    taxCode: string;
     createdAt: string;    // Thời gian ở dạng chuỗi ISO
     logo: string;
     isFeatured: boolean;

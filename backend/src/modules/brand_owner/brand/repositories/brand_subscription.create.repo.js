@@ -7,7 +7,7 @@ export const getSubscriptionPlanById = async (planId) => {
 };
 
 export const createBrandSubscriptionAndTransaction = async (data) => {
-    const { brandId, planId, amount, userId, systemPaymentMethodId, endDate } = data;
+    const { brandId, planId, amount, userId, systemPaymentMethodId, endDate, plan } = data;
     
     // Tạo Subscription và Transaction trong cùng 1 Prisma transaction
     const result = await prisma.$transaction(async (tx) => {
@@ -16,7 +16,11 @@ export const createBrandSubscriptionAndTransaction = async (data) => {
                 brandId,
                 planId,
                 endDate,
-                status: 'PENDING_PAYMENT'
+                status: 'PENDING_PAYMENT',
+                planName: plan?.name,
+                price: plan?.price,
+                maxRestaurants: plan?.maxRestaurants,
+                featuresData: plan?.featuresData,
             }
         });
 

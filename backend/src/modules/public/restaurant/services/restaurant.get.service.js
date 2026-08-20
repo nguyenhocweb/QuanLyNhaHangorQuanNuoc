@@ -8,8 +8,17 @@ export const getPublicRestaurantService = async (id) => {
         throw new NotFoundError("Không tìm thấy nhà hàng hoặc nhà hàng đã tạm ngưng hoạt động.");
     }
 
+    // Format keys for frontend compatibility
+    const formattedRestaurant = {
+        ...restaurant,
+        social_links: restaurant.socialLinks,
+        delivery_partners: restaurant.deliveryPartners
+    };
+    delete formattedRestaurant.socialLinks;
+    delete formattedRestaurant.deliveryPartners;
+
     return {
         message: "Lấy thông tin nhà hàng thành công",
-        metadata: restaurant,
+        metadata: formattedRestaurant,
     };
 };

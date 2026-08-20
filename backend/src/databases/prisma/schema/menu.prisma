@@ -4,12 +4,12 @@ model Menu {
   brandId String? @db.ObjectId
   brand   Brand?  @relation(fields: [brandId], references: [id])
 
-  restaurantId String?        @db.ObjectId
-  restaurant   Restaurant?    @relation(fields: [restaurantId], references: [id])
+  restaurantId String?           @db.ObjectId
+  restaurant   Restaurant?       @relation(fields: [restaurantId], references: [id])
   name         String // tên menu đó Main Menu
   description  String?
-  is_active    Boolean        @default(true) // còn sử dụng không hay tạm hết 
-  sort_order   Int            @default(0) // thứ tự nằm trong bảng menu 0 đứng trước ...
+  is_active    Boolean           @default(true) // còn sử dụng không hay tạm hết 
+  sort_order   Int               @default(0) // thứ tự nằm trong bảng menu 0 đứng trước ...
   categoryMaps MenuCategoryMap[]
 
   @@index([brandId])

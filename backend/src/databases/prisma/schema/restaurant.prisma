@@ -1,18 +1,19 @@
 model Restaurant {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  brandId       String?          @db.ObjectId
-  brand         Brand?           @relation(fields: [brandId], references: [id], onDelete: Cascade)
-  
-  templateId    String?          @db.ObjectId
-  template      Template?        @relation(fields: [templateId], references: [id])
-  
+  brandId String? @db.ObjectId
+  brand   Brand?  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  templateId String?   @db.ObjectId
+  template   Template? @relation(fields: [templateId], references: [id])
+
   logo          String?
   isNew         Boolean          @default(true)
   name          String?
   address       LocationAddress?
-  email_contact String?
-  phone_contact String?
+  timezone      String           @default("Asia/Ho_Chi_Minh") // Thêm timezone cho tính năng đa vùng
+  emailContact  String?
+  phoneContact  String?
   description   String?
   statusByAdmin isActive         @default(PENDING)
   reasonByAdmin String?
@@ -23,35 +24,38 @@ model Restaurant {
   slug          String?
   employments   Employment[] // nhẫn viên cấp nhà hàng
 
-  restaurant_areas        Restaurant_Areas[]
-  tabels                  Tables[]
-  max_party_size          Int // số lượng khách tối đa cho nhà hàng
-  booking_window_days     Int // đặt trước mấy ngày
-  cancellation_hours      Int //   hủy trước mấy giờ
-  deposit_required        Boolean                   @default(false) //  có cần đặt cọc ko
-  deposit_amount          Int? // đặt cọc trước bao nhiêu
-  createdAt               DateTime                  @default(now())
-  updatedAt               DateTime                  @updatedAt
-  menu                    Menu[]
-  operating_hours         Operating_Hours[]
-  special_schedules       Special_Schedules[] // giờ mở cửa or đóng đặc biệt
-  reservations            Reservations[]
-  orders                  Order[]
-  review_restaurant       Review_Restaurant[]
-  menuItems               RestaurantMenuItem[]
-  weightedScore           Float
-  totalRating             Int // tổng luyowtj đánh giá
-  averageRating           Float                     @default(0.0) // trung bình đánh giá
-  average_food_rating     Float                     @default(0.0) // trung bình đánh giá đồ ăn
-  average_service_rating  Float                     @default(0.0) // trung bình đnahs giá phục vụ
-  average_ambiance_rating Float                     @default(0.0) // trung bình đánh giá không gian quán
-  paymentConfigs          RestaurantPaymentConfig[]
-  restaurantRevenues      RestaurantRevenue[]
-  categoryIds             String[]                  @db.ObjectId
-  categories              Category_Restaurant[]     @relation(fields: [categoryIds], references: [id])
+  restaurantAreas       Restaurant_Areas[]
+  tables                Tables[] // Đã sửa lỗi chính tả từ tabels
+  maxPartySize          Int?                      @default(20) // số lượng khách tối đa cho nhà hàng
+  bookingWindowDays     Int?                      @default(7) // đặt trước mấy ngày
+  cancellationHours     Int?                      @default(2) //   hủy trước mấy giờ
+  depositRequired       Boolean                   @default(false) //  có cần đặt cọc ko
+  depositPerPax         Int? // đặt cọc trước bao nhiêu mỗi đầu người (đổi từ deposit_amount)
+  createdAt             DateTime                  @default(now())
+  updatedAt             DateTime                  @updatedAt
+  menu                  Menu[]
+  operatingHours        Operating_Hours[]
+  specialSchedules      Special_Schedules[] // giờ mở cửa or đóng đặc biệt
+  reservations          Reservations[]
+  inventoryAlerts       InventoryAlert[]
+  aiChatSessions        AIChatSession[]
+  orders                Order[]
+  reviewRestaurants     Review_Restaurant[]
+  menuItems             RestaurantMenuItem[]
+  weightedScore         Float?                    @default(0.0)
+  totalRating           Int?                      @default(0) // tổng luyowtj đánh giá
+  averageRating         Float                     @default(0.0) // trung bình đánh giá
+  averageFoodRating     Float                     @default(0.0) // trung bình đánh giá đồ ăn
+  averageServiceRating  Float                     @default(0.0) // trung bình đnahs giá phục vụ
+  averageAmbianceRating Float                     @default(0.0) // trung bình đánh giá không gian quán
+  paymentConfigs        RestaurantPaymentConfig[]
+  restaurantRevenues    RestaurantRevenue[]
+  categoryIds           String[]                  @db.ObjectId
+  categories            Category_Restaurant[]     @relation(fields: [categoryIds], references: [id])
 
-  promotions Promotion[]
-  events     Restaurant_Event[]
+  promotionRestaurants PromotionRestaurant[]
+  events               Restaurant_Event[]
+  notifications        RestaurantNotification[]
 
   amenityIds String[]               @db.ObjectId
   amenities  Restaurant_Amenities[] @relation(fields: [amenityIds], references: [id])
@@ -59,13 +63,20 @@ model Restaurant {
   tagIds String[] @db.ObjectId
   tags   Tags[]   @relation(fields: [tagIds], references: [id])
 
-  policies          RestaurantPolicy[]
-  social_links      SocialLink[]
-  faqs              Faq[]
-  delivery_partners DeliveryPartner[]
+  policies            RestaurantPolicy[]
+  socialLinks         SocialLink[]
+  faqs                Faq[]
+  deliveryPartners    DeliveryPartner[]
+  restaurantCustomers RestaurantCustomer[]
 
-  table_maintenance_schedules Table_Maintenance_Schedules[]
+  tableMaintenanceSchedules Table_Maintenance_Schedules[]
+  purchaseRequests          PurchaseRequest[]
 
+  // --- Cấu hình Thuế & Phí ---
+  isVatInclusive     Boolean @default(false) // Giá menu đã bao gồm VAT chưa?
+  defaultVatRate     Float   @default(10.0) // VAT mặc định (%)
+  serviceChargeRate  Float   @default(0.0) // Phí dịch vụ (%)
+  applyServiceCharge Boolean @default(false) // Có áp dụng phí dịch vụ không?
 
   @@index([brandId, statusByAdmin]) // Admin filter theo brand
   @@index([brandId, statusByBrand]) // Brand tự filter theo trạng thái của họ

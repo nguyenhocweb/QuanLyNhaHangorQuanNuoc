@@ -15,7 +15,6 @@ import { Special_Schedules_Extension } from "./extensions/special_schedules.exte
 import { table_Extension } from "./extensions/table.extension.js";
 import { reservations_Extension } from "./extensions/reservations.extension.js";
 import { reservationTablesExtension } from "./extensions/reservationTables.extension.js"
-import { notificationExtension } from "./extensions/notifications.extension.js"
 import { reviewRestaurantExtension } from "./extensions/review_restaurant.extension.js";
 import { reservationAuditLogsExtension } from "./extensions/reservation_audit_log.extension.js"
 import { menusExtension } from "./extensions/menu.extension.js";
@@ -23,6 +22,7 @@ import { categoriesAndItemsExtension } from "./extensions/menuCategory-items.ext
 import { category_restaurant_extension } from "./extensions/category_restaurant.extension.js"
 import { upgradeRequest_Extension } from './extensions/UpgradeRequest.extension.js';
 import { Subscription_Extension } from './extensions/subscription.extension.js';
+import { aiModelsExtension } from './extensions/ai_models.extension.js';
 
 import { deleteAllVector } from "../../modules/shared/vector/service/vectorDB.service.js"
 const runSeed = async () => {
@@ -40,7 +40,10 @@ const runSeed = async () => {
         ]);
         await prisma.permission_vs_Employment.deleteMany({});
         await prisma.permission.deleteMany({});
-        await prisma.notifications.deleteMany({})
+        await prisma.customerNotification.deleteMany({});
+        await prisma.restaurantNotification.deleteMany({});
+        await prisma.brandNotification.deleteMany({});
+        await prisma.systemNotification.deleteMany({});
         await prisma.Reservation_Audit_Log.deleteMany();
         await prisma.reservation_Tables.deleteMany();
         await prisma.Review_Restaurant.deleteMany();
@@ -50,19 +53,33 @@ const runSeed = async () => {
         await prisma.special_Schedules.deleteMany();
         await prisma.tables.deleteMany();
         await prisma.restaurant_Areas.deleteMany();
+        await prisma.orderItem.deleteMany();
+        await prisma.order.deleteMany();
         await prisma.menuItem.deleteMany();
+        await prisma.itemCategoryMap.deleteMany();
+        await prisma.menuCategoryMap.deleteMany();
         await prisma.menuCategory.deleteMany();
         await prisma.menu.deleteMany();
+        await prisma.purchaseOrder.deleteMany();
+        await prisma.purchaseRequest.deleteMany();
         await prisma.restaurant.deleteMany();
         await prisma.category_Restaurant.deleteMany();
+        await prisma.adminPaymentConfig.deleteMany();
+        await prisma.transaction.deleteMany();
         await prisma.brandSubscriptionTransaction.deleteMany();
+        await prisma.invoice.deleteMany();
+        await prisma.systemPaymentMethod.deleteMany();
         await prisma.brandSubscription.deleteMany();
         await prisma.subscriptionPlan.deleteMany();
         await prisma.brand.deleteMany();
+        await prisma.adminPaymentConfig.deleteMany();
+        await prisma.transaction.deleteMany();
         await prisma.systemPaymentMethod.deleteMany();
         await prisma.upgradeRequest.deleteMany();
         await prisma.user.deleteMany();
-        await prisma.role.deleteMany({})
+        await prisma.workspaceRole.deleteMany({});
+        await prisma.systemRole.deleteMany({});
+        await prisma.aiModel.deleteMany({});
 
         // tạo dữ liệu role admin và khách hàng trước để có id gán cho user
         await roleExtension(prisma);
@@ -98,15 +115,15 @@ const runSeed = async () => {
         await reservations_Extension(prisma);
 
         await reservationTablesExtension(prisma);
-
-        await notificationExtension(prisma);
-
+        
         //await reviewRestaurantExtension(prisma);
 
         await reservationAuditLogsExtension(prisma);
 
         await menusExtension(prisma);
         await categoriesAndItemsExtension(prisma);
+        
+        await aiModelsExtension(prisma);
 
 
 

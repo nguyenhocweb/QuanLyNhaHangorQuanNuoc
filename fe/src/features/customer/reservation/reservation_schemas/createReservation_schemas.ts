@@ -17,4 +17,4 @@ export const ReservationShema=z.object({
     special_requests:validator.string("yêu cầu thêm",255,0).nullish(),
     tables:validator.array("table",validator.string("id table")).nullish(),
 })
-export type ReservationForm=z.Infer<typeof ReservationShema>;
+export type ReservationForm=z.infer<typeof ReservationShema>;

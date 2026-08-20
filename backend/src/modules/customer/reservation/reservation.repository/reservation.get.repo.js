@@ -29,8 +29,8 @@ export const getMyReservationsRepo = async (userId, filters, pagination) => {
                         name: true,
                         logo: true,
                         address: true,
-                        phone_contact: true,
-                        cancellation_hours: true
+                        phoneContact: true,
+                        cancellationHours: true
                     }
                 },
                 reservation_tables: {
@@ -67,7 +67,7 @@ export const getReservationByIdAndUserRepo = async (id, userId) => {
         include: {
             restaurant: {
                 select: {
-                    cancellation_hours: true
+                    cancellationHours: true
                 }
             }
         }

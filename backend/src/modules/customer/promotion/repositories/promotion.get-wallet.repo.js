@@ -87,17 +87,17 @@ export const getMyVoucherWalletRepo = async (userId, { page = 1, limit = 10, sta
     // Lọc chi tiết active / expiring_soon / expired trong bộ nhớ
     if (status === "ACTIVE") {
         mappedItems = mappedItems.filter(item => {
-            const validUntil = new Date(item.promotion.valid_until);
+            const validUntil = new Date(item.promotion.validUntil);
             return validUntil >= now && item.promotion.isActive;
         });
     } else if (status === "EXPIRING_SOON") {
         mappedItems = mappedItems.filter(item => {
-            const validUntil = new Date(item.promotion.valid_until);
+            const validUntil = new Date(item.promotion.validUntil);
             return validUntil >= now && validUntil <= threeDaysLater && item.promotion.isActive;
         });
     } else if (status === "EXPIRED") {
         mappedItems = mappedItems.filter(item => {
-            const validUntil = new Date(item.promotion.valid_until);
+            const validUntil = new Date(item.promotion.validUntil);
             return validUntil < now || !item.promotion.isActive;
         });
     }
@@ -140,7 +140,7 @@ export const getMyVoucherWalletStatsRepo = async (userId) => {
         }
         const promo = promotionMap.get(up.promotionId);
         if (promo && promo.isActive) {
-            const validUntil = new Date(promo.valid_until);
+            const validUntil = new Date(promo.validUntil);
             if (validUntil >= now) {
                 activeCount++;
                 if (validUntil <= threeDaysLater) {

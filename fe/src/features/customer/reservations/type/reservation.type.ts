@@ -8,8 +8,8 @@ export interface RestaurantInfo {
         district?: string;
         city?: string;
     };
-    phone_contact?: string;
-    cancellation_hours: number;
+    phoneContact?: string;
+    cancellationHours: number;
 }
 
 export interface ReservationTable {
@@ -33,7 +33,7 @@ export interface CustomerReservation {
     status: 'PENDING' | 'CONFIRMED' | 'SEATED' | 'COMPLETED' | 'CANCELLED' | 'NO_SHOW';
     special_requests?: string;
     deposit_paid: boolean;
-    deposit_amount?: number;
+    depositPerPax?: number;
     cancellation_reason?: string;
     createdAt: string;
     

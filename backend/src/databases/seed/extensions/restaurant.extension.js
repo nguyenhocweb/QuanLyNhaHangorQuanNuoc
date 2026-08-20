@@ -1,7 +1,7 @@
 import restaurantData from '../constants/restaurant.data.js';
 import { upsertVector } from "../../../modules/shared/vector/service/vectorDB.service.js";
 import { embedText } from "../../../modules/shared/vector/service/embedding.service.js";
-import { buildRestaurantVector } from "../../../modules/shared/vector/builders/restaurant.builder.js";
+import { buildRestaurantVector } from "../../../modules/shared/vector/core_builders/restaurant.builder.js";
 import { tableVector } from '../../../config/tableVector.js';
 export const restaurant_Extension = async(prisma)=>{
     // nơi lưu id của thương hiệu để gán cho nhà hàng

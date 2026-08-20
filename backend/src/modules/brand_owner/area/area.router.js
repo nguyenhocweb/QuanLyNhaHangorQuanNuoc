@@ -14,7 +14,7 @@ import { deleteArea } from "./controllers/area.delete.controller.js";
 const route = Router({ mergeParams: true });
 
 route.use(authenticateToken);
-route.use(authorizeRole("Chủ thương hiệu", "Quản lý thương hiệu"));
+route.use(authorizeRole("Chủ thương hiệu", "Chủ thương hiệu"));
 
 route.post("/", validate(areaCreateValidator), createArea);
 route.get("/restaurant/:restaurantId", getAreasByRestaurantId);

@@ -8,7 +8,10 @@ export interface SubscriptionPlan {
     discountEndDate?: string;
     billingCycle: 'MONTHLY' | 'YEARLY' | 'LIFETIME';
     maxRestaurants: number;
-    features: string[];
+    trialPeriodDays: number;
+    setupFee: number;
+    featuresData: Record<string, any> | null;
+    isPublic: boolean;
     isActive: boolean;
     createdAt: string;
     updatedAt: string;

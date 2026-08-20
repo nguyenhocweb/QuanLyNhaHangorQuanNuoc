@@ -6,14 +6,16 @@ export const getRevenueService = async ({ month, year, page, limit, planName, st
     // Format the response
     const data = records.map(record => ({
         id: record.id,
+        invoiceNumber: record.invoiceNumber,
         brandId: record.brandId,
         brandName: record.brand?.name || "Unknown Brand",
         brandLogo: record.brand?.logo || null,
-        planName: record.plan?.name || "Unknown Plan",
-        price: record.plan?.price || 0,
-        startDate: record.startDate,
-        endDate: record.endDate,
+        planName: record.subscription?.plan?.name || "Unknown Plan",
+        price: record.total || 0,
+        startDate: record.subscription?.currentPeriodStart,
+        endDate: record.subscription?.currentPeriodEnd,
         status: record.status,
+        paidAt: record.paidAt,
         createdAt: record.createdAt
     }));
 

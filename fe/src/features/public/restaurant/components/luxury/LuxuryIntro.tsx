@@ -21,29 +21,29 @@ const LuxuryIntro: React.FC<Props> = ({ coreInfo }) => {
 
                 {/* Contact Info */}
                 <div className="flex flex-col md:flex-row justify-center items-center gap-10">
-                    {coreInfo.phone_contact && (
+                    {coreInfo.phoneContact && (
                         <div className="flex flex-col items-center gap-3">
                             <div className="text-yellow-600 text-lg">
                                 <FaPhoneAlt />
                             </div>
                             <div>
                                 <div className="text-xs text-zinc-500 uppercase tracking-widest mb-1">Điện thoại</div>
-                                <a href={`tel:${coreInfo.phone_contact}`} className="text-sm font-medium text-zinc-300 hover:text-yellow-500 transition-colors">
-                                    {coreInfo.phone_contact}
+                                <a href={`tel:${coreInfo.phoneContact}`} className="text-sm font-medium text-zinc-300 hover:text-yellow-500 transition-colors">
+                                    {coreInfo.phoneContact}
                                 </a>
                             </div>
                         </div>
                     )}
                     
-                    {coreInfo.email_contact && (
+                    {coreInfo.emailContact && (
                         <div className="flex flex-col items-center gap-3">
                             <div className="text-yellow-600 text-lg">
                                 <FaEnvelope />
                             </div>
                             <div>
                                 <div className="text-xs text-zinc-500 uppercase tracking-widest mb-1">Email</div>
-                                <a href={`mailto:${coreInfo.email_contact}`} className="text-sm font-medium text-zinc-300 hover:text-yellow-500 transition-colors">
-                                    {coreInfo.email_contact}
+                                <a href={`mailto:${coreInfo.emailContact}`} className="text-sm font-medium text-zinc-300 hover:text-yellow-500 transition-colors">
+                                    {coreInfo.emailContact}
                                 </a>
                             </div>
                         </div>

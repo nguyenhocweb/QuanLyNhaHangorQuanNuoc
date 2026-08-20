@@ -43,11 +43,11 @@ export const getBrandById = async (_id) => {
             imageMain: true,
             logo: true, // VD: "AS", "LA", "VI" trong vòng tròn
             link: true,
-            phone_contact: true,
-            email_contact: true,
+            phoneContact: true,
+            emailContact: true,
             isFeatured: true,
             images: true,
-            tax_code: true,
+            taxCode: true,
             isActive: true,
             createdAt: true,
             updatedAt: true,
@@ -67,10 +67,8 @@ export const getBrandById = async (_id) => {
             employments: {
                 where: { 
                     restaurantId: null,
-                    user: {
-                        role: {
-                            name: "Quản lý thương hiệu"
-                        }
+                    workspaceRole: {
+                        name: { in: ["Chủ thương hiệu", "Chủ thương hiệu"] }
                     }
                 },
                 select: {
@@ -112,7 +110,7 @@ export const getBrandById = async (_id) => {
                             name: true
                         }
                     },
-                    operating_hours: {
+                    operatingHours: {
                         where: { day_of_week: day },
                         take: 1,
                         select: {
@@ -122,10 +120,8 @@ export const getBrandById = async (_id) => {
                     },
                     employments: {
                         where: {
-                            user: {
-                                role: {
-                                    name: "Quản lý nhà hàng"
-                                }
+                            workspaceRole: {
+                                name: "Quản lý nhà hàng"
                             }
                         },
                         select: {
@@ -139,9 +135,9 @@ export const getBrandById = async (_id) => {
         }
     });
     if (!brand) return null;
-        brand.restaurants = brand.restaurants.map(({ operating_hours, ...rest }) => {
+        brand.restaurants = brand.restaurants.map(({ operatingHours, ...rest }) => {
         // Lấy phần tử đầu tiên nếu mảng có dữ liệu
-        const hours = operating_hours[0];
+        const hours = operatingHours[0];
         return {
             ...rest,
             time: hours
@@ -167,9 +163,9 @@ export const getBrands = async ({ where, page, limit }) => {
             description: true,
             imageMain: true,
             logo: true,
-            tax_code: true,
-            email_contact: true,
-            phone_contact: true,
+            taxCode: true,
+            emailContact: true,
+            phoneContact: true,
             address: true,
             createdAt: true,
             isActive: true,
@@ -184,10 +180,8 @@ export const getBrands = async ({ where, page, limit }) => {
             employments: {
                 where: { 
                     restaurantId: null,
-                    user: {
-                        role: {
-                            name: "Quản lý thương hiệu"
-                        }
+                    workspaceRole: {
+                        name: { in: ["Chủ thương hiệu", "Chủ thương hiệu"] }
                     }
                 },
                 select: {

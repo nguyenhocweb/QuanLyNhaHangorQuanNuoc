@@ -24,15 +24,17 @@ export const upsertVector = async (payload, namespace = "") => {
 };
 // search
 export const queryVector = async ({ vector, topK = 5, filter = {}, namespace = "" }) => {
-  const result = await index.namespace(namespace).query({
-    vector, // Vector truy vấn (embedding của câu hỏi)
-    topK, // Số lượng kết quả trả về
-    includeMetadata: true, // Bao gồm metadata trong kết quả
-    // Bộ lọc để giới hạn phạm vi tìm kiếm (ví dụ: { category: "fast_food" })
-  });
+  const queryOptions = {
+    vector,
+    topK,
+    includeMetadata: true,
+  };
+  
   if (filter && Object.keys(filter).length > 0) {
     queryOptions.filter = filter;
   }
+
+  const result = await index.namespace(namespace).query(queryOptions);
   return result.matches || [];
 };
 

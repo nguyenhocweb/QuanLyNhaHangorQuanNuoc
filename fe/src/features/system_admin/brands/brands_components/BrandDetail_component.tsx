@@ -96,7 +96,7 @@ const BrandDetailComponent = ({ brandId }: { brandId: string }) => {
                                 )}
                             </div>
                             <div className="flex items-center gap-4 mt-3 text-sm text-slate-500 font-medium flex-wrap">
-                                <span className="flex items-center gap-1.5"><FiFileText className="text-slate-400" /> MST: <span className="text-slate-700">{brand.tax_code || "N/A"}</span></span>
+                                <span className="flex items-center gap-1.5"><FiFileText className="text-slate-400" /> MST: <span className="text-slate-700">{brand.taxCode || "N/A"}</span></span>
                                 <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
                                 <span className="flex items-center gap-1.5"><FiCalendar className="text-slate-400" /> Tham gia: <span className="text-slate-700">{joinDate}</span></span>
                             </div>
@@ -140,14 +140,14 @@ const BrandDetailComponent = ({ brandId }: { brandId: string }) => {
                                     <div className="p-2.5 bg-blue-50 text-blue-600 rounded-xl shrink-0"><FiMail /></div>
                                     <div>
                                         <p className="text-xs text-slate-400 font-medium mb-1">Email liên hệ</p>
-                                        <p className="text-sm font-semibold text-slate-700 break-all">{brand.email_contact || "N/A"}</p>
+                                        <p className="text-sm font-semibold text-slate-700 break-all">{brand.emailContact || "N/A"}</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-3">
                                     <div className="p-2.5 bg-green-50 text-green-600 rounded-xl shrink-0"><FiPhone /></div>
                                     <div>
                                         <p className="text-xs text-slate-400 font-medium mb-1">Số điện thoại</p>
-                                        <p className="text-sm font-semibold text-slate-700">{brand.phone_contact || "N/A"}</p>
+                                        <p className="text-sm font-semibold text-slate-700">{brand.phoneContact || "N/A"}</p>
                                     </div>
                                 </div>
                             </div>

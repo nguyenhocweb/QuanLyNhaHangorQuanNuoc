@@ -27,7 +27,7 @@ export const getEmploymentsService = async (brandId, query) => {
       email: emp.user.email,
       avatar: emp.user.avatar,
       sdt: emp.user.sdt,
-      roleName: emp.user.role?.name,
+      roleName: emp.workspaceRole?.name,
       salary_type: emp.salary_type,
       restaurantId: emp.restaurantId,
       restaurantName: emp.restaurant?.name,

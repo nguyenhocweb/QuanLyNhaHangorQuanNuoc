@@ -20,5 +20,5 @@ export interface PublicReviewResponse {
 }
 
 export const getFeaturedReviewsService = async (limit = 9): Promise<PublicReviewResponse> => {
-    return axiosClient.get(`/api/v1/review/featured?limit=${limit}`);
+    return axiosClient.get(`/review/featured?limit=${limit}`);
 };

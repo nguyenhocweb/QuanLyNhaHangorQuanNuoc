@@ -63,10 +63,10 @@ export default function BrandDetailContactCard({ data }: BrandDetailContactCardP
                             <span className="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center text-lg">
                                 <FaPhoneAlt />
                             </span>
-                            {data.phone_contact && (
+                            {data.phoneContact && (
                                 <button
                                     type="button"
-                                    onClick={() => handleCopy(data.phone_contact, "Hotline")}
+                                    onClick={() => handleCopy(data.phoneContact, "Hotline")}
                                     className="text-xs opacity-60 hover:opacity-100 p-1.5 hover:bg-white/10 rounded-lg transition"
                                     title="Sao chép Hotline"
                                 >
@@ -77,10 +77,10 @@ export default function BrandDetailContactCard({ data }: BrandDetailContactCardP
                         <div>
                             <span className="text-xs font-semibold opacity-70 block">Hotline đặt bàn</span>
                             <a
-                                href={data.phone_contact ? `tel:${data.phone_contact}` : "#"}
+                                href={data.phoneContact ? `tel:${data.phoneContact}` : "#"}
                                 className="text-base sm:text-lg font-black text-emerald-500 hover:underline truncate block mt-0.5"
                             >
-                                {data.phone_contact || "0987.654.321"}
+                                {data.phoneContact || "0987.654.321"}
                             </a>
                         </div>
                     </div>
@@ -93,10 +93,10 @@ export default function BrandDetailContactCard({ data }: BrandDetailContactCardP
                             <span className="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-500 flex items-center justify-center text-lg">
                                 <FaEnvelope />
                             </span>
-                            {data.email_contact && (
+                            {data.emailContact && (
                                 <button
                                     type="button"
-                                    onClick={() => handleCopy(data.email_contact, "Email")}
+                                    onClick={() => handleCopy(data.emailContact, "Email")}
                                     className="text-xs opacity-60 hover:opacity-100 p-1.5 hover:bg-white/10 rounded-lg transition"
                                     title="Sao chép Email"
                                 >
@@ -107,10 +107,10 @@ export default function BrandDetailContactCard({ data }: BrandDetailContactCardP
                         <div>
                             <span className="text-xs font-semibold opacity-70 block">Email chính thức</span>
                             <a
-                                href={data.email_contact ? `mailto:${data.email_contact}` : "#"}
+                                href={data.emailContact ? `mailto:${data.emailContact}` : "#"}
                                 className="text-sm sm:text-base font-bold text-blue-500 hover:underline truncate block mt-0.5"
                             >
-                                {data.email_contact || "contact@brand.com"}
+                                {data.emailContact || "contact@brand.com"}
                             </a>
                         </div>
                     </div>

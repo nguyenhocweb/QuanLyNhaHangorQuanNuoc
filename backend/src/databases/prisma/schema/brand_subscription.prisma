@@ -10,7 +10,20 @@ model BrandSubscription {
   brand Brand            @relation(fields: [brandId], references: [id])
   plan  SubscriptionPlan @relation(fields: [planId], references: [id])
 
-  transactions BrandSubscriptionTransaction[]
+  // Snapshot dữ liệu tại thời điểm mua
+  planName       String?
+  price          Float?
+  maxRestaurants Int?
+  featuresData   Json?
+
+  autoRenew          Boolean   @default(false)
+  currentPeriodStart DateTime? // Ngày bắt đầu kỳ cước hiện tại
+  currentPeriodEnd   DateTime? // Ngày kết thúc kỳ cước hiện tại
+  trialEndDate       DateTime? // Ngày hết hạn dùng thử
+  cancellationDate   DateTime? // Ngày ấn nút hủy
+  cancellationReason String?
+
+  invoices Invoice[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

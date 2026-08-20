@@ -209,7 +209,7 @@ const BranchesList = () => {
                                             <FiUsers className="text-[11px]" />
                                             <span className="text-[10px] font-bold uppercase tracking-widest text-blue-500/80">Sức chứa</span>
                                         </div>
-                                        <span className="text-[13px] font-bold text-blue-900">{branch.max_party_size ? `${branch.max_party_size} khách` : "Chưa có"}</span>
+                                        <span className="text-[13px] font-bold text-blue-900">{branch.maxPartySize ? `${branch.maxPartySize} khách` : "Chưa có"}</span>
                                     </div>
                                     <div className="flex flex-col">
                                         <div className="flex items-center gap-1.5 text-blue-600/80 mb-0.5">
@@ -217,8 +217,8 @@ const BranchesList = () => {
                                             <span className="text-[10px] font-bold uppercase tracking-widest text-blue-500/80">Yêu cầu cọc</span>
                                         </div>
                                         <span className="text-[13px] font-bold text-blue-900">
-                                            {branch.deposit_required
-                                                ? (branch.deposit_amount ? `${branch.deposit_amount.toLocaleString()}đ` : "Có yêu cầu")
+                                            {branch.depositRequired
+                                                ? (branch.depositPerPax ? `${branch.depositPerPax.toLocaleString()}đ` : "Có yêu cầu")
                                                 : "Không yêu cầu"}
                                         </span>
                                     </div>
@@ -238,20 +238,20 @@ const BranchesList = () => {
                                     )}
 
                                     <Div className="grid grid-cols-2 gap-4 w-full">
-                                        {branch.phone_contact && (
+                                        {branch.phoneContact && (
                                             <Div className="items-center gap-2.5 w-full group/item">
                                                 <Div className="w-7 h-7 rounded-full bg-gray-50 text-gray-400 flex items-center justify-center shrink-0 group-hover/item:bg-green-50 group-hover/item:text-green-500 transition-colors">
                                                     <FiPhone className="text-[13px]" />
                                                 </Div>
-                                                <P className="text-[13px] font-medium text-gray-600 truncate">{branch.phone_contact}</P>
+                                                <P className="text-[13px] font-medium text-gray-600 truncate">{branch.phoneContact}</P>
                                             </Div>
                                         )}
-                                        {branch.email_contact && (
+                                        {branch.emailContact && (
                                             <Div className="items-center gap-2.5 w-full group/item">
                                                 <Div className="w-7 h-7 rounded-full bg-gray-50 text-gray-400 flex items-center justify-center shrink-0 group-hover/item:bg-purple-50 group-hover/item:text-purple-500 transition-colors">
                                                     <FiMail className="text-[13px]" />
                                                 </Div>
-                                                <P className="text-[13px] font-medium text-gray-600 truncate">{branch.email_contact}</P>
+                                                <P className="text-[13px] font-medium text-gray-600 truncate">{branch.emailContact}</P>
                                             </Div>
                                         )}
                                     </Div>

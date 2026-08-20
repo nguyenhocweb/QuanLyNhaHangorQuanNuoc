@@ -14,11 +14,11 @@ export const createRestaurantService = async (brandId, data) => {
         brandId,
         weightedScore: 0.0,
         totalRating: 0,
-        max_party_size: data.max_party_size || 50, // Default for Prisma requirement
-        booking_window_days: data.booking_window_days || 7, // Default 7 days
-        cancellation_hours: data.cancellation_hours || 24, // Default 24 hours
-        deposit_required: data.deposit_required || false,
-        deposit_amount: data.deposit_amount || null
+        maxPartySize: data.maxPartySize || 50, // Default for Prisma requirement
+        bookingWindowDays: data.bookingWindowDays || 7, // Default 7 days
+        cancellationHours: data.cancellationHours || 24, // Default 24 hours
+        depositRequired: data.depositRequired || false,
+        depositPerPax: data.depositPerPax || null
     };
     
     if (typeof data.address === 'object' && data.address !== null) {

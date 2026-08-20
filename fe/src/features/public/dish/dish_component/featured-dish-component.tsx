@@ -16,12 +16,14 @@ const FeaturedDishComponent = ({
     type,
     id,
     limit,
-    grid
+    grid,
+    hideHeader
 }: {
     type: "home" | "isBrand" | "isRestaurant";
     id?: string;
     limit?: number;
     grid?: number;
+    hideHeader?: boolean;
 }) => {
     const { MenuItemPage, searchKeyword, setMenuItemPage } = usePagination();
     const limits = limit ?? (type === "home" ? 3 : 10);
@@ -45,8 +47,8 @@ const FeaturedDishComponent = ({
                 <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/10 via-orange-500/5 to-emerald-500/10 rounded-3xl blur-3xl pointer-events-none" />
             )}
 
-            {/* Chỉ hiển thị tiêu đề và mô tả dài dòng nếu KHÔNG phải ở trang home */}
-            {type !== "home" && (
+            {/* Chỉ hiển thị tiêu đề và mô tả dài dòng nếu KHÔNG phải ở trang home và không bị hideHeader */}
+            {type !== "home" && !hideHeader && (
                 <div className="w-full flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-6 mb-2">
                     <div className="flex flex-col gap-2">
                         <FadeIn>

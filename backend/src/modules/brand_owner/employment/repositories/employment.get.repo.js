@@ -4,10 +4,15 @@ export const getEmploymentsRepo = async (brandId, { skip, take, search, restaura
   const where = {
     brandId,
     user: {
-      role: {
+      systemRole: {
         name: {
-          notIn: ["Admin", "Quản lý thương hiệu"]
+          notIn: ["Admin"]
         }
+      }
+    },
+    workspaceRole: {
+      name: {
+        notIn: ["Chủ thương hiệu"]
       }
     }
   };
@@ -50,11 +55,16 @@ export const getEmploymentsRepo = async (brandId, { skip, take, search, restaura
             email: true,
             avatar: true,
             sdt: true,
-            role: {
+            systemRole: {
               select: {
                 name: true,
               }
             }
+          }
+        },
+        workspaceRole: {
+          select: {
+            name: true,
           }
         },
         restaurant: {

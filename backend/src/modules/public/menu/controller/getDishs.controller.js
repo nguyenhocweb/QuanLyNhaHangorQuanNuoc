@@ -13,7 +13,7 @@ export const getDishsController = asyncHandler(
         
         
         const where = []
-        if (_id) where.push(type === "isBrand" ? { brandId: _id } : { restaurantId: _id });
+        if (_id) where.push(type === "isBrand" ? { brandId: _id } : { restaurantMaps: { some: { restaurantId: _id } } });
         if (search) where.push({
             name: {
                 contains: search,// Tìm chuỗi con bên trong tên

@@ -17,7 +17,7 @@ export const updateEmploymentService = async (employmentId, payload) => {
 
   // 2. Tìm Role ID phù hợp
   const roleName = (restaurantId && isManager) ? "Quản lý nhà hàng" : "Nhân viên";
-  const staffRole = await prisma.role.findUnique({
+  const staffRole = await prisma.workspaceRole.findUnique({
     where: { name: roleName },
   });
 
@@ -28,7 +28,7 @@ export const updateEmploymentService = async (employmentId, payload) => {
   // 3. Chuẩn bị dữ liệu cập nhật
   const updateData = {
     restaurantId,
-    roleId: staffRole.id,
+    workspaceRoleId: staffRole.id,
     permissionIds: isManager ? [] : permissionIds, // Quản lý không cần chỉ định quyền con
   };
 

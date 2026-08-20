@@ -23,7 +23,7 @@ export class PayOSGateway {
         };
 
         try {
-            const paymentLinkRes = await this.payos.createPaymentLink(payload);
+            const paymentLinkRes = await this.payos.paymentRequests.create(payload);
             
             return {
                 qrCodeUrl: paymentLinkRes.qrCode,
@@ -41,7 +41,7 @@ export class PayOSGateway {
      */
     verifyWebhook(webhookData) {
         try {
-            const verifiedData = this.payos.verifyPaymentWebhookData(webhookData);
+            const verifiedData = this.payos.webhooks.verify(webhookData);
             return verifiedData;
         } catch (error) {
             throw new Error("Chữ ký Webhook không hợp lệ");

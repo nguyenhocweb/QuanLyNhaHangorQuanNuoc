@@ -13,7 +13,13 @@ export const getActiveSubscriptionByBrandRepo = async (brandId) => {
     });
 };
 
-export const updateRestaurantTemplateRepo = async (brandId, templateId) => {
+export const updateRestaurantTemplateRepo = async (brandId, templateId, restaurantIds = null) => {
+    if (restaurantIds && restaurantIds.length > 0) {
+        return prisma.restaurant.updateMany({
+            where: { id: { in: restaurantIds }, brandId: brandId },
+            data: { templateId: templateId },
+        });
+    }
     return prisma.restaurant.updateMany({
         where: { brandId: brandId },
         data: { templateId: templateId },

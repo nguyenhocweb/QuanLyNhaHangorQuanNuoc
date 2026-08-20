@@ -20,6 +20,7 @@ This document serves as the "React Query Agent/Knowledge Base". It tracks the co
 | **Subscriptions** | `useSubscription_hook` | `['subscriptions', params]` | `Subscription[]` |
 | **Payment Methods**| `usePaymentMethod_hook` | `['payment_methods']` | `PaymentMethod[]` |
 | **Templates**      | `useGetTemplates`       | `['templates', type]` | `Template[]` |
+| **API Keys** | `useGetApiKeys` | `['system_api_keys', params]` | `ApiKey[]` & Meta |
 
 ## 📌 Brand Owner
 
@@ -33,8 +34,10 @@ This document serves as the "React Query Agent/Knowledge Base". It tracks the co
 | **Areas (Khu vực)** | `useArea` | `['BrandAreas', restaurantId]` | `Area[]` |
 | **Tables (Bàn)** | `useTable` | `['BrandTables', areaId]` | `Table[]` |
 | **Templates** | `useGetBrandTemplates_hook` | `['BrandSettingsTemplates']` | `ITemplate[]` |
+| **Suppliers** | `useGetSuppliers` | `['brand-suppliers', brandId]` | `Supplier[]` |
+| **Inventory Items** | `useGetInventoryItems` | `['brand-inventory-items', brandId]` | `InventoryItem[]` |
 
-## 📌 Public
+## 🌐 Public
 
 ### 1. Dành cho Khách hàng (Customer)
 | Query Key | Hook sử dụng | Dữ liệu trả về | Nhóm File |
@@ -89,3 +92,6 @@ When Socket.io events (`table_updated`, `table_status_changed`, `reservation_upd
 - **queryKey**: `['PUBLIC_FEATURED_REVIEWS', limit]` - Fetch real 5-star customer reviews from MongoDB for the public homepage.
 ### Restaurant Operating Hours Management
 - **queryKey**: ['manager-operating-hours'] - Fetch operating hours for the currently authenticated branch manager.
+
+### Restaurant Manager Promotions
+- **queryKey**: ['promotions', restaurantId] - Fetch promotions for a restaurant manager.

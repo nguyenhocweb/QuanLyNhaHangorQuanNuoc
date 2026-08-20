@@ -10,7 +10,10 @@ export const createSubscriptionValidator = z.object({
     discountEndDate: z.string().nullable().optional(),
     billingCycle: z.enum(["MONTHLY", "YEARLY", "LIFETIME"]),
     maxRestaurants: z.number(),
-    features: z.array(z.string()).default([]),
+    trialPeriodDays: z.number().int().min(0).default(0),
+    setupFee: z.number().min(0).default(0),
+    featuresData: z.record(z.string(), z.any()).optional().nullable(),
+    isPublic: z.boolean().default(true),
     isActive: z.boolean().default(true),
   })
 });

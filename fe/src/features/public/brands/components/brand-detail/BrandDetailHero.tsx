@@ -156,7 +156,7 @@ export default function BrandDetailHero({ data }: BrandDetailHeroProps) {
                         <FaFileContract />
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-lg sm:text-xl font-bold text-amber-500 truncate">{data.tax_code || "Đã kiểm duyệt"}</span>
+                        <span className="text-lg sm:text-xl font-bold text-amber-500 truncate">{data.taxCode || "Đã kiểm duyệt"}</span>
                         <span className={`text-xs font-semibold ${is3D ? "text-gray-300" : "text-gray-500"}`}>Mã số thuế & Pháp lý</span>
                     </div>
                 </div>

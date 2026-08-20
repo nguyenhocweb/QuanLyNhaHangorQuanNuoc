@@ -1,13 +1,13 @@
 model RestaurantMenuItem {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  restaurantId String   @db.ObjectId
-  menuItemId   String   @db.ObjectId
-  
-  isAvailable  Boolean  @default(true) // Hết hàng cục bộ
-  overridePrice Float?  // Giá bán ghi đè
-  
-  menuItem     MenuItem   @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String @db.ObjectId
+  menuItemId   String @db.ObjectId
+
+  isAvailable   Boolean @default(true) // Hết hàng cục bộ
+  overridePrice Float? // Giá bán ghi đè
+
+  menuItem   MenuItem   @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
 
   @@unique([restaurantId, menuItemId])
   @@map("restaurant_menu_items")

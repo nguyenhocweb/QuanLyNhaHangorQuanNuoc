@@ -69,4 +69,24 @@ axiosClient.interceptors.response.use(
     }
 );
 
+// Add a request interceptor
+axiosClient.interceptors.request.use(
+  function (config) {
+    // Add token from AuthStore
+    const authStore = useAuthStore.getState();
+    const token = authStore.user?.token?.accessToken || authStore.user?.accessToken;
+    const activeWorkspace = authStore.activeWorkspace;
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    if (activeWorkspace && activeWorkspace.id) {
+      config.headers['x-workspace-id'] = activeWorkspace.id;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
 export default axiosClient;

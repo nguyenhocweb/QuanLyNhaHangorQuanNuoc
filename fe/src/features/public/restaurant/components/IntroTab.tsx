@@ -18,26 +18,26 @@ const IntroTab: React.FC<Props> = ({ coreInfo }) => {
             <div className="mb-8 pb-6 border-b border-gray-100">
                 <h3 className="text-lg font-bold text-gray-800 mb-4">Thông tin liên hệ</h3>
                 <div className="flex flex-col md:flex-row gap-6">
-                    {coreInfo.phone_contact && (
+                    {coreInfo.phoneContact && (
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center border border-gray-100 text-gray-600">
                                 <FaPhoneAlt />
                             </div>
                             <div>
                                 <div className="text-xs text-gray-500 font-medium">Điện thoại</div>
-                                <a href={`tel:${coreInfo.phone_contact}`} className="text-sm font-bold text-gray-900 hover:text-indigo-600 transition-colors">{coreInfo.phone_contact}</a>
+                                <a href={`tel:${coreInfo.phoneContact}`} className="text-sm font-bold text-gray-900 hover:text-indigo-600 transition-colors">{coreInfo.phoneContact}</a>
                             </div>
                         </div>
                     )}
                     
-                    {coreInfo.email_contact && (
+                    {coreInfo.emailContact && (
                         <div className="flex items-center gap-3">
                             <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center border border-gray-100 text-gray-600">
                                 <FaEnvelope />
                             </div>
                             <div>
                                 <div className="text-xs text-gray-500 font-medium">Email</div>
-                                <a href={`mailto:${coreInfo.email_contact}`} className="text-sm font-bold text-gray-900 hover:text-indigo-600 transition-colors">{coreInfo.email_contact}</a>
+                                <a href={`mailto:${coreInfo.emailContact}`} className="text-sm font-bold text-gray-900 hover:text-indigo-600 transition-colors">{coreInfo.emailContact}</a>
                             </div>
                         </div>
                     )}
@@ -69,7 +69,7 @@ const IntroTab: React.FC<Props> = ({ coreInfo }) => {
                         <FaUsers size={20} />
                     </div>
                     <span className="text-xs text-gray-500 mb-1 font-medium">Sức chứa tối đa (nhóm)</span>
-                    <span className="font-bold text-gray-900">{coreInfo.max_party_size} người</span>
+                    <span className="font-bold text-gray-900">{coreInfo.maxPartySize} người</span>
                 </div>
 
                 <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 flex flex-col items-center text-center hover:border-indigo-200 transition-colors">
@@ -77,7 +77,7 @@ const IntroTab: React.FC<Props> = ({ coreInfo }) => {
                         <FaCalendarCheck size={20} />
                     </div>
                     <span className="text-xs text-gray-500 mb-1 font-medium">Đặt trước tối đa</span>
-                    <span className="font-bold text-gray-900">{coreInfo.booking_window_days} ngày</span>
+                    <span className="font-bold text-gray-900">{coreInfo.bookingWindowDays} ngày</span>
                 </div>
 
                 <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 flex flex-col items-center text-center hover:border-indigo-200 transition-colors">
@@ -85,7 +85,7 @@ const IntroTab: React.FC<Props> = ({ coreInfo }) => {
                         <FaClock size={20} />
                     </div>
                     <span className="text-xs text-gray-500 mb-1 font-medium">Hủy miễn phí trước</span>
-                    <span className="font-bold text-gray-900">{coreInfo.cancellation_hours} giờ</span>
+                    <span className="font-bold text-gray-900">{coreInfo.cancellationHours} giờ</span>
                 </div>
 
                 <div className="p-4 rounded-xl bg-gray-50 border border-gray-100 flex flex-col items-center text-center hover:border-indigo-200 transition-colors">
@@ -93,7 +93,7 @@ const IntroTab: React.FC<Props> = ({ coreInfo }) => {
                         <FaMoneyBillWave size={20} />
                     </div>
                     <span className="text-xs text-gray-500 mb-1 font-medium">Yêu cầu cọc tiền</span>
-                    <span className="font-bold text-gray-900">{coreInfo.deposit_required ? "Có" : "Không"}</span>
+                    <span className="font-bold text-gray-900">{coreInfo.depositRequired ? "Có" : "Không"}</span>
                 </div>
             </div>
 

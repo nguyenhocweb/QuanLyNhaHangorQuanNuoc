@@ -24,14 +24,14 @@ export const VoucherCard: React.FC<VoucherCardProps> = ({ promotion, isUsed = fa
 
     // Kiểm tra sắp hết hạn (trong 3 ngày)
     const now = new Date();
-    const validUntilDate = new Date(promotion.valid_until);
+    const validUntilDate = new Date(promotion.validUntil);
     const diffTime = validUntilDate.getTime() - now.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     const isExpiringSoon = !isUsed && diffDays > 0 && diffDays <= 3;
     const isExpired = !isUsed && diffTime <= 0;
 
-    // Phân loại màu sắc thẻ ticket theo discount_type
-    const isPercentage = promotion.discount_type === "PERCENTAGE";
+    // Phân loại màu sắc thẻ ticket theo discountType
+    const isPercentage = promotion.discountType === "PERCENTAGE";
     const bgBadge = isPercentage ? "bg-amber-500" : "bg-indigo-600";
     const borderAccent = isPercentage ? "border-l-amber-500" : "border-l-indigo-600";
 
@@ -91,42 +91,42 @@ export const VoucherCard: React.FC<VoucherCardProps> = ({ promotion, isUsed = fa
                         <h3 className="text-lg font-bold text-gray-800">
                             {isPercentage ? (
                                 <>
-                                    Giảm <span className="text-amber-600">{promotion.discount_value}%</span>
-                                    {promotion.max_discount ? ` tối đa ${promotion.max_discount.toLocaleString("vi-VN")}đ` : ""}
+                                    Giảm <span className="text-amber-600">{promotion.discountValue}%</span>
+                                    {promotion.maxDiscount ? ` tối đa ${promotion.maxDiscount.toLocaleString("vi-VN")}đ` : ""}
                                 </>
                             ) : (
                                 <>
-                                    Giảm thẳng <span className="text-indigo-600">{promotion.discount_value.toLocaleString("vi-VN")}đ</span>
+                                    Giảm thẳng <span className="text-indigo-600">{promotion.discountValue.toLocaleString("vi-VN")}đ</span>
                                 </>
                             )}
                         </h3>
                     </div>
 
                     <p className="text-sm text-gray-600 line-clamp-2 mb-2">
-                        {promotion.description || `Đơn tối thiểu ${promotion.min_order_value ? promotion.min_order_value.toLocaleString("vi-VN") + "đ" : "0đ"}`}
+                        {promotion.description || `Đơn tối thiểu ${promotion.minOrderValue ? promotion.minOrderValue.toLocaleString("vi-VN") + "đ" : "0đ"}`}
                     </p>
 
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
                         <span>
-                            Đơn tối thiểu: <strong className="text-gray-700">{promotion.min_order_value ? `${promotion.min_order_value.toLocaleString("vi-VN")}đ` : "0đ"}</strong>
+                            Đơn tối thiểu: <strong className="text-gray-700">{promotion.minOrderValue ? `${promotion.minOrderValue.toLocaleString("vi-VN")}đ` : "0đ"}</strong>
                         </span>
                         <span>•</span>
                         <span>
-                            HSD: <strong className="text-gray-700">{new Date(promotion.valid_until).toLocaleDateString("vi-VN")}</strong>
+                            HSD: <strong className="text-gray-700">{new Date(promotion.validUntil).toLocaleDateString("vi-VN")}</strong>
                         </span>
                     </div>
 
                     {/* Thanh tiến độ sử dụng nếu có giới hạn */}
-                    {promotion.usage_limit && promotion.usage_limit > 0 && (
+                    {promotion.usageLimit && promotion.usageLimit > 0 && (
                         <div className="mt-3 w-full">
                             <div className="flex justify-between text-xs text-gray-500 mb-1">
-                                <span>Đã dùng: {promotion.used_count} / {promotion.usage_limit}</span>
-                                <span>{Math.round((promotion.used_count / promotion.usage_limit) * 100)}%</span>
+                                <span>Đã dùng: {promotion.usedCount} / {promotion.usageLimit}</span>
+                                <span>{Math.round((promotion.usedCount / promotion.usageLimit) * 100)}%</span>
                             </div>
                             <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                                 <div
                                     className="bg-indigo-600 h-full rounded-full transition-all duration-300"
-                                    style={{ width: `${Math.min(100, (promotion.used_count / promotion.usage_limit) * 100)}%` }}
+                                    style={{ width: `${Math.min(100, (promotion.usedCount / promotion.usageLimit) * 100)}%` }}
                                 />
                             </div>
                         </div>

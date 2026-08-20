@@ -63,8 +63,8 @@ const UpdateRestaurant = ({ onclickClose, restaurantId }: Props) => {
     } = useForm<UpdateRestaurantFormValues>({
         resolver: zodResolver(updateRestaurantSchema),
         defaultValues: {
-            name: "", address: {}, email_contact: "", phone_contact: "", description: "",
-            max_party_size: 50, booking_window_days: 7, cancellation_hours: 24, deposit_required: false, deposit_amount: 0,
+            name: "", address: {}, emailContact: "", phoneContact: "", description: "",
+            maxPartySize: 50, bookingWindowDays: 7, cancellationHours: 24, depositRequired: false, depositPerPax: 0,
             categoryIds: [], brandId: ""
         }
     });
@@ -75,14 +75,14 @@ const UpdateRestaurant = ({ onclickClose, restaurantId }: Props) => {
             reset({
                 name: initialData.name || "", 
                 address: initialData.address || {}, 
-                email_contact: initialData.email_contact || "", 
-                phone_contact: initialData.phone_contact || "", 
+                emailContact: initialData.emailContact || "", 
+                phoneContact: initialData.phoneContact || "", 
                 description: initialData.description || "",
-                max_party_size: initialData.max_party_size || 50, 
-                booking_window_days: initialData.booking_window_days || 7, 
-                cancellation_hours: initialData.cancellation_hours || 24,
-                deposit_required: initialData.deposit_required || false, 
-                deposit_amount: initialData.deposit_amount || 0,
+                maxPartySize: initialData.maxPartySize || 50, 
+                bookingWindowDays: initialData.bookingWindowDays || 7, 
+                cancellationHours: initialData.cancellationHours || 24,
+                depositRequired: initialData.depositRequired || false, 
+                depositPerPax: initialData.depositPerPax || 0,
                 categoryIds: initialData.categoryIds || [], 
                 brandId: initialData.brandId || initialData.brand?.id || ""
             });
@@ -219,10 +219,10 @@ const UpdateRestaurant = ({ onclickClose, restaurantId }: Props) => {
             delete payload.imageMainFile;
             delete payload.imagesFiles;
 
-            if (payload.max_party_size) payload.max_party_size = Number(payload.max_party_size);
-            if (payload.booking_window_days) payload.booking_window_days = Number(payload.booking_window_days);
-            if (payload.cancellation_hours) payload.cancellation_hours = Number(payload.cancellation_hours);
-            if (payload.deposit_amount) payload.deposit_amount = Number(payload.deposit_amount);
+            if (payload.maxPartySize) payload.maxPartySize = Number(payload.maxPartySize);
+            if (payload.bookingWindowDays) payload.bookingWindowDays = Number(payload.bookingWindowDays);
+            if (payload.cancellationHours) payload.cancellationHours = Number(payload.cancellationHours);
+            if (payload.depositPerPax) payload.depositPerPax = Number(payload.depositPerPax);
 
             mutate(payload, {
                 onSuccess: () => {
@@ -312,28 +312,7 @@ const UpdateRestaurant = ({ onclickClose, restaurantId }: Props) => {
                                 <textarea {...register("description")} rows={3} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px] resize-none" placeholder="Giới thiệu về nhà hàng..." />
                             </div>
 
-                            <h3 className="text-[15px] font-bold text-indigo-600 border-b border-indigo-100 pb-2 mt-8">Thông tin liên hệ</h3>
-                            
-                            <div className="grid grid-cols-1 gap-4">
-                                <div className="col-span-full">
-                                    <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Địa chỉ chi tiết <span className="text-red-500">*</span></label>
-                                    <AddressSelect
-                                        value={watch("address") as any}
-                                        onChange={(val) => setValue("address", val as any, { shouldValidate: true })}
-                                    />
-                                    {errors.address && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.address.message as string}</p>}
-                                </div>
-                                <div>
-                                    <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Số điện thoại <span className="text-red-500">*</span></label>
-                                    <input type="text" {...register("phone_contact")} className={`w-full px-4 py-2.5 border ${errors.phone_contact ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="0912345678" />
-                                    {errors.phone_contact && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.phone_contact.message}</p>}
-                                </div>
-                            </div>
-                            <div>
-                                <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Email liên hệ <span className="text-red-500">*</span></label>
-                                <input type="email" {...register("email_contact")} className={`w-full px-4 py-2.5 border ${errors.email_contact ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="email@example.com" />
-                                {errors.email_contact && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.email_contact.message as string}</p>}
-                            </div>
+
                         </div>
 
                         {/* Cột 2: Cài đặt đặt bàn & Hình ảnh */}
@@ -343,24 +322,24 @@ const UpdateRestaurant = ({ onclickClose, restaurantId }: Props) => {
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Số khách tối đa</label>
-                                    <input type="number" {...register("max_party_size")} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]" />
+                                    <input type="number" {...register("maxPartySize")} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]" />
                                 </div>
                                 <div>
                                     <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Đặt trước (ngày)</label>
-                                    <input type="number" {...register("booking_window_days")} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]" />
+                                    <input type="number" {...register("bookingWindowDays")} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]" />
                                 </div>
                                 <div>
                                     <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Hủy trước (giờ)</label>
-                                    <input type="number" {...register("cancellation_hours")} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]" />
+                                    <input type="number" {...register("cancellationHours")} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]" />
                                 </div>
                                 <div>
                                     <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Tiền cọc (nếu có)</label>
-                                    <input type="number" {...register("deposit_amount")} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]" placeholder="VND" />
+                                    <input type="number" {...register("depositPerPax")} className="w-full px-4 py-2.5 border border-gray-300 bg-gray-50 rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]" placeholder="VND" />
                                 </div>
                             </div>
                             <div className="flex items-center gap-2 mt-2">
-                                <input type="checkbox" id="deposit_required" {...register("deposit_required")} className="w-4 h-4 text-indigo-600 rounded" />
-                                <label htmlFor="deposit_required" className="text-[13px] text-gray-700 cursor-pointer">Bắt buộc đặt cọc</label>
+                                <input type="checkbox" id="depositRequired" {...register("depositRequired")} className="w-4 h-4 text-indigo-600 rounded" />
+                                <label htmlFor="depositRequired" className="text-[13px] text-gray-700 cursor-pointer">Bắt buộc đặt cọc</label>
                             </div>
 
                             <h3 className="text-[15px] font-bold text-indigo-600 border-b border-indigo-100 pb-2 mt-8">Hình ảnh</h3>
@@ -415,6 +394,35 @@ const UpdateRestaurant = ({ onclickClose, restaurantId }: Props) => {
                                         <FiUploadCloud className="w-6 h-6 text-gray-400" />
                                         <input type="file" className="hidden" accept="image/*" multiple onChange={handleImagesChange} />
                                     </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Thông tin liên hệ full width */}
+                    <div className="space-y-6 mt-8">
+                        <h3 className="text-[15px] font-bold text-indigo-600 border-b border-indigo-100 pb-2">Thông tin liên hệ</h3>
+                        
+                        <div className="grid grid-cols-1 gap-6">
+                            <div className="col-span-full">
+                                <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Địa chỉ chi tiết <span className="text-red-500">*</span></label>
+                                <AddressSelect
+                                    value={watch("address") as any}
+                                    onChange={(val) => setValue("address", val as any, { shouldValidate: true })}
+                                />
+                                {errors.address && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.address.message as string}</p>}
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Số điện thoại <span className="text-red-500">*</span></label>
+                                    <input type="text" {...register("phoneContact")} className={`w-full px-4 py-2.5 border ${errors.phoneContact ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="0912345678" />
+                                    {errors.phoneContact && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.phoneContact.message}</p>}
+                                </div>
+                                <div>
+                                    <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Email liên hệ <span className="text-red-500">*</span></label>
+                                    <input type="email" {...register("emailContact")} className={`w-full px-4 py-2.5 border ${errors.emailContact ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="email@example.com" />
+                                    {errors.emailContact && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.emailContact.message as string}</p>}
                                 </div>
                             </div>
                         </div>

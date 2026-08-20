@@ -55,10 +55,11 @@ export const SubscriptionsList = () => {
             price: plan.price,
             billingCycle: plan.billingCycle,
             maxRestaurants: plan.maxRestaurants,
-            features: plan.features,
+            featuresData: plan.featuresData,
             isActive: !plan.isActive 
-        });
+        } as any);
     };
+
     const [searchTerm, setSearchTerm] = useState('');
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     const [editingPlan, setEditingPlan] = useState<SubscriptionPlan | null>(null);
@@ -160,7 +161,7 @@ export const SubscriptionsList = () => {
                                             <div className="text-sm text-gray-700">
                                                 {plan.maxRestaurants === -1 ? 'Không giới hạn' : `${plan.maxRestaurants} nhà hàng`}
                                             </div>
-                                            <div className="text-[12px] text-gray-500 mt-1">{plan.features.length} tính năng</div>
+                                            <div className="text-[12px] text-gray-500 mt-1">{Object.keys(plan.featuresData || {}).length} tính năng</div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <button 

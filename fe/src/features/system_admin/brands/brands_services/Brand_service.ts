@@ -5,14 +5,16 @@ export const BrandService=async(id:string)=>{
     return response.data ;
 }
 
-export const getBrandsService = async (page: number, limit: number, search?: string) => {
+export const getBrandsService = async (page: number, limit: number, search?: string, status?: string, isFeatured?: string, isNew?: string) => {
     const params = new URLSearchParams({
         page: page.toString(),
         limit: limit.toString(),
     });
-    if (search) {
-        params.append("search", search);
-    }
+    if (search) params.append("search", search);
+    if (status && status !== "all") params.append("status", status);
+    if (isFeatured && isFeatured !== "all") params.append("isFeatured", isFeatured);
+    if (isNew && isNew !== "all") params.append("isNew", isNew);
+    
     const response = await axiosClient.get<{ data: Brand[]; total: number }>(`/system-admin/brand?${params.toString()}`);
     return response.data;
 };

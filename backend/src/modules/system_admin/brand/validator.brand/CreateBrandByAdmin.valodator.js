@@ -4,10 +4,10 @@ import { demoValidator } from "../../../../core/utils/validator.js";
 export const createBrandBasicByAdminValidator = z.object({
     body: z.object({
         name: demoValidator.chuoi("Tên thương hiệu"),
-        tax_code: demoValidator.chuoi("Mã số thuế").max(100, "Mã số thuế không được vượt quá 100 ký tự"),
+        taxCode: demoValidator.chuoi("Mã số thuế").max(100, "Mã số thuế không được vượt quá 100 ký tự"),
         description: z.string().optional().nullable(),
-        email_contact: demoValidator.email(),
-        phone_contact: demoValidator.chuoi("Số điện thoại liên hệ").max(20, "Số điện thoại không được vượt quá 20 ký tự"),
+        emailContact: demoValidator.email(),
+        phoneContact: demoValidator.chuoi("Số điện thoại liên hệ").max(20, "Số điện thoại không được vượt quá 20 ký tự"),
         link: z.preprocess(
             (value) => {
                 if (typeof value !== "string") return undefined;

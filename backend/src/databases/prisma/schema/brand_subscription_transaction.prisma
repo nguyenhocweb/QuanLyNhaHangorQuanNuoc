@@ -1,8 +1,8 @@
 model BrandSubscriptionTransaction {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  brandSubscriptionId String            @db.ObjectId
-  brandSubscription   BrandSubscription @relation(fields: [brandSubscriptionId], references: [id])
+  invoiceId String  @db.ObjectId
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
 
   amount Float
 
@@ -18,10 +18,14 @@ model BrandSubscriptionTransaction {
 
   rawResponse Json? // Lưu kết quả trả về từ cổng thanh toán
 
+  ipAddress      String? // IP thực hiện thanh toán
+  userAgent      String? // Trình duyệt/Thiết bị
+  idempotencyKey String? // Khóa chống duplicate giao dịch
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([brandSubscriptionId])
+  @@index([invoiceId])
   @@index([userId])
   @@index([externalTransactionId])
   @@map("brand_subscription_transactions")

@@ -65,10 +65,10 @@ const HeroSection: React.FC<Props> = ({ coreInfo, hoursData }) => {
                                         {formatTime(todayHours.open_time)} - {formatTime(todayHours.close_time)}
                                     </span>
                                 )}
-                                {coreInfo.phone_contact && (
-                                    <a href={`tel:${coreInfo.phone_contact}`} className="text-sm font-semibold bg-indigo-600/90 hover:bg-indigo-600 px-4 py-1 rounded-full border border-indigo-500 backdrop-blur-sm flex items-center gap-2 transition-colors">
+                                {coreInfo.phoneContact && (
+                                    <a href={`tel:${coreInfo.phoneContact}`} className="text-sm font-semibold bg-indigo-600/90 hover:bg-indigo-600 px-4 py-1 rounded-full border border-indigo-500 backdrop-blur-sm flex items-center gap-2 transition-colors">
                                         <FaPhoneAlt className="text-white" />
-                                        {coreInfo.phone_contact}
+                                        {coreInfo.phoneContact}
                                     </a>
                                 )}
                             </div>

@@ -1,6 +1,6 @@
 import { prisma } from "../../../../databases/init.mongodb.js";
 
-export const createStaffRepo = async ({ userId, name, email, passwordHash, phone, roleId, brandId, restaurantId, permissionIds, salary_type }) => {
+export const createStaffRepo = async ({ userId, name, email, passwordHash, phone, workspaceRoleId, brandId, restaurantId, permissionIds, salary_type }) => {
   return await prisma.$transaction(async (tx) => {
     let finalUserId = userId;
 
@@ -12,15 +12,10 @@ export const createStaffRepo = async ({ userId, name, email, passwordHash, phone
           email,
           password: passwordHash,
           sdt: phone,
-          roleId,
+          // Removed workspaceRoleId from User table
         },
       });
       finalUserId = newUser.id;
-    } else {
-      await tx.user.update({
-        where: { id: finalUserId },
-        data: { roleId },
-      });
     }
 
     // 2. Tạo Employment cho nhà hàng
@@ -30,6 +25,7 @@ export const createStaffRepo = async ({ userId, name, email, passwordHash, phone
         brandId,
         restaurantId,
         salary_type: salary_type || null,
+        workspaceRoleId: workspaceRoleId, // Added here
       },
     });
 
@@ -48,8 +44,9 @@ export const createStaffRepo = async ({ userId, name, email, passwordHash, phone
       where: { id: newEmployment.id },
       include: {
         user: {
-          select: { id: true, name: true, email: true, sdt: true, avatar: true, role: { select: { name: true } } },
+          select: { id: true, name: true, email: true, sdt: true, avatar: true, systemRole: { select: { name: true } } },
         },
+        workspaceRole: { select: { name: true } },
         restaurant: {
           select: { id: true, name: true },
         },

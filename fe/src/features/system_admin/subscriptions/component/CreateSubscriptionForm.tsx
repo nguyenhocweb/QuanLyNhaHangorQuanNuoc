@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FiX, FiCheck } from 'react-icons/fi';
 import { subscriptionSchema, SubscriptionFormValues } from '../schema/subscription-schema';
 import { useCreateSubscription, useGetSubscriptionFeatures } from '../hook/useSubscription_hook';
+import { BASIC_OPERATIONAL_FEATURES } from '../../../brand_owner/billing/constants/subscription.constant';
 
 interface CreateSubscriptionFormProps {
     onClose: () => void;
@@ -16,20 +17,24 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
         resolver: zodResolver(subscriptionSchema) as any,
         defaultValues: {
             isActive: true,
-            features: [],
+            featuresData: {},
+            trialPeriodDays: 0,
+            setupFee: 0,
             billingCycle: 'MONTHLY'
         }
     });
 
-    const features = watch('features') || [];
+    const featuresData = watch('featuresData') || {};
     const isActive = watch('isActive');
 
     const toggleFeature = (featureKey: string) => {
-        if (features.includes(featureKey)) {
-            setValue('features', features.filter(item => item !== featureKey), { shouldValidate: true });
+        const currentData = { ...featuresData };
+        if (currentData[featureKey]) {
+            delete currentData[featureKey];
         } else {
-            setValue('features', [...features, featureKey], { shouldValidate: true });
+            currentData[featureKey] = true;
         }
+        setValue('featuresData', currentData, { shouldValidate: true });
     };
 
     const { mutate: createSubscription, isPending } = useCreateSubscription();
@@ -62,7 +67,7 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
                         <div>
                             <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Tên gói cước <span className="text-red-500">*</span></label>
                             <input type="text" {...register("name")} className={`w-full px-4 py-2.5 border ${errors.name ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="VD: Gói Chuyên Nghiệp" />
-                            {errors.name && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.name.message}</p>}
+                            {errors.name && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.name.message as string}</p>}
                         </div>
 
                         <div>
@@ -83,14 +88,14 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Giá tiền (VNĐ) <span className="text-red-500">*</span></label>
-                                <input type="number" {...register("price")} className={`w-full px-4 py-2.5 border ${errors.price ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="VD: 500000" />
-                                {errors.price && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.price.message}</p>}
+                                <input type="number" {...register("price", { valueAsNumber: true })} className={`w-full px-4 py-2.5 border ${errors.price ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="VD: 500000" />
+                                {errors.price && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.price.message as string}</p>}
                             </div>
 
                             <div>
                                 <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Giá khuyến mãi (VNĐ)</label>
-                                <input type="number" {...register("discountPrice")} className={`w-full px-4 py-2.5 border ${errors.discountPrice ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="Để trống nếu ko KM" />
-                                {errors.discountPrice && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.discountPrice.message}</p>}
+                                <input type="number" {...register("discountPrice", { valueAsNumber: true })} className={`w-full px-4 py-2.5 border ${errors.discountPrice ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="Để trống nếu ko KM" />
+                                {errors.discountPrice && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.discountPrice.message as string}</p>}
                             </div>
                         </div>
 
@@ -98,13 +103,13 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
                             <div>
                                 <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Từ ngày</label>
                                 <input type="date" {...register("discountStartDate")} className={`w-full px-4 py-2.5 border ${errors.discountStartDate ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} />
-                                {errors.discountStartDate && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.discountStartDate.message}</p>}
+                                {errors.discountStartDate && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.discountStartDate.message as string}</p>}
                             </div>
                             
                             <div>
                                 <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Đến ngày</label>
                                 <input type="date" {...register("discountEndDate")} className={`w-full px-4 py-2.5 border ${errors.discountEndDate ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} />
-                                {errors.discountEndDate && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.discountEndDate.message}</p>}
+                                {errors.discountEndDate && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.discountEndDate.message as string}</p>}
                             </div>
                         </div>
 
@@ -115,23 +120,56 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
                                 <option value="YEARLY">Hàng năm</option>
                                 <option value="LIFETIME">Trọn đời (Thanh toán 1 lần)</option>
                             </select>
-                            {errors.billingCycle && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.billingCycle.message}</p>}
+                            {errors.billingCycle && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.billingCycle.message as string}</p>}
                         </div>
 
                         <div>
                             <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Giới hạn số nhà hàng <span className="text-red-500">*</span></label>
-                            <input type="number" {...register("maxRestaurants")} className={`w-full px-4 py-2.5 border ${errors.maxRestaurants ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="Nhập -1 nếu không giới hạn" />
-                            {errors.maxRestaurants && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.maxRestaurants.message}</p>}
+                            <input type="number" {...register("maxRestaurants", { valueAsNumber: true })} className={`w-full px-4 py-2.5 border ${errors.maxRestaurants ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} placeholder="Nhập -1 nếu không giới hạn" />
+                            {errors.maxRestaurants && <p className="text-red-500 text-xs mt-1.5 font-medium">{errors.maxRestaurants.message as string}</p>}
                             <p className="text-xs text-gray-400 mt-1">Mẹo: -1 là không giới hạn số lượng</p>
                         </div>
 
+                        <div>
+                            <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Ngày dùng thử (Ngày)</label>
+                            <input type="number" {...register("trialPeriodDays", { valueAsNumber: true })} className={`w-full px-4 py-2.5 border ${errors.trialPeriodDays ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} />
+                        </div>
+                        
+                        <div>
+                            <label className="block text-[13px] font-semibold text-gray-700 mb-1.5">Phí khởi tạo (VNĐ)</label>
+                            <input type="number" {...register("setupFee", { valueAsNumber: true })} className={`w-full px-4 py-2.5 border ${errors.setupFee ? 'border-red-500 bg-red-50' : 'border-gray-300 bg-gray-50'} rounded-xl focus:ring-2 focus:ring-indigo-500/30 outline-none text-[14px]`} />
+                        </div>
+
                         <div className="md:col-span-2 border-t border-gray-100 pt-6">
-                            <label className="block text-[13px] font-semibold text-gray-700 mb-2">Các tính năng (Features) <span className="text-red-500">*</span></label>
+                            <div className="flex items-center justify-between mb-1">
+                                <label className="block text-[13px] font-semibold text-gray-700">Các tính năng (FeaturesData) <span className="text-red-500">*</span></label>
+                                <div className="flex items-center gap-3">
+                                    <button type="button" onClick={() => {
+                                        const basicFeatures: Record<string, boolean> = {};
+                                        BASIC_OPERATIONAL_FEATURES.forEach(k => basicFeatures[k] = true);
+                                        setValue('featuresData', basicFeatures, { shouldValidate: true });
+                                    }} className="text-[12px] font-semibold text-green-600 hover:text-green-800 transition-colors">
+                                        * Chọn cơ bản
+                                    </button>
+                                    <button type="button" onClick={() => {
+                                        const allFeatures: Record<string, boolean> = {};
+                                        Object.keys(featureNames).forEach(k => allFeatures[k] = true);
+                                        setValue('featuresData', allFeatures, { shouldValidate: true });
+                                    }} className="text-[12px] font-semibold text-indigo-600 hover:text-indigo-800 transition-colors">
+                                        + Chọn tất cả
+                                    </button>
+                                    <button type="button" onClick={() => {
+                                        setValue('featuresData', {}, { shouldValidate: true });
+                                    }} className="text-[12px] font-semibold text-gray-500 hover:text-red-600 transition-colors">
+                                        - Bỏ chọn hết
+                                    </button>
+                                </div>
+                            </div>
                             <p className="text-[12px] text-gray-500 mb-4">Lựa chọn các tính năng được phép sử dụng trong gói cước này.</p>
                             
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 {Object.entries(featureNames).map(([key, label]) => {
-                                    const isSelected = features.includes(key);
+                                    const isSelected = !!featuresData?.[key];
                                     return (
                                         <div 
                                             key={key} 
@@ -146,7 +184,7 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
                                     );
                                 })}
                             </div>
-                            {errors.features && <p className="text-red-500 text-xs mt-3 font-medium">{errors.features.message}</p>}
+                            {errors.featuresData && <p className="text-red-500 text-xs mt-3 font-medium">{errors.featuresData.message as string}</p>}
                         </div>
                     </div>
 

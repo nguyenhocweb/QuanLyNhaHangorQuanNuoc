@@ -1,0 +1,27 @@
+enum TransactionType {
+  EARN
+  SPEND
+  EXPIRED
+}
+
+model LoyaltyTransaction {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String  @db.ObjectId
+  restaurantId String? @db.ObjectId // Có thể tích/trừ điểm ở cấp Brand hoặc Restaurant
+  brandId      String? @db.ObjectId
+  orderId      String? @db.ObjectId
+  cashierId    String? @db.ObjectId // Ghi nhận ID nhân viên thu ngân để tra soát gian lận
+
+  points       Float
+  type         TransactionType
+  isSuspicious Boolean         @default(false)
+  description  String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([restaurantId, createdAt])
+  @@index([brandId, createdAt])
+  @@index([cashierId, isSuspicious])
+  @@map("loyalty_transactions")
+}

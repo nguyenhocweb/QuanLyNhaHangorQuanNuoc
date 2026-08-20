@@ -10,6 +10,7 @@ export const useUpdatePromotion = () => {
         onSuccess: (data, variables) => {
             toast.success("Cập nhật khuyến mãi thành công");
             queryClient.invalidateQueries({ queryKey: ["BrandPromotions", variables.brandId] });
+            queryClient.invalidateQueries({ queryKey: ["BrandPromotionDetails", variables.brandId, variables.promotionId] });
         },
         onError: (error: any) => {
             toast.error(error?.response?.data?.message || "Có lỗi xảy ra khi cập nhật khuyến mãi");

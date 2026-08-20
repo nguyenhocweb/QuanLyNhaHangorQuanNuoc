@@ -4,7 +4,7 @@ export const getFeaturedReviewsRepo = async (limit = 9) => {
     // 1. Lấy danh sách đánh giá có điểm cao từ 4 sao trở lên và đang hoạt động
     const reviews = await prisma.review_Restaurant.findMany({
         where: {
-            status: "ACTIVE",
+            status: "APPROVED",
             overall_rating: { gte: 4 }
         },
         take: parseInt(limit),

@@ -22,7 +22,3 @@ export const updateRestaurantService = async (data: UpdateRestaurantProps): Prom
     return res.data;
 };
 
-export const deleteRestaurantService = async (id: string): Promise<any> => {
-    const res = await axiosClient.delete(`/system-admin/restaurant/${id}`);
-    return res.data;
-};

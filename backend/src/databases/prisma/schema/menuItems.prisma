@@ -6,32 +6,37 @@ model MenuItem {
   brandId String? @db.ObjectId
   brand   Brand?  @relation(fields: [brandId], references: [id])
 
-  sku           String   @unique
-  name          String
-  description   String?
-  image         String?
-  images        String[]
-  
-  basePrice     Float    // Giá niêm yết chuẩn toàn hệ thống
-  
-  item_type     ItemType?
-  allergens     String[]
-  spice_level   Int?
-  prep_time     Int?
-  
-  isActive      Boolean @default(true)
-  is_featured   Boolean @default(false)
+  sku         String   @unique
+  name        String
+  description String?
+  image       String?
+  images      String[]
 
-  sort_order Int         @default(0)
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  
+  basePrice Float // Giá niêm yết chuẩn toàn hệ thống
+
+  item_type   ItemType?
+  allergens   String[]
+  spice_level Int?
+  prep_time   Int?
+
+  isActive    Boolean @default(true)
+  is_featured Boolean @default(false)
+
+  // --- Thuế cấp độ món ăn ---
+  taxRateOverride Float?
+  isTaxExempt     Boolean @default(false)
+
+  sort_order Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
   orderItems OrderItem[]
 
-  variants       ItemVariant[]
-  modifierGroups ModifierGroup[]
-  restaurantMaps RestaurantMenuItem[]
-  recipes        Recipe[]
+  variants           ItemVariant[]
+  modifierGroups     ModifierGroup[]
+  restaurantMaps     RestaurantMenuItem[]
+  recipes            Recipe[]
+  promotionMenuItems PromotionMenuItem[]
 
   @@index([brandId, isActive])
   @@index([is_featured, isActive])

@@ -10,9 +10,10 @@ interface BrandDetailEcosystemProps {
     idBrand: string;
     brandName?: string;
     grid?: number;
+    variant?: "standard" | "zen" | string;
 }
 
-export default function BrandDetailEcosystem({ idBrand, brandName = "Thương hiệu", grid }: BrandDetailEcosystemProps) {
+export default function BrandDetailEcosystem({ idBrand, brandName = "Thương hiệu", grid, variant = "standard" }: BrandDetailEcosystemProps) {
     const { is3D } = usePerformanceMode();
 
     return (
@@ -21,54 +22,54 @@ export default function BrandDetailEcosystem({ idBrand, brandName = "Thương hi
             {/* --- PHÂN KHU 1: THỰC ĐƠN TINH HOA THƯƠNG HIỆU --- */}
             <div className="flex flex-col gap-8">
                 {/* Header Phân khu 1 */}
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-gray-500/20">
+                <div className={`flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b ${variant === 'zen' ? 'border-lime-900/10' : 'border-gray-500/20'}`}>
                     <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-2 text-amber-500 font-bold text-xs uppercase tracking-widest">
+                        <div className={`flex items-center gap-2 font-bold text-xs uppercase tracking-widest ${variant === 'zen' ? 'text-lime-700' : 'text-amber-500'}`}>
                             <FaStar />
                             Hương vị Độc quyền
                         </div>
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black flex items-center gap-3">
-                            <span className="w-10 h-10 rounded-2xl bg-amber-500/20 text-amber-500 flex items-center justify-center text-xl shadow-inner">
+                        <h2 className={`text-2xl sm:text-3xl md:text-4xl font-black flex items-center gap-3 ${variant === 'zen' ? 'text-stone-800' : ''}`}>
+                            <span className={`w-10 h-10 rounded-2xl flex items-center justify-center text-xl shadow-inner ${variant === 'zen' ? 'bg-lime-700/10 text-lime-700' : 'bg-amber-500/20 text-amber-500'}`}>
                                 <FaUtensils />
                             </span>
                             Thực Đơn Tinh Hoa {brandName}
                         </h2>
                     </div>
-                    <p className={`text-sm max-w-md sm:text-right ${is3D ? "text-gray-300" : "text-gray-600"}`}>
+                    <p className={`text-sm max-w-md sm:text-right ${is3D ? "text-gray-300" : variant === 'zen' ? "text-stone-600" : "text-gray-600"}`}>
                         Tuyệt phẩm ẩm thực làm nên tên tuổi và phong cách riêng biệt, được chọn lọc khắt khe từ các tổng bếp trưởng hàng đầu.
                     </p>
                 </div>
 
                 {/* Nội dung Món ăn Tinh hoa */}
                 <div className="w-full">
-                    <FeaturedDishComponent type="isBrand" id={idBrand} limit={6} grid={grid} />
+                    <FeaturedDishComponent type="isBrand" id={idBrand} limit={12} grid={grid} hideHeader={true} />
                 </div>
             </div>
 
             {/* --- PHÂN KHU 2: HỆ THỐNG CHI NHÁNH NHÀ HÀNG --- */}
             <div className="flex flex-col gap-8">
                 {/* Header Phân khu 2 */}
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b border-gray-500/20">
+                <div className={`flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-6 border-b ${variant === 'zen' ? 'border-lime-900/10' : 'border-gray-500/20'}`}>
                     <div className="flex flex-col gap-2">
-                        <div className="flex items-center gap-2 text-indigo-500 font-bold text-xs uppercase tracking-widest">
+                        <div className={`flex items-center gap-2 font-bold text-xs uppercase tracking-widest ${variant === 'zen' ? 'text-lime-700' : 'text-indigo-500'}`}>
                             <FaCrown />
                             Mạng lưới Trải nghiệm VIP
                         </div>
-                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-black flex items-center gap-3">
-                            <span className="w-10 h-10 rounded-2xl bg-indigo-500/20 text-indigo-500 flex items-center justify-center text-xl shadow-inner">
+                        <h2 className={`text-2xl sm:text-3xl md:text-4xl font-black flex items-center gap-3 ${variant === 'zen' ? 'text-stone-800' : ''}`}>
+                            <span className={`w-10 h-10 rounded-2xl flex items-center justify-center text-xl shadow-inner ${variant === 'zen' ? 'bg-lime-700/10 text-lime-700' : 'bg-indigo-500/20 text-indigo-500'}`}>
                                 <FaBuilding />
                             </span>
                             Hệ Thống Chi Nhánh Trực Thuộc
                         </h2>
                     </div>
-                    <p className={`text-sm max-w-md sm:text-right ${is3D ? "text-gray-300" : "text-gray-600"}`}>
+                    <p className={`text-sm max-w-md sm:text-right ${is3D ? "text-gray-300" : variant === 'zen' ? "text-stone-600" : "text-gray-600"}`}>
                         Không gian sang trọng, dịch vụ chuyên nghiệp 5 sao. Đặt bàn trực tiếp để giữ chỗ cho những bữa tiệc quan trọng nhất của quý khách.
                     </p>
                 </div>
 
                 {/* Nội dung Chi nhánh Nhà hàng */}
                 <div className="w-full">
-                    <Featured_Restaurant_Component type="page" id={idBrand} limit={6} grid={grid} />
+                    <Featured_Restaurant_Component type="page" id={idBrand} limit={12} grid={grid} hideHeader={true} />
                 </div>
             </div>
 

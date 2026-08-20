@@ -43,20 +43,22 @@ const UpdateRestaurantStatusModal = ({ isOpen, onClose, restaurant }: UpdateRest
             <div className="bg-white rounded-2xl w-full max-w-md p-6 shadow-xl">
                 <div className="flex items-center justify-between mb-4">
                     <h3 className="text-lg font-bold text-gray-900">Cập nhật trạng thái</h3>
-                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600">�S"</button>
+                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
                 </div>
                 <div className="space-y-4">
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái m�:i</label>
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Trạng thái mới</label>
                         <select 
                             value={newAdminStatus}
                             onChange={(e) => setNewAdminStatus(e.target.value)}
                             className="w-full border border-gray-200 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-[14px]"
                         >
-                            <option value="PENDING">Chờ duy�!t</option>
-                            <option value="ACTIVE">Hoạt ��"ng</option>
-                            <option value="INACTIVE">Tạm ngh�0</option>
-                            <option value="TERMINATED">Ngh�0 vĩnh vi�&n</option>
+                            <option value="PENDING">Chờ duyệt</option>
+                            <option value="ACTIVE">Hoạt động</option>
+                            <option value="INACTIVE">Tạm ngưng</option>
+                            <option value="TERMINATED">Nghỉ vĩnh viễn</option>
                         </select>
                     </div>
                     <div>

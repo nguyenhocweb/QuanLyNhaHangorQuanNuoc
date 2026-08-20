@@ -1,6 +1,6 @@
 import brandData from '../constants/brand.data.js';
 import { tableVector } from '../../../config/tableVector.js';
-import { buildBrandVector } from "../../../modules/shared/vector/builders/brand.builder.js"
+import { buildBrandVector } from "../../../modules/shared/vector/core_builders/brand.builder.js"
 import { upsertVector } from "../../../modules/shared/vector/service/vectorDB.service.js";
 import { embedText } from "../../../modules/shared/vector/service/embedding.service.js";
 export const Brand_Extension = async (prisma) => {

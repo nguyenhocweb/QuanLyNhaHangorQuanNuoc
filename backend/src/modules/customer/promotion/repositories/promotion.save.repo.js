@@ -9,7 +9,8 @@ export const findPromotionByIdOrCodeRepo = async (identifier) => {
 
     if (isObjectId) {
         const byId = await prisma.promotion.findUnique({
-            where: { id: identifier }
+            where: { id: identifier },
+            include: { promotionRestaurants: true }
         });
         if (byId) return byId;
     }
@@ -21,7 +22,8 @@ export const findPromotionByIdOrCodeRepo = async (identifier) => {
                 equals: identifier,
                 mode: "insensitive"
             }
-        }
+        },
+        include: { promotionRestaurants: true }
     });
 };
 

@@ -6,7 +6,7 @@ import { useState, useRef, useEffect } from "react"
 import FadeIn from "@/src/core/components/animation/FadeIn";
 import { useRestaurant } from "../hook/useRestaurant_hook";
 import { useUpdateRestaurant } from "../hook/useUpdateRestaurant_hook";
-import { useDeleteRestaurant } from "../hook/useDeleteRestaurant_hook";
+
 import { useCategoryRestaurant } from "../../categories/hook/useCategoryRestaurant_hook";
 import { cities } from "@/src/core/lib/configAddressCity";
 import UpdateRestaurant from "./UpdateRestaurant_Form";
@@ -24,9 +24,7 @@ const RestaurantComponent = () => {
     const [categoryId, setCategoryId] = useState("");
     const [isUpdateModal, setIsUpdateModal] = useState<boolean>(false);
     const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
     const [selectedRestaurantId, setSelectedRestaurantId] = useState<string | null>(null);
-    const [restaurantToDelete, setRestaurantToDelete] = useState<any>(null);
     const [isUpdateStatusModalOpen, setIsUpdateStatusModalOpen] = useState<boolean>(false);
     const [restaurantToUpdateStatus, setRestaurantToUpdateStatus] = useState<any>(null);
     const [isCityOpen, setIsCityOpen] = useState(false);
@@ -59,7 +57,6 @@ const RestaurantComponent = () => {
     const meta = restaurantData?.meta;
 
     const { mutate: updateRestaurant, isPending: isUpdating } = useUpdateRestaurant();
-    const { mutate: deleteRestaurant, isPending: isDeleting } = useDeleteRestaurant();
 
 
 
@@ -338,20 +335,20 @@ const RestaurantComponent = () => {
                                             )}
                                         </td>
                                         <td className="py-4 px-5 text-[13px] text-gray-600">
-                                            {e.email_contact && (
+                                            {e.emailContact && (
                                                 <div className="flex items-center gap-1 group/email">
-                                                    <div className="text-gray-900 truncate max-w-[130px]" title={e.email_contact}>{e.email_contact}</div>
+                                                    <div className="text-gray-900 truncate max-w-[130px]" title={e.emailContact}>{e.emailContact}</div>
                                                     <button 
-                                                        onClick={(ev) => handleCopyText(e.email_contact, ev)}
+                                                        onClick={(ev) => handleCopyText(e.emailContact, ev)}
                                                         className="opacity-0 group-hover/email:opacity-100 p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-indigo-600 transition-all"
                                                         title="Copy email"
                                                     >
-                                                        {copiedText === e.email_contact ? <FiCheck className="text-green-500" /> : <FiCopy />}
+                                                        {copiedText === e.emailContact ? <FiCheck className="text-green-500" /> : <FiCopy />}
                                                     </button>
                                                 </div>
                                             )}
-                                            {e.phone_contact && <div className="text-gray-500 mt-0.5">{e.phone_contact}</div>}
-                                            {!e.email_contact && !e.phone_contact && <span className="text-gray-400 italic">Chưa cập nhật</span>}
+                                            {e.phoneContact && <div className="text-gray-500 mt-0.5">{e.phoneContact}</div>}
+                                            {!e.emailContact && !e.phoneContact && <span className="text-gray-400 italic">Chưa cập nhật</span>}
                                         </td>
                                         <td className="py-4 px-5">
                                             {e.employments && e.employments.length > 0 ? (
@@ -427,17 +424,7 @@ const RestaurantComponent = () => {
                                                 >
                                                     <FiEdit2 />
                                                 </Button>
-                                                <Button
-                                                    variant="outline"
-                                                    sizea="p2_1"
-                                                    className="text-gray-500 border-gray-200 hover:bg-red-50 hover:text-red-600 hover:border-red-200 rounded-lg p-2 h-8 w-8 flex items-center justify-center transition-all"
-                                                    onClick={() => {
-                                                        setRestaurantToDelete(e);
-                                                        setIsDeleteModalOpen(true);
-                                                    }}
-                                                >
-                                                    <FiTrash2 />
-                                                </Button>
+
                                             </div>
                                         </td>
                                     </tr>
@@ -526,31 +513,7 @@ const RestaurantComponent = () => {
                     />
                 </div>
             )}
-            <ConfirmModal
-                open={isDeleteModalOpen}
-                title="Xác nhận xóa nhà hàng"
-                content={`Bạn có chắc chắn muốn xóa nhà hàng "${restaurantToDelete?.name}" không? Hành động này không thể hoàn tác.`}
-                type="danger"
-                isLoading={isDeleting}
-                onClose={() => {
-                    if (!isDeleting) {
-                        setIsDeleteModalOpen(false);
-                        setRestaurantToDelete(null);
-                    }
-                }}
-                onConfirm={() => {
-                    if (restaurantToDelete) {
-                        deleteRestaurant(restaurantToDelete.id, {
-                            onSuccess: () => {
-                                setIsDeleteModalOpen(false);
-                                setRestaurantToDelete(null);
-                            }
-                        });
-                    }
-                }}
-                confirmText="Xóa"
-                cancelText="Hủy"
-            />
+
             <UpdateRestaurantStatusModal
                 isOpen={isUpdateStatusModalOpen}
                 onClose={() => {

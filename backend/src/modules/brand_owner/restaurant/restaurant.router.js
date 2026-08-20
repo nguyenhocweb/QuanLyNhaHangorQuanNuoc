@@ -25,7 +25,7 @@ const route = Router({ mergeParams: true });
 // Middleware áp dụng cho tất cả route bên dưới
 route.use(authenticateToken);
 // "Chủ thương hiệu" role is required
-route.use(authorizeRole("Chủ thương hiệu", "Quản lý thương hiệu"));
+route.use(authorizeRole("Chủ thương hiệu", "Chủ thương hiệu"));
 
 route.get("/", asyncHandler(getRestaurantsController));
 route.put("/template", validate(updateRestaurantTemplateValidator), updateRestaurantTemplateController);

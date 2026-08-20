@@ -99,11 +99,11 @@ const LuxuryTemplate = ({ data, idBrand }: LuxuryTemplateProps) => {
                                 </li>
                                 <li>
                                     <span className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Đặt Bàn / Hotline</span>
-                                    <a href={`tel:${data?.phone_contact}`} className="text-lg font-light text-gray-200 hover:text-amber-500 transition-colors">{data?.phone_contact || "Liên hệ qua Website"}</a>
+                                    <a href={`tel:${data?.phoneContact}`} className="text-lg font-light text-gray-200 hover:text-amber-500 transition-colors">{data?.phoneContact || "Liên hệ qua Website"}</a>
                                 </li>
                                 <li>
                                     <span className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Hòm Thư Kín</span>
-                                    <a href={`mailto:${data?.email_contact}`} className="text-lg font-light text-gray-200 hover:text-amber-500 transition-colors">{data?.email_contact || "Liên hệ qua Website"}</a>
+                                    <a href={`mailto:${data?.emailContact}`} className="text-lg font-light text-gray-200 hover:text-amber-500 transition-colors">{data?.emailContact || "Liên hệ qua Website"}</a>
                                 </li>
                             </ul>
                         </div>
@@ -116,7 +116,7 @@ const LuxuryTemplate = ({ data, idBrand }: LuxuryTemplateProps) => {
                                 </li>
                                 <li>
                                     <span className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Tư Cách Pháp Nhân</span>
-                                    <span className="text-lg font-light text-gray-200">{data?.tax_code ? `MST: ${data.tax_code}` : "Đã xác thực minh bạch"}</span>
+                                    <span className="text-lg font-light text-gray-200">{data?.taxCode ? `MST: ${data.taxCode}` : "Đã xác thực minh bạch"}</span>
                                 </li>
                                 <li>
                                     <span className="block text-xs uppercase tracking-widest text-gray-500 mb-2">Tình Trạng</span>

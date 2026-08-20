@@ -10,9 +10,9 @@ const imageAcceptTypes = [
 
 export const UpdateBrandSchema = z.object({
     name: validator.string("Tên thương hiệu", 255, 1),
-    tax_code: validator.string("Mã số thuế", 100, 1).optional().or(z.literal("")),
-    email_contact: validator.email().optional().or(z.literal("")),
-    phone_contact: validator.phone().optional().or(z.literal("")),
+    taxCode: validator.string("Mã số thuế", 100, 1).optional().or(z.literal("")),
+    emailContact: validator.email().optional().or(z.literal("")),
+    phoneContact: validator.phone().optional().or(z.literal("")),
     link: z.preprocess(
         (input) => {
             if (typeof input !== "string") return undefined;

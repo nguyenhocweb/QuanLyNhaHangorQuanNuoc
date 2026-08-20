@@ -18,8 +18,8 @@ export const cancelReservationService = async (id, userId, reason) => {
         throw new BadRequestError("Không thể hủy đơn đặt bàn đã hoàn thành hoặc khách đã đến.");
     }
 
-    // Kiểm tra quy định hủy bàn của nhà hàng (cancellation_hours)
-    const cancellationHours = reservation.restaurant?.cancellation_hours || 0;
+    // Kiểm tra quy định hủy bàn của nhà hàng (cancellationHours)
+    const cancellationHours = reservation.restaurant?.cancellationHours || 0;
     
     if (cancellationHours > 0 && reservation.reservation_date && reservation.start_time) {
         // Kết hợp reservation_date và start_time

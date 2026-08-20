@@ -16,9 +16,9 @@ import AddressSelect from "@/src/core/components/form/AddressSelect";
 
 const UpdateBrandSchema = z.object({
     name: z.string().min(1, "Tên thương hiệu không được để trống"),
-    tax_code: z.string().max(100, "Mã số thuế không được vượt quá 100 ký tự").optional().or(z.literal("")),
-    email_contact: z.string().email("Email không hợp lệ").optional().or(z.literal("")),
-    phone_contact: z.string().max(20, "Số điện thoại không được vượt quá 20 ký tự").optional().or(z.literal("")),
+    taxCode: z.string().max(100, "Mã số thuế không được vượt quá 100 ký tự").optional().or(z.literal("")),
+    emailContact: z.string().email("Email không hợp lệ").optional().or(z.literal("")),
+    phoneContact: z.string().max(20, "Số điện thoại không được vượt quá 20 ký tự").optional().or(z.literal("")),
     link: z.string().url("Website/Link không hợp lệ").max(255, "Website/Link không được vượt quá 255 ký tự").optional().or(z.literal("")),
     address: z.object({
         street: z.string().optional(),
@@ -59,9 +59,9 @@ const UpdateBrand_modal = ({ brand, onClose }: Props) => {
         resolver: zodResolver(UpdateBrandSchema),
         defaultValues: {
             name: brand.name || "",
-            tax_code: brand.tax_code || "",
-            email_contact: brand.email_contact || "",
-            phone_contact: brand.phone_contact || "",
+            taxCode: brand.taxCode || "",
+            emailContact: brand.emailContact || "",
+            phoneContact: brand.phoneContact || "",
             link: brand.link || "",
             address: brand.address || undefined,
             is_featured: brand.isFeatured || false,
@@ -154,21 +154,21 @@ const UpdateBrand_modal = ({ brand, onClose }: Props) => {
                                             <label className="block text-sm font-semibold text-slate-700 mb-2">Mã số thuế</label>
                                             <input type="text" placeholder="Nhập MST..."
                                                 className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                                                {...register("tax_code")}
+                                                {...register("taxCode")}
                                             />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-semibold text-slate-700 mb-2">Số điện thoại</label>
                                             <input type="text" placeholder="Nhập SĐT liên hệ..."
                                                 className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                                                {...register("phone_contact")}
+                                                {...register("phoneContact")}
                                             />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-semibold text-slate-700 mb-2">Email liên hệ</label>
                                             <input type="email" placeholder="example@brand.com"
                                                 className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                                                {...register("email_contact")}
+                                                {...register("emailContact")}
                                             />
                                         </div>
                                         <div>

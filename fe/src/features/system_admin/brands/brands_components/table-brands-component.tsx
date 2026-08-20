@@ -63,7 +63,11 @@ const TableBrandsComponent = () => {
     const debouncedSearch = useDebounce({ value: searchTerm, delay: 600 });
     const limit = 10;
 
-    const { data, isLoading } = useGetBrands(page, limit, debouncedSearch as string);
+    const [statusFilter, setStatusFilter] = useState("all");
+    const [featuredFilter, setFeaturedFilter] = useState("all");
+    const [newFilter, setNewFilter] = useState("all");
+
+    const { data, isLoading } = useGetBrands(page, limit, debouncedSearch as string, statusFilter, featuredFilter, newFilter);
     const brands = data?.data || [];
     const total = data?.total || 0;
     const totalPages = Math.ceil(total / limit) || 1;
@@ -81,26 +85,64 @@ const TableBrandsComponent = () => {
     return (
         <FadeIn className="w-full bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 overflow-hidden flex flex-col">
             {/* Header Area */}
-            <div className="p-6 md:p-8 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50">
+            <div className="p-6 md:p-8 border-b border-slate-100 flex flex-col gap-6 bg-slate-50/50">
                 <div>
                     <h3 className="text-2xl font-bold text-slate-800 tracking-tight">Danh sách Thương hiệu</h3>
                     <p className="text-sm text-slate-500 mt-1">Quản lý toàn diện hệ thống đối tác nhượng quyền & chuỗi nhà hàng</p>
                 </div>
                 
-                <div className="relative w-full sm:w-80">
-                    <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <FiSearch className="text-slate-400 text-lg" />
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
+                    {/* Left side: Search Input */}
+                    <div className="relative w-full sm:w-80 shrink-0">
+                        <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <FiSearch className="text-slate-400 text-lg" />
+                        </div>
+                        <input 
+                            type="text" 
+                            placeholder="Tìm kiếm thương hiệu..."
+                            className="w-full bg-white border border-slate-200 rounded-xl pl-12 pr-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm"
+                            value={searchTerm}
+                            onChange={(e) => {
+                                setSearchTerm(e.target.value);
+                                setPage(1); 
+                            }}
+                        />
                     </div>
-                    <input 
-                        type="text" 
-                        placeholder="Tìm kiếm thương hiệu, MST, email..."
-                        className="w-full bg-white border border-slate-200 rounded-xl pl-12 pr-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all shadow-sm"
-                        value={searchTerm}
-                        onChange={(e) => {
-                            setSearchTerm(e.target.value);
-                            setPage(1); 
-                        }}
-                    />
+                    
+                    {/* Right side: Filter Dropdowns */}
+                    <div className="flex flex-col sm:flex-row flex-wrap justify-end gap-3 w-full">
+                        <select 
+                            className="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-sm"
+                            value={statusFilter}
+                            onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
+                        >
+                            <option value="all">Tất cả trạng thái</option>
+                            <option value="ACTIVE">Hoạt động</option>
+                            <option value="PENDING">Chờ duyệt</option>
+                            <option value="INACTIVE">Tạm ngưng</option>
+                            <option value="TERMINATED">Chấm dứt</option>
+                        </select>
+
+                        <select 
+                            className="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-sm"
+                            value={featuredFilter}
+                            onChange={(e) => { setFeaturedFilter(e.target.value); setPage(1); }}
+                        >
+                            <option value="all">Tất cả Tiêu biểu</option>
+                            <option value="true">Là Tiêu biểu</option>
+                            <option value="false">Không Tiêu biểu</option>
+                        </select>
+
+                        <select 
+                            className="bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 shadow-sm"
+                            value={newFilter}
+                            onChange={(e) => { setNewFilter(e.target.value); setPage(1); }}
+                        >
+                            <option value="all">Tất cả Mới</option>
+                            <option value="true">Thương hiệu Mới</option>
+                            <option value="false">Cũ</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -187,15 +229,15 @@ const TableBrandsComponent = () => {
                                             <div className="flex flex-col gap-1.5">
                                                 <div className="flex items-center gap-1.5 text-slate-700 font-medium">
                                                     <span className="text-xs text-slate-400 w-8">MST:</span>
-                                                    {brand.tax_code || <span className="text-slate-400 font-normal italic">Trống</span>}
+                                                    {brand.taxCode || <span className="text-slate-400 font-normal italic">Trống</span>}
                                                 </div>
                                                 <div className="flex items-center gap-2 text-xs text-slate-500">
                                                     <FiMail className="text-slate-400" />
-                                                    <span className="truncate max-w-[150px]" title={brand.email_contact}>{brand.email_contact || "---"}</span>
+                                                    <span className="truncate max-w-[150px]" title={brand.emailContact}>{brand.emailContact || "---"}</span>
                                                 </div>
                                                 <div className="flex items-center gap-2 text-xs text-slate-500">
                                                     <FiPhone className="text-slate-400" />
-                                                    <span>{brand.phone_contact || "---"}</span>
+                                                    <span>{brand.phoneContact || "---"}</span>
                                                 </div>
                                                 {brand.employments && brand.employments.length > 0 && (
                                                     <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5 pt-1.5 border-t border-slate-100">

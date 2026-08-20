@@ -116,13 +116,13 @@ const VibrantTemplate = ({ data, idBrand }: VibrantTemplateProps) => {
                                     <div className="w-8 h-8 rounded-full bg-[#FFE66D] border-2 border-[#2D2D2D] flex items-center justify-center shrink-0">
                                         <FaPhoneAlt />
                                     </div>
-                                    <span>{data?.phone_contact || "Liên hệ qua Website"}</span>
+                                    <span>{data?.phoneContact || "Liên hệ qua Website"}</span>
                                 </li>
                                 <li className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-full bg-[#FFE66D] border-2 border-[#2D2D2D] flex items-center justify-center shrink-0">
                                         <FaEnvelope />
                                     </div>
-                                    <span className="truncate">{data?.email_contact || "Liên hệ qua Website"}</span>
+                                    <span className="truncate">{data?.emailContact || "Liên hệ qua Website"}</span>
                                 </li>
                                 <li className="flex items-center gap-3">
                                     <div className="w-8 h-8 rounded-full bg-[#FFE66D] border-2 border-[#2D2D2D] flex items-center justify-center shrink-0">

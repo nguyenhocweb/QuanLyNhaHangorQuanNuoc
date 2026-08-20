@@ -7,9 +7,13 @@ export const updatePromotionService = async (brandId, promotionId, data) => {
         throw new NotFoundError("Không tìm thấy chương trình khuyến mãi");
     }
 
-    const updatedData = { ...data };
-    if (data.valid_from) updatedData.valid_from = new Date(data.valid_from);
-    if (data.valid_until) updatedData.valid_until = new Date(data.valid_until);
+    const { targetAudience, isActive, ...restData } = data;
+
+    const updatedData = { ...restData };
+    if (data.validFrom) updatedData.validFrom = new Date(data.validFrom);
+    if (data.validUntil) updatedData.validUntil = new Date(data.validUntil);
+    if (isActive !== undefined) updatedData.status = isActive ? "ACTIVE" : "INACTIVE";
+    if (targetAudience !== undefined) updatedData.conditions = { targetAudience };
 
     const updatedPromotion = await updatePromotionRepo(brandId, promotionId, updatedData);
     return updatedPromotion;

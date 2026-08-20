@@ -350,54 +350,63 @@ The backend stores exactly **2 cookies** via `setCookieAccess()` and `setCookieR
 Both cookies are `httpOnly: true`, `sameSite: 'strict'`, `secure: true` in production.
 
 ## 2. JWT Payload (What `req.user` Contains)
-When `authenticateToken` middleware decodes the JWT, `req.user` contains **ONLY these 4 fields** (plus JWT metadata):
+When `authenticateToken` middleware decodes the JWT, `req.user` contains the following fields (plus JWT metadata like `iat`, `exp`):
 
 ```js
 req.user = {
   id: "mongoObjectId",        // String - User ID
-  role: "Khách hàng" | "Admin" | "Quản lý thương hiệu" | "Quản lý nhà hàng" | "Nhân viên",
-  employmentType: "BRAND" | "RESTAURANT" | null,
+  systemRole: {               // Object - Global role (e.g., Khách hàng, Admin)
+    id: "roleId",
+    name: "Khách hàng" 
+  },
+  brand: [                    // Array - List of Brands the user has access to
+    { 
+      id: "brandId1", 
+      name: "Brand Name", 
+      isSelect: true, 
+      role: "Chủ thương hiệu" 
+    }
+  ],
+  restaurant: [               // Array - List of Restaurants the user has access to
+    { 
+      id: "restId1", 
+      name: "Rest Name", 
+      isSelect: false, 
+      role: "Nhân viên" 
+    }
+  ],
   permissions: ["PERMISSION_NAME", ...] | null,
-  iat: 1234567890,             // Auto-added by JWT
-  exp: 1234567890              // Auto-added by JWT
+  iat: 1234567890,
+  exp: 1234567890
 }
 ```
 
-## 3. CRITICAL: What `req.user` Does NOT Contain
-`req.user` does **NOT** have: `brand`, `restaurant`, `employments`, `name`, `email`, `avatar`, `user_name`, `sdt`, `gender`, `date_of_birth`, `createdAt`, `updatedAt`.
+## 3. Retrieving Workspace ID and Role
+Because `req.user` contains arrays of workspaces, to authorize a request, the `authorizeRole` middleware expects the Frontend to pass an `x-workspace-id` in the request headers.
+The middleware will then search the `req.user.brand` and `req.user.restaurant` arrays to extract the `tenantRole` for that specific workspace to ensure strict multi-tenant isolation.
 
-These fields only exist in the **JSON response body** sent to the frontend during login, NOT in the JWT cookie.
+---
 
-## 4. Correct Pattern for Getting brandId / restaurantId in Controllers
+# Multi-tenant Role Architecture (Employment)
 
-```js
-// ❌ WRONG — These fields do NOT exist in JWT:
-const brandId = req.user.brand[0].id;
-const brandId = req.user.employments[0].brandId;
-const restaurantId = req.user.restaurant[0].id;
+To support users having different roles across different brands and restaurants, the project uses an `Employment` mapping table rather than storing roles directly on the `User`.
 
-// ✅ CORRECT — Use req.user.id, then query DB in Service layer:
-// Controller: only extract req.user.id
-const userId = req.user.id;
-const result = await someService(userId);
+## Core Concept
+- **SystemRole (Global)**: Stored in `User.systemRoleId`. Defines what the user is globally (e.g., `Admin`, `Khách hàng`). Almost all users are `Khách hàng` by default.
+- **WorkspaceRole (Tenant)**: Stored in `Employment.workspaceRoleId`. Defines what the user is within a specific workspace (e.g., `Chủ thương hiệu` for Brand A, `Nhân viên` for Restaurant B).
 
-// Service: query DB to get brandId/restaurantId
-import { findEmploymentByUserId } from "../repositories/brand.get.repo.js";
-const employment = await findEmploymentByUserId(userId);
-if (!employment || !employment.brandId) throw new NotFoundError("...");
-const brandId = employment.brandId;
-```
+## How it works
+1. **Creation**: When adding a staff member, an `Employment` record is created linking `userId`, `brandId` (and optionally `restaurantId`), and the `workspaceRoleId`.
+2. **Login Construction**: During login, `getUser` (in `User.db.js`) fetches all `employments` for the user. It constructs the `brand` and `restaurant` arrays (injected into the token) by mapping each `Employment` record to its respective workspace and extracting the `workspaceRole.name`.
+3. **Authorization**: When accessing an API, the user passes `x-workspace-id`. The middleware checks the extracted `brand`/`restaurant` arrays in the JWT to verify the user's specific `tenantRole` for that exact workspace.
 
-## 5. Summary Table: JWT vs JSON Response vs FE State
+**CRITICAL BUG PREVENTION**: Never write fallback logic that elevates a user's local `tenantRole` based on their global `SystemRole` (unless they are explicitly `Admin`). A user could be a `Chủ thương hiệu` in Brand A, but they must remain purely a `Nhân viên` in Brand B.
 
-| Field | JWT (`req.user`) | JSON Response (login body) | FE State (`LoginResponse`) |
-|---|---|---|---|
-| `id` | ✅ | ✅ | ✅ |
-| `role` | ✅ (string) | ✅ (string) | ✅ |
-| `employmentType` | ✅ | ❌ | ❌ |
-| `permissions` | ✅ | ✅ | ✅ |
-| `name` | ❌ | ✅ | ✅ |
-| `email` | ❌ | ✅ | ✅ |
-| `brand[]` | ❌ | ✅ | ✅ |
-| `restaurant[]` | ❌ | ✅ | ✅ |
-| `employments[]` | ❌ | ❌ | ❌ |
+---
+
+# AI Persona Updates & Documentation Rule
+
+If you make any updates, additions, or modifications to the tools (functions) or permissions for the AI Chatbox personas (located in `backend/src/modules/shared/llm/personas/`), you MUST immediately read and update the corresponding documentation files to keep them in sync:
+1. `huong_dan/AI_Role_Permissions.md` (Update the exact list of allowed tools/limits for each role).
+2. `huong_dan/AI_MicroKernel_Architecture.md` (If there are any structural changes to the architecture).
+This ensures the RBAC documentation is always 100% accurate with the actual codebase.

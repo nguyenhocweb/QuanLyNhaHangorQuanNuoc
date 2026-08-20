@@ -13,8 +13,8 @@ export const getRestaurants = async (where, skip, limit) => {
             images: true,
             description: true,
             address: true,
-            email_contact: true,
-            phone_contact: true,
+            emailContact: true,
+            phoneContact: true,
             statusByAdmin: true,
             reasonByAdmin: true,
             statusByBrand: true,
@@ -22,11 +22,11 @@ export const getRestaurants = async (where, skip, limit) => {
             totalRating: true,
             averageRating: true,
             createdAt: true,
-            max_party_size: true,
-            booking_window_days: true,
-            cancellation_hours: true,
-            deposit_required: true,
-            deposit_amount: true,
+            maxPartySize: true,
+            bookingWindowDays: true,
+            cancellationHours: true,
+            depositRequired: true,
+            depositPerPax: true,
             brandId: true,
             brand: {
                 select: {
@@ -45,10 +45,8 @@ export const getRestaurants = async (where, skip, limit) => {
             },
             employments: {
                 where: {
-                    user: {
-                        role: {
-                            name: 'Quản lý nhà hàng'
-                        }
+                    workspaceRole: {
+                        name: 'Quản lý nhà hàng'
                     }
                 },
                 select: {
@@ -76,8 +74,8 @@ export const getRestaurantById = async (id) => {
             images: true,
             description: true,
             address: true,
-            email_contact: true,
-            phone_contact: true,
+            emailContact: true,
+            phoneContact: true,
             statusByAdmin: true,
             reasonByAdmin: true,
             statusByBrand: true,
@@ -85,11 +83,11 @@ export const getRestaurantById = async (id) => {
             totalRating: true,
             averageRating: true,
             createdAt: true,
-            max_party_size: true,
-            booking_window_days: true,
-            cancellation_hours: true,
-            deposit_required: true,
-            deposit_amount: true,
+            maxPartySize: true,
+            bookingWindowDays: true,
+            cancellationHours: true,
+            depositRequired: true,
+            depositPerPax: true,
             brandId: true,
             brand: {
                 select: {

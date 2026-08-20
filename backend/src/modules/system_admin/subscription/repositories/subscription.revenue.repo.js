@@ -1,19 +1,15 @@
 import { prisma } from "../../../../databases/init.mongodb.js";
 
 export const getRevenueRepo = async ({ month, year, page, limit, planName, status, search }) => {
-    const whereClause = {};
-
-    if (status) {
-        whereClause.status = status;
-    } else {
-        whereClause.status = {
-            in: ['ACTIVE', 'EXPIRED']
-        };
-    }
+    const whereClause = {
+        status: 'PAID'
+    };
 
     if (planName) {
-        whereClause.plan = {
-            name: planName
+        whereClause.subscription = {
+            plan: {
+                name: planName
+            }
         };
     }
 
@@ -36,18 +32,14 @@ export const getRevenueRepo = async ({ month, year, page, limit, planName, statu
     if (year) {
         let startDate, endDate;
         if (month) {
-            // Lọc theo tháng cụ thể của năm
-            // Month in JS Date is 0-indexed (0 = Jan), but we receive 1-indexed (1 = Jan)
             startDate = new Date(year, month - 1, 1);
-            // new Date(year, month, 0) gives the last day of the previous month (which is the requested month)
             endDate = new Date(year, month, 0, 23, 59, 59, 999);
         } else {
-            // Lọc cả năm
             startDate = new Date(year, 0, 1);
             endDate = new Date(year, 11, 31, 23, 59, 59, 999);
         }
         
-        whereClause.startDate = {
+        whereClause.paidAt = {
             gte: startDate,
             lte: endDate
         };
@@ -57,7 +49,7 @@ export const getRevenueRepo = async ({ month, year, page, limit, planName, statu
     const take = limit ? limit : undefined;
 
     const [records, totalCount, allFilteredRecords] = await Promise.all([
-        prisma.brandSubscription.findMany({
+        prisma.invoice.findMany({
             where: whereClause,
             include: {
                 brand: {
@@ -66,33 +58,33 @@ export const getRevenueRepo = async ({ month, year, page, limit, planName, statu
                         logo: true
                     }
                 },
-                plan: {
-                    select: {
-                        name: true,
-                        price: true
+                subscription: {
+                    include: {
+                        plan: {
+                            select: {
+                                name: true,
+                                price: true
+                            }
+                        }
                     }
                 }
             },
             orderBy: {
-                startDate: 'desc'
+                paidAt: 'desc'
             },
             skip,
             take
         }),
-        prisma.brandSubscription.count({
+        prisma.invoice.count({
             where: whereClause
         }),
-        prisma.brandSubscription.findMany({
+        prisma.invoice.findMany({
             where: whereClause,
-            include: {
-                plan: {
-                    select: { price: true }
-                }
-            }
+            select: { total: true }
         })
     ]);
 
-    const totalRevenue = allFilteredRecords.reduce((sum, record) => sum + (record.plan?.price || 0), 0);
+    const totalRevenue = allFilteredRecords.reduce((sum, record) => sum + (record.total || 0), 0);
 
     return { records, totalCount, totalRevenue };
 };

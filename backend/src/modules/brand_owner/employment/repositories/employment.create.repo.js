@@ -1,6 +1,6 @@
 import { prisma } from "../../../../databases/init.mongodb.js";
 
-export const createEmploymentRepo = async ({ userId, name, email, passwordHash, phone, roleId, brandId, restaurantId, permissionIds }) => {
+export const createEmploymentRepo = async ({ userId, name, email, passwordHash, phone, workspaceRoleId, brandId, restaurantId, permissionIds }) => {
   return await prisma.$transaction(async (tx) => {
     let finalUserId = userId;
 
@@ -12,17 +12,10 @@ export const createEmploymentRepo = async ({ userId, name, email, passwordHash, 
           email,
           password: passwordHash,
           sdt: phone,
-          roleId,
+          // Removed workspaceRoleId from User table
         },
       });
       finalUserId = newUser.id;
-    } else {
-      await tx.user.update({
-        where: { id: finalUserId },
-        data: {
-          roleId: roleId,
-        },
-      });
     }
 
     // 2. Tạo Employment
@@ -31,6 +24,7 @@ export const createEmploymentRepo = async ({ userId, name, email, passwordHash, 
         userId: finalUserId,
         brandId,
         restaurantId: restaurantId || null,
+        workspaceRoleId: workspaceRoleId, // Added here
       },
     });
 

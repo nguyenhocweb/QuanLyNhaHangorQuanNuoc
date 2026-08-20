@@ -9,7 +9,7 @@ export const getDiscoverPromotionsRepo = async (userId, { page = 1, limit = 10, 
 
     const where = {
         isActive: true,
-        valid_until: {
+        validUntil: {
             gte: now
         }
     };
@@ -35,7 +35,7 @@ export const getDiscoverPromotionsRepo = async (userId, { page = 1, limit = 10, 
             skip: parseInt(skip),
             take: parseInt(limit),
             orderBy: {
-                valid_until: 'asc'
+                validUntil: 'asc'
             }
         }),
         prisma.promotion.count({ where })

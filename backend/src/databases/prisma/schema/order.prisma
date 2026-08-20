@@ -1,15 +1,19 @@
 model Order {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  reservationId String?      @db.ObjectId
+  reservationId String?       @db.ObjectId
   reservation   Reservations? @relation(fields: [reservationId], references: [id])
 
-  isTakeaway    Boolean @default(false)
-  version       Int     @default(1)
-  taxDetails    Json?
+  userId String? @db.ObjectId
+  user   User?   @relation(fields: [userId], references: [id])
 
-  restaurantId  String? @db.ObjectId
-  restaurant    Restaurant? @relation(fields: [restaurantId], references: [id])
+  isTakeaway Boolean @default(false)
+  version    Int     @default(1)
+  taxDetails Json?
+  claimCode  String? @unique // Mã để khách vãng lai nhận điểm
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
 
   tableId String? @db.ObjectId
   table   Tables? @relation(fields: [tableId], references: [id])
@@ -21,20 +25,28 @@ model Order {
 
   status OrderStatus
 
-  subtotal        Float
-  discount_amount Float
-  tax_amount      Float
-  total_amount    Float
+  subtotal              Float
+  discount_amount       Float
+  discount_reason       String?
+  surcharge_amount      Float    @default(0)
+  tax_amount            Float
+  tip_amount            Float    @default(0)
+  total_amount          Float
+  loyaltyPointsUsed     Int      @default(0)
+  loyaltyDiscountAmount Float    @default(0)
+  appliedPromotionIds   String[] @db.ObjectId
 
-  systemPaymentMethodId String?              @db.ObjectId
-  systemPaymentMethod   SystemPaymentMethod? @relation(fields: [systemPaymentMethodId], references: [id])
-  paid_at               DateTime?
+  paymentStatus PaymentStatus @default(PENDING)
+  paid_at       DateTime?
 
   items        OrderItem[]
   transactions Transaction[]
   createdAt    DateTime      @default(now())
+  updatedAt    DateTime?     @updatedAt
 
   @@index([reservationId])
   @@index([tableId])
+  @@index([restaurantId, createdAt])
+  @@index([restaurantId, status, createdAt])
   @@map("orders")
 }

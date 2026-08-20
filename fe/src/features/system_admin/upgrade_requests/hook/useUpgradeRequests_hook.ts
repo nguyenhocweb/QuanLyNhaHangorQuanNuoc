@@ -14,8 +14,8 @@ export const useUpdateAdminUpgradeRequestStatus = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, status }: { id: string; status: "APPROVED" | "REJECTED" }) =>
-      updateAdminUpgradeRequestStatus(id, status),
+    mutationFn: ({ id, status, planId }: { id: string; status: "APPROVED" | "REJECTED"; planId?: string }) =>
+      updateAdminUpgradeRequestStatus(id, status, planId),
     onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ["admin-upgrade-requests"] });
       toast.success(variables.status === "APPROVED" ? "Đã phê duyệt yêu cầu nâng cấp!" : "Đã từ chối yêu cầu nâng cấp!");

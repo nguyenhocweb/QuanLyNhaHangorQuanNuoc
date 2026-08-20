@@ -4,6 +4,88 @@ Chào mừng bạn đến với dự án Quản lý Nhà hàng Đa điểm (Mult
 
 ---
 
+## 🎯 BỨC TRANH NGHIỆP VỤ & PHÂN QUYỀN HỆ THỐNG (BUSINESS LOGIC)
+*Hệ thống phân chia quyền lực rõ ràng theo 5 vai trò chính: Admin (Hệ thống), Quản lý thương hiệu, Quản lý nhà hàng, Nhân viên và Khách hàng. Dưới đây là cách hệ thống vận hành thực tế.*
+
+### 1. Quản lý Chuỗi (SaaS Multi-tenant) & Subscriptions
+- **Mục đích:** Vận hành hệ thống như một dịch vụ phần mềm (SaaS), cho phép nhiều Tập đoàn (Brand) cùng thuê nền tảng.
+- **Vai trò tác động:** 
+  - `Admin`: Tạo các gói cước (SubscriptionPlan), quản lý cổng thanh toán gốc, thu phí thuê bao.
+  - `Quản lý thương hiệu`: Mua gói cước, gia hạn, khai báo thông tin tập đoàn (Logo, Tax, Payment Config riêng).
+- **Tác động hệ thống:** Cách ly hoàn toàn dữ liệu của các Tập đoàn khác nhau. Dòng tiền được tách bạch rõ ràng giữa Doanh thu của Admin (tiền bán phần mềm) và Doanh thu của Brand (tiền bán đồ ăn).
+
+### 2. Quản lý Nhân sự & Phân quyền (RBAC)
+- **Mục đích:** Phân bổ nhân sự làm việc đa chi nhánh và kiểm soát quyền hạn chặt chẽ.
+- **Vai trò tác động:**
+  - `Quản lý thương hiệu`: Điều phối nhân sự (Employment) làm việc tại chi nhánh nào, tạo các Role (Quản lý, Bếp, Thu ngân).
+  - `Quản lý nhà hàng`: Xếp lịch làm việc, phân quyền (Permission) cho từng nhân viên tại chi nhánh của mình.
+- **Tác động hệ thống:** Ngăn chặn nhân viên chi nhánh A nhìn thấy doanh thu hoặc kho của chi nhánh B. Đảm bảo an toàn dữ liệu qua cơ chế kiểm tra token và phân quyền động.
+
+### 3. Thực Đơn, Gọi Món (POS) & Bếp
+- **Mục đích:** Xử lý quy trình gọi món phức tạp (Combo, Topping, Size) và đồng bộ với Bếp.
+- **Vai trò tác động:**
+  - `Quản lý nhà hàng`: Thiết lập món ăn, giá tiền, ẩn/hiện món (RestaurantMenuItem) và tuỳ biến giá riêng cho chi nhánh.
+  - `Nhân viên (Phục vụ/Thu ngân)`: Tạo Order, thêm Topping (ModifierOption), huỷ/đổi món.
+  - `Khách hàng`: Quét mã QR tại bàn để xem Menu và tự đặt món (Self-ordering).
+- **Tác động hệ thống:** Khi Order được tạo, hệ thống ghi nhận OrderItem, tính toán tổng tiền, và sẽ kích hoạt trigger trừ kho (nếu món có Recipe).
+
+### 4. Đặt Bàn & Quản Lý Sơ Đồ Không Gian (Table Management)
+- **Mục đích:** Số hoá mặt bằng nhà hàng, quản lý trạng thái bàn theo thời gian thực.
+- **Vai trò tác động:**
+  - `Quản lý nhà hàng`: Vẽ sơ đồ nhà hàng (gắn toạ độ pos_x, pos_y, tầng, khu vực indoor/outdoor), đặt lịch bảo trì bàn hư.
+  - `Nhân viên`: Nhận lịch đặt bàn (Reservations), xếp khách vào bàn trống.
+  - `Khách hàng`: Đặt bàn trước qua Web/App AI.
+- **Tác động hệ thống:** Khoá trạng thái bàn (Lock) để tránh tình trạng trùng khách (Double-booking), ghi log lịch sử đổi bàn (Reservation_Audit_Log) để truy vết.
+
+### 5. Chuỗi Cung Ứng & Kiểm Kho (Inventory & Supply Chain)
+- **Mục đích:** Quản lý thất thoát nguyên liệu, đảm bảo nguồn cung không bị đứt gãy.
+- **Vai trò tác động:**
+  - `Quản lý nhà hàng / Thủ kho`: Khai báo định mức (Recipe), tạo phiếu kiểm kho thực tế (StockCount), yêu cầu mua hàng (PurchaseRequest).
+  - `Quản lý thương hiệu`: Duyệt yêu cầu mua hàng, tạo Đơn đặt hàng (PO) gửi Nhà cung cấp (Supplier), luân chuyển hàng giữa các chi nhánh (StockTransfer).
+- **Tác động hệ thống:** Mọi biến động kho đều ghi vào bảng `StockTransaction` (Audit Trail). Nếu lượng tồn kho giảm dưới `minStockLevel`, hệ thống tự động bắn cảnh báo (InventoryAlert).
+
+### 6. Khuyến Mãi (CRM) & Chăm Sóc Khách Hàng
+- **Mục đích:** Giữ chân khách hàng và kích cầu doanh số.
+- **Vai trò tác động:**
+  - `Quản lý thương hiệu`: Tạo mã giảm giá (Promotion) với các điều kiện JSON phức tạp (VD: Giảm 20% cho thành viên Vàng mua vào thứ 3).
+  - `Khách hàng`: Tích luỹ điểm (Loyalty), đánh giá món ăn (Review_Restaurant), lưu voucher vào ví (UserPromotionWallet).
+- **Tác động hệ thống:** Gắn tag phân loại khách hàng, xây dựng hồ sơ thói quen chi tiêu (totalSpent) để hệ thống AI lấy dữ liệu tư vấn.
+
+### 7. Trợ Lý Ảo AI (RAG Chatbot)
+- **Mục đích:** Tự động hoá khâu CSKH và Sale.
+- **Vai trò tác động:**
+  - `Quản lý thương hiệu`: Nạp tài liệu (KnowledgeBaseUrl), cấu hình độ sáng tạo (Temperature), chọn Model LLM (AiModel).
+  - `Khách hàng`: Nhắn tin hỏi Menu, khiếu nại, đặt bàn qua Chatbot.
+- **Tác động hệ thống:** AI sẽ đọc dữ liệu từ DB (Menu, Giờ mở cửa) kết hợp RAG để tư vấn, tự động nhận diện ý định (Intent) để tạo Order hoặc đặt bàn mà không cần người thật can thiệp.
+
+---
+
+## 🏗️ KIẾN TRÚC HỆ THỐNG & CÔNG NGHỆ (TECH STACK)
+*Được thiết kế để chịu tải cao, tối ưu hoá hiệu suất và dễ dàng mở rộng cho mô hình SaaS Multi-tenant.*
+
+### 🎨 Frontend (Giao diện người dùng)
+Frontend được xây dựng với tư duy **Feature-Sliced Design (FSD)**, chia nhỏ logic theo từng tính năng chuyên biệt (Component, Hook, Schema, Service) giúp code không bị rối khi dự án phình to.
+- **Framework:** `Next.js` (App Router) kết hợp `React.js` (TypeScript). Tận dụng tối đa SSR (Server-Side Rendering) để tối ưu SEO và tốc độ tải trang ban đầu (FCP) cho các trang public, đồng thời dùng CSR cho các trang Dashboard quản trị.
+- **State Management & Caching:** `@tanstack/react-query`. Thay vì dùng Redux cồng kềnh, hệ thống dùng React Query để quản lý server-state. Tính năng tự động deduplication (loại bỏ request trùng), cơ chế `staleTime` thông minh và `Optimistic Updates` giúp UI phản hồi tức thì, giảm tải cực lớn cho Backend.
+- **Form Validation:** `react-hook-form` kết hợp `Zod`. Đây là combo mạnh mẽ nhất hiện nay để xử lý hàng chục form phức tạp. Giúp form không bị re-render liên tục khi gõ phím và chuẩn hoá kiểu dữ liệu từ Frontend xuống tận Database.
+- **UI & Styling:** `TailwindCSS` mang lại khả năng custom giao diện linh hoạt, kết hợp với các hiệu ứng Animation/Glassmorphism mượt mà tạo cảm giác cực kỳ cao cấp (Premium UI).
+- **HTTP Client:** `Axios` kết hợp với Interceptors để tự động đính kèm Token và xử lý lỗi tập trung.
+
+### ⚙️ Backend (Xử lý nghiệp vụ & API)
+Backend áp dụng triệt để nguyên lý **Single Responsibility Principle (SRP)** ở cấp độ file. Mỗi thao tác CRUD (Create, Read, Update, Delete) đều được tách thành các file Controller/Service/Repo riêng biệt.
+- **Core Framework:** `Node.js` + `Express.js`. Mỏng, nhẹ và tuỳ biến cao.
+- **Validation Middleware:** Sử dụng `Zod` để validate payload ngay tại cổng Router. Nếu dữ liệu sai (ví dụ: email không hợp lệ, thiếu trường require), request sẽ bị chặn lại ngay lập tức mà không cần chạm tới Controller.
+- **Error Handling:** Cơ chế bắt lỗi toàn cục bằng `AsyncHandler` và `Custom Error Classes` (ConflictError, NotFoundError). Đảm bảo không bao giờ bị sập server vì Unhandled Promise Rejection, đồng thời trả về mã HTTP Status Code chuẩn RESTful.
+- **Image Processing:** Tích hợp **Cloudinary** với cơ chế **Signed Uploads**. Backend *tuyệt đối không* hứng file ảnh để xử lý nhằm tiết kiệm băng thông và CPU. Thay vào đó, Backend chỉ cấp chữ ký (Signature), Frontend sẽ upload thẳng lên Cloudinary và lấy URL về lưu vào DB.
+
+### 🗄️ Database (Cơ sở dữ liệu)
+- **Database Engine:** `MongoDB`. Cấu trúc NoSQL linh hoạt cực kỳ phù hợp với các dữ liệu JSON động (như Rules của Khuyến mãi, Config của Nhà hàng).
+- **ORM:** `Prisma`. Đóng vai trò là cầu nối Type-Safe. Mặc dù dùng MongoDB, Prisma giúp thiết lập các mối quan hệ (Relations) chặt chẽ như SQL, tự động generate Type cho TypeScript, giúp Developer phát hiện lỗi ngay từ lúc viết code thay vì lúc runtime.
+
+---
+
+---
+
 ## 🌌 Bản Đồ Vũ Trụ (Master Schema - Toàn bộ 73 Bảng)
 
 > [!WARNING]
@@ -1437,88 +1519,6 @@ classDiagram
 ```
 
 ---
-
----
-
-## 🏗️ KIẾN TRÚC HỆ THỐNG & CÔNG NGHỆ (TECH STACK)
-*Được thiết kế để chịu tải cao, tối ưu hoá hiệu suất và dễ dàng mở rộng cho mô hình SaaS Multi-tenant.*
-
-### 🎨 Frontend (Giao diện người dùng)
-Frontend được xây dựng với tư duy **Feature-Sliced Design (FSD)**, chia nhỏ logic theo từng tính năng chuyên biệt (Component, Hook, Schema, Service) giúp code không bị rối khi dự án phình to.
-- **Framework:** `Next.js` (App Router) kết hợp `React.js` (TypeScript). Tận dụng tối đa SSR (Server-Side Rendering) để tối ưu SEO và tốc độ tải trang ban đầu (FCP) cho các trang public, đồng thời dùng CSR cho các trang Dashboard quản trị.
-- **State Management & Caching:** `@tanstack/react-query`. Thay vì dùng Redux cồng kềnh, hệ thống dùng React Query để quản lý server-state. Tính năng tự động deduplication (loại bỏ request trùng), cơ chế `staleTime` thông minh và `Optimistic Updates` giúp UI phản hồi tức thì, giảm tải cực lớn cho Backend.
-- **Form Validation:** `react-hook-form` kết hợp `Zod`. Đây là combo mạnh mẽ nhất hiện nay để xử lý hàng chục form phức tạp. Giúp form không bị re-render liên tục khi gõ phím và chuẩn hoá kiểu dữ liệu từ Frontend xuống tận Database.
-- **UI & Styling:** `TailwindCSS` mang lại khả năng custom giao diện linh hoạt, kết hợp với các hiệu ứng Animation/Glassmorphism mượt mà tạo cảm giác cực kỳ cao cấp (Premium UI).
-- **HTTP Client:** `Axios` kết hợp với Interceptors để tự động đính kèm Token và xử lý lỗi tập trung.
-
-### ⚙️ Backend (Xử lý nghiệp vụ & API)
-Backend áp dụng triệt để nguyên lý **Single Responsibility Principle (SRP)** ở cấp độ file. Mỗi thao tác CRUD (Create, Read, Update, Delete) đều được tách thành các file Controller/Service/Repo riêng biệt.
-- **Core Framework:** `Node.js` + `Express.js`. Mỏng, nhẹ và tuỳ biến cao.
-- **Validation Middleware:** Sử dụng `Zod` để validate payload ngay tại cổng Router. Nếu dữ liệu sai (ví dụ: email không hợp lệ, thiếu trường require), request sẽ bị chặn lại ngay lập tức mà không cần chạm tới Controller.
-- **Error Handling:** Cơ chế bắt lỗi toàn cục bằng `AsyncHandler` và `Custom Error Classes` (ConflictError, NotFoundError). Đảm bảo không bao giờ bị sập server vì Unhandled Promise Rejection, đồng thời trả về mã HTTP Status Code chuẩn RESTful.
-- **Image Processing:** Tích hợp **Cloudinary** với cơ chế **Signed Uploads**. Backend *tuyệt đối không* hứng file ảnh để xử lý nhằm tiết kiệm băng thông và CPU. Thay vào đó, Backend chỉ cấp chữ ký (Signature), Frontend sẽ upload thẳng lên Cloudinary và lấy URL về lưu vào DB.
-
-### 🗄️ Database (Cơ sở dữ liệu)
-- **Database Engine:** `MongoDB`. Cấu trúc NoSQL linh hoạt cực kỳ phù hợp với các dữ liệu JSON động (như Rules của Khuyến mãi, Config của Nhà hàng).
-- **ORM:** `Prisma`. Đóng vai trò là cầu nối Type-Safe. Mặc dù dùng MongoDB, Prisma giúp thiết lập các mối quan hệ (Relations) chặt chẽ như SQL, tự động generate Type cho TypeScript, giúp Developer phát hiện lỗi ngay từ lúc viết code thay vì lúc runtime.
-
----
-
----
-
-## 🎯 BỨC TRANH NGHIỆP VỤ & PHÂN QUYỀN HỆ THỐNG (BUSINESS LOGIC)
-*Hệ thống phân chia quyền lực rõ ràng theo 5 vai trò chính: Admin (Hệ thống), Quản lý thương hiệu, Quản lý nhà hàng, Nhân viên và Khách hàng. Dưới đây là cách hệ thống vận hành thực tế.*
-
-### 1. Quản lý Chuỗi (SaaS Multi-tenant) & Subscriptions
-- **Mục đích:** Vận hành hệ thống như một dịch vụ phần mềm (SaaS), cho phép nhiều Tập đoàn (Brand) cùng thuê nền tảng.
-- **Vai trò tác động:** 
-  - `Admin`: Tạo các gói cước (SubscriptionPlan), quản lý cổng thanh toán gốc, thu phí thuê bao.
-  - `Quản lý thương hiệu`: Mua gói cước, gia hạn, khai báo thông tin tập đoàn (Logo, Tax, Payment Config riêng).
-- **Tác động hệ thống:** Cách ly hoàn toàn dữ liệu của các Tập đoàn khác nhau. Dòng tiền được tách bạch rõ ràng giữa Doanh thu của Admin (tiền bán phần mềm) và Doanh thu của Brand (tiền bán đồ ăn).
-
-### 2. Quản lý Nhân sự & Phân quyền (RBAC)
-- **Mục đích:** Phân bổ nhân sự làm việc đa chi nhánh và kiểm soát quyền hạn chặt chẽ.
-- **Vai trò tác động:**
-  - `Quản lý thương hiệu`: Điều phối nhân sự (Employment) làm việc tại chi nhánh nào, tạo các Role (Quản lý, Bếp, Thu ngân).
-  - `Quản lý nhà hàng`: Xếp lịch làm việc, phân quyền (Permission) cho từng nhân viên tại chi nhánh của mình.
-- **Tác động hệ thống:** Ngăn chặn nhân viên chi nhánh A nhìn thấy doanh thu hoặc kho của chi nhánh B. Đảm bảo an toàn dữ liệu qua cơ chế kiểm tra token và phân quyền động.
-
-### 3. Thực Đơn, Gọi Món (POS) & Bếp
-- **Mục đích:** Xử lý quy trình gọi món phức tạp (Combo, Topping, Size) và đồng bộ với Bếp.
-- **Vai trò tác động:**
-  - `Quản lý nhà hàng`: Thiết lập món ăn, giá tiền, ẩn/hiện món (RestaurantMenuItem) và tuỳ biến giá riêng cho chi nhánh.
-  - `Nhân viên (Phục vụ/Thu ngân)`: Tạo Order, thêm Topping (ModifierOption), huỷ/đổi món.
-  - `Khách hàng`: Quét mã QR tại bàn để xem Menu và tự đặt món (Self-ordering).
-- **Tác động hệ thống:** Khi Order được tạo, hệ thống ghi nhận OrderItem, tính toán tổng tiền, và sẽ kích hoạt trigger trừ kho (nếu món có Recipe).
-
-### 4. Đặt Bàn & Quản Lý Sơ Đồ Không Gian (Table Management)
-- **Mục đích:** Số hoá mặt bằng nhà hàng, quản lý trạng thái bàn theo thời gian thực.
-- **Vai trò tác động:**
-  - `Quản lý nhà hàng`: Vẽ sơ đồ nhà hàng (gắn toạ độ pos_x, pos_y, tầng, khu vực indoor/outdoor), đặt lịch bảo trì bàn hư.
-  - `Nhân viên`: Nhận lịch đặt bàn (Reservations), xếp khách vào bàn trống.
-  - `Khách hàng`: Đặt bàn trước qua Web/App AI.
-- **Tác động hệ thống:** Khoá trạng thái bàn (Lock) để tránh tình trạng trùng khách (Double-booking), ghi log lịch sử đổi bàn (Reservation_Audit_Log) để truy vết.
-
-### 5. Chuỗi Cung Ứng & Kiểm Kho (Inventory & Supply Chain)
-- **Mục đích:** Quản lý thất thoát nguyên liệu, đảm bảo nguồn cung không bị đứt gãy.
-- **Vai trò tác động:**
-  - `Quản lý nhà hàng / Thủ kho`: Khai báo định mức (Recipe), tạo phiếu kiểm kho thực tế (StockCount), yêu cầu mua hàng (PurchaseRequest).
-  - `Quản lý thương hiệu`: Duyệt yêu cầu mua hàng, tạo Đơn đặt hàng (PO) gửi Nhà cung cấp (Supplier), luân chuyển hàng giữa các chi nhánh (StockTransfer).
-- **Tác động hệ thống:** Mọi biến động kho đều ghi vào bảng `StockTransaction` (Audit Trail). Nếu lượng tồn kho giảm dưới `minStockLevel`, hệ thống tự động bắn cảnh báo (InventoryAlert).
-
-### 6. Khuyến Mãi (CRM) & Chăm Sóc Khách Hàng
-- **Mục đích:** Giữ chân khách hàng và kích cầu doanh số.
-- **Vai trò tác động:**
-  - `Quản lý thương hiệu`: Tạo mã giảm giá (Promotion) với các điều kiện JSON phức tạp (VD: Giảm 20% cho thành viên Vàng mua vào thứ 3).
-  - `Khách hàng`: Tích luỹ điểm (Loyalty), đánh giá món ăn (Review_Restaurant), lưu voucher vào ví (UserPromotionWallet).
-- **Tác động hệ thống:** Gắn tag phân loại khách hàng, xây dựng hồ sơ thói quen chi tiêu (totalSpent) để hệ thống AI lấy dữ liệu tư vấn.
-
-### 7. Trợ Lý Ảo AI (RAG Chatbot)
-- **Mục đích:** Tự động hoá khâu CSKH và Sale.
-- **Vai trò tác động:**
-  - `Quản lý thương hiệu`: Nạp tài liệu (KnowledgeBaseUrl), cấu hình độ sáng tạo (Temperature), chọn Model LLM (AiModel).
-  - `Khách hàng`: Nhắn tin hỏi Menu, khiếu nại, đặt bàn qua Chatbot.
-- **Tác động hệ thống:** AI sẽ đọc dữ liệu từ DB (Menu, Giờ mở cửa) kết hợp RAG để tư vấn, tự động nhận diện ý định (Intent) để tạo Order hoặc đặt bàn mà không cần người thật can thiệp.
 
 ---
 

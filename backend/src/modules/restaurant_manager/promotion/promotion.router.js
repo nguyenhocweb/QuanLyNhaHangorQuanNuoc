@@ -1,6 +1,6 @@
 import express from 'express';
 import { validate } from '../../../core/middlewares/validator.middleware.js';
-import { asyncHandler } from '../../../core/utils/asyncHandler.js';
+import asyncHandler from '../../../core/utils/asyncHandler.js';
 import { authenticateToken } from '../../../core/middlewares/authenticateToken.js';
 import { authorizeRole } from '../../../core/middlewares/authorizeRole.middleware.js';
 
@@ -15,7 +15,7 @@ import toggleController from './controllers/promotion.toggle.controller.js';
 import { createPromotionValidator } from './validators/promotion.create.validator.js';
 import { updatePromotionValidator } from './validators/promotion.update.validator.js';
 
-const route = express.Router();
+const route = express.Router({ mergeParams: true });
 
 // Tất cả endpoints đều cần xác thực và quyền RESTAURANT
 route.use(authenticateToken);

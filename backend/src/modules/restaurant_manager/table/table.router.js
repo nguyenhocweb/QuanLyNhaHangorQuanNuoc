@@ -16,7 +16,7 @@ import { deleteTable } from "./controllers/table.delete.controller.js";
 import { saveTableLayout } from "./controllers/table.saveLayout.controller.js";
 import { holdTable } from "./controllers/table.hold.controller.js";
 import { getTableAvailability } from "./controllers/table.availability.controller.js";
-const route = express.Router();
+const route = express.Router({ mergeParams: true });
 
 // Middleware xác thực JWT
 route.use(authenticateToken);

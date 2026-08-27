@@ -1,8 +1,8 @@
 import { demoValidator } from "../../../../core/utils/validator.js";
 import { z } from "zod";
 
-export const createSupplierValidator = {
-  body: z.object({
+export const createSupplierValidator = z.object({
+    body: z.object({
     name: demoValidator.chuoi("Tên nhà cung cấp"),
     taxCode: demoValidator.chuoi("Mã số thuế").optional().or(z.literal('')),
     contact: z.object({
@@ -13,4 +13,4 @@ export const createSupplierValidator = {
     }).optional(),
     status: z.enum(["ACTIVE", "INACTIVE"]).optional()
   })
-};
+});

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { asyncHandler } from "../../core/utils/asyncHandler.js";
+import asyncHandler from "../../core/utils/asyncHandler.js";
 import { getNotificationController } from "./controllers/notification.get.controller.js";
 import { updateNotificationController } from "./controllers/notification.update.controller.js";
 import { deleteNotificationController } from "./controllers/notification.delete.controller.js";

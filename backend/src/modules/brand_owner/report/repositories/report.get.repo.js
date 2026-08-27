@@ -215,7 +215,7 @@ export const getRevenueReport = async (brandId, startDate, endDate) => {
     
     const topItemsRaw = await prisma.orderItem.groupBy({
         by: ['menuItemId', 'name'],
-        where: { order: orderWhere },
+        where: { order: { is: orderWhere } },
         _sum: { quantity: true, totalPrice: true },
         orderBy: { _sum: { quantity: 'desc' } },
         take: 5

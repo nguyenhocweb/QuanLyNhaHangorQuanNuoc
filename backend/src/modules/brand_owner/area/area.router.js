@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { authenticateToken } from "../../../core/middlewares/authenticateToken.js";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
 import { validate } from "../../../core/middlewares/validator.middleware.js";
@@ -14,7 +14,7 @@ import { deleteArea } from "./controllers/area.delete.controller.js";
 const route = Router({ mergeParams: true });
 
 route.use(authenticateToken);
-route.use(authorizeRole("Chủ thương hiệu", "Chủ thương hiệu"));
+route.use(authorizeRole("Quản lý thương hiệu", "Quản lý thương hiệu"));
 
 route.post("/", validate(areaCreateValidator), createArea);
 route.get("/restaurant/:restaurantId", getAreasByRestaurantId);

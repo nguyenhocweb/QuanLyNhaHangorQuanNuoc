@@ -1,5 +1,5 @@
-import express from "express";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+﻿import express from "express";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
 import { validate } from "../../../core/middlewares/validator.middleware.js";
 
@@ -16,7 +16,7 @@ import { approveStockCount } from "./controllers/stock_count.approve.controller.
 import { rejectStockCount } from "./controllers/stock_count.reject.controller.js";
 
 const route = express.Router({ mergeParams: true });
-route.use(authorizeRole("Chủ thương hiệu", "Admin", "Quản lý nhà hàng"));
+route.use(authorizeRole("Quản lý thương hiệu", "Admin", "Quản lý nhà hàng"));
 
 route.post("/", validate(createStockCountValidator), asyncHandler(createStockCountController.create));
 route.get("/", asyncHandler(getStockCountsController.getAll));
@@ -24,7 +24,7 @@ route.get("/:id", asyncHandler(getStockCountsController.getById));
 route.put("/:id", validate(updateStockCountValidator), asyncHandler(updateStockCountController.update));
 route.delete("/:id", asyncHandler(deleteStockCountController.deleteStockCount));
 
-route.patch("/:id/approve", authorizeRole("Chủ thương hiệu", "Admin"), validate(approveStockCountValidator), asyncHandler(approveStockCount));
-route.patch("/:id/reject", authorizeRole("Chủ thương hiệu", "Admin"), validate(approveStockCountValidator), asyncHandler(rejectStockCount));
+route.patch("/:id/approve", authorizeRole("Quản lý thương hiệu", "Admin"), validate(approveStockCountValidator), asyncHandler(approveStockCount));
+route.patch("/:id/reject", authorizeRole("Quản lý thương hiệu", "Admin"), validate(approveStockCountValidator), asyncHandler(rejectStockCount));
 
 export default route;

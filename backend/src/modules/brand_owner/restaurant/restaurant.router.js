@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { authenticateToken } from "../../../core/middlewares/authenticateToken.js";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
 import asyncHandler from "../../../core/utils/asyncHandler.js";
@@ -24,8 +24,8 @@ const route = Router({ mergeParams: true });
 
 // Middleware áp dụng cho tất cả route bên dưới
 route.use(authenticateToken);
-// "Chủ thương hiệu" role is required
-route.use(authorizeRole("Chủ thương hiệu", "Chủ thương hiệu"));
+// "Quản lý thương hiệu" role is required
+route.use(authorizeRole("Quản lý thương hiệu", "Quản lý thương hiệu"));
 
 route.get("/", asyncHandler(getRestaurantsController));
 route.put("/template", validate(updateRestaurantTemplateValidator), updateRestaurantTemplateController);

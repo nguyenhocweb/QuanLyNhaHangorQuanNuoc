@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../../core/utils/asyncHandler.js";
 import { processAdminWebhook } from "../services/admin.webhook.service.js";
 
 export const handleAdminWebhook = asyncHandler(async (req, res) => {

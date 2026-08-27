@@ -1,11 +1,11 @@
-import { getMenusRepo } from "../repositories/menu.get.repo.js";
+﻿import { getMenusRepo } from "../repositories/menu.get.repo.js";
 import { findEmploymentByUserId } from "../../../brand/repositories/brand.get.repo.js";
 import { NotFoundError } from "../../../../../core/constants/error/index.js";
 
 export const getMenuService = async (userId, { page, limit, search, is_active, sort_order }) => {
     const employment = await findEmploymentByUserId(userId);
     if (!employment || !employment.brandId) {
-        throw new NotFoundError("Bạn chưa được gán quyền chủ thương hiệu hoặc không tìm thấy thương hiệu.");
+        throw new NotFoundError("Bạn chưa được gán quyền Quản lý thương hiệu hoặc không tìm thấy thương hiệu.");
     }
     const brandId = employment.brandId;
 

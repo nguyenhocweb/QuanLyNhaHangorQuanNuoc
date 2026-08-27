@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { orderUpdateService } from "../services/order.update.service.js";
 
 class OrderUpdateController {

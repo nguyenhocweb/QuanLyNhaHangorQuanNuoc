@@ -5,7 +5,7 @@ import { menuUpdateValidator } from "./validators/menu.validator.js";
 import { getRestaurantMenuController } from "./controllers/menu.get.controller.js";
 import { updateRestaurantMenuController } from "./controllers/menu.update.controller.js";
 
-const route = express.Router();
+const route = express.Router({ mergeParams: true });
 
 route.use(authenticateToken);
 

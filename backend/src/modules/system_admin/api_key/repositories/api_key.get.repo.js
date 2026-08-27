@@ -5,7 +5,7 @@ export const getApiKeysRepo = async (query) => {
   const skip = (page - 1) * limit;
 
   let where = {};
-  
+
   if (query.brandId) {
     where.brandId = query.brandId;
   } else {

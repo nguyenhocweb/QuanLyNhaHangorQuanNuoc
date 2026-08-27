@@ -1,4 +1,4 @@
-import { prisma } from "../../../../databases/init.mongodb.js";
+﻿import { prisma } from "../../../../databases/init.mongodb.js";
 
 export const createBrand = async (data) => {
     const brand = await prisma.brand.create({
@@ -43,16 +43,16 @@ export const getBrandById = async (_id) => {
             imageMain: true,
             logo: true, // VD: "AS", "LA", "VI" trong vòng tròn
             link: true,
-            phoneContact: true,
-            emailContact: true,
+            phone_contact: true,
+            email_contact: true,
             isFeatured: true,
             images: true,
-            taxCode: true,
+            tax_code: true,
             isActive: true,
             createdAt: true,
             updatedAt: true,
             address: true,
-            isNew: true,
+            new: true,
             reason: true,
             _count: {
                 select: {
@@ -68,7 +68,7 @@ export const getBrandById = async (_id) => {
                 where: { 
                     restaurantId: null,
                     workspaceRole: {
-                        name: { in: ["Chủ thương hiệu", "Chủ thương hiệu"] }
+                        name: { in: ["Quản lý thương hiệu", "Quản lý thương hiệu"] }
                     }
                 },
                 select: {
@@ -102,7 +102,7 @@ export const getBrandById = async (_id) => {
                     id: true,
                     name: true,
                     imageMain: true,
-                    averageRating: true,
+                    ratingStats: true,
                     address: true,
                     isNew: true,
                     categories: {
@@ -145,8 +145,25 @@ export const getBrandById = async (_id) => {
                 : "Hôm nay nghỉ"
         };
     });
-    const {imageMain,images,_count,...rest}=brand;    
-    return { ...rest, images: imageMain ? [imageMain, ...images] : images, restaurantCount: _count?.restaurants || 0 };
+    const {imageMain,images,_count, ...rest}=brand;
+    
+    // Format to frontend camelCase
+    rest.taxCode = rest.tax_code;
+    delete rest.tax_code;
+    rest.emailContact = rest.email_contact;
+    delete rest.email_contact;
+    rest.phoneContact = rest.phone_contact;
+    delete rest.phone_contact;
+    rest.isNew = rest.new;
+    delete rest.new;
+    
+    brand.restaurants = brand.restaurants.map(r => {
+        r.averageRating = r.ratingStats?.averageRating || 0;
+        delete r.ratingStats;
+        return r;
+    });
+
+    return { ...rest, restaurants: brand.restaurants, images: imageMain ? [imageMain, ...images] : images, restaurantCount: _count?.restaurants || 0 };
 }
 export const getBrands = async ({ where, page, limit }) => {
     const result = await prisma.brand.findMany({
@@ -163,13 +180,13 @@ export const getBrands = async ({ where, page, limit }) => {
             description: true,
             imageMain: true,
             logo: true,
-            taxCode: true,
-            emailContact: true,
-            phoneContact: true,
+            tax_code: true,
+            email_contact: true,
+            phone_contact: true,
             address: true,
             createdAt: true,
             isActive: true,
-            isNew: true,
+            new: true,
             isFeatured: true,
             link: true,
             _count: {
@@ -181,7 +198,7 @@ export const getBrands = async ({ where, page, limit }) => {
                 where: { 
                     restaurantId: null,
                     workspaceRole: {
-                        name: { in: ["Chủ thương hiệu", "Chủ thương hiệu"] }
+                        name: { in: ["Quản lý thương hiệu", "Quản lý thương hiệu"] }
                     }
                 },
                 select: {
@@ -193,8 +210,12 @@ export const getBrands = async ({ where, page, limit }) => {
         }
     });
     if (result) {
-        return result.map(({ _count, ...e }) => ({ 
+        return result.map(({ _count, tax_code, email_contact, phone_contact, new: isNewField, ...e }) => ({ 
             ...e, 
+            taxCode: tax_code,
+            emailContact: email_contact,
+            phoneContact: phone_contact,
+            isNew: isNewField,
             numberRestaurant: _count.restaurants,
             restaurantCount: _count.restaurants 
         }))

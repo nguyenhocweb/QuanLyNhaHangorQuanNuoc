@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { authenticateToken } from "../../../core/middlewares/authenticateToken.js";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 import { getLoyaltyController } from "./controllers/loyalty.get.controller.js";
 
 const route = Router();

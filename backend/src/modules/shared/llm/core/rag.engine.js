@@ -1,4 +1,4 @@
-import { searchForCustomer } from "../../vector/customer/search.service.js";
+﻿import { searchForCustomer } from "../../vector/customer/search.service.js";
 import { searchForManager } from "../../vector/manager/search.service.js";
 import { searchForOwner } from "../../vector/owner/search.service.js";
 import { searchForAdmin } from "../../vector/admin/search.service.js";
@@ -24,7 +24,7 @@ export class RAGEngine {
         case 'Quản lý nhà hàng':
         case 'manager':
           return await searchForManager(query, entityId);
-        case 'Chủ thương hiệu':
+        case 'Quản lý thương hiệu':
         case 'BRAND_OWNER':
         case 'owner':
           return await searchForOwner(query, entityId);

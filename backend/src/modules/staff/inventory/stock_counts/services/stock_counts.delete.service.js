@@ -1,4 +1,4 @@
-import { prisma } from "../../../../../databases/init.mongodb.js";
+﻿import { prisma } from "../../../../../databases/init.mongodb.js";
 import { BadRequestError, NotFoundError } from "../../../../../core/constants/error/index.js";
 
 export const deleteStockCountService = {
@@ -17,10 +17,10 @@ export const deleteStockCountService = {
         throw new BadRequestError("Chỉ có thể xóa phiếu nháp hoặc đang chờ duyệt");
       }
       
-      // Không được xóa phiếu do Chủ thương hiệu tạo
+      // Không được xóa phiếu do Quản lý thương hiệu tạo
       const creator = await prisma.user.findUnique({ where: { id: stockCount.createdBy } });
-      if (creator && creator.role === "Chủ thương hiệu") {
-        throw new BadRequestError("Quản lý nhà hàng không có quyền xóa phiếu do Chủ thương hiệu tạo");
+      if (creator && creator.role === "Quản lý thương hiệu") {
+        throw new BadRequestError("Quản lý nhà hàng không có quyền xóa phiếu do Quản lý thương hiệu tạo");
       }
     } else {
       // Nếu là Nhân viên, chỉ được xóa phiếu DRAFT của chính mình

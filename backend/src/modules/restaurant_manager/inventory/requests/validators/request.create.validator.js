@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { demoValidator } from "../../../../../core/utils/validator.js";
 
-export const createRequestValidator = {
-  body: z.object({
+export const createRequestValidator = z.object({
+    body: z.object({
     restaurantId: demoValidator.chuoi("ID Chi nhánh"),
     notes: z.string().optional(),
     expectedDate: z.string().optional(),
@@ -11,4 +11,4 @@ export const createRequestValidator = {
       requestedQty: demoValidator.double("Số lượng yêu cầu", 0)
     })).min(1, "Phải có ít nhất 1 mặt hàng")
   })
-};
+});

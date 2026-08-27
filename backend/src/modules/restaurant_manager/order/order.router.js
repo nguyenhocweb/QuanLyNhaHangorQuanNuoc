@@ -8,7 +8,7 @@ import { orderUpdateController } from "./controllers/order.update.controller.js"
 import { createOrderValidator } from "./validators/order.create.validator.js";
 import { updateOrderValidator } from "./validators/order.update.validator.js";
 
-const orderRouter = express.Router();
+const orderRouter = express.Router({ mergeParams: true });
 
 // Tất cả APIs đều yêu cầu đăng nhập và có quyền Quản lý nhà hàng hoặc Nhân viên
 orderRouter.use(authenticateToken);

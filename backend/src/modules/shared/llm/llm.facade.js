@@ -1,4 +1,4 @@
-import { AIMemoryService } from "./core/memory.service.js";
+﻿import { AIMemoryService } from "./core/memory.service.js";
 import { RAGEngine } from "./core/rag.engine.js";
 import { FunctionCaller } from "./core/function_caller.js";
 import { routeAiRequest } from "./gateway/ai_router.service.js";
@@ -15,7 +15,7 @@ const getPersonaConfig = async (role) => {
     case 'Quản lý nhà hàng':
     case 'manager':
       return await import('./personas/manager/index.js').catch(() => import('./personas/manager/prompt.js').then(p => import('./personas/manager/tools.js').then(t => ({...p, ...t}))));
-    case 'Chủ thương hiệu':
+    case 'Quản lý thương hiệu':
     case 'BRAND_OWNER':
     case 'owner':
       return await import('./personas/owner/index.js').catch(() => import('./personas/owner/prompt.js').then(p => import('./personas/owner/tools.js').then(t => ({...p, ...t}))));
@@ -41,7 +41,7 @@ export const aiFacade = {
       
       // Lấy entityId dựa theo role để giới hạn ngữ cảnh tìm kiếm (RAG)
       let entityId = null;
-      if (role === 'owner' || role === 'Chủ thương hiệu' || role === 'BRAND_OWNER') {
+      if (role === 'owner' || role === 'Quản lý thương hiệu' || role === 'BRAND_OWNER') {
         entityId = context.brandId;
       } else if (role === 'manager' || role === 'Quản lý nhà hàng' || role === 'Nhân viên') {
         entityId = context.restaurantId;

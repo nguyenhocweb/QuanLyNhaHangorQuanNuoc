@@ -6,6 +6,17 @@ export const getBrandApiKeysService = async (brandId: string, params: any) => {
   return data;
 };
 
+export const getActiveBrandAiChatboxesService = async (brandId: string) => {
+  const { data } = await axiosClient.get(`/brand-owner/${brandId}/ai-chatboxes/active`);
+  return data;
+};
+
+export const getActiveBrandAiModelsService = async (brandId: string, chatboxId?: string) => {
+  const params = chatboxId ? { chatboxId } : {};
+  const { data } = await axiosClient.get(`/brand-owner/${brandId}/ai-models/active`, { params });
+  return data;
+};
+
 export const createBrandApiKeyService = async (brandId: string, payload: CreateApiKeyPayload) => {
   const { data } = await axiosClient.post(`/brand-owner/${brandId}/api-key`, payload);
   return data.metadata as CreateApiKeyResponse;

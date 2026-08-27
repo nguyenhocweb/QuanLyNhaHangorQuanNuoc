@@ -1,5 +1,5 @@
 import { getMenuService } from "../services/menu.get.service.js";
-import { asyncHandler } from "../../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../../core/utils/asyncHandler.js";
 
 export const getMenuController = asyncHandler(async (req, res) => {
     const page = parseInt(req.query.page) || 1;

@@ -1,8 +1,8 @@
 import { demoValidator } from "../../../../core/utils/validator.js";
 import { z } from "zod";
 
-export const updateSupplierValidator = {
-  params: z.object({
+export const updateSupplierValidator = z.object({
+    params: z.object({
     supplierId: z.string().regex(/^[0-9a-fA-F]{24}$/, "ID không hợp lệ"),
   }),
   body: z.object({
@@ -16,4 +16,4 @@ export const updateSupplierValidator = {
     }).optional(),
     status: z.enum(["ACTIVE", "INACTIVE"]).optional()
   })
-};
+});

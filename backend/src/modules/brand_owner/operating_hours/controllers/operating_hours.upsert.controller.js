@@ -1,5 +1,5 @@
 import { upsertOperatingHoursService } from "../services/operating_hours.upsert.service.js";
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 
 export const upsertOperatingHoursController = {
     upsert: asyncHandler(async (req, res) => {

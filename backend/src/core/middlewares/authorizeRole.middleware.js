@@ -23,7 +23,7 @@ export const authorizeRole = (...allowedRoles) => {
         }
 
         // Với các role phụ thuộc workspace (Tenant Roles)
-        const workspaceRoles = ["Chủ thương hiệu", "Quản lý thương hiệu", "Quản lý nhà hàng", "Nhân viên"];
+        const workspaceRoles = ["Quản lý thương hiệu", "Quản lý nhà hàng", "Nhân viên"];
         const requiresWorkspace = allowedRoles.some(role => workspaceRoles.includes(role));
 
         if (requiresWorkspace) {

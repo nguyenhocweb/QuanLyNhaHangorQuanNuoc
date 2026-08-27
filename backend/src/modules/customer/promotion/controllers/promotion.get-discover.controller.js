@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getDiscoverPromotionsService } from "../services/promotion.get-discover.service.js";
 
 export const getDiscoverPromotionsController = asyncHandler(async (req, res) => {

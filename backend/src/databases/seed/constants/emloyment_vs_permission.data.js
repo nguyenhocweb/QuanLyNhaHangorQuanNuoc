@@ -1,86 +1,27 @@
 export const emp_vs_per = [
   // --- BRAND USERS ---
-  {
-    user_name: "brand_director",
-    namePermission: "VIEW_REPORT",
-    type: "BRAND"
-  },
-  {
-    user_name: "brand_director",
-    namePermission: "MANAGE_RESTAURANT",
-    type: "BRAND"
-  },
-  {
-    user_name: "brand_director",
-    namePermission: "MANAGE_EMPLOYEE",
-    type: "BRAND"
-  },
-  {
-    user_name: "brand_accountant",
-    namePermission: "VIEW_REPORT",
-    type: "BRAND"
-  },
-  {
-    user_name: "brand_production",
-    namePermission: "MANAGE_RESTAURANT",
-    type: "BRAND"
-  },
-  {
-    user_name: "brand_production",
-    namePermission: "MANAGE_EMPLOYEE",
-    type: "BRAND"
-  },
+  // Giám đốc thương hiệu (Toàn quyền Brand)
+  { user_name: "brand_director", namePermission: "MENU_MANAGEMENT", type: "BRAND" },
+  { user_name: "brand_director", namePermission: "CRM_MANAGEMENT", type: "BRAND" },
+  { user_name: "brand_director", namePermission: "ADVANCED_PROMOTIONS", type: "BRAND" },
+  { user_name: "brand_director", namePermission: "EMPLOYEE_PERMISSIONS", type: "BRAND" },
+  { user_name: "brand_director", namePermission: "PAYMENT_INTEGRATION", type: "BRAND" },
+  { user_name: "brand_director", namePermission: "REVENUE_ANALYTICS", type: "BRAND" },
+  { user_name: "brand_director", namePermission: "CENTRAL_SUPPLY_CHAIN", type: "BRAND" },
 
-  // --- RESTAURANT USERS (Đã sửa lại user_name) ---
-  {
-    user_name: "rest_manager", // Khớp với User_Restaurant
-    namePermission: "CANCEL_ORDER",
-    type: "RESTAURANT"
-  },
-  {
-    user_name: "rest_manager",
-    namePermission: "UPDATE_ORDER",
-    type: "RESTAURANT"
-  },
-  {
-    user_name: "rest_manager",
-    namePermission: "CREATE_ORDER",
-    type: "RESTAURANT"
-  },
-  {
-    user_name: "rest_manager",
-    namePermission: "VIEW_ORDER",
-    type: "RESTAURANT"
-  },
-  {
-    user_name: "rest_manager",
-    namePermission: "MANAGE_MENU",
-    type: "RESTAURANT"
-  },
+  // Nhân viên kế toán, sản xuất
+  { user_name: "brand_accountant", namePermission: "REVENUE_ANALYTICS", type: "BRAND" },
+  { user_name: "brand_production", namePermission: "MENU_MANAGEMENT", type: "BRAND" },
+
+  // --- RESTAURANT USERS ---
+  // Quản lý nhà hàng (Toàn quyền Restaurant)
+  { user_name: "rest_manager", namePermission: "TABLE_MANAGEMENT", type: "RESTAURANT" },
+  { user_name: "rest_manager", namePermission: "ORDER_MANAGEMENT", type: "RESTAURANT" },
+  { user_name: "rest_manager", namePermission: "RESERVATION_ONLINE", type: "RESTAURANT" },
+  { user_name: "rest_manager", namePermission: "LOCAL_INVENTORY", type: "RESTAURANT" },
+  { user_name: "rest_manager", namePermission: "KITCHEN_DISPLAY", type: "RESTAURANT" },
   
-  {
-    user_name: "rest_barista", // Khớp với User_Restaurant (Thay cho restaurant_bartender)
-    namePermission: "CANCEL_ORDER",
-    type: "RESTAURANT"
-  },
-  {
-    user_name: "rest_barista",
-    namePermission: "UPDATE_ORDER",
-    type: "RESTAURANT"
-  },
-  {
-    user_name: "rest_barista",
-    namePermission: "CREATE_ORDER",
-    type: "RESTAURANT"
-  },
-  {
-    user_name: "rest_barista",
-    namePermission: "VIEW_ORDER",
-    type: "RESTAURANT"
-  },
-  {
-    user_name: "rest_barista",
-    namePermission: "MANAGE_MENU",
-    type: "RESTAURANT"
-  },
+  // Nhân viên pha chế (Barista) - Chỉ xem đơn hàng và bếp
+  { user_name: "rest_barista", namePermission: "ORDER_MANAGEMENT", type: "RESTAURANT" },
+  { user_name: "rest_barista", namePermission: "KITCHEN_DISPLAY", type: "RESTAURANT" },
 ];

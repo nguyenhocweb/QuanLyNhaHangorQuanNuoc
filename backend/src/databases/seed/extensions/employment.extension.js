@@ -1,54 +1,60 @@
+import { Brand_employment, Restaurant_employment } from "../constants/Employment.data.js"
 
-import {Brand_employment,Restaurant_employment} from "../constants/Employment.data.js"
 export const employment_Extension = async (prisma) => {
-    // lấu id user
-    const user_Id=await prisma.User.findMany({
-        select:{
-            id:true,
-            user_name:true
-        }
-    })
-  
-    console.log("usserid ",user_Id);
-    
-    // lấy id và name thương hiệu
-    const brandId=await prisma.Brand.findMany({
-        select:{
-            id:true,
-            name:true
-        }
-    });
-    const restaurantId=await prisma.Restaurant.findMany({
-        select:{
-            id:true,
-            name:true
-        }
+    // 1. Lấy tất cả user (trừ admin)
+    const users = await prisma.User.findMany({
+        select: { id: true, user_name: true }
     });
 
-   
+    // 2. Lấy danh sách Thương hiệu và Nhà hàng
+    const brands = await prisma.Brand.findMany({
+        select: { id: true, name: true }
+    });
+    const restaurants = await prisma.Restaurant.findMany({
+        select: { id: true, name: true }
+    });
 
-    // create data employment brand 
-    const resultBrand=await prisma.Employment.createMany({
-        data:Brand_employment.map(
-            e=>
-             ({
-              userId:  user_Id.find(user=> user.user_name===e.user_name).id,
-              brandId:brandId.find(brand=>brand.name===e.Brandname).id,
-             })
-        )
+    // 3. Lấy WorkspaceRole
+    const roles = await prisma.WorkspaceRole.findMany({
+        select: { id: true, name: true }
+    });
+
+    const getRoleId = (roleName) => roles.find(r => r.name === roleName)?.id;
+
+    console.log("🚀 Creating Employment...");
+
+    // 4. Create data employment brand 
+    const brandEmployments = Brand_employment.map(e => {
+        const userId = users.find(u => u.user_name === e.user_name)?.id;
+        const brandId = brands.find(b => b.name === e.Brandname)?.id;
+        // Nếu là director thì làm Quản lý thương hiệu, còn lại là Nhân viên
+        const roleId = e.user_name === "brand_director" 
+            ? getRoleId("Quản lý thương hiệu") 
+            : getRoleId("Nhân viên");
+
+        return { userId, brandId, workspaceRoleId: roleId };
+    }).filter(e => e.userId && e.brandId && e.workspaceRoleId);
+
+    const resultBrand = await prisma.Employment.createMany({
+        data: brandEmployments
     });
     console.log(`✅ Đã tạo thành công ${resultBrand.count} Employment Brand!`);
-    // create data employment restaurant
-    const resultRestaurant=await prisma.Employment.createMany({
-        data:Restaurant_employment.map(
-            e=>
-        ({
-              userId:  user_Id.find(user=> user.user_name===e.user_name).id,
-              restaurantId:restaurantId.find(restaurant=>restaurant.name===e.Restaurantname).id,
-        })
-        )
-    })
 
+    // 5. Create data employment restaurant
+    const restaurantEmployments = Restaurant_employment.map(e => {
+        const userId = users.find(u => u.user_name === e.user_name)?.id;
+        const restaurantId = restaurants.find(r => r.name === e.Restaurantname)?.id;
+        // Nếu là manager thì làm Quản lý nhà hàng, còn lại là Nhân viên
+        const roleId = e.user_name === "rest_manager" 
+            ? getRoleId("Quản lý nhà hàng") 
+            : getRoleId("Nhân viên");
 
-     console.log(`✅ Đã tạo thành công ${resultRestaurant.count} Employment restaurand!`);
+        return { userId, restaurantId, workspaceRoleId: roleId };
+    }).filter(e => e.userId && e.restaurantId && e.workspaceRoleId);
+
+    const resultRestaurant = await prisma.Employment.createMany({
+        data: restaurantEmployments
+    });
+
+    console.log(`✅ Đã tạo thành công ${resultRestaurant.count} Employment Restaurant!`);
 };

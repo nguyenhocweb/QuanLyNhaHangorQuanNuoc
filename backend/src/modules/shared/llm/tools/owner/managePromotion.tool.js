@@ -1,9 +1,9 @@
-import { SchemaType } from "@google/generative-ai";
+﻿import { SchemaType } from "@google/generative-ai";
 import { prisma } from "../../../../../databases/init.mongodb.js";
 
 export const managePromotionSchema = {
   name: "managePromotion",
-  description: "Tạo một chiến dịch khuyến mãi mới cho thương hiệu. Dành cho Chủ thương hiệu.",
+  description: "Tạo một chiến dịch khuyến mãi mới cho thương hiệu. Dành cho Quản lý thương hiệu.",
   parameters: {
     type: SchemaType.OBJECT,
     properties: {

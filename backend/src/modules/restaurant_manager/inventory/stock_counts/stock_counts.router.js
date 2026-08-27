@@ -1,5 +1,5 @@
 import express from "express";
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { authorizeRole } from "../../../../core/middlewares/authorizeRole.middleware.js";
 import { validate } from "../../../../core/middlewares/validator.middleware.js";
 import { approveStockCountValidator } from "../../../brand_owner/stock_count/validators/stock_count.approve.validator.js";

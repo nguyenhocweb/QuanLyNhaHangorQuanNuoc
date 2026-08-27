@@ -25,14 +25,17 @@ export interface Brand {
     isFeatured: boolean;
     isNew: boolean;
     restaurantCount?: number;
-    inventoryApprovalThreshold?: number;
-
-    // Tax & Fee
-    isVatInclusive?: boolean;
-    defaultVatRate?: number;
-    serviceChargeRate?: number;
-    applyServiceCharge?: boolean;
-    forceGlobalTaxConfig?: boolean;
+    // Tax & Inventory Configs
+    taxConfig?: {
+        isVatInclusive?: boolean;
+        defaultVatRate?: number;
+        applyServiceCharge?: boolean;
+        serviceChargeRate?: number;
+        forceGlobalTaxConfig?: boolean;
+    };
+    inventoryConfig?: {
+        inventoryApprovalThreshold?: number;
+    };
     templateId?: string;
     template?: {
         code: string;

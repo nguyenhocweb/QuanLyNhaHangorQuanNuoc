@@ -14,7 +14,7 @@ export const checkRestaurantLimitService = async (brandId) => {
     }
 
     const maxRestaurants = activeSubscription.plan.maxRestaurants;
-    const currentCount = brand.restaurantCount;
+    const currentCount = brand._count.restaurants;
 
     // maxRestaurants = -1 means unlimited
     if (maxRestaurants !== -1 && currentCount >= maxRestaurants) {

@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { deleteTemplateService } from "../services/template.delete.service.js";
 
 export const deleteTemplateController = asyncHandler(async (req, res) => {

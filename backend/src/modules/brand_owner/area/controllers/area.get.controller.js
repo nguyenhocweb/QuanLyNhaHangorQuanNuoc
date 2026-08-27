@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getAreasByRestaurantIdService, getAreaByIdService } from "../services/area.get.service.js";
 
 export const getAreasByRestaurantId = asyncHandler(async (req, res) => {

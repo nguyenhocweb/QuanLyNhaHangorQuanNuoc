@@ -9,5 +9,17 @@ export const getBrandRestaurantsService = async (userId) => {
     }
 
     const restaurants = await getBrandRestaurantsByBrandId(employment.brandId);
-    return restaurants;
+    
+    // Format for frontend compatibility
+    return restaurants.map(r => {
+        if (r.categoryRestaurants) {
+            r.categories = r.categoryRestaurants;
+            delete r.categoryRestaurants;
+        }
+        if (r.restaurantAmenities) {
+            r.amenities = r.restaurantAmenities;
+            delete r.restaurantAmenities;
+        }
+        return r;
+    });
 };

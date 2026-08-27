@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { assignTableService, unassignTableService } from "../services/reservation.assign.service.js";
 
 export const assignTable = asyncHandler(async (req, res) => {

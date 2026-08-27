@@ -1,9 +1,9 @@
-import { SchemaType } from "@google/generative-ai";
+﻿import { SchemaType } from "@google/generative-ai";
 import { prisma } from "../../../../../databases/init.mongodb.js";
 
 export const getBrandRevenueSummarySchema = {
   name: "getBrandRevenueSummary",
-  description: "Lấy tổng quan doanh thu của toàn bộ Thương hiệu (tổng của tất cả các nhà hàng). Chỉ Chủ thương hiệu mới được dùng.",
+  description: "Lấy tổng quan doanh thu của toàn bộ Thương hiệu (tổng của tất cả các nhà hàng). Chỉ Quản lý thương hiệu mới được dùng.",
   parameters: {
     type: SchemaType.OBJECT,
     properties: {

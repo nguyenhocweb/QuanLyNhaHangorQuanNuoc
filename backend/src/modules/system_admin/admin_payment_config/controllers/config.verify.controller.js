@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { verifyAdminPaymentConfigService } from "../services/config.verify.service.js";
 
 export const verifyAdminPaymentConfigController = asyncHandler(async (req, res) => {

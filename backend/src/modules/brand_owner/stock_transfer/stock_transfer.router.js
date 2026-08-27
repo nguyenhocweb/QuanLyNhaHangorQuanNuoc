@@ -1,4 +1,4 @@
-import express from "express";
+﻿import express from "express";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
 import { validate } from "../../../core/middlewares/validator.middleware.js";
 
@@ -13,18 +13,18 @@ import { stockTransferUpdateValidator } from "./validators/stock_transfer.update
 const stockTransferRouter = express.Router({ mergeParams: true });
 
 // Lấy danh sách phiếu chuyển kho
-stockTransferRouter.get("/", authorizeRole("Chủ thương hiệu", "Admin", "Quản lý nhà hàng"), getStockTransfersController);
+stockTransferRouter.get("/", authorizeRole("Quản lý thương hiệu", "Admin", "Quản lý nhà hàng"), getStockTransfersController);
 
 // Lấy chi tiết phiếu chuyển kho
-stockTransferRouter.get("/:id", authorizeRole("Chủ thương hiệu", "Admin", "Quản lý nhà hàng"), getStockTransferByIdController);
+stockTransferRouter.get("/:id", authorizeRole("Quản lý thương hiệu", "Admin", "Quản lý nhà hàng"), getStockTransferByIdController);
 
 // Tạo mới phiếu chuyển kho
-stockTransferRouter.post("/", authorizeRole("Chủ thương hiệu", "Admin"), validate(stockTransferCreateValidator), createStockTransferController);
+stockTransferRouter.post("/", authorizeRole("Quản lý thương hiệu", "Admin"), validate(stockTransferCreateValidator), createStockTransferController);
 
 // Cập nhật trạng thái phiếu chuyển kho
-stockTransferRouter.put("/:id", authorizeRole("Chủ thương hiệu", "Admin", "Quản lý nhà hàng"), validate(stockTransferUpdateValidator), updateStockTransferController);
+stockTransferRouter.put("/:id", authorizeRole("Quản lý thương hiệu", "Admin", "Quản lý nhà hàng"), validate(stockTransferUpdateValidator), updateStockTransferController);
 
 // Xóa phiếu chuyển kho (chỉ áp dụng cho phiếu DRAFT)
-stockTransferRouter.delete("/:id", authorizeRole("Chủ thương hiệu", "Admin"), deleteStockTransferController);
+stockTransferRouter.delete("/:id", authorizeRole("Quản lý thương hiệu", "Admin"), deleteStockTransferController);
 
 export default stockTransferRouter;

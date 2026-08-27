@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../../core/utils/asyncHandler.js";
 import { deleteCategoryService } from "../services/category.delete.service.js";
 
 export const deleteCategoryController = asyncHandler(async (req, res) => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BiRestaurant, BiStar } from 'react-icons/bi';
+import { FiStar } from 'react-icons/fi';
 
 interface MyBrandRestaurantsProps {
     restaurants: any[] | undefined;
@@ -42,9 +43,9 @@ const MyBrandRestaurants = ({ restaurants, isRestaurantsLoading }: MyBrandRestau
                                         <BiRestaurant className="text-4xl text-slate-300" />
                                     </div>
                                 )}
-                                <div className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 text-sm font-semibold shadow-sm">
-                                    <BiStar className="text-amber-500" />
-                                    {restaurant.averageRating?.toFixed(1) || "Chưa có"}
+                                <div className="absolute top-3 right-3 flex items-center gap-1.5 px-2.5 py-1 bg-white/90 backdrop-blur-sm rounded-full text-sm font-semibold shadow-sm border border-slate-100">
+                                    <FiStar className="text-amber-400 fill-amber-400" />
+                                    <span className="text-slate-700">{restaurant.ratingStats?.averageRating || restaurant.averageRating || 0}</span>
                                 </div>
                             </div>
                             <div className="p-5">

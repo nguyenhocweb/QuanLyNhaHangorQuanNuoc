@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getMyVoucherWalletService } from "../services/promotion.get-wallet.service.js";
 
 export const getMyVoucherWalletController = asyncHandler(async (req, res) => {

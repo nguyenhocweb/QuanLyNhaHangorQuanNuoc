@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getTableAvailabilityService } from "../services/table.availability.service.js";
 
 export const getTableAvailability = asyncHandler(async (req, res, next) => {

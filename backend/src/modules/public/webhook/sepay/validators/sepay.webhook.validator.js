@@ -1,8 +1,8 @@
 import { demoValidator } from "../../../../../core/utils/validator.js";
 import z from "zod";
 
-export const sepayWebhookValidator = {
-  body: z.object({
+export const sepayWebhookValidator = z.object({
+    body: z.object({
     amountIn: z.number().optional(),
     amountOut: z.number().optional(),
     transactionContent: z.string().optional(),
@@ -11,4 +11,4 @@ export const sepayWebhookValidator = {
   query: z.object({
     token: z.string({ required_error: "Token là bắt buộc" })
   })
-};
+});

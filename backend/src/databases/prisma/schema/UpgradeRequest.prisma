@@ -1,6 +1,6 @@
 model UpgradeRequest {
   id     String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String @unique // Mỗi user chỉ có 1 request chờ duyệt tại 1 thời điểm
+  userId String @unique @db.ObjectId // Mỗi user chỉ có 1 request chờ duyệt tại 1 thời điểm
   user   User   @relation(fields: [userId], references: [id])
 
   // Các thông tin user phải nộp để xin lên quản lý

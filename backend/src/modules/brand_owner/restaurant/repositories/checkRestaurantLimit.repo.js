@@ -4,7 +4,11 @@ export const getBrandSubscriptionLimitRepo = async (brandId) => {
     return await prisma.brand.findUnique({
         where: { id: brandId },
         select: {
-            restaurantCount: true,
+            _count: {
+                select: {
+                    restaurants: true
+                }
+            },
             subscriptions: {
                 where: {
                     status: 'ACTIVE',

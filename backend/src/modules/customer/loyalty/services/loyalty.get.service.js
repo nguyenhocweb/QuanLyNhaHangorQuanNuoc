@@ -4,18 +4,7 @@ import { NotFoundError } from "../../../../core/constants/error/index.js";
 export const getLoyaltyService = {
   getMyLoyaltyInfo: async (userId) => {
     // Tìm tất cả các thẻ thành viên cấp Thương hiệu
-    const brandLoyalties = await prisma.brandCustomer.findMany({
-      where: { userId },
-      include: {
-        brand: {
-          select: {
-            id: true,
-            name: true,
-            logo: true
-          }
-        }
-      }
-    });
+    const brandLoyalties = []; // Không hỗ trợ thẻ thương hiệu do không có bảng BrandCustomer trong DB
 
     // Tìm tất cả các thẻ thành viên cấp Nhà hàng độc lập
     const restaurantLoyalties = await prisma.restaurantCustomer.findMany({

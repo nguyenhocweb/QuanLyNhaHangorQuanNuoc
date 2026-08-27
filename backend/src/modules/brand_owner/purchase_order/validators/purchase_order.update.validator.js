@@ -1,8 +1,8 @@
 import { demoValidator } from "../../../../core/utils/validator.js";
 import { z } from "zod";
 
-export const updatePurchaseOrderValidator = {
-  params: z.object({
+export const updatePurchaseOrderValidator = z.object({
+    params: z.object({
     id: demoValidator.chuoi("ID Đơn nhập hàng")
   }),
   body: z.object({
@@ -18,4 +18,4 @@ export const updatePurchaseOrderValidator = {
     })).optional(),
     notes: demoValidator.chuoi("Ghi chú").optional()
   })
-};
+});

@@ -1,5 +1,5 @@
 import { getOperatingHoursService } from "../services/operating_hours.get.service.js";
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 
 export const getOperatingHoursController = {
     get: asyncHandler(async (req, res) => {

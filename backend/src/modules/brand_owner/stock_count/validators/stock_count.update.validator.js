@@ -1,8 +1,8 @@
 import { demoValidator } from "../../../../core/utils/validator.js";
 import { z } from "zod";
 
-export const updateStockCountValidator = {
-  params: z.object({
+export const updateStockCountValidator = z.object({
+    params: z.object({
     id: demoValidator.chuoi("ID Phiếu kiểm kho")
   }),
   body: z.object({
@@ -14,4 +14,4 @@ export const updateStockCountValidator = {
       actualQty: z.number().optional()
     })).optional()
   })
-};
+});

@@ -8,12 +8,12 @@ import { updateStaffController } from "./controllers/staff.update.controller.js"
 import { deleteStaffController } from "./controllers/staff.delete.controller.js";
 import { createStaffValidator } from "./validators/staff.create.validator.js";
 import { updateStaffValidator } from "./validators/staff.update.validator.js";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 
-const route = Router();
+const route = Router({ mergeParams: true });
 
 route.use(authenticateToken);
-route.use(authorizeRole("Quản lý nhà hàng", "Nhân viên", "Admin", "Chủ thương hiệu"));
+route.use(authorizeRole("Quản lý nhà hàng", "Nhân viên", "Admin", "Quản lý thương hiệu"));
 
 route.get("/", asyncHandler(getStaffsController));
 route.post("/", validate(createStaffValidator), asyncHandler(createStaffController));

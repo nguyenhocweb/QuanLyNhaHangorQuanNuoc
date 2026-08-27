@@ -29,17 +29,19 @@ export const useAiStreaming = () => {
 
     try {
       let endpoint = '';
-      const userRole = typeof user.role === 'string' ? user.role : user.role?.title;
+      // Lấy role từ workspace hiện tại, nếu không có thì lấy systemRole của user
+      const userRole = activeWorkspace?.role || user?.systemRole || user?.role;
 
       switch (userRole) {
         case 'Admin':
           endpoint = '/system-admin/ai/chat';
           break;
+        case 'Chủ thương hiệu':
         case 'Quản lý thương hiệu':
           endpoint = '/brand-owner/ai/chat';
           break;
         case 'Quản lý nhà hàng':
-          endpoint = '/restaurant-manager/ai/chat';
+          endpoint = `/restaurant-manager/${activeWorkspace?.id}/ai/chat`;
           break;
         case 'Khách hàng':
         case 'Nhân viên':

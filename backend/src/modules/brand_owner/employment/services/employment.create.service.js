@@ -1,4 +1,4 @@
-import { prisma } from "../../../../databases/init.mongodb.js";
+﻿import { prisma } from "../../../../databases/init.mongodb.js";
 import { hashPass } from "../../../../core/utils/bcrypt.js";
 import { ConflictError, NotFoundError } from "../../../../core/constants/error/index.js";
 import { createEmploymentRepo } from "../repositories/employment.create.repo.js";
@@ -34,9 +34,9 @@ export const createEmploymentService = async (brandId, payload) => {
     if (existingUser.systemRole?.name === "Admin") {
       throw new ConflictError("Không thể gán quyền nhân viên cho quản lý cấp cao");
     }
-    const isBrandOwner = existingUser.employments.some(emp => emp.brandId === brandId && emp.workspaceRole?.name === "Chủ thương hiệu");
+    const isBrandOwner = existingUser.employments.some(emp => emp.brandId === brandId && emp.workspaceRole?.name === "Quản lý thương hiệu");
     if (isBrandOwner) {
-      throw new ConflictError("Người dùng này đã là Chủ thương hiệu, không thể gán quyền nhân viên");
+      throw new ConflictError("Người dùng này đã là Quản lý thương hiệu, không thể gán quyền nhân viên");
     }
 
     const alreadyEmployed = existingUser.employments.some(emp => emp.brandId === brandId);

@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { updateInventoryItemService } from "../services/inventory_item.update.service.js";
 
 export const updateInventoryItemController = asyncHandler(async (req, res) => {

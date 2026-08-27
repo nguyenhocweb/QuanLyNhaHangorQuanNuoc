@@ -5,9 +5,8 @@ import { FaSave } from 'react-icons/fa';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { apiKeyUpdateSchema, ApiKeyUpdateValues } from '../schema/api_key.update.schema';
-import { useUpdateApiKey } from '../hooks/useApiKeys';
 import { useAuthStore } from '@/src/features/auth/auth_store/use-auth-store';
-import { useGetActiveAiModels } from '@/src/features/system_admin/api_keys/hook/useApiKeys';
+import { useUpdateApiKey, useGetActiveBrandAiModels } from '../hooks/useApiKeys';
 
 interface Props {
   isOpen: boolean;
@@ -22,7 +21,7 @@ export const UpdateApiKeyFormModal: React.FC<Props> = ({ isOpen, onClose, apiKey
   
   // Chúng ta chỉ lấy danh sách model cho chatbox của key này
   const chatboxIdValue = apiKey?.chatboxId;
-  const { data: modelsData, isLoading: isLoadingModels } = useGetActiveAiModels(chatboxIdValue);
+  const { data: modelsData, isLoading: isLoadingModels } = useGetActiveBrandAiModels(brandId, chatboxIdValue);
 
   const { control, handleSubmit, reset, formState: { errors } } = useForm<ApiKeyUpdateValues>({
     resolver: zodResolver(apiKeyUpdateSchema) as any,

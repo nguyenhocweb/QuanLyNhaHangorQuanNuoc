@@ -23,6 +23,13 @@ export const demoValidator = {
         required_error: `${name} là bắt buộc`,
         invalid_type_error: `${name} phải là chuỗi`
     }).trim().min(1, `${name} không để trống`),
+    chuoiKhongBatBuoc: (name) => z.string({
+        invalid_type_error: `${name} phải là chuỗi`
+    }).trim().optional(),
+    soDienThoai: (name = "Số điện thoại") => z.string({
+        required_error: `${name} là bắt buộc`,
+        invalid_type_error: `${name} phải là chuỗi`
+    }).trim().regex(/^(0[3|5|7|8|9])+([0-9]{8})$/, `${name} không hợp lệ`),
     password: (name) => z.string({
         required_error: `${name} là bắt buộc`,
         invalid_type_error: `${name} phải là chuỗi`
@@ -117,6 +124,12 @@ export const demoValidator = {
                         ? `${name} phải cách hôm nay ít nhất ${minDays} ngày`
                         : `${name} không được vượt quá ${maxDays} ngày`
         }),
-
-
+    array: (name, schema, minLength = 0) => z.array(schema, {
+        required_error: `${name} là bắt buộc`,
+        invalid_type_error: `${name} phải là danh sách`
+    }).min(minLength, `${name} phải có ít nhất ${minLength} phần tử`),
+    enum: (name, enumObj) => z.nativeEnum(enumObj, {
+        required_error: `${name} là bắt buộc`,
+        invalid_type_error: `${name} không hợp lệ`
+    }),
 }

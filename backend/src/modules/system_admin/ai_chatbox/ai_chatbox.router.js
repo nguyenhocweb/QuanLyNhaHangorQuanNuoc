@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
 import { getActiveAiChatboxesController } from "./controllers/ai_chatbox.get.controller.js";
 

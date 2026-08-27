@@ -1,6 +1,6 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 import { getBrandPurchaseRequests } from "./controllers/request.get.controller.js";
 import { previewSplitRequests } from "./controllers/request.split.controller.js";
 import { generatePurchaseOrders } from "./controllers/request.generate.controller.js";
@@ -8,7 +8,7 @@ import { rejectPurchaseRequests } from "./controllers/request.reject.controller.
 
 const brandOwnerPurchaseRequestRouter = Router({ mergeParams: true });
 
-brandOwnerPurchaseRequestRouter.use(authorizeRole("Chủ thương hiệu"));
+brandOwnerPurchaseRequestRouter.use(authorizeRole("Quản lý thương hiệu"));
 
 // Lấy danh sách PR của toàn hệ thống (Brand)
 brandOwnerPurchaseRequestRouter.get("/", asyncHandler(getBrandPurchaseRequests));

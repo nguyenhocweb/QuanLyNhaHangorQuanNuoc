@@ -158,34 +158,7 @@ class OrderUpdateRepo {
           data: { tier: calculateTier(restCustomer.totalSpent) }
         });
 
-        // Upsert BrandCustomer
         if (restaurant && restaurant.brandId) {
-          const brandCustomer = await tx.brandCustomer.upsert({
-            where: {
-              brandId_userId: {
-                brandId: restaurant.brandId,
-                userId
-              }
-            },
-            update: {
-              totalSpent: { increment: total_amount },
-              loyaltyPoints: { increment: earnedPoints },
-              orderCount: { increment: 1 }
-            },
-            create: {
-              brandId: restaurant.brandId,
-              userId,
-              totalSpent: total_amount,
-              loyaltyPoints: earnedPoints,
-              orderCount: 1
-            }
-          });
-          
-          await tx.brandCustomer.update({
-            where: { id: brandCustomer.id },
-            data: { tier: calculateTier(brandCustomer.totalSpent) }
-          });
-          
           // Tạo LoyaltyTransaction
           await tx.loyaltyTransaction.create({
             data: {

@@ -5,8 +5,8 @@ export const getRestaurantsRepo = async (where) => {
         where,
         orderBy: { createdAt: "desc" },
         include: {
-            categories: true,
-            amenities: true,
+            categoryRestaurants: true,
+            restaurantAmenities: true,
             tags: true
         }
     });
@@ -22,8 +22,8 @@ export const getRestaurantUtilitiesRepo = async (where) => {
     return await prisma.restaurant.findFirst({
         where,
         select: {
-            categories: true,
-            amenities: true,
+            categoryRestaurants: true,
+            restaurantAmenities: true,
             tags: true
         }
     });

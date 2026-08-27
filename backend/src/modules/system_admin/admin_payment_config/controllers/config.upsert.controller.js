@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { upsertAdminPaymentConfig } from "../services/config.upsert.service.js";
 
 export const upsertAdminPaymentConfigController = asyncHandler(async (req, res) => {

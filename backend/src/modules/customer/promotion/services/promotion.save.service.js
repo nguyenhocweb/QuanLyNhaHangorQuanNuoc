@@ -32,8 +32,12 @@ export const saveVoucherService = async (userId, identifier) => {
         
         // Nếu promotion thuộc về toàn chuỗi (brand)
         if (!promotion.promotionRestaurants || promotion.promotionRestaurants.length === 0) {
-            const brandCustomer = await prisma.brandCustomer.findFirst({
-                where: { userId, brandId: promotion.brandId }
+            const brandCustomer = await prisma.restaurantCustomer.findFirst({
+                where: { 
+                    userId, 
+                    restaurant: { brandId: promotion.brandId } 
+                },
+                orderBy: { totalSpent: 'desc' }
             });
             if (brandCustomer) customerTier = brandCustomer.tier;
         } else {

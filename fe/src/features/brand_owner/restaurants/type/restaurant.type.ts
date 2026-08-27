@@ -17,15 +17,30 @@ export interface RestaurantTypeResponse {
     statusByAdmin: 'PENDING' | 'ACTIVE' | 'INACTIVE' | 'TERMINATED';
     imageMain: string;
     images: string[];
-    averageRating: number;
-    totalRating: number;
-    average_food_rating?: number;
-    average_service_rating?: number;
-    average_ambiance_rating?: number;
-    maxPartySize?: number;
-    bookingWindowDays?: number;
-    depositRequired?: boolean;
-    depositPerPax?: number;
+    bookingConfig?: {
+        maxPartySize?: number;
+        bookingWindowDays?: number;
+        cancellationHours?: number;
+        depositRequired?: boolean;
+        depositAmount?: number;
+    };
+    ratingStats?: {
+        totalRating?: number;
+        averageRating?: number;
+        food?: number;
+        service?: number;
+        ambiance?: number;
+    };
+    taxConfig?: {
+        isVatInclusive?: boolean;
+        defaultVatRate?: number;
+        applyServiceCharge?: boolean;
+        serviceChargeRate?: number;
+        forceGlobalTaxConfig?: boolean;
+    };
+    inventoryConfig?: {
+        inventoryApprovalThreshold?: number;
+    };
     createdAt: string;
     updatedAt: string;
     categories?: {

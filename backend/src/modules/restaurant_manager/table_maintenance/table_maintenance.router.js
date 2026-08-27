@@ -6,7 +6,7 @@ import { getTableMaintenanceController } from "./controllers/table_maintenance.g
 import { updateTableMaintenanceController } from "./controllers/table_maintenance.update.controller.js";
 import { deleteTableMaintenanceController } from "./controllers/table_maintenance.delete.controller.js";
 
-const route = express.Router();
+const route = express.Router({ mergeParams: true });
 
 route.post("/", validate(tableMaintenanceCreateValidator), createTableMaintenanceController);
 route.get("/", getTableMaintenanceController);

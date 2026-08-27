@@ -46,13 +46,13 @@ const BranchOverviewTab: React.FC<BranchOverviewTabProps> = ({ branch, id_brand 
                             <div className="flex items-center gap-2 text-blue-800">
                                 <FiUsers className="text-blue-500" /> Sức chứa
                             </div>
-                            <span className="font-bold text-blue-900">{branch.maxPartySize} khách</span>
+                            <span className="font-bold text-blue-900">{branch.bookingConfig?.maxPartySize || branch.maxPartySize} khách</span>
                         </div>
                         <div className="flex justify-between items-center bg-white p-3 rounded-xl border border-blue-50">
                             <div className="flex items-center gap-2 text-blue-800">
                                 <FiCreditCard className="text-blue-500" /> Tiền cọc
                             </div>
-                            <span className="font-bold text-blue-900">{branch.depositRequired ? `${branch.depositPerPax?.toLocaleString()} VNĐ` : "Không yêu cầu"}</span>
+                            <span className="font-bold text-blue-900">{(branch.bookingConfig?.depositRequired || branch.depositRequired) ? `${(branch.bookingConfig?.depositAmount || branch.depositPerPax)?.toLocaleString()} VNĐ` : "Không yêu cầu"}</span>
                         </div>
                     </div>
                 </div>
@@ -66,16 +66,16 @@ const BranchOverviewTab: React.FC<BranchOverviewTabProps> = ({ branch, id_brand 
                         <div className="flex flex-col bg-white p-3 rounded-xl border border-amber-50">
                             <span className="text-xs text-gray-400 font-semibold mb-1">VAT</span>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-gray-700">{branch.isVatInclusive ? "Đã bao gồm VAT" : "Chưa bao gồm VAT"}</span>
-                                <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md text-xs font-bold">{branch.defaultVatRate}%</span>
+                                <span className="text-sm font-medium text-gray-700">{(branch.taxConfig?.isVatInclusive !== undefined ? branch.taxConfig?.isVatInclusive : branch.isVatInclusive) ? "Đã bao gồm VAT" : "Chưa bao gồm VAT"}</span>
+                                <span className="px-2 py-0.5 bg-amber-100 text-amber-700 rounded-md text-xs font-bold">{branch.taxConfig?.defaultVatRate || branch.defaultVatRate || 0}%</span>
                             </div>
                         </div>
                         <div className="flex flex-col bg-white p-3 rounded-xl border border-amber-50">
                             <span className="text-xs text-gray-400 font-semibold mb-1">Phí dịch vụ</span>
                             <div className="flex justify-between items-center">
-                                <span className="text-sm font-medium text-gray-700">{branch.applyServiceCharge ? "Có áp dụng" : "Không áp dụng"}</span>
-                                {branch.applyServiceCharge && (
-                                    <span className="px-2 py-0.5 bg-rose-100 text-rose-700 rounded-md text-xs font-bold">{branch.serviceChargeRate}%</span>
+                                <span className="text-sm font-medium text-gray-700">{(branch.taxConfig?.applyServiceCharge !== undefined ? branch.taxConfig?.applyServiceCharge : branch.applyServiceCharge) ? "Có áp dụng" : "Không áp dụng"}</span>
+                                {(branch.taxConfig?.applyServiceCharge || branch.applyServiceCharge) && (
+                                    <span className="px-2 py-0.5 bg-rose-100 text-rose-700 rounded-md text-xs font-bold">{branch.taxConfig?.serviceChargeRate || branch.serviceChargeRate || 0}%</span>
                                 )}
                             </div>
                         </div>

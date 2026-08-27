@@ -7,7 +7,7 @@ export const getMenuItemsRepo = async (brandId, { skip, take, search, categoryId
     }
     if (menuId) {
         categoryMapsCondition.category = {
-            menuMaps: {
+            menuCategoryMaps: {
                 some: {
                     menuId
                 }
@@ -17,25 +17,25 @@ export const getMenuItemsRepo = async (brandId, { skip, take, search, categoryId
 
     const where = {
         brandId,
-        ...(Object.keys(categoryMapsCondition).length > 0 ? { categoryMaps: { some: categoryMapsCondition } } : {}),
+        ...(Object.keys(categoryMapsCondition).length > 0 ? { itemCategoryMaps: { some: categoryMapsCondition } } : {}),
         ...(search ? { name: { contains: search, mode: "insensitive" } } : {})
     };
 
     if (restaurantId) {
         if (isAssigned === 'true' || isAssigned === true) {
-            where.restaurantMaps = {
+            where.restaurantMenuItems = {
                 some: {
                     restaurantId,
                     ...(isAvailable !== undefined && isAvailable !== '' ? { isAvailable: isAvailable === 'true' || isAvailable === true } : {})
                 }
             };
         } else if (isAssigned === 'false' || isAssigned === false) {
-            where.restaurantMaps = {
+            where.restaurantMenuItems = {
                 none: { restaurantId }
             };
         } else {
             if (isAvailable !== undefined && isAvailable !== '') {
-                where.restaurantMaps = {
+                where.restaurantMenuItems = {
                     some: {
                         restaurantId,
                         isAvailable: isAvailable === 'true' || isAvailable === true
@@ -52,11 +52,11 @@ export const getMenuItemsRepo = async (brandId, { skip, take, search, categoryId
             take,
             orderBy: { createdAt: "desc" },
             include: {
-                categoryMaps: { 
+                itemCategoryMaps: { 
                     include: { 
                         category: { 
                             include: {
-                                menuMaps: {
+                                menuCategoryMaps: {
                                     include: {
                                         menu: { select: { name: true } }
                                     }
@@ -65,11 +65,11 @@ export const getMenuItemsRepo = async (brandId, { skip, take, search, categoryId
                         } 
                     } 
                 },
-                variants: true,
+                itemVariants: true,
                 modifierGroups: {
                     include: { options: true }
                 },
-                restaurantMaps: restaurantId ? {
+                restaurantMenuItems: restaurantId ? {
                     where: { restaurantId },
                     include: { restaurant: { select: { name: true } } }
                 } : {

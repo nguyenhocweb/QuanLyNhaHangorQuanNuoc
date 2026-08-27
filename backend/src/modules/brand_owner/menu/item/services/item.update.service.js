@@ -1,4 +1,4 @@
-import { updateItemRepo } from "../repositories/item.update.repo.js";
+﻿import { updateItemRepo } from "../repositories/item.update.repo.js";
 import { findEmploymentByUserId } from "../../../brand/repositories/brand.get.repo.js";
 import { NotFoundError, ConflictError } from "../../../../../core/constants/error/index.js";
 import { prisma } from "../../../../../databases/init.mongodb.js";
@@ -7,7 +7,7 @@ import { emitBrandMenuUpdate } from "../../../../../core/utils/socket.js";
 export const updateItemService = async (userId, id, payload) => {
     const employment = await findEmploymentByUserId(userId);
     if (!employment || !employment.brandId) {
-        throw new NotFoundError("Bạn chưa được gán quyền chủ thương hiệu.");
+        throw new NotFoundError("Bạn chưa được gán quyền Quản lý thương hiệu.");
     }
 
     const item = await prisma.menuItem.findUnique({

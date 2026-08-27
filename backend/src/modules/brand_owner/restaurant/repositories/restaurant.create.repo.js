@@ -6,17 +6,6 @@ export const createRestaurantRepo = async (data) => {
             data,
         });
 
-        if (data.brandId) {
-            await tx.brand.update({
-                where: { id: data.brandId },
-                data: {
-                    restaurantCount: {
-                        increment: 1
-                    }
-                }
-            });
-        }
-
         return newRestaurant;
     });
 };

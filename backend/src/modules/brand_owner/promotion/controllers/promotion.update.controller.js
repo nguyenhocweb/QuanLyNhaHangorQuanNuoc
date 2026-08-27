@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { updatePromotionService } from "../services/promotion.update.service.js";
 
 export const updatePromotion = asyncHandler(async (req, res) => {

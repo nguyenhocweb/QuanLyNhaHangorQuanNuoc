@@ -1,35 +1,35 @@
 model Order {
-
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  reservationId String @db.ObjectId
-  reservation Reservations @relation(fields: [reservationId], references: [id])
+  reservationId String       @db.ObjectId
+  reservation   Reservations @relation(fields: [reservationId], references: [id])
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
 
   tableId String? @db.ObjectId
-  table    Tables? @relation(fields: [tableId], references: [id])
+  table   Tables? @relation(fields: [tableId], references: [id])
 
   takenByEmpId String? @db.ObjectId
-  takenByEmp    User? @relation("EmployeeOrders", fields: [takenByEmpId], references: [id])
+  takenByEmp   User?   @relation("EmployeeOrders", fields: [takenByEmpId], references: [id])
 
   order_number String @unique
 
   status OrderStatus
 
-  subtotal Float
+  subtotal        Float
   discount_amount Float
-  tax_amount Float
-  total_amount Float
+  tax_amount      Float
+  total_amount    Float
 
   payment_method PaymentMethod?
-  paid_at DateTime?
+  paid_at        DateTime?
 
-  
   items        OrderItem[]
   transactions Transaction[]
-  createdAt DateTime @default(now())
+  createdAt    DateTime      @default(now())
 
   @@index([reservationId])
   @@index([tableId])
-
   @@map("orders")
 }

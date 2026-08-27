@@ -1,4 +1,4 @@
-import { prisma } from "../../../../databases/init.mongodb.js";
+﻿import { prisma } from "../../../../databases/init.mongodb.js";
 import { NotFoundError, ForbiddenError, BadRequestError } from "../../../../core/constants/error/index.js";
 import { updateStaffRepo } from "../repositories/staff.update.repo.js";
 import { emitStaffUpdate, emitUserPermissionUpdate } from "../../../../core/utils/socket.js";
@@ -32,7 +32,7 @@ export const updateStaffService = async (restaurantId, employmentId, payload, us
   let workspaceRoleId = undefined;
 
   if (roleName) {
-    if (roleName === "Admin" || roleName === "Chủ thương hiệu") {
+    if (roleName === "Admin" || roleName === "Quản lý thương hiệu") {
       throw new ForbiddenError("Không thể thăng chức thành Quản trị viên cấp cao tại chi nhánh");
     }
     const role = await prisma.workspaceRole.findUnique({ where: { name: roleName } });

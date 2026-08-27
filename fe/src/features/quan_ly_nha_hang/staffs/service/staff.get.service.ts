@@ -10,6 +10,8 @@ export interface IGetStaffsParams {
 }
 
 export const getStaffsService = async (params: IGetStaffsParams): Promise<IGetStaffsResponse> => {
-  const res = await axiosClient.get("/restaurant-manager/staff", { params });
+  const { restaurantId, ...restParams } = params;
+  if (!restaurantId) throw new Error("restaurantId is required");
+  const res = await axiosClient.get(`/restaurant-manager/${restaurantId}/staff`, { params: restParams });
   return res.data;
 };

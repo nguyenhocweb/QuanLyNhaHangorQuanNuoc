@@ -1,19 +1,43 @@
 import app from "./app.js";
 import { appConfig } from "./config/app.config.js";
+import http from "http";
+import { Server } from "socket.io";
+import corsOptions from "./core/middlewares/cors.middlewares.js";
 
 import { connectDB, disconnectDB } from './databases/init.mongodb.js'; // Import logic DB bạn vừa viết
-const port = appConfig.port;
+const port = appConfig.port || 4000;
 
+// Khởi tạo HTTP Server bọc ngoài Express
+const httpServer = http.createServer(app);
+
+// Khởi tạo Socket.IO với cấu hình CORS đồng bộ với Express
+const io = new Server(httpServer, {
+  cors: corsOptions
+});
+
+global.io = io; // Public instance để tái sử dụng ở Controller/Service
+
+io.on("connection", (socket) => {
+  console.log(`🔌 [Socket.IO] Client connected: ${socket.id}`);
+  
+  socket.on("join_restaurant", (restaurantId) => {
+    socket.join(restaurantId);
+    console.log(`🔌 [Socket.IO] Client ${socket.id} joined room: ${restaurantId}`);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`🔌 [Socket.IO] Client disconnected: ${socket.id}`);
+  });
+});
 
 const startServer = async () => {
   try {
     // 1. Kết nối Database trước (Quan trọng!)
     await connectDB();
 
-    // 2. Nếu DB ngon lành -> Mới bật Server
-    const server = app.listen(port, () => {
+    // 2. Nếu DB ngon lành -> Mới bật Server (Dùng httpServer thay vì app)
+    const server = httpServer.listen(port, () => {
       console.log(`🚀 Server is running on: http://localhost:${port}`);
-
     });
 
     // --- GRACEFUL SHUTDOWN (Tắt server an toàn chuẩn Senior) ---

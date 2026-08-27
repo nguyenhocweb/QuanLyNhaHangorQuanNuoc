@@ -1,11 +1,11 @@
 import { z } from "zod";
 import { demoValidator } from "../../../../core/utils/validator.js";
-import { TableType, TableShape, TableStatus } from "../../../../databases/prisma/generated/prisma/client.js";
+import { TableShape, TableStatus } from "../../../../databases/prisma/generated/prisma/client.js";
 
 export const tableUpdateValidator = z.object({
     body: z.object({
         table_number: demoValidator.chuoi("Số/Tên bàn").optional(),
-        table_type: z.nativeEnum(TableType).optional(),
+        table_type: z.enum(["STANDARD", "VIP"]).optional(),
         min_capacity: demoValidator.int("Sức chứa tối thiểu", 1).optional(),
         max_capacity: demoValidator.int("Sức chứa tối đa", 1).optional(),
         is_vip: demoValidator.boolean("VIP").optional(),

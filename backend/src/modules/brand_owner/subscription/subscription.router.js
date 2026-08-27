@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 import { checkoutController } from "./controllers/subscription.checkout.controller.js";
 import { getActivePlans } from "./controllers/subscription.getPlans.controller.js";
 

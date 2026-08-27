@@ -1,8 +1,8 @@
 import { demoValidator } from "../../../../core/utils/validator.js";
 import { z } from "zod";
 
-export const createPurchaseOrderValidator = {
-  body: z.object({
+export const createPurchaseOrderValidator = z.object({
+    body: z.object({
     restaurantId: demoValidator.chuoi("ID Nhà hàng"),
     supplierId: demoValidator.chuoi("ID Nhà cung cấp"),
     invoiceImageUrl: z.string().url("Link ảnh không hợp lệ").optional().or(z.literal("")),
@@ -13,4 +13,4 @@ export const createPurchaseOrderValidator = {
     })).min(1, "Phải có ít nhất 1 mặt hàng"),
     notes: demoValidator.chuoi("Ghi chú").optional()
   })
-};
+});

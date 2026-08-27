@@ -1,4 +1,4 @@
-import { NotFoundError, ForbiddenError } from "../../../../core/constants/error/index.js";
+﻿import { NotFoundError, ForbiddenError } from "../../../../core/constants/error/index.js";
 import { findEmploymentByUserId } from "../repositories/brand.get.repo.js";
 import { getTemplateByIdRepo, getActiveSubscriptionByBrandRepo, updateBrandTemplateRepo } from "../repositories/brand.update_template.repo.js";
 
@@ -6,7 +6,7 @@ export const updateBrandTemplateService = async (userId, templateId) => {
     // 0. Resolve brandId từ DB thông qua employment
     const employment = await findEmploymentByUserId(userId);
     if (!employment || !employment.brandId) {
-        throw new NotFoundError("Bạn chưa được gán quyền chủ thương hiệu hoặc không tìm thấy thương hiệu.");
+        throw new NotFoundError("Bạn chưa được gán quyền Quản lý thương hiệu hoặc không tìm thấy thương hiệu.");
     }
     const brandId = employment.brandId;
 

@@ -1,4 +1,4 @@
-import { prisma } from "../../../../databases/init.mongodb.js";
+﻿import { prisma } from "../../../../databases/init.mongodb.js";
 
 export const getEmploymentsRepo = async (brandId, { skip, take, search, restaurantId }) => {
   const where = {
@@ -12,7 +12,7 @@ export const getEmploymentsRepo = async (brandId, { skip, take, search, restaura
     },
     workspaceRole: {
       name: {
-        notIn: ["Chủ thương hiệu"]
+        notIn: ["Quản lý thương hiệu"]
       }
     }
   };

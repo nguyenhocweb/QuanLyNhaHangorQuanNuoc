@@ -1,9 +1,9 @@
-import { SchemaType } from "@google/generative-ai";
+﻿import { SchemaType } from "@google/generative-ai";
 import { prisma } from "../../../../../databases/init.mongodb.js";
 
 export const manageGlobalMenuSchema = {
   name: "manageGlobalMenu",
-  description: "Cập nhật giá bán hoặc trạng thái của một món ăn trên toàn hệ thống Thương hiệu (Global). Dành cho Chủ thương hiệu.",
+  description: "Cập nhật giá bán hoặc trạng thái của một món ăn trên toàn hệ thống Thương hiệu (Global). Dành cho Quản lý thương hiệu.",
   parameters: {
     type: SchemaType.OBJECT,
     properties: {

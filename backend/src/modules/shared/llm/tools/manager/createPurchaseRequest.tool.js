@@ -1,9 +1,9 @@
-import { SchemaType } from "@google/generative-ai";
+﻿import { SchemaType } from "@google/generative-ai";
 import { prisma } from "../../../../../databases/init.mongodb.js";
 
 export const createPurchaseRequestSchema = {
   name: "createPurchaseRequest",
-  description: "Tạo phiếu yêu cầu nhập hàng (Purchase Request) gửi lên Chủ thương hiệu (Owner). Chỉ dùng khi quản lý muốn xin mua thêm nguyên liệu.",
+  description: "Tạo phiếu yêu cầu nhập hàng (Purchase Request) gửi lên Quản lý thương hiệu (Owner). Chỉ dùng khi quản lý muốn xin mua thêm nguyên liệu.",
   parameters: {
     type: SchemaType.OBJECT,
     properties: {

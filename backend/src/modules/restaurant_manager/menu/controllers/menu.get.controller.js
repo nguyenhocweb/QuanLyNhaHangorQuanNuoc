@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getRestaurantMenuService } from "../services/menu.get.service.js";
 
 export const getRestaurantMenuController = asyncHandler(async (req, res) => {

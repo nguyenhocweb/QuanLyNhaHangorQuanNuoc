@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { demoValidator } from "../../../core/utils/validator.js";
 
-export const pushNotificationValidator = {
-  body: z.object({
+export const pushNotificationValidator = z.object({
+    body: z.object({
     targetType: z.enum(["ALL_SYSTEM", "INDIVIDUAL_USER", "RESTAURANT", "BRAND"], {
       required_error: "Loại đối tượng không được để trống",
     }),
@@ -24,4 +24,4 @@ export const pushNotificationValidator = {
     message: "Vui lòng chọn ít nhất 1 đối tượng hoặc bật tùy chọn gửi tất cả",
     path: ["targetIds"]
   })
-};
+});

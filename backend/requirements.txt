@@ -1,0 +1,37 @@
+# Lưu ý: Đây là dự án Node.js. 
+# File chuẩn để quản lý thư viện là package.json. 
+# Bạn hãy chạy lệnh `npm install` để cài đặt.
+# File requirements.txt này được tạo ra để phục vụ việc tham khảo nhanh các package (Tương tự hệ sinh thái Python).
+
+# --- NHỮNG THƯ VIỆN BẮT BUỘC PHẢI KHÓA PHIÊN BẢN ---
+# Prisma ORM bắt buộc phải chốt cứng phiên bản để tránh xung đột giữa Client và Engine
+@prisma/client==6.19
+prisma==6.19
+
+# --- NHỮNG THƯ VIỆN LẤY PHIÊN BẢN MỚI NHẤT ---
+axios
+bcryptjs
+cloudinary
+compression
+cookie-parser
+cors
+dotenv
+express
+express-session
+helmet
+http-status-codes
+jsonwebtoken
+mongodb
+mongoose
+morgan
+node-cron
+passport
+passport-google-oauth20
+socket.io
+uuid
+zod
+
+# Dev Dependencies (Chỉ dùng môi trường code)
+@types/node
+migrate-mongo
+nodemon

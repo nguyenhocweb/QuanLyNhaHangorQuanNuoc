@@ -5,9 +5,8 @@ import { FaPlus } from 'react-icons/fa';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { apiKeyCreateSchema, ApiKeyCreateValues } from '../schema/api_key.create.schema';
-import { useCreateApiKey } from '../hooks/useApiKeys';
 import { useAuthStore } from '@/src/features/auth/auth_store/use-auth-store';
-import { useGetActiveAiChatboxes, useGetActiveAiModels } from '@/src/features/system_admin/api_keys/hook/useApiKeys';
+import { useCreateApiKey, useGetActiveBrandAiChatboxes, useGetActiveBrandAiModels } from '../hooks/useApiKeys';
 
 interface Props {
   isOpen: boolean;
@@ -18,7 +17,7 @@ export const CreateApiKeyFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const { activeWorkspace } = useAuthStore();
   const brandId = activeWorkspace?.id;
   const createMutation = useCreateApiKey();
-  const { data: chatboxesData, isLoading: isLoadingChatboxes } = useGetActiveAiChatboxes();
+  const { data: chatboxesData, isLoading: isLoadingChatboxes } = useGetActiveBrandAiChatboxes(brandId);
   
   const { control, handleSubmit, watch, reset, formState: { errors } } = useForm<ApiKeyCreateValues>({
     resolver: zodResolver(apiKeyCreateSchema) as any,
@@ -32,7 +31,7 @@ export const CreateApiKeyFormModal: React.FC<Props> = ({ isOpen, onClose }) => {
   });
 
   const chatboxIdValue = watch('chatboxId');
-  const { data: modelsData, isLoading: isLoadingModels } = useGetActiveAiModels(chatboxIdValue);
+  const { data: modelsData, isLoading: isLoadingModels } = useGetActiveBrandAiModels(brandId, chatboxIdValue);
 
   const chatboxes = chatboxesData?.metadata || [];
   const models = modelsData?.metadata || [];

@@ -13,11 +13,11 @@ import { updateReservation } from "./controllers/reservation.update.controller.j
 import { updateReservationStatus } from "./controllers/reservation.status.controller.js";
 import { assignTable, unassignTable } from "./controllers/reservation.assign.controller.js";
 
-const route = Router();
+const route = Router({ mergeParams: true });
 
 // Middleware xác thực (tất cả các route trong nhà hàng đều cần đăng nhập)
 route.use(authenticateToken);
-route.use(authorizeRole('Admin', 'Quản lý nhà hàng', 'Chủ thương hiệu', 'Nhân viên')); // Admin, Quản lý nhà hàng, Chủ thương hiệu hoặc Nhân viên đều được thao tác
+route.use(authorizeRole('Admin', 'Quản lý nhà hàng', 'Quản lý thương hiệu', 'Nhân viên')); // Admin, Quản lý nhà hàng, Chủ thương hiệu hoặc Nhân viên đều được thao tác
 
 // GET /
 route.get("/:restaurantId", authorizePermission('VIEW_RESERVATION'), getReservations);

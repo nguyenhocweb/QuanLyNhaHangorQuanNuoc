@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getOperatingHoursService } from "../../../brand_owner/operating_hours/services/operating_hours.get.service.js";
 import { ForbiddenError } from "../../../../core/constants/error/index.js";
 

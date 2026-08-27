@@ -1,4 +1,4 @@
-import { findEmploymentByUserId } from "../repositories/brand.get.repo.js";
+﻿import { findEmploymentByUserId } from "../repositories/brand.get.repo.js";
 import { getAllActiveTemplatesRepo, getActiveSubscriptionByBrandRepo } from "../repositories/brand_templates.get.repo.js";
 import { NotFoundError } from "../../../../core/constants/error/index.js";
 
@@ -6,7 +6,7 @@ export const getBrandTemplatesService = async (userId) => {
     // 1. Resolve brandId từ DB thông qua employment
     const employment = await findEmploymentByUserId(userId);
     if (!employment || !employment.brandId) {
-        throw new NotFoundError("Bạn chưa được gán quyền chủ thương hiệu hoặc không tìm thấy thương hiệu.");
+        throw new NotFoundError("Bạn chưa được gán quyền Quản lý thương hiệu hoặc không tìm thấy thương hiệu.");
     }
     const brandId = employment.brandId;
 

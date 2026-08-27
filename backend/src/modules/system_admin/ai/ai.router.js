@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { aiAdminController } from "./controllers/ai.admin.controller.js";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 
 const route = Router();
 

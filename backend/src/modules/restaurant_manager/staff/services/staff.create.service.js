@@ -1,4 +1,4 @@
-import { prisma } from "../../../../databases/init.mongodb.js";
+﻿import { prisma } from "../../../../databases/init.mongodb.js";
 import { hashPass } from "../../../../core/utils/bcrypt.js";
 import { ConflictError, NotFoundError, ForbiddenError, BadRequestError } from "../../../../core/constants/error/index.js";
 import { createStaffRepo } from "../repositories/staff.create.repo.js";
@@ -30,7 +30,7 @@ export const createStaffService = async (restaurantId, payload, user) => {
   if (!isManager && permissionIds && permissionIds.length > 0) {
     throw new ForbiddenError("Chỉ Quản lý nhà hàng mới có quyền phân quyền chi tiết cho nhân viên!");
   }
-  if (roleName === "Admin" || roleName === "Chủ thương hiệu") {
+  if (roleName === "Admin" || roleName === "Quản lý thương hiệu") {
     throw new ForbiddenError("Không thể cấp vai trò Quản trị viên cấp cao tại chi nhánh");
   }
 

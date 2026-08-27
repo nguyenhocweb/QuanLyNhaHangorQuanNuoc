@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../../core/utils/asyncHandler.js";
 import { handleSepayWebhookLogic } from "../services/sepay.webhook.service.js";
 
 export const handleSepayWebhook = asyncHandler(async (req, res) => {

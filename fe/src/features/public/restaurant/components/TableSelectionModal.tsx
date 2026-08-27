@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaTimes, FaInfoCircle } from 'react-icons/fa';
 import { useGetAvailableTables } from '../hook/useGetAvailableTables';
-import { io } from 'socket.io-client';
+import { getSocket } from '@/src/core/hooks/useSocket';
 import { useQueryClient } from '@tanstack/react-query';
 import FloorPlanRenderer from './FloorPlanRenderer';
 import { cn } from '@/src/core/lib/tw';
@@ -27,17 +27,20 @@ const TableSelectionModal: React.FC<Props> = ({ isOpen, onClose, idRestaurant, d
 
     useEffect(() => {
         if (!isOpen) return;
-        const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:8000';
-        const socket = io(socketUrl, { transports: ['websocket'] });
         
-        socket.on('table_status_changed', (payload: any) => {
+        const socket = getSocket();
+        
+        const handleStatusChange = (payload: any) => {
             if (payload.restaurantId === idRestaurant) {
                 queryClient.invalidateQueries({ queryKey: ["PUBLIC_AVAILABLE_TABLES", idRestaurant] });
             }
-        });
+        };
+
+        socket.on('table_status_changed', handleStatusChange);
 
         return () => {
-            socket.disconnect();
+            // Không được disconnect vì Socket dùng chung toàn App, chỉ tắt listener
+            socket.off('table_status_changed', handleStatusChange);
         };
     }, [isOpen, idRestaurant, queryClient]);
 

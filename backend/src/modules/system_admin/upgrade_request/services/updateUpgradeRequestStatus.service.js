@@ -1,6 +1,7 @@
 import { prisma } from "../../../../databases/init.mongodb.js";
 import { findUpgradeRequestById } from "../repositories/index.js";
 import { BadRequestError, NotFoundError, ConflictError } from "../../../../core/constants/error/index.js";
+import { emitUserPermissionUpdate, emitBrandSubscriptionUpdate } from "../../../../core/utils/socket.js";
 
 export const updateUpgradeRequestStatusService = async (id, status, planId) => {
     if (!["APPROVED", "REJECTED"].includes(status)) {
@@ -24,7 +25,7 @@ export const updateUpgradeRequestStatusService = async (id, status, planId) => {
     }
 
     // Nếu APPROVED
-    return await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx) => {
         // Cập nhật trạng thái yêu cầu
         const updatedRequest = await tx.upgradeRequest.update({
             where: { id },
@@ -33,10 +34,10 @@ export const updateUpgradeRequestStatusService = async (id, status, planId) => {
 
         // 1. Cập nhật role người dùng (Lấy role cho Workspace)
         const brandOwnerRole = await tx.workspaceRole.findUnique({
-            where: { name: "Chủ thương hiệu" }
+            where: { name: "Quản lý thương hiệu" }
         });
         if (!brandOwnerRole) {
-            throw new BadRequestError("Hệ thống chưa cấu hình WorkspaceRole 'Chủ thương hiệu'");
+            throw new BadRequestError("Hệ thống chưa cấu hình WorkspaceRole 'Quản lý thương hiệu'");
         }
 
         // 2. Tạo Brand mới
@@ -77,7 +78,8 @@ export const updateUpgradeRequestStatusService = async (id, status, planId) => {
         const newBrand = await tx.brand.create({
             data: {
                 name: upgradeRequest.brandName,
-                taxCode: upgradeRequest.taxCode,
+                tax_code: upgradeRequest.tax_code || null,
+                imageMain: upgradeRequest.businessLicense || upgradeRequest.user?.avatar || "https://res.cloudinary.com/demo/image/upload/v1/default_brand.jpg",
                 isActive: "ACTIVE", // Đã duyệt thì ACTIVE luôn
                 subscriptions: {
                     create: [
@@ -108,6 +110,12 @@ export const updateUpgradeRequestStatusService = async (id, status, planId) => {
             }
         });
 
-        return updatedRequest;
+        return { updatedRequest, newBrand };
     });
+
+    // Emit Socket tới máy User để Frontend tự gọi API Refresh Data
+    emitUserPermissionUpdate(upgradeRequest.userId);
+    emitBrandSubscriptionUpdate(result.newBrand.id);
+
+    return result;
 };

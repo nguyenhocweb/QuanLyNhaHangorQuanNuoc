@@ -12,5 +12,15 @@ export const getRestaurantUtilitiesService = async (brandId, restaurantId) => {
 
     if (!utilities) throw new NotFoundError("Không tìm thấy nhà hàng hoặc nhà hàng không thuộc thương hiệu này");
 
+    // Format for frontend compatibility
+    if (utilities.categoryRestaurants) {
+        utilities.categories = utilities.categoryRestaurants;
+        delete utilities.categoryRestaurants;
+    }
+    if (utilities.restaurantAmenities) {
+        utilities.amenities = utilities.restaurantAmenities;
+        delete utilities.restaurantAmenities;
+    }
+
     return utilities;
 };

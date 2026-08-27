@@ -45,7 +45,10 @@ export const getUpgradeRequests = async (query) => {
 
 export const findUpgradeRequestById = async (id) => {
     return prisma.upgradeRequest.findUnique({
-        where: { id }
+        where: { id },
+        include: {
+            user: true
+        }
     });
 };
 

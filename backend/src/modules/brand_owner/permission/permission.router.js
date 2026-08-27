@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 import { getPermissionsController } from "./controllers/permission.get.controller.js";
 
 const route = Router({ mergeParams: true });

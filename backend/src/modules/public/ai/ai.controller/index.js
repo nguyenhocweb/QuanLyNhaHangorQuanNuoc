@@ -1,5 +1,5 @@
 import asyncHandler from "../../../../core/utils/asyncHandler.js";
-import { chatBoxAiLLMService } from "../../../shared/llm/llm.facade.js";
+import { aiFacade } from "../../../shared/llm/llm.facade.js";
 
 export const ChatBoxAi = asyncHandler(
     async (req, res) => {
@@ -12,9 +12,14 @@ export const ChatBoxAi = asyncHandler(
         if (!message) {
             return res.status(400).json({ error: "Vui lòng cung cấp tin nhắn." });
         }
-        const textMessage = JSON.stringify(message);
+        const textMessage = typeof message === 'string' ? message : JSON.stringify(message);
         // Gọi service LLM Facade
-        const aiReply = await chatBoxAiLLMService(textMessage, question, brandId, role, currentSessionId);
+        const aiReply = await aiFacade.handleChat({
+            prompt: textMessage,
+            sessionId: currentSessionId,
+            persona: role,
+            context: { brandId }
+        });
 
         // Trả kết quả về cho Frontend
         return res.status(200).json(aiReply);

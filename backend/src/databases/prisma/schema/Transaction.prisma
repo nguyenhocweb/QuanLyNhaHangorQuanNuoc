@@ -1,21 +1,23 @@
 model Transaction {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  orderId     String   @db.ObjectId
-  amount      Float
+  orderId String @db.ObjectId
+  amount  Float
 
-  provider    PaymentMethod
+  provider PaymentMethod
 
   externalTransactionId String?
 
-  status      TransactionStatus
+  status TransactionStatus
 
   rawResponse Json?
 
-  createdAt   DateTime @default(now())
+  createdAt DateTime @default(now())
 
   // Relation
-  order       Order @relation(fields: [orderId], references: [id])
+  order                 Order                @relation(fields: [orderId], references: [id])
+  systemPaymentMethod   SystemPaymentMethod? @relation(fields: [systemPaymentMethodId], references: [id])
+  systemPaymentMethodId String?              @db.ObjectId
 
   @@index([orderId])
   @@index([externalTransactionId])

@@ -187,10 +187,10 @@ const MyBrandView = () => {
                             <div className="flex justify-between items-center bg-slate-50 p-3 rounded-xl">
                                 <div>
                                     <p className="font-medium text-slate-700 text-sm">Giá bán</p>
-                                    <p className="text-xs text-slate-500 mt-0.5">{brand.isVatInclusive ? "Đã bao gồm thuế VAT" : "Chưa bao gồm thuế VAT"}</p>
+                                    <p className="text-xs text-slate-500 mt-0.5">{brand.taxConfig?.isVatInclusive ? "Đã bao gồm thuế VAT" : "Chưa bao gồm thuế VAT"}</p>
                                 </div>
                                 <div className="px-3 py-1 bg-amber-100 text-amber-700 rounded-lg text-sm font-semibold">
-                                    VAT {brand.defaultVatRate}%
+                                    VAT {brand.taxConfig?.defaultVatRate || 0}%
                                 </div>
                             </div>
 
@@ -198,17 +198,17 @@ const MyBrandView = () => {
                             <div className="flex justify-between items-center bg-slate-50 p-3 rounded-xl">
                                 <div>
                                     <p className="font-medium text-slate-700 text-sm">Phí dịch vụ</p>
-                                    <p className="text-xs text-slate-500 mt-0.5">{brand.applyServiceCharge ? "Đang áp dụng" : "Không áp dụng"}</p>
+                                    <p className="text-xs text-slate-500 mt-0.5">{brand.taxConfig?.applyServiceCharge ? "Đang áp dụng" : "Không áp dụng"}</p>
                                 </div>
-                                {brand.applyServiceCharge && (
+                                {brand.taxConfig?.applyServiceCharge && (
                                     <div className="px-3 py-1 bg-rose-100 text-rose-700 rounded-lg text-sm font-semibold">
-                                        Phí {brand.serviceChargeRate}%
+                                        Phí {brand.taxConfig?.serviceChargeRate || 0}%
                                     </div>
                                 )}
                             </div>
 
                             {/* Global Override Warning */}
-                            {brand.forceGlobalTaxConfig && (
+                            {brand.taxConfig?.forceGlobalTaxConfig && (
                                 <div className="mt-4 p-3 bg-blue-50 border border-blue-100 rounded-xl flex gap-2 items-start">
                                     <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="text-blue-500 mt-0.5 shrink-0" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                                     <p className="text-xs text-blue-700 leading-relaxed">
@@ -235,7 +235,7 @@ const MyBrandView = () => {
                                     Quản lý chi nhánh được tự động duyệt các phiếu có giá trị chênh lệch (âm/dương) nằm trong khoảng hạn mức này.
                                 </p>
                                 <div className="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-lg text-lg font-bold text-center border border-emerald-200">
-                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(brand.inventoryApprovalThreshold || 0)}
+                                    {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(brand.inventoryConfig?.inventoryApprovalThreshold || 0)}
                                 </div>
                             </div>
                         </div>

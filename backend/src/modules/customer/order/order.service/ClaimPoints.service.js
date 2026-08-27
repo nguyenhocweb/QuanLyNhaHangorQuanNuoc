@@ -88,31 +88,8 @@ export const claimPointsService = async (userId, claimCode) => {
       });
     }
 
-    // 4. Cập nhật BrandCustomer & LoyaltyTransaction
+    // 4. Tạo LoyaltyTransaction
     if (brandId) {
-      const brandCustomer = await tx.brandCustomer.upsert({
-        where: {
-          brandId_userId: { brandId, userId }
-        },
-        update: {
-          totalSpent: { increment: order.total_amount },
-          loyaltyPoints: { increment: earnedPoints },
-          orderCount: { increment: 1 }
-        },
-        create: {
-          brandId,
-          userId,
-          totalSpent: order.total_amount,
-          loyaltyPoints: earnedPoints,
-          orderCount: 1
-        }
-      });
-
-      await tx.brandCustomer.update({
-        where: { id: brandCustomer.id },
-        data: { tier: calculateTier(brandCustomer.totalSpent) }
-      });
-
       await tx.loyaltyTransaction.create({
         data: {
           userId,

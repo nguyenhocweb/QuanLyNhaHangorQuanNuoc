@@ -15,9 +15,28 @@ export const requireFeature = (requiredFeature) => {
             return next();
         }
 
-        const brandId = req.user.brandId;
+        let brandId = req.params.id_brand || req.body.brandId || req.query.brandId;
+
+        // Nếu không có trực tiếp brandId, ta kiểm tra qua x-workspace-id
         if (!brandId) {
-            throw new ForbiddenError("Không tìm thấy thông tin Brand của người dùng.");
+            const workspaceId = req.headers['x-workspace-id'];
+            if (workspaceId) {
+                if (req.user.brand && req.user.brand.some(b => b.id === workspaceId)) {
+                    brandId = workspaceId;
+                } else if (req.user.restaurant && req.user.restaurant.some(r => r.id === workspaceId)) {
+                    const restaurant = await prisma.restaurant.findUnique({
+                        where: { id: workspaceId },
+                        select: { brandId: true }
+                    });
+                    if (restaurant) brandId = restaurant.brandId;
+                } else {
+                    brandId = workspaceId; // Fallback
+                }
+            }
+        }
+
+        if (!brandId) {
+            throw new ForbiddenError("Không tìm thấy thông tin Brand của người dùng để kiểm tra tính năng.");
         }
 
         // Tìm gói cước đang ACTIVE của Brand

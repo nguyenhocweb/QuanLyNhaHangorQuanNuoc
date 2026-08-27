@@ -107,9 +107,11 @@ export const getRevenueReport = async (restaurantId, startDate, endDate) => {
         by: ['menuItemId', 'name'],
         where: { 
             order: {
-                status: "PAID",
-                createdAt: { gte: start, lte: end },
-                restaurantId: restaurantId
+                is: {
+                    status: "PAID",
+                    createdAt: { gte: start, lte: end },
+                    restaurantId: restaurantId
+                }
             }
         },
         _sum: { quantity: true, totalPrice: true },

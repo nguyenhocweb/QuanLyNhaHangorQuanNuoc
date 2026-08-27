@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FiX, FiCheck } from 'react-icons/fi';
 import { subscriptionSchema, SubscriptionFormValues } from '../schema/subscription-schema';
 import { useCreateSubscription, useGetSubscriptionFeatures } from '../hook/useSubscription_hook';
-import { BASIC_OPERATIONAL_FEATURES } from '../../../brand_owner/billing/constants/subscription.constant';
+import { BASIC_OPERATIONAL_FEATURES, BRAND_FEATURES, BRANCH_FEATURES } from '../../../brand_owner/billing/constants/subscription.constant';
 
 interface CreateSubscriptionFormProps {
     onClose: () => void;
@@ -167,22 +167,48 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
                             </div>
                             <p className="text-[12px] text-gray-500 mb-4">Lựa chọn các tính năng được phép sử dụng trong gói cước này.</p>
                             
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                {Object.entries(featureNames).map(([key, label]) => {
-                                    const isSelected = !!featuresData?.[key];
-                                    return (
-                                        <div 
-                                            key={key} 
-                                            onClick={() => toggleFeature(key)}
-                                            className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${isSelected ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-gray-200 hover:border-indigo-100 hover:bg-gray-50'}`}
-                                        >
-                                            <div className={`w-5 h-5 rounded flex items-center justify-center border ${isSelected ? 'bg-indigo-600 border-indigo-600' : 'bg-white border-gray-300'}`}>
-                                                {isSelected && <FiCheck className="text-white text-xs" />}
+                            <div className="mb-4 mt-6">
+                                <h3 className="text-[13px] font-bold text-gray-800 uppercase tracking-wider mb-3 pb-2 border-b border-gray-100 border-dashed">Chức năng của Thương hiệu</h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    {BRAND_FEATURES.map((key) => {
+                                        if (!featureNames[key]) return null;
+                                        const isSelected = !!featuresData?.[key];
+                                        return (
+                                            <div 
+                                                key={key} 
+                                                onClick={() => toggleFeature(key)}
+                                                className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${isSelected ? 'bg-indigo-50 border-indigo-200' : 'bg-white border-gray-200 hover:border-indigo-100 hover:bg-gray-50'}`}
+                                            >
+                                                <div className={`w-5 h-5 rounded flex items-center justify-center border ${isSelected ? 'bg-indigo-600 border-indigo-600' : 'bg-white border-gray-300'}`}>
+                                                    {isSelected && <FiCheck className="text-white text-xs" />}
+                                                </div>
+                                                <span className={`text-[13px] font-medium ${isSelected ? 'text-indigo-900' : 'text-gray-700'}`}>{featureNames[key]}</span>
                                             </div>
-                                            <span className={`text-[13px] font-medium ${isSelected ? 'text-indigo-900' : 'text-gray-700'}`}>{label as string}</span>
-                                        </div>
-                                    );
-                                })}
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            
+                            <div className="mb-2">
+                                <h3 className="text-[13px] font-bold text-gray-800 uppercase tracking-wider mb-3 pb-2 border-b border-gray-100 border-dashed">Chức năng của Nhà hàng (Chi nhánh)</h3>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                    {BRANCH_FEATURES.map((key) => {
+                                        if (!featureNames[key]) return null;
+                                        const isSelected = !!featuresData?.[key];
+                                        return (
+                                            <div 
+                                                key={key} 
+                                                onClick={() => toggleFeature(key)}
+                                                className={`flex items-center gap-3 p-3 rounded-xl border cursor-pointer transition-all ${isSelected ? 'bg-teal-50 border-teal-200' : 'bg-white border-gray-200 hover:border-teal-100 hover:bg-gray-50'}`}
+                                            >
+                                                <div className={`w-5 h-5 rounded flex items-center justify-center border ${isSelected ? 'bg-teal-600 border-teal-600' : 'bg-white border-gray-300'}`}>
+                                                    {isSelected && <FiCheck className="text-white text-xs" />}
+                                                </div>
+                                                <span className={`text-[13px] font-medium ${isSelected ? 'text-teal-900' : 'text-gray-700'}`}>{featureNames[key]}</span>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
                             </div>
                             {errors.featuresData && <p className="text-red-500 text-xs mt-3 font-medium">{errors.featuresData.message as string}</p>}
                         </div>

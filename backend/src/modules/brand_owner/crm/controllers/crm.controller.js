@@ -1,5 +1,5 @@
 import { brandCrmService } from "../services/crm.service.js";
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 
 class BrandCrmController {
   getAnalytics = asyncHandler(async (req, res) => {

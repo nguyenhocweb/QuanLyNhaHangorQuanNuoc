@@ -2,8 +2,10 @@ import { prisma } from "../../../../databases/init.mongodb.js";
 
 class BrandCrmRepo {
   async getBrandCustomerStats(brandId) {
-    const customers = await prisma.brandCustomer.findMany({
-      where: { brandId },
+    const customers = await prisma.restaurantCustomer.findMany({
+      where: {
+        restaurant: { brandId: brandId }
+      },
       include: {
         user: {
           select: {

@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { authorizeRole } from "../../../../core/middlewares/authorizeRole.middleware.js";
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { managerStocksController } from "./controllers/stocks.controller.js";
 
-const managerStocksRouter = Router();
+const managerStocksRouter = Router({ mergeParams: true });
 
 // Lấy danh mục hàng hóa tổng của brand
 managerStocksRouter.get("/master-items", authorizeRole("Quản lý nhà hàng", "Nhân viên"), asyncHandler(managerStocksController.getMasterItems));

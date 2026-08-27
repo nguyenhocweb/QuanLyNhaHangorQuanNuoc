@@ -1,5 +1,5 @@
-import express from "express";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+﻿import express from "express";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 import { validate } from "../../../core/middlewares/validator.middleware.js";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
 
@@ -13,7 +13,7 @@ import { updatePurchaseOrderValidator } from "./validators/purchase_order.update
 
 const route = express.Router({ mergeParams: true });
 
-route.use(authorizeRole("Chủ thương hiệu"));
+route.use(authorizeRole("Quản lý thương hiệu"));
 
 route.get("/", asyncHandler(getPurchaseOrdersController));
 route.post("/", validate(createPurchaseOrderValidator), asyncHandler(createPurchaseOrderController));

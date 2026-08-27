@@ -10,5 +10,13 @@ export const updateRestaurantAmenitiesService = async (brandId, restaurantId, da
     if (!existing) throw new NotFoundError("Không tìm thấy nhà hàng này");
     if (existing.brandId !== brandId) throw new ForbiddenError("Bạn không có quyền chỉnh sửa chi nhánh này");
     
-    return await updateRestaurantAmenitiesRepo({ id: restaurantId }, data);
+    const updateData = { ...data };
+    
+    // Map frontend camelCase to Prisma schema keys
+    if (updateData.amenityIds !== undefined) {
+        updateData.restaurantAmenityIds = updateData.amenityIds;
+        delete updateData.amenityIds;
+    }
+    
+    return await updateRestaurantAmenitiesRepo({ id: restaurantId }, updateData);
 };

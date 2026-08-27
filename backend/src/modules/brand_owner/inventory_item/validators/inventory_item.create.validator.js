@@ -1,8 +1,8 @@
 import { demoValidator } from "../../../../core/utils/validator.js";
 import { z } from "zod";
 
-export const createInventoryItemValidator = {
-  body: z.object({
+export const createInventoryItemValidator = z.object({
+    body: z.object({
     sku: demoValidator.chuoi("Mã SKU").optional().or(z.literal("")),
     name: demoValidator.chuoi("Tên hàng hóa"),
     categoryId: z.string().regex(/^[0-9a-fA-F]{24}$/, "ID không hợp lệ").optional().or(z.literal("")),
@@ -14,4 +14,4 @@ export const createInventoryItemValidator = {
     minStockLevel: z.number().min(0, "Hạn mức tối thiểu phải >= 0").optional(),
     isActive: z.boolean().optional()
   })
-};
+});

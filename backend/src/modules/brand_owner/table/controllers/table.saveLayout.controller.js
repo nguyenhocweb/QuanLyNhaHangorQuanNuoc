@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { saveTableLayoutService } from "../services/table.saveLayout.service.js";
 
 export const saveTableLayout = asyncHandler(async (req, res) => {

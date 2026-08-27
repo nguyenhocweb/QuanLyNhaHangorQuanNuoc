@@ -41,12 +41,12 @@ const UpdateMyBrandModal = ({ brand, onClose }: Props) => {
             link: brand.link || "",
             address: brand.address || undefined,
             is_featured: brand.isFeatured || false,
-            isVatInclusive: brand.isVatInclusive || false,
-            defaultVatRate: brand.defaultVatRate || 10,
-            applyServiceCharge: brand.applyServiceCharge || false,
-            serviceChargeRate: brand.serviceChargeRate || 0,
-            forceGlobalTaxConfig: brand.forceGlobalTaxConfig !== undefined ? brand.forceGlobalTaxConfig : true,
-            inventoryApprovalThreshold: brand.inventoryApprovalThreshold || 0,
+            isVatInclusive: brand.taxConfig?.isVatInclusive || false,
+            defaultVatRate: brand.taxConfig?.defaultVatRate || 10,
+            applyServiceCharge: brand.taxConfig?.applyServiceCharge || false,
+            serviceChargeRate: brand.taxConfig?.serviceChargeRate || 0,
+            forceGlobalTaxConfig: brand.taxConfig?.forceGlobalTaxConfig !== undefined ? brand.taxConfig.forceGlobalTaxConfig : true,
+            inventoryApprovalThreshold: brand.inventoryConfig?.inventoryApprovalThreshold || 0,
         }
     });
 

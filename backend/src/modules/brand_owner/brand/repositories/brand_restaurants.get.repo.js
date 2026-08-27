@@ -4,7 +4,7 @@ export const getBrandRestaurantsByBrandId = async (brandId) => {
     return await prisma.restaurant.findMany({
         where: { brandId },
         include: {
-            categories: true,
+            categoryRestaurants: true,
             tags: true
         },
         orderBy: {

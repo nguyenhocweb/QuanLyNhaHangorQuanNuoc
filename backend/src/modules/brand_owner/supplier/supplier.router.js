@@ -1,4 +1,4 @@
-import { Router } from "express";
+﻿import { Router } from "express";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
 import { validate } from "../../../core/middlewares/validator.middleware.js";
 import { getSuppliersController } from "./controllers/supplier.get.controller.js";
@@ -11,15 +11,15 @@ import { updateSupplierValidator } from "./validators/supplier.update.validator.
 const supplierRouter = Router({ mergeParams: true });
 
 // Lấy danh sách nhà cung cấp của thương hiệu
-supplierRouter.get("/", authorizeRole("Chủ thương hiệu"), getSuppliersController);
+supplierRouter.get("/", authorizeRole("Quản lý thương hiệu"), getSuppliersController);
 
 // Thêm nhà cung cấp mới
-supplierRouter.post("/", authorizeRole("Chủ thương hiệu"), validate(createSupplierValidator), createSupplierController);
+supplierRouter.post("/", authorizeRole("Quản lý thương hiệu"), validate(createSupplierValidator), createSupplierController);
 
 // Cập nhật nhà cung cấp
-supplierRouter.put("/:supplierId", authorizeRole("Chủ thương hiệu"), validate(updateSupplierValidator), updateSupplierController);
+supplierRouter.put("/:supplierId", authorizeRole("Quản lý thương hiệu"), validate(updateSupplierValidator), updateSupplierController);
 
 // Xóa nhà cung cấp
-supplierRouter.delete("/:supplierId", authorizeRole("Chủ thương hiệu"), deleteSupplierController);
+supplierRouter.delete("/:supplierId", authorizeRole("Quản lý thương hiệu"), deleteSupplierController);
 
 export default supplierRouter;

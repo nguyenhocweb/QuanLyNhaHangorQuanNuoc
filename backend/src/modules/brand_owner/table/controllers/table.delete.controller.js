@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { deleteTableService } from "../services/table.delete.service.js";
 
 export const deleteTable = asyncHandler(async (req, res) => {

@@ -1,11 +1,14 @@
-import { prisma } from "../../../../databases/init.mongodb.js";
+﻿import { prisma } from "../../../../databases/init.mongodb.js";
 
 export const UpdateUserById = async (userId, data, select) => {
-    const user = await prisma.user.update({
+    const updateArgs = {
         where: { id: userId },
-        data: data,
-        select: select
-    });
+        data: data
+    };
+    if (select && Object.keys(select).length > 0) {
+        updateArgs.select = select;
+    }
+    const user = await prisma.user.update(updateArgs);
     return user;
 }
 export const getPasswordByID = async (userId) => {
@@ -31,7 +34,7 @@ export const getUsersBrandOwner = async (where) => {
             systemRole: {
                 name: "Khách hàng"
             },
-            // Chỉ lấy những user chưa làm chủ thương hiệu nào (chưa có employment nào có restaurantId = null)
+            // Chỉ lấy những user chưa làm Quản lý thương hiệu nào (chưa có employment nào có restaurantId = null)
             employments: {
                 none: {
                     restaurantId: null

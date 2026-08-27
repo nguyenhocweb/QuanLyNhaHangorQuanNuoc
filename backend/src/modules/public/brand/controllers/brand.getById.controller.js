@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getPublicBrandByIdService } from "../services/brand.getById.service.js";
 
 export const getPublicBrandByIdController = asyncHandler(async (req, res) => {

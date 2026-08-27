@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getStockTransfersService, getStockTransferByIdService } from "../services/stock_transfer.get.service.js";
 
 export const getStockTransfersController = asyncHandler(async (req, res) => {

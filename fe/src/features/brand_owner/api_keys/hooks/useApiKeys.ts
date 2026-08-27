@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { getBrandApiKeysService, createBrandApiKeyService, revokeBrandApiKeyService, activateBrandApiKeyService, updateBrandApiKeyService } from '../services/api_key.service';
+import { getBrandApiKeysService, createBrandApiKeyService, revokeBrandApiKeyService, activateBrandApiKeyService, updateBrandApiKeyService, getActiveBrandAiChatboxesService, getActiveBrandAiModelsService } from '../services/api_key.service';
 import { CreateApiKeyPayload } from '../types/api_key.type';
 import { ApiKeyUpdateValues } from '../schema/api_key.update.schema';
 
@@ -8,6 +8,24 @@ export const useGetApiKeys = (brandId: string | undefined, page = 1, limit = 10,
   return useQuery({
     queryKey: ['brand_api_keys', brandId, page, limit, search, status],
     queryFn: () => getBrandApiKeysService(brandId!, { page, limit, search, status }),
+    enabled: !!brandId,
+    staleTime: 60 * 1000,
+  });
+};
+
+export const useGetActiveBrandAiChatboxes = (brandId: string | undefined) => {
+  return useQuery({
+    queryKey: ['brand_active_ai_chatboxes', brandId],
+    queryFn: () => getActiveBrandAiChatboxesService(brandId!),
+    enabled: !!brandId,
+    staleTime: 60 * 1000,
+  });
+};
+
+export const useGetActiveBrandAiModels = (brandId: string | undefined, chatboxId?: string) => {
+  return useQuery({
+    queryKey: ['brand_active_ai_models', brandId, chatboxId],
+    queryFn: () => getActiveBrandAiModelsService(brandId!, chatboxId),
     enabled: !!brandId,
     staleTime: 60 * 1000,
   });

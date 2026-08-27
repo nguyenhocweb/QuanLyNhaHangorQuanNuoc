@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { checkPaymentStatusService } from "../services/brand_subscription_transaction.check_status.service.js";
 
 export const checkPaymentStatusController = asyncHandler(async (req, res) => {

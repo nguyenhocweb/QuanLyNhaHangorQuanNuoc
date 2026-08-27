@@ -13,20 +13,15 @@ export const getRestaurants = async (where, skip, limit) => {
             images: true,
             description: true,
             address: true,
-            emailContact: true,
-            phoneContact: true,
+            email_contact: true,
+            phone_contact: true,
             statusByAdmin: true,
             reasonByAdmin: true,
             statusByBrand: true,
             reasonByBrand: true,
-            totalRating: true,
-            averageRating: true,
+            ratingStats: true,
+            bookingConfig: true,
             createdAt: true,
-            maxPartySize: true,
-            bookingWindowDays: true,
-            cancellationHours: true,
-            depositRequired: true,
-            depositPerPax: true,
             brandId: true,
             brand: {
                 select: {
@@ -34,8 +29,8 @@ export const getRestaurants = async (where, skip, limit) => {
                     name: true
                 }
             },
-            categoryIds: true,
-            categories: {
+            categoryRestaurantIds: true,
+            categoryRestaurants: {
                 select: {
                     id: true,
                     name: true,
@@ -74,20 +69,16 @@ export const getRestaurantById = async (id) => {
             images: true,
             description: true,
             address: true,
-            emailContact: true,
-            phoneContact: true,
+            email_contact: true,
+            phone_contact: true,
             statusByAdmin: true,
             reasonByAdmin: true,
             statusByBrand: true,
             reasonByBrand: true,
-            totalRating: true,
-            averageRating: true,
+            ratingStats: true,
+            bookingConfig: true,
+            taxConfig: true,
             createdAt: true,
-            maxPartySize: true,
-            bookingWindowDays: true,
-            cancellationHours: true,
-            depositRequired: true,
-            depositPerPax: true,
             brandId: true,
             brand: {
                 select: {
@@ -95,8 +86,8 @@ export const getRestaurantById = async (id) => {
                     name: true
                 }
             },
-            categoryIds: true,
-            categories: {
+            categoryRestaurantIds: true,
+            categoryRestaurants: {
                 select: {
                     id: true,
                     name: true,

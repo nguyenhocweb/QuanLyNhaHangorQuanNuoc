@@ -26,9 +26,9 @@ export const executeGetLoyaltyMetrics = async (args, context) => {
 
     if (!brandId) return { error: "Không xác định được thương hiệu." };
 
-    const customers = await prisma.brandCustomer.findMany({
+    const customers = await prisma.restaurantCustomer.findMany({
       where: {
-        brandId,
+        restaurant: { brandId: brandId },
         loyaltyPoints: { gte: minPoints }
       },
       include: {
@@ -39,8 +39,8 @@ export const executeGetLoyaltyMetrics = async (args, context) => {
     });
 
     const dto = customers.map(c => ({
-      name: c.user?.user_name || "Khách",
-      phone: c.user?.phone || "N/A",
+      name: c.user?.user_name || c.user?.name || "Khách",
+      phone: c.user?.phone || c.user?.sdt || "N/A",
       loyaltyPoints: c.loyaltyPoints,
       tier: c.tier
     }));

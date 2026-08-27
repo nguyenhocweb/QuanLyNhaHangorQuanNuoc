@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authorizeRole } from "../../../core/middlewares/authorizeRole.middleware.js";
-import { asyncHandler } from "../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../core/utils/asyncHandler.js";
 import { getApiKeys } from "./controllers/api_key.get.controller.js";
 import { createApiKey } from "./controllers/api_key.create.controller.js";
 import { revokeApiKey } from "./controllers/api_key.revoke.controller.js";

@@ -1,4 +1,4 @@
-import { asyncHandler } from "../../../../core/utils/asyncHandler.js";
+import asyncHandler from "../../../../core/utils/asyncHandler.js";
 import { getFeaturedReviewsService } from "../services/review.get-featured.service.js";
 
 export const getFeaturedReviewsController = asyncHandler(async (req, res) => {

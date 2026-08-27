@@ -1,4 +1,4 @@
-import { prisma } from "../../../../databases/init.mongodb.js";
+﻿import { prisma } from "../../../../databases/init.mongodb.js";
 
 export const getBrandOwnersRepo = async (where) => {
     return await prisma.user.findMany({
@@ -7,7 +7,7 @@ export const getBrandOwnersRepo = async (where) => {
             systemRole: {
                 name: "Khách hàng"
             },
-            // Chỉ lấy những user chưa làm chủ thương hiệu nào (chưa có employment nào có restaurantId = null)
+            // Chỉ lấy những user chưa làm Quản lý thương hiệu nào (chưa có employment nào có restaurantId = null)
             employments: {
                 none: {
                     restaurantId: null

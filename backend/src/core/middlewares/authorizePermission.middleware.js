@@ -1,8 +1,8 @@
-import { ForbiddenError } from "../constants/error/index.js";
+﻿import { ForbiddenError } from "../constants/error/index.js";
 
 /**
  * Middleware kiểm tra quyền truy cập dựa trên permission hoặc role
- * Cho phép nếu user có role là 'Quản lý nhà hàng', 'Chủ thương hiệu', 'Admin'
+ * Cho phép nếu user có role là 'Quản lý nhà hàng', 'Quản lý thương hiệu', 'Admin'
  * HOẶC có chứa một trong các permission yêu cầu trong mảng req.user.permissions
  * @param {...string} requiredPermissions - Các Permission được phép (VD: 'VIEW_TABLES', 'MANAGE_TABLES')
  */
@@ -13,7 +13,7 @@ export const authorizePermission = (...requiredPermissions) => {
         }
 
         const userRole = typeof req.user.role === 'object' ? req.user.role.name : req.user.role;
-        const isAdminOrManager = ['Quản lý nhà hàng', 'Chủ thương hiệu', 'Admin'].includes(userRole);
+        const isAdminOrManager = ['Quản lý nhà hàng', 'Quản lý thương hiệu', 'Admin'].includes(userRole);
 
         if (isAdminOrManager) {
             return next();

@@ -5,11 +5,13 @@ import { useGetReservations } from "@/src/features/quan_ly_nha_hang/reservations
 import { ReservationList } from "@/src/features/quan_ly_nha_hang/reservations/component/ReservationList";
 import { ReservationFormModal } from "@/src/features/quan_ly_nha_hang/reservations/component/ReservationFormModal";
 import { AssignTableModal } from "@/src/features/quan_ly_nha_hang/reservations/component/AssignTableModal";
+import { ReservationStatsCards } from "@/src/features/quan_ly_nha_hang/reservations/component/ReservationStatsCards";
+import { ReservationTabs, ReservationTabType } from "@/src/features/quan_ly_nha_hang/reservations/component/ReservationTabs";
 import { Reservation } from "@/src/features/quan_ly_nha_hang/reservations/type/reservation.type";
 import FadeIn from "@/src/core/components/animation/FadeIn";
 import { Button } from "@/src/core/components/ui/Button";
 import { Input } from "@/src/core/components/ui/Input";
-import { BsCalendar2Check, BsSearch } from "react-icons/bs";
+import { BsCalendar2Check, BsSearch, BsXCircle } from "react-icons/bs";
 import { FiPlus } from "react-icons/fi";
 import useDebounce from "@/src/core/hooks/useDebounce";
 import { useAuthStore } from "@/src/features/auth/auth_store/use-auth-store";
@@ -20,20 +22,33 @@ export default function ReservationsPage() {
     const restaurantId = activeWorkspace?.id || ""; 
     useRealtimeUpdates(restaurantId); 
 
+    const [activeTab, setActiveTab] = useState<ReservationTabType>("PENDING");
     const [searchTerm, setSearchTerm] = useState("");
     const debouncedSearch = useDebounce({ value: searchTerm, delay: 500 });
-    const [dateFilter, setDateFilter] = useState(new Date().toISOString().split('T')[0]); // YYYY-MM-DD
+    const [dateFilter, setDateFilter] = useState<string>("");
     const [statusFilter, setStatusFilter] = useState("ALL");
 
-    const { data, isLoading } = useGetReservations(restaurantId, {
-        date: dateFilter,
-        status: statusFilter,
+    // Params query tùy theo Tab
+    const queryParams: any = {
+        tab: activeTab,
         search: debouncedSearch
-    });
+    };
+
+    if (activeTab === "ALL") {
+        if (dateFilter) queryParams.date = dateFilter;
+        if (statusFilter !== "ALL") queryParams.status = statusFilter;
+    } else if (activeTab === "TODAY") {
+        if (statusFilter !== "ALL") queryParams.status = statusFilter;
+    }
+
+    const { data, isLoading } = useGetReservations(restaurantId, queryParams);
 
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [editingReservation, setEditingReservation] = useState<Reservation | null>(null);
     const [assigningReservation, setAssigningReservation] = useState<Reservation | null>(null);
+
+    const stats = data?.metadata?.stats;
+    const reservationsList = data?.metadata?.data || [];
 
     const handleCreateNew = () => {
         setEditingReservation(null);
@@ -56,52 +71,89 @@ export default function ReservationsPage() {
                 <div>
                     <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-3">
                         <BsCalendar2Check className="text-indigo-600" />
-                        Quản lý Đặt bàn
+                        Quản lý Đặt bàn & Vận hành Khách
                     </h1>
-                    <p className="text-gray-500 mt-1">Quản lý và theo dõi lịch đặt bàn của nhà hàng</p>
+                    <p className="text-gray-500 mt-1">Phê duyệt, xếp bàn và theo dõi lịch đặt bàn thời gian thực của nhà hàng</p>
                 </div>
                 <Button onClick={handleCreateNew} className="bg-indigo-600 hover:bg-indigo-700 text-white flex items-center gap-2 px-5 py-2.5 rounded-xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                     <FiPlus className="text-xl" />
-                    Thêm đặt bàn
+                    Thêm đặt bàn mới
                 </Button>
             </div>
 
-            {/* Filters */}
-            <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-wrap gap-4 items-center">
+            {/* 1. KPI Stats Cards */}
+            <ReservationStatsCards 
+                stats={stats} 
+                activeTab={activeTab} 
+                onSelectTab={(tab) => setActiveTab(tab as ReservationTabType)} 
+            />
+
+            {/* 2. Operational Tabs */}
+            <div className="w-full mt-2">
+                <ReservationTabs 
+                    activeTab={activeTab}
+                    onChangeTab={setActiveTab}
+                    pendingCount={stats?.pending || 0}
+                    todayCount={stats?.today || 0}
+                    upcomingCount={stats?.upcoming || 0}
+                />
+            </div>
+
+            {/* 3. Filters Bar */}
+            <div className="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm flex flex-wrap gap-4 items-center justify-between">
                 <div className="relative flex-1 min-w-[250px]">
                     <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
                         <BsSearch className="text-gray-400" />
                     </div>
                     <Input 
-                        placeholder="Tìm theo tên khách, số điện thoại..." 
+                        placeholder="Tìm theo tên khách, số điện thoại, mã xác nhận..." 
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10 w-full"
                     />
                 </div>
-                <div className="flex gap-4">
-                    <input 
-                        type="date" 
-                        value={dateFilter}
-                        onChange={(e) => setDateFilter(e.target.value)}
-                        className="h-11 px-3 border border-gray-300 rounded-lg outline-none focus:border-indigo-500 text-gray-700"
-                    />
-                    <select 
-                        value={statusFilter}
-                        onChange={(e) => setStatusFilter(e.target.value)}
-                        className="h-11 px-3 border border-gray-300 rounded-lg outline-none focus:border-indigo-500 text-gray-700 bg-white"
-                    >
-                        <option value="ALL">Tất cả trạng thái</option>
-                        <option value="PENDING">Chờ xác nhận</option>
-                        <option value="CONFIRMED">Đã xác nhận</option>
-                        <option value="SEATED">Đã xếp bàn (Seated)</option>
-                        <option value="COMPLETED">Hoàn thành</option>
-                        <option value="CANCELLED">Đã hủy</option>
-                    </select>
+
+                <div className="flex flex-wrap items-center gap-3">
+                    {/* Chỉ hiện chọn ngày ở Tab ALL */}
+                    {activeTab === "ALL" && (
+                        <div className="flex items-center gap-2">
+                            <input 
+                                type="date" 
+                                value={dateFilter}
+                                onChange={(e) => setDateFilter(e.target.value)}
+                                className="h-11 px-3 border border-gray-300 rounded-xl outline-none focus:border-indigo-500 text-gray-700 bg-gray-50 text-sm font-medium"
+                            />
+                            {dateFilter && (
+                                <button 
+                                    onClick={() => setDateFilter("")}
+                                    className="p-2 text-gray-400 hover:text-red-500 transition-colors"
+                                    title="Xóa lọc ngày"
+                                >
+                                    <BsXCircle className="text-lg" />
+                                </button>
+                            )}
+                        </div>
+                    )}
+
+                    {/* Chỉ hiện lọc trạng thái ở Tab TODAY và ALL */}
+                    {(activeTab === "ALL" || activeTab === "TODAY") && (
+                        <select 
+                            value={statusFilter}
+                            onChange={(e) => setStatusFilter(e.target.value)}
+                            className="h-11 px-4 border border-gray-300 rounded-xl outline-none focus:border-indigo-500 text-gray-700 bg-gray-50 text-sm font-medium cursor-pointer"
+                        >
+                            <option value="ALL">Tất cả trạng thái</option>
+                            <option value="PENDING">Chờ xác nhận</option>
+                            <option value="CONFIRMED">Đã xác nhận</option>
+                            <option value="SEATED">Đã xếp bàn (Seated)</option>
+                            <option value="COMPLETED">Đã hoàn thành</option>
+                            <option value="CANCELLED">Đã hủy</option>
+                        </select>
+                    )}
                 </div>
             </div>
 
-            {/* List */}
+            {/* 4. Reservations Table List */}
             {isLoading ? (
                 <div className="animate-pulse space-y-4">
                     <div className="h-16 bg-gray-100 rounded-2xl"></div>
@@ -110,14 +162,14 @@ export default function ReservationsPage() {
                 </div>
             ) : (
                 <ReservationList 
-                    reservations={data?.metadata?.data || []} 
+                    reservations={reservationsList} 
                     onEdit={handleEdit} 
                     onAssignTable={handleAssignTable}
                     restaurantId={restaurantId}
                 />
             )}
 
-            {/* Modals */}
+            {/* 5. Modals */}
             <ReservationFormModal 
                 open={isFormOpen} 
                 onClose={() => setIsFormOpen(false)} 

@@ -1,9 +1,17 @@
-import { addDays, isSameDay, format } from "date-fns";
+const isSameDay = (d1, d2) => d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
+
+const formatDate = (d) => {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const dStr = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${dStr}`;
+};
 
 export function mergeWeeklySchedules(operatingHours, specialSchedules, startOfWeekDate) {
   // 1. Khởi tạo mảng và gán day_name thành dạng số
   const weeklySchedules = Array.from({ length: 7 }).map((_, index) => {
-    const targetDate = addDays(startOfWeekDate, index);
+    const targetDate = new Date(startOfWeekDate);
+    targetDate.setDate(targetDate.getDate() + index);
     const dayOfWeek = targetDate.getDay(); // Trả về số: 1 (T2) -> 6 (T7), 0 (CN)
     const targetMonth = targetDate.getMonth() + 1;
     const targetDayOfMonth = targetDate.getDate();
@@ -16,7 +24,7 @@ export function mergeWeeklySchedules(operatingHours, specialSchedules, startOfWe
 
     if (specialSchedule) {
       return {
-        date: format(targetDate, "yyyy-MM-dd"),
+        date: formatDate(targetDate),
         day_name: dayOfWeek, // <--- Trả về số nguyên
         is_open: specialSchedule.open_time !== null && specialSchedule.close_time !== null,
         open_time: specialSchedule.open_time,
@@ -30,7 +38,7 @@ export function mergeWeeklySchedules(operatingHours, specialSchedules, startOfWe
 
     if (regularSchedule) {
       return {
-        date: format(targetDate, "yyyy-MM-dd"),
+        date: formatDate(targetDate),
         day_name: dayOfWeek, // <--- Trả về số nguyên
         is_open: regularSchedule.open_time !== null && regularSchedule.close_time !== null,
         open_time: regularSchedule.open_time,
@@ -40,7 +48,7 @@ export function mergeWeeklySchedules(operatingHours, specialSchedules, startOfWe
     }
 
     return {
-      date: format(targetDate, "yyyy-MM-dd"),
+      date: formatDate(targetDate),
       day_name: dayOfWeek, // <--- Trả về số nguyên
       is_open: false,
       open_time: null,

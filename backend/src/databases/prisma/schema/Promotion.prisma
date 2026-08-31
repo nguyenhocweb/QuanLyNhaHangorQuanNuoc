@@ -17,6 +17,7 @@ model Promotion {
 
   promotionRestaurants PromotionRestaurant[]
   promotionMenuItems   PromotionMenuItem[]
+  userPromotions       UserPromotion[]
 
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
@@ -44,4 +45,18 @@ model PromotionMenuItem {
   menuItem  MenuItem  @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
 
   @@map("promotion_menu_items")
+}
+
+model UserPromotion {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  promotionId String   @db.ObjectId
+  isUsed      Boolean  @default(false)
+  savedAt     DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promotion Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, promotionId])
+  @@map("user_promotions")
 }

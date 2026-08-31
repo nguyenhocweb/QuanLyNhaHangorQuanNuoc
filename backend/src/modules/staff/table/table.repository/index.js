@@ -1,5 +1,14 @@
 import { prisma } from "../../../../databases/init.mongodb.js"
-import { startOfDay, endOfDay } from "date-fns";
+const startOfDay = (date) => {
+    const d = new Date(date);
+    d.setHours(0, 0, 0, 0);
+    return d;
+};
+const endOfDay = (date) => {
+    const d = new Date(date);
+    d.setHours(23, 59, 59, 999);
+    return d;
+};
 // lấy all cả các table và khu khu vực tầng nếu có
 export const getAreasAndTables = async (idRestaurant) => {
     const result = await prisma.restaurant_Areas.findMany({
@@ -22,8 +31,7 @@ export const getAreasAndTables = async (idRestaurant) => {
                     table_number: true,
                     min_capacity: true,
                     max_capacity: true,
-                    shape: true,
-                    is_vip:true
+                    shape: true
                 }
             }
         }

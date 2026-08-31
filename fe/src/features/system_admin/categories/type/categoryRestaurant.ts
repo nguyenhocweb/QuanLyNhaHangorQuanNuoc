@@ -1,6 +1,7 @@
 export interface CategoryRestaurantTypeResponse {
     id: string;
     name: string;
+    icon?: string;
     description?: string;
     isActive: boolean;
     bgColor?: string;

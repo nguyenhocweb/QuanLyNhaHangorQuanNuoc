@@ -3,7 +3,7 @@ import { orderGetService } from "../services/order.get.service.js";
 
 class OrderGetController {
   getOrders = asyncHandler(async (req, res) => {
-    const restaurantId = req.query.restaurantId;
+    const restaurantId = req.query.restaurantId || req.params.restaurantId || req.user?.restaurantId;
     const { page, limit, status, search, dateFilter } = req.query;
 
     const data = await orderGetService.getOrders({
@@ -22,7 +22,7 @@ class OrderGetController {
   });
 
   getOrderById = asyncHandler(async (req, res) => {
-    const restaurantId = req.query.restaurantId;
+    const restaurantId = req.query.restaurantId || req.params.restaurantId || req.user?.restaurantId;
     const { id } = req.params;
 
     const data = await orderGetService.getOrderById(id, restaurantId);

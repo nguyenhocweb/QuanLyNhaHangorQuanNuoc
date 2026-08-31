@@ -3,14 +3,27 @@ model UpgradeRequest {
   userId String @unique @db.ObjectId // Mỗi user chỉ có 1 request chờ duyệt tại 1 thời điểm
   user   User   @relation(fields: [userId], references: [id])
 
-  // Các thông tin user phải nộp để xin lên quản lý
-  brandName       String // Tên thương hiệu muốn tạo
-  tax_code        String? // Mã số thuế (nếu cần)
-  businessLicense String? // Ảnh chụp giấy phép KD (URL từ Cloudinary)
+  // Nhận diện thương hiệu
+  brandName   String // Tên thương hiệu muốn tạo
+  logo        String? // URL Logo thương hiệu
+  description String? // Mô tả / Giới thiệu ngắn
 
-  status    RequestStatus @default(PENDING)
-  createdAt DateTime      @default(now())
-  updatedAt DateTime      @updatedAt
+  // Người đại diện & Liên hệ
+  representativeName String? // Họ tên người đại diện pháp luật
+  phone_contact      String? // Số điện thoại hotline / liên hệ
+  email_contact      String? // Email nhận đối soát / hóa đơn
+  address            Json? // Địa chỉ trụ sở chính (street, ward, district, province, v.v.)
+
+  // Hồ sơ Pháp lý (KYB)
+  tax_code        String? // Mã số thuế doanh nghiệp / hộ kinh doanh
+  businessLicense String? // Ảnh / PDF Giấy phép ĐKKD (URL từ Cloudinary)
+  identityCard    String[] @default([]) // Ảnh CCCD/Hộ chiếu người đại diện (mặt trước & mặt sau)
+
+  // Trạng thái & Phê duyệt
+  status          RequestStatus @default(PENDING)
+  rejectionReason String? // Lý do từ chối từ Admin (nếu có)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 
   @@index([status]) // Tối ưu cho query: đếm số đơn PENDING của Admin
   @@index([createdAt]) // Tối ưu cho việc Admin sort đơn mới nhất lên đầu

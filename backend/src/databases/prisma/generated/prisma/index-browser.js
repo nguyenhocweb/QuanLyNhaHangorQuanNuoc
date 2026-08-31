@@ -117,6 +117,7 @@ Prisma.NullTypes = {
 exports.Prisma.Category_RestaurantScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  icon: 'icon',
   isActive: 'isActive',
   description: 'description',
   bgColor: 'bgColor',
@@ -232,6 +233,14 @@ exports.Prisma.PromotionMenuItemScalarFieldEnum = {
   menuItemId: 'menuItemId'
 };
 
+exports.Prisma.UserPromotionScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  promotionId: 'promotionId',
+  isUsed: 'isUsed',
+  savedAt: 'savedAt'
+};
+
 exports.Prisma.RecipeScalarFieldEnum = {
   id: 'id',
   inventoryItemId: 'inventoryItemId',
@@ -283,9 +292,17 @@ exports.Prisma.UpgradeRequestScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   brandName: 'brandName',
+  logo: 'logo',
+  description: 'description',
+  representativeName: 'representativeName',
+  phone_contact: 'phone_contact',
+  email_contact: 'email_contact',
+  address: 'address',
   tax_code: 'tax_code',
   businessLicense: 'businessLicense',
+  identityCard: 'identityCard',
   status: 'status',
+  rejectionReason: 'rejectionReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -1383,6 +1400,7 @@ exports.Prisma.ModelName = {
   Promotion: 'Promotion',
   PromotionRestaurant: 'PromotionRestaurant',
   PromotionMenuItem: 'PromotionMenuItem',
+  UserPromotion: 'UserPromotion',
   Recipe: 'Recipe',
   RestaurantMenuItem: 'RestaurantMenuItem',
   RestaurantPaymentConfig: 'RestaurantPaymentConfig',

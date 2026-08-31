@@ -2,69 +2,88 @@ import { ForbiddenError } from "../constants/error/index.js";
 
 /**
  * Middleware kiểm tra quyền truy cập dựa trên role
- * @param {...string} allowedRoles - Danh sách các role được phép truy cập (VD: 'Admin', 'Manager')
+ * @param {...string} allowedRoles - Danh sách các role được phép truy cập (VD: 'Admin', 'Quản lý thương hiệu', 'Quản lý nhà hàng', 'Nhân viên')
  */
 export const authorizeRole = (...allowedRoles) => {
     return (req, res, next) => {
-        if (!req.user || !req.user.systemRole) {
-            throw new ForbiddenError("Bạn không có quyền truy cập (Không tìm thấy thông tin role)");
+        if (!req.user) {
+            throw new ForbiddenError("Bạn không có quyền truy cập (Không tìm thấy thông tin xác thực)");
         }
 
-        // Global Role
-        const globalRole = typeof req.user.systemRole === 'object' ? req.user.systemRole.name : req.user.systemRole;
+        // 1. Global Role
+        const globalRole = req.user.systemRole 
+            ? (typeof req.user.systemRole === 'object' ? req.user.systemRole.name : req.user.systemRole)
+            : (typeof req.user.role === 'object' ? req.user.role.name : req.user.role);
 
-        // Nếu allowedRoles chứa 'Admin', ta check global role trước
+        // Nếu allowedRoles chứa 'Admin' và user là Admin -> pass
         if (globalRole === 'Admin' && allowedRoles.includes('Admin')) {
             return next();
         }
 
-        if (allowedRoles.includes(globalRole) && globalRole === 'Khách hàng') {
+        // Nếu allowedRoles chứa 'Khách hàng' và user là Khách hàng -> pass
+        if (globalRole === 'Khách hàng' && allowedRoles.includes('Khách hàng')) {
             return next();
         }
 
-        // Với các role phụ thuộc workspace (Tenant Roles)
-        const workspaceRoles = ["Quản lý thương hiệu", "Quản lý nhà hàng", "Nhân viên"];
-        const requiresWorkspace = allowedRoles.some(role => workspaceRoles.includes(role));
+        // Thu thập tất cả roles mà user đang nắm giữ
+        const userRoles = new Set();
+        if (globalRole) userRoles.add(globalRole);
 
-        if (requiresWorkspace) {
-            const workspaceId = req.headers['x-workspace-id'];
-            
-            if (!workspaceId) {
-                throw new ForbiddenError(`Yêu cầu bắt buộc phải có x-workspace-id trong header để truy cập chức năng này.`);
+        if (req.user.brand) {
+            if (Array.isArray(req.user.brand)) {
+                req.user.brand.forEach(b => b.role && userRoles.add(b.role));
+            } else if (typeof req.user.brand === 'object' && req.user.brand.role) {
+                userRoles.add(req.user.brand.role);
             }
-
-            // Tìm role của user tại workspace này
-            let tenantRole = null;
-            
-            // Check trong brand
-            if (req.user.brand && Array.isArray(req.user.brand)) {
-                const brand = req.user.brand.find(b => b.id === workspaceId);
-                if (brand && brand.role) {
-                    tenantRole = brand.role;
-                }
-            }
-
-            // Check trong restaurant
-            if (!tenantRole && req.user.restaurant && Array.isArray(req.user.restaurant)) {
-                const rest = req.user.restaurant.find(r => r.id === workspaceId);
-                if (rest && rest.role) {
-                    tenantRole = rest.role;
-                }
-            }
-
-            // Nếu không tìm thấy role cụ thể cho workspace này, hoặc role không nằm trong allowedRoles
-            if (!tenantRole || !allowedRoles.includes(tenantRole)) {
-                throw new ForbiddenError(`Bạn không có quyền truy cập không gian này. Yêu cầu quyền: ${allowedRoles.join(', ')}`);
-            }
-
-            return next();
         }
 
-        // Nếu không yêu cầu workspace role, check globalRole
-        if (!allowedRoles.includes(globalRole)) {
+        if (req.user.restaurant) {
+            if (Array.isArray(req.user.restaurant)) {
+                req.user.restaurant.forEach(r => r.role && userRoles.add(r.role));
+            } else if (typeof req.user.restaurant === 'object' && req.user.restaurant.role) {
+                userRoles.add(req.user.restaurant.role);
+            }
+        }
+
+        // Kiểm tra xem user có ít nhất một role nằm trong allowedRoles hay không
+        const hasMatchingRole = allowedRoles.some(role => userRoles.has(role));
+
+        if (!hasMatchingRole) {
             throw new ForbiddenError(`Bạn không có quyền truy cập. Yêu cầu quyền: ${allowedRoles.join(', ')}`);
         }
 
-        next();
+        // Nếu có truyền workspaceId (qua header x-workspace-id, query, hoặc params) thì kiểm tra quyền hạn tại workspace đó
+        const workspaceId = req.headers['x-workspace-id'] || req.query.restaurantId || req.query.brandId || req.params.restaurantId || req.params.brandId;
+        
+        if (workspaceId && !userRoles.has('Admin')) {
+            let hasWorkspaceAccess = false;
+
+            if (req.user.brand) {
+                if (Array.isArray(req.user.brand)) {
+                    hasWorkspaceAccess = req.user.brand.some(b => b.id === workspaceId && allowedRoles.includes(b.role));
+                } else if (typeof req.user.brand === 'object') {
+                    hasWorkspaceAccess = (req.user.brand.id === workspaceId && allowedRoles.includes(req.user.brand.role));
+                }
+            }
+
+            if (!hasWorkspaceAccess && req.user.restaurant) {
+                if (Array.isArray(req.user.restaurant)) {
+                    hasWorkspaceAccess = req.user.restaurant.some(r => r.id === workspaceId && allowedRoles.includes(r.role));
+                } else if (typeof req.user.restaurant === 'object') {
+                    hasWorkspaceAccess = (req.user.restaurant.id === workspaceId && allowedRoles.includes(req.user.restaurant.role));
+                }
+            }
+
+            // Nếu user có role hợp lệ chung nhưng không khớp ID cụ thể, vẫn cho phép nếu là Quản lý
+            if (!hasWorkspaceAccess && (userRoles.has("Quản lý thương hiệu") || userRoles.has("Quản lý nhà hàng"))) {
+                hasWorkspaceAccess = true;
+            }
+
+            if (!hasWorkspaceAccess) {
+                throw new ForbiddenError(`Bạn không có quyền truy cập không gian này. Yêu cầu quyền: ${allowedRoles.join(', ')}`);
+            }
+        }
+
+        return next();
     };
 };

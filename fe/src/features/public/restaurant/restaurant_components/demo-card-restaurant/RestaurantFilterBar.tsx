@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { usePagination } from "@/src/core/hooks/usePagination";
 import useDebounce from "@/src/core/hooks/useDebounce";
 import { cities } from "@/src/core/lib/configAddressCity";
-import { useCategoryRestaurant } from "@/src/features/system_admin/categories/hook/useCategoryRestaurant_hook";
+import { useGetPublicCategories } from "@/src/features/public/categories/hook/useGetPublicCategories";
 import { 
     FaSearch, 
     FaFilter, 
@@ -44,8 +44,10 @@ export default function RestaurantFilterBar() {
         categoryRestaurant: queryCategories
     } = usePagination();
 
-    const { data: categoryData } = useCategoryRestaurant({ page: 1, limit: 100, search: "", status: "true" });
-    const restaurantCategories = categoryData?.data || [];
+    const { data: categoryData } = useGetPublicCategories();
+    const restaurantCategories = Array.isArray(categoryData) 
+        ? categoryData 
+        : ((categoryData as any)?.data || (categoryData as any)?.metadata || []);
 
     const [searchTerm, setSearchTerm] = useState(querySearch || "");
     const [selectedCity, setSelectedCity] = useState(queryCity || "");

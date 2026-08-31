@@ -197,6 +197,7 @@ export default function ZenTemplate({ idRestaurant, coreInfo, hoursData }: ZenTe
                 <BookingConfirmationModal 
                     isOpen={isConfirmModalOpen}
                     onClose={() => setIsConfirmModalOpen(false)}
+                    idRestaurant={idRestaurant}
                     draftData={bookingDraft}
                 />
             </div>

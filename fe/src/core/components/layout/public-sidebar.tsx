@@ -57,15 +57,16 @@ export const SidebarMenuBrandOwner = [
     { stt: 2.5, name: "Thông báo", link: "/brand_owner/notifications", icon: <IoIosNotificationsOutline className="text-xl" /> },
     { stt: 3, name: "Thương hiệu của tôi", link: "/brand_owner/my-brand", icon: <BiBuildingHouse className="text-xl" /> },
     { stt: 4, name: "Quản lý Chi nhánh", link: "/brand_owner/restaurants", icon: <MdStore className="text-xl" /> },
-    { stt: 5, name: "Quản lý Thực đơn", link: "/brand_owner/menus", icon: <MdOutlineRestaurantMenu className="text-xl" />, featureKey: "MENU_MANAGEMENT" },
+    { stt: 5, name: "Quản lý Thực đơn", link: "/brand_owner/menus", icon: <MdOutlineRestaurantMenu className="text-xl" /> }, // Core Base
     { stt: 6, name: "Kho Hàng", link: "/brand_owner/inventory", icon: <BsShop className="text-xl" />, featureKey: "CENTRAL_SUPPLY_CHAIN" },
-    { stt: 7, name: "Quản lý Nhân viên", link: "/brand_owner/staffs", icon: <FiUsers className="text-xl" /> }, // Removed featureKey for Basic Staff Management
+    { stt: 7, name: "Quản lý Nhân viên", link: "/brand_owner/staffs", icon: <FiUsers className="text-xl" /> }, // Core Base
     { stt: 8, name: "Khách hàng & CRM", link: "/brand_owner/crm", icon: <BsPersonFill className="text-xl" />, featureKey: "CRM_MANAGEMENT" },
     { stt: 9, name: "Chương trình Khuyến mãi", link: "/brand_owner/promotions", icon: <RiCoupon3Line className="text-xl" />, featureKey: "ADVANCED_PROMOTIONS" },
     { stt: 10, name: "Báo cáo Doanh thu", link: "/brand_owner/reports", icon: <BsClipboardData className="text-xl" />, featureKey: "REVENUE_ANALYTICS" },
-    { stt: 11, name: "Đánh giá từ khách", link: "/brand_owner/reviews", icon: <CiStar className="text-xl" />, featureKey: "CUSTOMER_REVIEWS" },
+    { stt: 11, name: "Đánh giá từ khách", link: "/brand_owner/reviews", icon: <CiStar className="text-xl" /> }, // Core Base
     { stt: 12, name: "Gói cước & Thanh toán", link: "/brand_owner/billing", icon: <BsReceipt className="text-xl" /> },
     { stt: 13, name: "Tích hợp API Key", link: "/brand_owner/api-keys", icon: <BiKey className="text-xl" /> },
+    { stt: 13.5, name: "Cổng thanh toán & Ngân hàng", link: "/brand_owner/payment-configs", icon: <MdPayment className="text-xl" /> },
     { stt: 14, name: "Cài đặt Thương hiệu", link: "/brand_owner/settings", icon: <MdOutlineSettings className="text-xl" /> },
 ];
 
@@ -74,18 +75,18 @@ export const SidebarMenuQuanLyNhaHang = [
     { stt: 1, name: "Tổng quan", link: "/quan-ly-nha-hang/dashboard", icon: <MdOutlineDashboard className="text-xl" />, permissions: ["MANAGER_ONLY"] },
     { stt: 2, name: "Hồ sơ cá nhân", link: "/quan-ly-nha-hang/profile", icon: <BsPersonFill className="text-xl" />, permissions: [] },
     { stt: 2.5, name: "Thông báo", link: "/quan-ly-nha-hang/notifications", icon: <IoIosNotificationsOutline className="text-xl" />, permissions: [] },
-    { stt: 3, name: "Sơ đồ Bàn", link: "/quan-ly-nha-hang/tables", icon: <MdOutlineTableRestaurant className="text-xl" />, permissions: ["VIEW_TABLES", "MANAGE_TABLES"], featureKey: "TABLE_MANAGEMENT" },
-    { stt: 4, name: "Quản lý Đặt bàn", link: "/quan-ly-nha-hang/reservations", icon: <BsCalendar2Check className="text-xl" />, permissions: ["VIEW_RESERVATION", "CREATE_RESERVATION", "UPDATE_RESERVATION", "CANCEL_RESERVATION", "ASSIGN_RESERVATION_TABLE"], featureKey: "RESERVATION_ONLINE" },
-    { stt: 5, name: "Quản lý Đơn hàng", link: "/quan-ly-nha-hang/orders", icon: <BsBag className="text-xl" />, permissions: ["VIEW_ORDER", "CREATE_ORDER", "UPDATE_ORDER", "CANCEL_ORDER", "APPLY_DISCOUNT"], featureKey: "ORDER_MANAGEMENT" },
+    { stt: 3, name: "Sơ đồ Bàn", link: "/quan-ly-nha-hang/tables", icon: <MdOutlineTableRestaurant className="text-xl" />, permissions: ["VIEW_TABLES", "MANAGE_TABLES"] }, // Core Base
+    { stt: 4, name: "Quản lý Đặt bàn", link: "/quan-ly-nha-hang/reservations", icon: <BsCalendar2Check className="text-xl" />, permissions: ["VIEW_RESERVATION", "CREATE_RESERVATION", "UPDATE_RESERVATION", "CANCEL_RESERVATION", "ASSIGN_RESERVATION_TABLE"] }, // Core Base
+    { stt: 5, name: "Quản lý Đơn hàng", link: "/quan-ly-nha-hang/orders", icon: <BsBag className="text-xl" />, permissions: ["VIEW_ORDER", "CREATE_ORDER", "UPDATE_ORDER", "CANCEL_ORDER", "APPLY_DISCOUNT"] }, // Core Base
     { stt: 6, name: "Thu ngân & Thanh toán", link: "/quan-ly-nha-hang/cashier", icon: <MdPayment className="text-xl" />, permissions: ["PROCESS_PAYMENT", "REFUND_PAYMENT", "VIEW_TRANSACTIONS"] },
     { stt: 7, name: "Màn hình Bếp/Bar", link: "/quan-ly-nha-hang/kitchen", icon: <MdOutlineSoupKitchen className="text-xl" />, permissions: ["VIEW_KITCHEN_TICKETS", "UPDATE_KITCHEN_STATUS"], featureKey: "KITCHEN_DISPLAY" },
-    { stt: 8, name: "Thực đơn chi nhánh", link: "/quan-ly-nha-hang/menus", icon: <MdOutlineRestaurantMenu className="text-xl" />, permissions: ["VIEW_MENU", "UPDATE_MENU_AVAILABILITY"], featureKey: "MENU_MANAGEMENT" },
+    { stt: 8, name: "Thực đơn chi nhánh", link: "/quan-ly-nha-hang/menus", icon: <MdOutlineRestaurantMenu className="text-xl" />, permissions: ["VIEW_MENU", "UPDATE_MENU_AVAILABILITY"] }, // Core Base
     { stt: 9, name: "Kho & Nguyên liệu", link: "/quan-ly-nha-hang/inventory", icon: <BsShop className="text-xl" />, permissions: ["VIEW_INVENTORY", "UPDATE_INVENTORY"], featureKey: "LOCAL_INVENTORY" },
-    { stt: 10, name: "Quản lý Nhân sự", link: "/quan-ly-nha-hang/staffs", icon: <FiUsers className="text-xl" />, permissions: ["VIEW_STAFF", "MANAGE_STAFF", "MANAGE_ROSTERS"] }, // Removed featureKey for Basic Staff Management
+    { stt: 10, name: "Quản lý Nhân sự", link: "/quan-ly-nha-hang/staffs", icon: <FiUsers className="text-xl" />, permissions: ["VIEW_STAFF", "MANAGE_STAFF", "MANAGE_ROSTERS"] }, // Core Base
     { stt: 11, name: "Khách hàng CRM", link: "/quan-ly-nha-hang/crm", icon: <FiUsers className="text-xl" />, permissions: ["MANAGER_ONLY"], featureKey: "CRM_MANAGEMENT" },
     { stt: 12, name: "Khuyến mãi", link: "/quan-ly-nha-hang/promotions", icon: <RiCoupon3Line className="text-xl" />, permissions: ["MANAGE_PROMOTIONS"], featureKey: "ADVANCED_PROMOTIONS" },
     { stt: 13, name: "Báo cáo Doanh thu", link: "/quan-ly-nha-hang/reports", icon: <BsClipboardData className="text-xl" />, permissions: ["VIEW_REVENUE_REPORT", "VIEW_STAFF_REPORT"], featureKey: "REVENUE_ANALYTICS" },
-    { stt: 14, name: "Đánh giá từ khách", link: "/quan-ly-nha-hang/reviews", icon: <CiStar className="text-xl" />, permissions: ["MANAGE_REVIEWS"], featureKey: "CUSTOMER_REVIEWS" },
+    { stt: 14, name: "Đánh giá từ khách", link: "/quan-ly-nha-hang/reviews", icon: <CiStar className="text-xl" />, permissions: ["MANAGE_REVIEWS"] }, // Core Base
     { stt: 15, name: "Giờ hoạt động", link: "/quan-ly-nha-hang/operating-hours", icon: <FiClock className="text-xl" />, permissions: ["VIEW_OPERATING_HOURS", "UPDATE_OPERATING_HOURS"] },
     { stt: 16, name: "Cài đặt Chi nhánh", link: "/quan-ly-nha-hang/settings", icon: <MdOutlineSettings className="text-xl" />, permissions: ["MANAGE_RESTAURANT"] },
 ];
@@ -131,11 +132,11 @@ const PublicSidebar = () => {
                         className=" object-cover object-center w-full h-full"
                     />
                 </Div>
-                <Div vitri="col_none" className="w-2/3" shape="none" >
-                    <H variant="text_black" line="truncate_1line" className="text-lg font-semibold" title={user?.name}>
+                <Div vitri="col_none" className="min-w-0 flex-1 overflow-hidden" shape="none" >
+                    <H variant="text_black" line="truncate_1line" className="text-base font-semibold truncate" title={user?.name}>
                         {user?.name}
                     </H>
-                    <P className="text-sm" line="truncate_1line" title={user?.email}>
+                    <P className="text-xs text-gray-500 truncate" line="truncate_1line" title={user?.email}>
                         {user?.email}
                     </P>
                 </Div>

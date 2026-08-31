@@ -206,6 +206,7 @@ export default function SushiTemplate({ idRestaurant, coreInfo, hoursData }: Sus
                 <BookingConfirmationModal 
                     isOpen={isConfirmModalOpen}
                     onClose={() => setIsConfirmModalOpen(false)}
+                    idRestaurant={idRestaurant}
                     draftData={bookingDraft}
                     variant="sushi"
                 />

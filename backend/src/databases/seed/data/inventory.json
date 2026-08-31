@@ -1,0 +1,100 @@
+{
+  "suppliers": [
+    {
+      "name": "Công ty Cổ phần Thực phẩm Sạch VinaBeef",
+      "taxCode": "0108991122",
+      "contact": {
+        "phone": "0283899001",
+        "email": "sales@vinabeef.vn",
+        "address": "Khu Chế Xuất Tân Thuận, Quận 7, TP. Hồ Chí Minh"
+      },
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Hợp tác xã Nông sản An Toàn Đà Lạt GAP",
+      "taxCode": "6801223344",
+      "contact": {
+        "phone": "0263388112",
+        "email": "order@dalatgap.vn",
+        "address": "Đường Hùng Vương, Phường 9, TP. Đà Lạt, Lâm Đồng"
+      },
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Công ty TNHH Thủy Hải Sản Tươi Sống Biển Đông",
+      "taxCode": "5602334455",
+      "contact": {
+        "phone": "0258377221",
+        "email": "haisanbiendong@gmail.com",
+        "address": "Cảng Cá Vĩnh Lương, TP. Nha Trang, Khánh Hòa"
+      },
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Nhà phân phối Nguyên liệu Bánh & Sữa Tân Nhất Hương",
+      "taxCode": "0304556677",
+      "contact": {
+        "phone": "0283999888",
+        "email": "contact@tannhathuong.com",
+        "address": "Quận Tân Bình, TP. Hồ Chí Minh"
+      },
+      "status": "ACTIVE"
+    }
+  ],
+  "ingredients": [
+    {
+      "name": "Thịt Bò Wagyu A5 Nhập Khẩu Nhật Bản",
+      "skuPrefix": "ING_WAGYU",
+      "baseUnit": "kg",
+      "minPrice": 1200000,
+      "maxPrice": 1500000,
+      "minStockLevel": 5.0,
+      "type": "INGREDIENT"
+    },
+    {
+      "name": "Phô Mai Mozzarella Sợi New Zealand",
+      "skuPrefix": "ING_MOZZARELLA",
+      "baseUnit": "kg",
+      "minPrice": 180000,
+      "maxPrice": 220000,
+      "minStockLevel": 10.0,
+      "type": "INGREDIENT"
+    },
+    {
+      "name": "Bột Mì Thượng Hạng Làm Pizza Chuẩn Ý",
+      "skuPrefix": "ING_FLOUR",
+      "baseUnit": "kg",
+      "minPrice": 25000,
+      "maxPrice": 35000,
+      "minStockLevel": 25.0,
+      "type": "INGREDIENT"
+    },
+    {
+      "name": "Nấm Đông Cô & Nấm Linh Chi Tươi Đà Lạt",
+      "skuPrefix": "ING_MUSHROOM",
+      "baseUnit": "kg",
+      "minPrice": 120000,
+      "maxPrice": 160000,
+      "minStockLevel": 8.0,
+      "type": "INGREDIENT"
+    },
+    {
+      "name": "Cá Hồi Tươi Nguyên Con Nhập Khẩu Na Uy",
+      "skuPrefix": "ING_SALMON",
+      "baseUnit": "kg",
+      "minPrice": 380000,
+      "maxPrice": 450000,
+      "minStockLevel": 6.0,
+      "type": "INGREDIENT"
+    },
+    {
+      "name": "Sữa Tươi Thanh Trùng 100% Nguyên Chất",
+      "skuPrefix": "ING_MILK",
+      "baseUnit": "lit",
+      "minPrice": 32000,
+      "maxPrice": 38000,
+      "minStockLevel": 20.0,
+      "type": "INGREDIENT"
+    }
+  ]
+}

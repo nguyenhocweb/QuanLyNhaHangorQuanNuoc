@@ -94,6 +94,11 @@ export type PromotionRestaurant = $Result.DefaultSelection<Prisma.$PromotionRest
  */
 export type PromotionMenuItem = $Result.DefaultSelection<Prisma.$PromotionMenuItemPayload>
 /**
+ * Model UserPromotion
+ * 
+ */
+export type UserPromotion = $Result.DefaultSelection<Prisma.$UserPromotionPayload>
+/**
  * Model Recipe
  * 
  */
@@ -1191,6 +1196,16 @@ export class PrismaClient<
     * ```
     */
   get promotionMenuItem(): Prisma.PromotionMenuItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userPromotion`: Exposes CRUD operations for the **UserPromotion** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserPromotions
+    * const userPromotions = await prisma.userPromotion.findMany()
+    * ```
+    */
+  get userPromotion(): Prisma.UserPromotionDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.recipe`: Exposes CRUD operations for the **Recipe** model.
@@ -2324,6 +2339,7 @@ export namespace Prisma {
     Promotion: 'Promotion',
     PromotionRestaurant: 'PromotionRestaurant',
     PromotionMenuItem: 'PromotionMenuItem',
+    UserPromotion: 'UserPromotion',
     Recipe: 'Recipe',
     RestaurantMenuItem: 'RestaurantMenuItem',
     RestaurantPaymentConfig: 'RestaurantPaymentConfig',
@@ -2410,7 +2426,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "category_Restaurant" | "employment" | "itemCategoryMap" | "itemVariant" | "menuCategory" | "menuCategoryMap" | "modifierGroup" | "modifierOption" | "notifications" | "promotion" | "promotionRestaurant" | "promotionMenuItem" | "recipe" | "restaurantMenuItem" | "restaurantPaymentConfig" | "systemRole" | "transaction" | "upgradeRequest" | "user" | "workspaceRole" | "adminPaymentConfig" | "aIChatSession" | "aIChatMessage" | "aIBrandConfig" | "aiChatbox" | "aiModel" | "apiKey" | "brand" | "brandNotification" | "brandNotificationReadReceipt" | "brandPaymentConfig" | "brandRevenue" | "brandSubscription" | "brandSubscriptionTransaction" | "customerNotification" | "inventoryAlert" | "inventoryItem" | "inventoryStock" | "invoice" | "loyaltyTransaction" | "menu" | "menuItem" | "operating_Hours" | "order" | "orderItem" | "permission" | "permission_vs_Employment" | "purchaseOrder" | "purchaseOrderItem" | "purchaseRequest" | "purchaseRequestItem" | "reservation_Audit_Log" | "reservation_Tables" | "reservations" | "restaurant" | "restaurant_Amenities" | "restaurant_Areas" | "restaurantCustomer" | "restaurant_Event" | "restaurantNotification" | "restaurantNotificationReadReceipt" | "restaurantRevenue" | "review_Restaurant" | "special_Schedules" | "stockCount" | "stockCountItem" | "stockTransaction" | "stockTransfer" | "stockTransferItem" | "subscriptionPlan" | "supplier" | "systemNotification" | "systemNotificationReadReceipt" | "systemPaymentMethod" | "systemRevenue" | "systemWebhookLog" | "table_Maintenance_Schedules" | "tables" | "tags" | "template"
+      modelProps: "category_Restaurant" | "employment" | "itemCategoryMap" | "itemVariant" | "menuCategory" | "menuCategoryMap" | "modifierGroup" | "modifierOption" | "notifications" | "promotion" | "promotionRestaurant" | "promotionMenuItem" | "userPromotion" | "recipe" | "restaurantMenuItem" | "restaurantPaymentConfig" | "systemRole" | "transaction" | "upgradeRequest" | "user" | "workspaceRole" | "adminPaymentConfig" | "aIChatSession" | "aIChatMessage" | "aIBrandConfig" | "aiChatbox" | "aiModel" | "apiKey" | "brand" | "brandNotification" | "brandNotificationReadReceipt" | "brandPaymentConfig" | "brandRevenue" | "brandSubscription" | "brandSubscriptionTransaction" | "customerNotification" | "inventoryAlert" | "inventoryItem" | "inventoryStock" | "invoice" | "loyaltyTransaction" | "menu" | "menuItem" | "operating_Hours" | "order" | "orderItem" | "permission" | "permission_vs_Employment" | "purchaseOrder" | "purchaseOrderItem" | "purchaseRequest" | "purchaseRequestItem" | "reservation_Audit_Log" | "reservation_Tables" | "reservations" | "restaurant" | "restaurant_Amenities" | "restaurant_Areas" | "restaurantCustomer" | "restaurant_Event" | "restaurantNotification" | "restaurantNotificationReadReceipt" | "restaurantRevenue" | "review_Restaurant" | "special_Schedules" | "stockCount" | "stockCountItem" | "stockTransaction" | "stockTransfer" | "stockTransferItem" | "subscriptionPlan" | "supplier" | "systemNotification" | "systemNotificationReadReceipt" | "systemPaymentMethod" | "systemRevenue" | "systemWebhookLog" | "table_Maintenance_Schedules" | "tables" | "tags" | "template"
       txIsolationLevel: never
     }
     model: {
@@ -3299,6 +3315,80 @@ export namespace Prisma {
           count: {
             args: Prisma.PromotionMenuItemCountArgs<ExtArgs>
             result: $Utils.Optional<PromotionMenuItemCountAggregateOutputType> | number
+          }
+        }
+      }
+      UserPromotion: {
+        payload: Prisma.$UserPromotionPayload<ExtArgs>
+        fields: Prisma.UserPromotionFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserPromotionFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserPromotionFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload>
+          }
+          findFirst: {
+            args: Prisma.UserPromotionFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserPromotionFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload>
+          }
+          findMany: {
+            args: Prisma.UserPromotionFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload>[]
+          }
+          create: {
+            args: Prisma.UserPromotionCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload>
+          }
+          createMany: {
+            args: Prisma.UserPromotionCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.UserPromotionDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload>
+          }
+          update: {
+            args: Prisma.UserPromotionUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserPromotionDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserPromotionUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.UserPromotionUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPromotionPayload>
+          }
+          aggregate: {
+            args: Prisma.UserPromotionAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserPromotion>
+          }
+          groupBy: {
+            args: Prisma.UserPromotionGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserPromotionGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.UserPromotionFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.UserPromotionAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.UserPromotionCountArgs<ExtArgs>
+            result: $Utils.Optional<UserPromotionCountAggregateOutputType> | number
           }
         }
       }
@@ -8425,6 +8515,7 @@ export namespace Prisma {
     promotion?: PromotionOmit
     promotionRestaurant?: PromotionRestaurantOmit
     promotionMenuItem?: PromotionMenuItemOmit
+    userPromotion?: UserPromotionOmit
     recipe?: RecipeOmit
     restaurantMenuItem?: RestaurantMenuItemOmit
     restaurantPaymentConfig?: RestaurantPaymentConfigOmit
@@ -8797,11 +8888,13 @@ export namespace Prisma {
   export type PromotionCountOutputType = {
     promotionRestaurants: number
     promotionMenuItems: number
+    userPromotions: number
   }
 
   export type PromotionCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     promotionRestaurants?: boolean | PromotionCountOutputTypeCountPromotionRestaurantsArgs
     promotionMenuItems?: boolean | PromotionCountOutputTypeCountPromotionMenuItemsArgs
+    userPromotions?: boolean | PromotionCountOutputTypeCountUserPromotionsArgs
   }
 
   // Custom InputTypes
@@ -8827,6 +8920,13 @@ export namespace Prisma {
    */
   export type PromotionCountOutputTypeCountPromotionMenuItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PromotionMenuItemWhereInput
+  }
+
+  /**
+   * PromotionCountOutputType without action
+   */
+  export type PromotionCountOutputTypeCountUserPromotionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserPromotionWhereInput
   }
 
 
@@ -8878,6 +8978,7 @@ export namespace Prisma {
     restaurantCustomers: number
     restaurantNotificationReadReceipts: number
     systemNotificationReadReceipts: number
+    userPromotions: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8893,6 +8994,7 @@ export namespace Prisma {
     restaurantCustomers?: boolean | UserCountOutputTypeCountRestaurantCustomersArgs
     restaurantNotificationReadReceipts?: boolean | UserCountOutputTypeCountRestaurantNotificationReadReceiptsArgs
     systemNotificationReadReceipts?: boolean | UserCountOutputTypeCountSystemNotificationReadReceiptsArgs
+    userPromotions?: boolean | UserCountOutputTypeCountUserPromotionsArgs
   }
 
   // Custom InputTypes
@@ -8988,6 +9090,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountSystemNotificationReadReceiptsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: SystemNotificationReadReceiptWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserPromotionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserPromotionWhereInput
   }
 
 
@@ -10771,6 +10880,7 @@ export namespace Prisma {
   export type Category_RestaurantMinAggregateOutputType = {
     id: string | null
     name: string | null
+    icon: string | null
     isActive: boolean | null
     description: string | null
     bgColor: string | null
@@ -10780,6 +10890,7 @@ export namespace Prisma {
   export type Category_RestaurantMaxAggregateOutputType = {
     id: string | null
     name: string | null
+    icon: string | null
     isActive: boolean | null
     description: string | null
     bgColor: string | null
@@ -10789,6 +10900,7 @@ export namespace Prisma {
   export type Category_RestaurantCountAggregateOutputType = {
     id: number
     name: number
+    icon: number
     isActive: number
     description: number
     bgColor: number
@@ -10801,6 +10913,7 @@ export namespace Prisma {
   export type Category_RestaurantMinAggregateInputType = {
     id?: true
     name?: true
+    icon?: true
     isActive?: true
     description?: true
     bgColor?: true
@@ -10810,6 +10923,7 @@ export namespace Prisma {
   export type Category_RestaurantMaxAggregateInputType = {
     id?: true
     name?: true
+    icon?: true
     isActive?: true
     description?: true
     bgColor?: true
@@ -10819,6 +10933,7 @@ export namespace Prisma {
   export type Category_RestaurantCountAggregateInputType = {
     id?: true
     name?: true
+    icon?: true
     isActive?: true
     description?: true
     bgColor?: true
@@ -10902,6 +11017,7 @@ export namespace Prisma {
   export type Category_RestaurantGroupByOutputType = {
     id: string
     name: string
+    icon: string | null
     isActive: boolean
     description: string | null
     bgColor: string | null
@@ -10929,6 +11045,7 @@ export namespace Prisma {
   export type Category_RestaurantSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     name?: boolean
+    icon?: boolean
     isActive?: boolean
     description?: boolean
     bgColor?: boolean
@@ -10943,6 +11060,7 @@ export namespace Prisma {
   export type Category_RestaurantSelectScalar = {
     id?: boolean
     name?: boolean
+    icon?: boolean
     isActive?: boolean
     description?: boolean
     bgColor?: boolean
@@ -10950,7 +11068,7 @@ export namespace Prisma {
     restaurantIds?: boolean
   }
 
-  export type Category_RestaurantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "isActive" | "description" | "bgColor" | "textColor" | "restaurantIds", ExtArgs["result"]["category_Restaurant"]>
+  export type Category_RestaurantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "icon" | "isActive" | "description" | "bgColor" | "textColor" | "restaurantIds", ExtArgs["result"]["category_Restaurant"]>
   export type Category_RestaurantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     restaurants?: boolean | Category_Restaurant$restaurantsArgs<ExtArgs>
     _count?: boolean | Category_RestaurantCountOutputTypeDefaultArgs<ExtArgs>
@@ -10964,6 +11082,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
+      icon: string | null
       isActive: boolean
       description: string | null
       bgColor: string | null
@@ -11364,6 +11483,7 @@ export namespace Prisma {
   interface Category_RestaurantFieldRefs {
     readonly id: FieldRef<"Category_Restaurant", 'String'>
     readonly name: FieldRef<"Category_Restaurant", 'String'>
+    readonly icon: FieldRef<"Category_Restaurant", 'String'>
     readonly isActive: FieldRef<"Category_Restaurant", 'Boolean'>
     readonly description: FieldRef<"Category_Restaurant", 'String'>
     readonly bgColor: FieldRef<"Category_Restaurant", 'String'>
@@ -20652,6 +20772,7 @@ export namespace Prisma {
     createdAt?: boolean
     promotionRestaurants?: boolean | Promotion$promotionRestaurantsArgs<ExtArgs>
     promotionMenuItems?: boolean | Promotion$promotionMenuItemsArgs<ExtArgs>
+    userPromotions?: boolean | Promotion$userPromotionsArgs<ExtArgs>
     _count?: boolean | PromotionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["promotion"]>
 
@@ -20679,6 +20800,7 @@ export namespace Prisma {
   export type PromotionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     promotionRestaurants?: boolean | Promotion$promotionRestaurantsArgs<ExtArgs>
     promotionMenuItems?: boolean | Promotion$promotionMenuItemsArgs<ExtArgs>
+    userPromotions?: boolean | Promotion$userPromotionsArgs<ExtArgs>
     _count?: boolean | PromotionCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -20687,6 +20809,7 @@ export namespace Prisma {
     objects: {
       promotionRestaurants: Prisma.$PromotionRestaurantPayload<ExtArgs>[]
       promotionMenuItems: Prisma.$PromotionMenuItemPayload<ExtArgs>[]
+      userPromotions: Prisma.$UserPromotionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -21069,6 +21192,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     promotionRestaurants<T extends Promotion$promotionRestaurantsArgs<ExtArgs> = {}>(args?: Subset<T, Promotion$promotionRestaurantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionRestaurantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     promotionMenuItems<T extends Promotion$promotionMenuItemsArgs<ExtArgs> = {}>(args?: Subset<T, Promotion$promotionMenuItemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PromotionMenuItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userPromotions<T extends Promotion$userPromotionsArgs<ExtArgs> = {}>(args?: Subset<T, Promotion$userPromotionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21528,6 +21652,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PromotionMenuItemScalarFieldEnum | PromotionMenuItemScalarFieldEnum[]
+  }
+
+  /**
+   * Promotion.userPromotions
+   */
+  export type Promotion$userPromotionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    where?: UserPromotionWhereInput
+    orderBy?: UserPromotionOrderByWithRelationInput | UserPromotionOrderByWithRelationInput[]
+    cursor?: UserPromotionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserPromotionScalarFieldEnum | UserPromotionScalarFieldEnum[]
   }
 
   /**
@@ -23468,6 +23616,989 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: PromotionMenuItemInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model UserPromotion
+   */
+
+  export type AggregateUserPromotion = {
+    _count: UserPromotionCountAggregateOutputType | null
+    _min: UserPromotionMinAggregateOutputType | null
+    _max: UserPromotionMaxAggregateOutputType | null
+  }
+
+  export type UserPromotionMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    promotionId: string | null
+    isUsed: boolean | null
+    savedAt: Date | null
+  }
+
+  export type UserPromotionMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    promotionId: string | null
+    isUsed: boolean | null
+    savedAt: Date | null
+  }
+
+  export type UserPromotionCountAggregateOutputType = {
+    id: number
+    userId: number
+    promotionId: number
+    isUsed: number
+    savedAt: number
+    _all: number
+  }
+
+
+  export type UserPromotionMinAggregateInputType = {
+    id?: true
+    userId?: true
+    promotionId?: true
+    isUsed?: true
+    savedAt?: true
+  }
+
+  export type UserPromotionMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    promotionId?: true
+    isUsed?: true
+    savedAt?: true
+  }
+
+  export type UserPromotionCountAggregateInputType = {
+    id?: true
+    userId?: true
+    promotionId?: true
+    isUsed?: true
+    savedAt?: true
+    _all?: true
+  }
+
+  export type UserPromotionAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserPromotion to aggregate.
+     */
+    where?: UserPromotionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPromotions to fetch.
+     */
+    orderBy?: UserPromotionOrderByWithRelationInput | UserPromotionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserPromotionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPromotions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPromotions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserPromotions
+    **/
+    _count?: true | UserPromotionCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserPromotionMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserPromotionMaxAggregateInputType
+  }
+
+  export type GetUserPromotionAggregateType<T extends UserPromotionAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserPromotion]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserPromotion[P]>
+      : GetScalarType<T[P], AggregateUserPromotion[P]>
+  }
+
+
+
+
+  export type UserPromotionGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserPromotionWhereInput
+    orderBy?: UserPromotionOrderByWithAggregationInput | UserPromotionOrderByWithAggregationInput[]
+    by: UserPromotionScalarFieldEnum[] | UserPromotionScalarFieldEnum
+    having?: UserPromotionScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserPromotionCountAggregateInputType | true
+    _min?: UserPromotionMinAggregateInputType
+    _max?: UserPromotionMaxAggregateInputType
+  }
+
+  export type UserPromotionGroupByOutputType = {
+    id: string
+    userId: string
+    promotionId: string
+    isUsed: boolean
+    savedAt: Date
+    _count: UserPromotionCountAggregateOutputType | null
+    _min: UserPromotionMinAggregateOutputType | null
+    _max: UserPromotionMaxAggregateOutputType | null
+  }
+
+  type GetUserPromotionGroupByPayload<T extends UserPromotionGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserPromotionGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserPromotionGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserPromotionGroupByOutputType[P]>
+            : GetScalarType<T[P], UserPromotionGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserPromotionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    promotionId?: boolean
+    isUsed?: boolean
+    savedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    promotion?: boolean | PromotionDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userPromotion"]>
+
+
+
+  export type UserPromotionSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    promotionId?: boolean
+    isUsed?: boolean
+    savedAt?: boolean
+  }
+
+  export type UserPromotionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "promotionId" | "isUsed" | "savedAt", ExtArgs["result"]["userPromotion"]>
+  export type UserPromotionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    promotion?: boolean | PromotionDefaultArgs<ExtArgs>
+  }
+
+  export type $UserPromotionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserPromotion"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      promotion: Prisma.$PromotionPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      promotionId: string
+      isUsed: boolean
+      savedAt: Date
+    }, ExtArgs["result"]["userPromotion"]>
+    composites: {}
+  }
+
+  type UserPromotionGetPayload<S extends boolean | null | undefined | UserPromotionDefaultArgs> = $Result.GetResult<Prisma.$UserPromotionPayload, S>
+
+  type UserPromotionCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserPromotionFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserPromotionCountAggregateInputType | true
+    }
+
+  export interface UserPromotionDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserPromotion'], meta: { name: 'UserPromotion' } }
+    /**
+     * Find zero or one UserPromotion that matches the filter.
+     * @param {UserPromotionFindUniqueArgs} args - Arguments to find a UserPromotion
+     * @example
+     * // Get one UserPromotion
+     * const userPromotion = await prisma.userPromotion.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserPromotionFindUniqueArgs>(args: SelectSubset<T, UserPromotionFindUniqueArgs<ExtArgs>>): Prisma__UserPromotionClient<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserPromotion that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserPromotionFindUniqueOrThrowArgs} args - Arguments to find a UserPromotion
+     * @example
+     * // Get one UserPromotion
+     * const userPromotion = await prisma.userPromotion.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserPromotionFindUniqueOrThrowArgs>(args: SelectSubset<T, UserPromotionFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserPromotionClient<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserPromotion that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPromotionFindFirstArgs} args - Arguments to find a UserPromotion
+     * @example
+     * // Get one UserPromotion
+     * const userPromotion = await prisma.userPromotion.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserPromotionFindFirstArgs>(args?: SelectSubset<T, UserPromotionFindFirstArgs<ExtArgs>>): Prisma__UserPromotionClient<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserPromotion that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPromotionFindFirstOrThrowArgs} args - Arguments to find a UserPromotion
+     * @example
+     * // Get one UserPromotion
+     * const userPromotion = await prisma.userPromotion.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserPromotionFindFirstOrThrowArgs>(args?: SelectSubset<T, UserPromotionFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserPromotionClient<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserPromotions that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPromotionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserPromotions
+     * const userPromotions = await prisma.userPromotion.findMany()
+     * 
+     * // Get first 10 UserPromotions
+     * const userPromotions = await prisma.userPromotion.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userPromotionWithIdOnly = await prisma.userPromotion.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserPromotionFindManyArgs>(args?: SelectSubset<T, UserPromotionFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserPromotion.
+     * @param {UserPromotionCreateArgs} args - Arguments to create a UserPromotion.
+     * @example
+     * // Create one UserPromotion
+     * const UserPromotion = await prisma.userPromotion.create({
+     *   data: {
+     *     // ... data to create a UserPromotion
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserPromotionCreateArgs>(args: SelectSubset<T, UserPromotionCreateArgs<ExtArgs>>): Prisma__UserPromotionClient<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserPromotions.
+     * @param {UserPromotionCreateManyArgs} args - Arguments to create many UserPromotions.
+     * @example
+     * // Create many UserPromotions
+     * const userPromotion = await prisma.userPromotion.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserPromotionCreateManyArgs>(args?: SelectSubset<T, UserPromotionCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a UserPromotion.
+     * @param {UserPromotionDeleteArgs} args - Arguments to delete one UserPromotion.
+     * @example
+     * // Delete one UserPromotion
+     * const UserPromotion = await prisma.userPromotion.delete({
+     *   where: {
+     *     // ... filter to delete one UserPromotion
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserPromotionDeleteArgs>(args: SelectSubset<T, UserPromotionDeleteArgs<ExtArgs>>): Prisma__UserPromotionClient<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserPromotion.
+     * @param {UserPromotionUpdateArgs} args - Arguments to update one UserPromotion.
+     * @example
+     * // Update one UserPromotion
+     * const userPromotion = await prisma.userPromotion.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserPromotionUpdateArgs>(args: SelectSubset<T, UserPromotionUpdateArgs<ExtArgs>>): Prisma__UserPromotionClient<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserPromotions.
+     * @param {UserPromotionDeleteManyArgs} args - Arguments to filter UserPromotions to delete.
+     * @example
+     * // Delete a few UserPromotions
+     * const { count } = await prisma.userPromotion.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserPromotionDeleteManyArgs>(args?: SelectSubset<T, UserPromotionDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserPromotions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPromotionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserPromotions
+     * const userPromotion = await prisma.userPromotion.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserPromotionUpdateManyArgs>(args: SelectSubset<T, UserPromotionUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one UserPromotion.
+     * @param {UserPromotionUpsertArgs} args - Arguments to update or create a UserPromotion.
+     * @example
+     * // Update or create a UserPromotion
+     * const userPromotion = await prisma.userPromotion.upsert({
+     *   create: {
+     *     // ... data to create a UserPromotion
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserPromotion we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserPromotionUpsertArgs>(args: SelectSubset<T, UserPromotionUpsertArgs<ExtArgs>>): Prisma__UserPromotionClient<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserPromotions that matches the filter.
+     * @param {UserPromotionFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const userPromotion = await prisma.userPromotion.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: UserPromotionFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a UserPromotion.
+     * @param {UserPromotionAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const userPromotion = await prisma.userPromotion.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: UserPromotionAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of UserPromotions.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPromotionCountArgs} args - Arguments to filter UserPromotions to count.
+     * @example
+     * // Count the number of UserPromotions
+     * const count = await prisma.userPromotion.count({
+     *   where: {
+     *     // ... the filter for the UserPromotions we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserPromotionCountArgs>(
+      args?: Subset<T, UserPromotionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserPromotionCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserPromotion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPromotionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserPromotionAggregateArgs>(args: Subset<T, UserPromotionAggregateArgs>): Prisma.PrismaPromise<GetUserPromotionAggregateType<T>>
+
+    /**
+     * Group by UserPromotion.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPromotionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserPromotionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserPromotionGroupByArgs['orderBy'] }
+        : { orderBy?: UserPromotionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserPromotionGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserPromotionGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserPromotion model
+   */
+  readonly fields: UserPromotionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserPromotion.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserPromotionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    promotion<T extends PromotionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, PromotionDefaultArgs<ExtArgs>>): Prisma__PromotionClient<$Result.GetResult<Prisma.$PromotionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserPromotion model
+   */
+  interface UserPromotionFieldRefs {
+    readonly id: FieldRef<"UserPromotion", 'String'>
+    readonly userId: FieldRef<"UserPromotion", 'String'>
+    readonly promotionId: FieldRef<"UserPromotion", 'String'>
+    readonly isUsed: FieldRef<"UserPromotion", 'Boolean'>
+    readonly savedAt: FieldRef<"UserPromotion", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserPromotion findUnique
+   */
+  export type UserPromotionFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPromotion to fetch.
+     */
+    where: UserPromotionWhereUniqueInput
+  }
+
+  /**
+   * UserPromotion findUniqueOrThrow
+   */
+  export type UserPromotionFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPromotion to fetch.
+     */
+    where: UserPromotionWhereUniqueInput
+  }
+
+  /**
+   * UserPromotion findFirst
+   */
+  export type UserPromotionFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPromotion to fetch.
+     */
+    where?: UserPromotionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPromotions to fetch.
+     */
+    orderBy?: UserPromotionOrderByWithRelationInput | UserPromotionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserPromotions.
+     */
+    cursor?: UserPromotionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPromotions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPromotions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserPromotions.
+     */
+    distinct?: UserPromotionScalarFieldEnum | UserPromotionScalarFieldEnum[]
+  }
+
+  /**
+   * UserPromotion findFirstOrThrow
+   */
+  export type UserPromotionFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPromotion to fetch.
+     */
+    where?: UserPromotionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPromotions to fetch.
+     */
+    orderBy?: UserPromotionOrderByWithRelationInput | UserPromotionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserPromotions.
+     */
+    cursor?: UserPromotionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPromotions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPromotions.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserPromotions.
+     */
+    distinct?: UserPromotionScalarFieldEnum | UserPromotionScalarFieldEnum[]
+  }
+
+  /**
+   * UserPromotion findMany
+   */
+  export type UserPromotionFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPromotions to fetch.
+     */
+    where?: UserPromotionWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPromotions to fetch.
+     */
+    orderBy?: UserPromotionOrderByWithRelationInput | UserPromotionOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserPromotions.
+     */
+    cursor?: UserPromotionWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPromotions from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPromotions.
+     */
+    skip?: number
+    distinct?: UserPromotionScalarFieldEnum | UserPromotionScalarFieldEnum[]
+  }
+
+  /**
+   * UserPromotion create
+   */
+  export type UserPromotionCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserPromotion.
+     */
+    data: XOR<UserPromotionCreateInput, UserPromotionUncheckedCreateInput>
+  }
+
+  /**
+   * UserPromotion createMany
+   */
+  export type UserPromotionCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserPromotions.
+     */
+    data: UserPromotionCreateManyInput | UserPromotionCreateManyInput[]
+  }
+
+  /**
+   * UserPromotion update
+   */
+  export type UserPromotionUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserPromotion.
+     */
+    data: XOR<UserPromotionUpdateInput, UserPromotionUncheckedUpdateInput>
+    /**
+     * Choose, which UserPromotion to update.
+     */
+    where: UserPromotionWhereUniqueInput
+  }
+
+  /**
+   * UserPromotion updateMany
+   */
+  export type UserPromotionUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserPromotions.
+     */
+    data: XOR<UserPromotionUpdateManyMutationInput, UserPromotionUncheckedUpdateManyInput>
+    /**
+     * Filter which UserPromotions to update
+     */
+    where?: UserPromotionWhereInput
+    /**
+     * Limit how many UserPromotions to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserPromotion upsert
+   */
+  export type UserPromotionUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserPromotion to update in case it exists.
+     */
+    where: UserPromotionWhereUniqueInput
+    /**
+     * In case the UserPromotion found by the `where` argument doesn't exist, create a new UserPromotion with this data.
+     */
+    create: XOR<UserPromotionCreateInput, UserPromotionUncheckedCreateInput>
+    /**
+     * In case the UserPromotion was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserPromotionUpdateInput, UserPromotionUncheckedUpdateInput>
+  }
+
+  /**
+   * UserPromotion delete
+   */
+  export type UserPromotionDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    /**
+     * Filter which UserPromotion to delete.
+     */
+    where: UserPromotionWhereUniqueInput
+  }
+
+  /**
+   * UserPromotion deleteMany
+   */
+  export type UserPromotionDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserPromotions to delete
+     */
+    where?: UserPromotionWhereInput
+    /**
+     * Limit how many UserPromotions to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserPromotion findRaw
+   */
+  export type UserPromotionFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserPromotion aggregateRaw
+   */
+  export type UserPromotionAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * UserPromotion without action
+   */
+  export type UserPromotionDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
   }
 
 
@@ -28700,9 +29831,15 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     brandName: string | null
+    logo: string | null
+    description: string | null
+    representativeName: string | null
+    phone_contact: string | null
+    email_contact: string | null
     tax_code: string | null
     businessLicense: string | null
     status: $Enums.RequestStatus | null
+    rejectionReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -28711,9 +29848,15 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     brandName: string | null
+    logo: string | null
+    description: string | null
+    representativeName: string | null
+    phone_contact: string | null
+    email_contact: string | null
     tax_code: string | null
     businessLicense: string | null
     status: $Enums.RequestStatus | null
+    rejectionReason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -28722,9 +29865,17 @@ export namespace Prisma {
     id: number
     userId: number
     brandName: number
+    logo: number
+    description: number
+    representativeName: number
+    phone_contact: number
+    email_contact: number
+    address: number
     tax_code: number
     businessLicense: number
+    identityCard: number
     status: number
+    rejectionReason: number
     createdAt: number
     updatedAt: number
     _all: number
@@ -28735,9 +29886,15 @@ export namespace Prisma {
     id?: true
     userId?: true
     brandName?: true
+    logo?: true
+    description?: true
+    representativeName?: true
+    phone_contact?: true
+    email_contact?: true
     tax_code?: true
     businessLicense?: true
     status?: true
+    rejectionReason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -28746,9 +29903,15 @@ export namespace Prisma {
     id?: true
     userId?: true
     brandName?: true
+    logo?: true
+    description?: true
+    representativeName?: true
+    phone_contact?: true
+    email_contact?: true
     tax_code?: true
     businessLicense?: true
     status?: true
+    rejectionReason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -28757,9 +29920,17 @@ export namespace Prisma {
     id?: true
     userId?: true
     brandName?: true
+    logo?: true
+    description?: true
+    representativeName?: true
+    phone_contact?: true
+    email_contact?: true
+    address?: true
     tax_code?: true
     businessLicense?: true
+    identityCard?: true
     status?: true
+    rejectionReason?: true
     createdAt?: true
     updatedAt?: true
     _all?: true
@@ -28841,9 +30012,17 @@ export namespace Prisma {
     id: string
     userId: string
     brandName: string
+    logo: string | null
+    description: string | null
+    representativeName: string | null
+    phone_contact: string | null
+    email_contact: string | null
+    address: JsonValue | null
     tax_code: string | null
     businessLicense: string | null
+    identityCard: string[]
     status: $Enums.RequestStatus
+    rejectionReason: string | null
     createdAt: Date
     updatedAt: Date
     _count: UpgradeRequestCountAggregateOutputType | null
@@ -28869,9 +30048,17 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     brandName?: boolean
+    logo?: boolean
+    description?: boolean
+    representativeName?: boolean
+    phone_contact?: boolean
+    email_contact?: boolean
+    address?: boolean
     tax_code?: boolean
     businessLicense?: boolean
+    identityCard?: boolean
     status?: boolean
+    rejectionReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -28883,14 +30070,22 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     brandName?: boolean
+    logo?: boolean
+    description?: boolean
+    representativeName?: boolean
+    phone_contact?: boolean
+    email_contact?: boolean
+    address?: boolean
     tax_code?: boolean
     businessLicense?: boolean
+    identityCard?: boolean
     status?: boolean
+    rejectionReason?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UpgradeRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "brandName" | "tax_code" | "businessLicense" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["upgradeRequest"]>
+  export type UpgradeRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "brandName" | "logo" | "description" | "representativeName" | "phone_contact" | "email_contact" | "address" | "tax_code" | "businessLicense" | "identityCard" | "status" | "rejectionReason" | "createdAt" | "updatedAt", ExtArgs["result"]["upgradeRequest"]>
   export type UpgradeRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -28904,9 +30099,17 @@ export namespace Prisma {
       id: string
       userId: string
       brandName: string
+      logo: string | null
+      description: string | null
+      representativeName: string | null
+      phone_contact: string | null
+      email_contact: string | null
+      address: Prisma.JsonValue | null
       tax_code: string | null
       businessLicense: string | null
+      identityCard: string[]
       status: $Enums.RequestStatus
+      rejectionReason: string | null
       createdAt: Date
       updatedAt: Date
     }, ExtArgs["result"]["upgradeRequest"]>
@@ -29305,9 +30508,17 @@ export namespace Prisma {
     readonly id: FieldRef<"UpgradeRequest", 'String'>
     readonly userId: FieldRef<"UpgradeRequest", 'String'>
     readonly brandName: FieldRef<"UpgradeRequest", 'String'>
+    readonly logo: FieldRef<"UpgradeRequest", 'String'>
+    readonly description: FieldRef<"UpgradeRequest", 'String'>
+    readonly representativeName: FieldRef<"UpgradeRequest", 'String'>
+    readonly phone_contact: FieldRef<"UpgradeRequest", 'String'>
+    readonly email_contact: FieldRef<"UpgradeRequest", 'String'>
+    readonly address: FieldRef<"UpgradeRequest", 'Json'>
     readonly tax_code: FieldRef<"UpgradeRequest", 'String'>
     readonly businessLicense: FieldRef<"UpgradeRequest", 'String'>
+    readonly identityCard: FieldRef<"UpgradeRequest", 'String[]'>
     readonly status: FieldRef<"UpgradeRequest", 'RequestStatus'>
+    readonly rejectionReason: FieldRef<"UpgradeRequest", 'String'>
     readonly createdAt: FieldRef<"UpgradeRequest", 'DateTime'>
     readonly updatedAt: FieldRef<"UpgradeRequest", 'DateTime'>
   }
@@ -29956,6 +31167,7 @@ export namespace Prisma {
     restaurantCustomers?: boolean | User$restaurantCustomersArgs<ExtArgs>
     restaurantNotificationReadReceipts?: boolean | User$restaurantNotificationReadReceiptsArgs<ExtArgs>
     systemNotificationReadReceipts?: boolean | User$systemNotificationReadReceiptsArgs<ExtArgs>
+    userPromotions?: boolean | User$userPromotionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -29995,6 +31207,7 @@ export namespace Prisma {
     restaurantCustomers?: boolean | User$restaurantCustomersArgs<ExtArgs>
     restaurantNotificationReadReceipts?: boolean | User$restaurantNotificationReadReceiptsArgs<ExtArgs>
     systemNotificationReadReceipts?: boolean | User$systemNotificationReadReceiptsArgs<ExtArgs>
+    userPromotions?: boolean | User$userPromotionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -30015,6 +31228,7 @@ export namespace Prisma {
       restaurantCustomers: Prisma.$RestaurantCustomerPayload<ExtArgs>[]
       restaurantNotificationReadReceipts: Prisma.$RestaurantNotificationReadReceiptPayload<ExtArgs>[]
       systemNotificationReadReceipts: Prisma.$SystemNotificationReadReceiptPayload<ExtArgs>[]
+      userPromotions: Prisma.$UserPromotionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -30409,6 +31623,7 @@ export namespace Prisma {
     restaurantCustomers<T extends User$restaurantCustomersArgs<ExtArgs> = {}>(args?: Subset<T, User$restaurantCustomersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RestaurantCustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     restaurantNotificationReadReceipts<T extends User$restaurantNotificationReadReceiptsArgs<ExtArgs> = {}>(args?: Subset<T, User$restaurantNotificationReadReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RestaurantNotificationReadReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     systemNotificationReadReceipts<T extends User$systemNotificationReadReceiptsArgs<ExtArgs> = {}>(args?: Subset<T, User$systemNotificationReadReceiptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SystemNotificationReadReceiptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userPromotions<T extends User$userPromotionsArgs<ExtArgs> = {}>(args?: Subset<T, User$userPromotionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPromotionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -31146,6 +32361,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: SystemNotificationReadReceiptScalarFieldEnum | SystemNotificationReadReceiptScalarFieldEnum[]
+  }
+
+  /**
+   * User.userPromotions
+   */
+  export type User$userPromotionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPromotion
+     */
+    select?: UserPromotionSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPromotion
+     */
+    omit?: UserPromotionOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPromotionInclude<ExtArgs> | null
+    where?: UserPromotionWhereInput
+    orderBy?: UserPromotionOrderByWithRelationInput | UserPromotionOrderByWithRelationInput[]
+    cursor?: UserPromotionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserPromotionScalarFieldEnum | UserPromotionScalarFieldEnum[]
   }
 
   /**
@@ -98145,6 +99384,7 @@ export namespace Prisma {
   export const Category_RestaurantScalarFieldEnum: {
     id: 'id',
     name: 'name',
+    icon: 'icon',
     isActive: 'isActive',
     description: 'description',
     bgColor: 'bgColor',
@@ -98296,6 +99536,17 @@ export namespace Prisma {
   export type PromotionMenuItemScalarFieldEnum = (typeof PromotionMenuItemScalarFieldEnum)[keyof typeof PromotionMenuItemScalarFieldEnum]
 
 
+  export const UserPromotionScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    promotionId: 'promotionId',
+    isUsed: 'isUsed',
+    savedAt: 'savedAt'
+  };
+
+  export type UserPromotionScalarFieldEnum = (typeof UserPromotionScalarFieldEnum)[keyof typeof UserPromotionScalarFieldEnum]
+
+
   export const RecipeScalarFieldEnum: {
     id: 'id',
     inventoryItemId: 'inventoryItemId',
@@ -98362,9 +99613,17 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     brandName: 'brandName',
+    logo: 'logo',
+    description: 'description',
+    representativeName: 'representativeName',
+    phone_contact: 'phone_contact',
+    email_contact: 'email_contact',
+    address: 'address',
     tax_code: 'tax_code',
     businessLicense: 'businessLicense',
+    identityCard: 'identityCard',
     status: 'status',
+    rejectionReason: 'rejectionReason',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
   };
@@ -99986,6 +101245,7 @@ export namespace Prisma {
     NOT?: Category_RestaurantWhereInput | Category_RestaurantWhereInput[]
     id?: StringFilter<"Category_Restaurant"> | string
     name?: StringFilter<"Category_Restaurant"> | string
+    icon?: StringNullableFilter<"Category_Restaurant"> | string | null
     isActive?: BoolFilter<"Category_Restaurant"> | boolean
     description?: StringNullableFilter<"Category_Restaurant"> | string | null
     bgColor?: StringNullableFilter<"Category_Restaurant"> | string | null
@@ -99997,6 +101257,7 @@ export namespace Prisma {
   export type Category_RestaurantOrderByWithRelationInput = {
     id?: SortOrder
     name?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     description?: SortOrder
     bgColor?: SortOrder
@@ -100011,6 +101272,7 @@ export namespace Prisma {
     AND?: Category_RestaurantWhereInput | Category_RestaurantWhereInput[]
     OR?: Category_RestaurantWhereInput[]
     NOT?: Category_RestaurantWhereInput | Category_RestaurantWhereInput[]
+    icon?: StringNullableFilter<"Category_Restaurant"> | string | null
     isActive?: BoolFilter<"Category_Restaurant"> | boolean
     description?: StringNullableFilter<"Category_Restaurant"> | string | null
     bgColor?: StringNullableFilter<"Category_Restaurant"> | string | null
@@ -100022,6 +101284,7 @@ export namespace Prisma {
   export type Category_RestaurantOrderByWithAggregationInput = {
     id?: SortOrder
     name?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     description?: SortOrder
     bgColor?: SortOrder
@@ -100038,6 +101301,7 @@ export namespace Prisma {
     NOT?: Category_RestaurantScalarWhereWithAggregatesInput | Category_RestaurantScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Category_Restaurant"> | string
     name?: StringWithAggregatesFilter<"Category_Restaurant"> | string
+    icon?: StringNullableWithAggregatesFilter<"Category_Restaurant"> | string | null
     isActive?: BoolWithAggregatesFilter<"Category_Restaurant"> | boolean
     description?: StringNullableWithAggregatesFilter<"Category_Restaurant"> | string | null
     bgColor?: StringNullableWithAggregatesFilter<"Category_Restaurant"> | string | null
@@ -100283,6 +101547,7 @@ export namespace Prisma {
 
   export type MenuCategoryWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    menuId_name?: MenuCategoryMenuIdNameCompoundUniqueInput
     AND?: MenuCategoryWhereInput | MenuCategoryWhereInput[]
     OR?: MenuCategoryWhereInput[]
     NOT?: MenuCategoryWhereInput | MenuCategoryWhereInput[]
@@ -100296,7 +101561,7 @@ export namespace Prisma {
     items?: MenuItemListRelationFilter
     itemCategoryMaps?: ItemCategoryMapListRelationFilter
     menuCategoryMaps?: MenuCategoryMapListRelationFilter
-  }, "id">
+  }, "id" | "menuId_name">
 
   export type MenuCategoryOrderByWithAggregationInput = {
     id?: SortOrder
@@ -100636,6 +101901,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Promotion"> | Date | string
     promotionRestaurants?: PromotionRestaurantListRelationFilter
     promotionMenuItems?: PromotionMenuItemListRelationFilter
+    userPromotions?: UserPromotionListRelationFilter
   }
 
   export type PromotionOrderByWithRelationInput = {
@@ -100656,6 +101922,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     promotionRestaurants?: PromotionRestaurantOrderByRelationAggregateInput
     promotionMenuItems?: PromotionMenuItemOrderByRelationAggregateInput
+    userPromotions?: UserPromotionOrderByRelationAggregateInput
   }
 
   export type PromotionWhereUniqueInput = Prisma.AtLeast<{
@@ -100679,6 +101946,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"Promotion"> | Date | string
     promotionRestaurants?: PromotionRestaurantListRelationFilter
     promotionMenuItems?: PromotionMenuItemListRelationFilter
+    userPromotions?: UserPromotionListRelationFilter
   }, "id" | "code">
 
   export type PromotionOrderByWithAggregationInput = {
@@ -100819,6 +102087,65 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"PromotionMenuItem"> | string
     promotionId?: StringWithAggregatesFilter<"PromotionMenuItem"> | string
     menuItemId?: StringWithAggregatesFilter<"PromotionMenuItem"> | string
+  }
+
+  export type UserPromotionWhereInput = {
+    AND?: UserPromotionWhereInput | UserPromotionWhereInput[]
+    OR?: UserPromotionWhereInput[]
+    NOT?: UserPromotionWhereInput | UserPromotionWhereInput[]
+    id?: StringFilter<"UserPromotion"> | string
+    userId?: StringFilter<"UserPromotion"> | string
+    promotionId?: StringFilter<"UserPromotion"> | string
+    isUsed?: BoolFilter<"UserPromotion"> | boolean
+    savedAt?: DateTimeFilter<"UserPromotion"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    promotion?: XOR<PromotionScalarRelationFilter, PromotionWhereInput>
+  }
+
+  export type UserPromotionOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    promotionId?: SortOrder
+    isUsed?: SortOrder
+    savedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    promotion?: PromotionOrderByWithRelationInput
+  }
+
+  export type UserPromotionWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId_promotionId?: UserPromotionUserIdPromotionIdCompoundUniqueInput
+    AND?: UserPromotionWhereInput | UserPromotionWhereInput[]
+    OR?: UserPromotionWhereInput[]
+    NOT?: UserPromotionWhereInput | UserPromotionWhereInput[]
+    userId?: StringFilter<"UserPromotion"> | string
+    promotionId?: StringFilter<"UserPromotion"> | string
+    isUsed?: BoolFilter<"UserPromotion"> | boolean
+    savedAt?: DateTimeFilter<"UserPromotion"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    promotion?: XOR<PromotionScalarRelationFilter, PromotionWhereInput>
+  }, "id" | "userId_promotionId">
+
+  export type UserPromotionOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    promotionId?: SortOrder
+    isUsed?: SortOrder
+    savedAt?: SortOrder
+    _count?: UserPromotionCountOrderByAggregateInput
+    _max?: UserPromotionMaxOrderByAggregateInput
+    _min?: UserPromotionMinOrderByAggregateInput
+  }
+
+  export type UserPromotionScalarWhereWithAggregatesInput = {
+    AND?: UserPromotionScalarWhereWithAggregatesInput | UserPromotionScalarWhereWithAggregatesInput[]
+    OR?: UserPromotionScalarWhereWithAggregatesInput[]
+    NOT?: UserPromotionScalarWhereWithAggregatesInput | UserPromotionScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserPromotion"> | string
+    userId?: StringWithAggregatesFilter<"UserPromotion"> | string
+    promotionId?: StringWithAggregatesFilter<"UserPromotion"> | string
+    isUsed?: BoolWithAggregatesFilter<"UserPromotion"> | boolean
+    savedAt?: DateTimeWithAggregatesFilter<"UserPromotion"> | Date | string
   }
 
   export type RecipeWhereInput = {
@@ -101167,9 +102494,17 @@ export namespace Prisma {
     id?: StringFilter<"UpgradeRequest"> | string
     userId?: StringFilter<"UpgradeRequest"> | string
     brandName?: StringFilter<"UpgradeRequest"> | string
+    logo?: StringNullableFilter<"UpgradeRequest"> | string | null
+    description?: StringNullableFilter<"UpgradeRequest"> | string | null
+    representativeName?: StringNullableFilter<"UpgradeRequest"> | string | null
+    phone_contact?: StringNullableFilter<"UpgradeRequest"> | string | null
+    email_contact?: StringNullableFilter<"UpgradeRequest"> | string | null
+    address?: JsonNullableFilter<"UpgradeRequest">
     tax_code?: StringNullableFilter<"UpgradeRequest"> | string | null
     businessLicense?: StringNullableFilter<"UpgradeRequest"> | string | null
+    identityCard?: StringNullableListFilter<"UpgradeRequest">
     status?: EnumRequestStatusFilter<"UpgradeRequest"> | $Enums.RequestStatus
+    rejectionReason?: StringNullableFilter<"UpgradeRequest"> | string | null
     createdAt?: DateTimeFilter<"UpgradeRequest"> | Date | string
     updatedAt?: DateTimeFilter<"UpgradeRequest"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -101179,9 +102514,17 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     brandName?: SortOrder
+    logo?: SortOrder
+    description?: SortOrder
+    representativeName?: SortOrder
+    phone_contact?: SortOrder
+    email_contact?: SortOrder
+    address?: SortOrder
     tax_code?: SortOrder
     businessLicense?: SortOrder
+    identityCard?: SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -101194,9 +102537,17 @@ export namespace Prisma {
     OR?: UpgradeRequestWhereInput[]
     NOT?: UpgradeRequestWhereInput | UpgradeRequestWhereInput[]
     brandName?: StringFilter<"UpgradeRequest"> | string
+    logo?: StringNullableFilter<"UpgradeRequest"> | string | null
+    description?: StringNullableFilter<"UpgradeRequest"> | string | null
+    representativeName?: StringNullableFilter<"UpgradeRequest"> | string | null
+    phone_contact?: StringNullableFilter<"UpgradeRequest"> | string | null
+    email_contact?: StringNullableFilter<"UpgradeRequest"> | string | null
+    address?: JsonNullableFilter<"UpgradeRequest">
     tax_code?: StringNullableFilter<"UpgradeRequest"> | string | null
     businessLicense?: StringNullableFilter<"UpgradeRequest"> | string | null
+    identityCard?: StringNullableListFilter<"UpgradeRequest">
     status?: EnumRequestStatusFilter<"UpgradeRequest"> | $Enums.RequestStatus
+    rejectionReason?: StringNullableFilter<"UpgradeRequest"> | string | null
     createdAt?: DateTimeFilter<"UpgradeRequest"> | Date | string
     updatedAt?: DateTimeFilter<"UpgradeRequest"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -101206,9 +102557,17 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     brandName?: SortOrder
+    logo?: SortOrder
+    description?: SortOrder
+    representativeName?: SortOrder
+    phone_contact?: SortOrder
+    email_contact?: SortOrder
+    address?: SortOrder
     tax_code?: SortOrder
     businessLicense?: SortOrder
+    identityCard?: SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     _count?: UpgradeRequestCountOrderByAggregateInput
@@ -101223,9 +102582,17 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"UpgradeRequest"> | string
     userId?: StringWithAggregatesFilter<"UpgradeRequest"> | string
     brandName?: StringWithAggregatesFilter<"UpgradeRequest"> | string
+    logo?: StringNullableWithAggregatesFilter<"UpgradeRequest"> | string | null
+    description?: StringNullableWithAggregatesFilter<"UpgradeRequest"> | string | null
+    representativeName?: StringNullableWithAggregatesFilter<"UpgradeRequest"> | string | null
+    phone_contact?: StringNullableWithAggregatesFilter<"UpgradeRequest"> | string | null
+    email_contact?: StringNullableWithAggregatesFilter<"UpgradeRequest"> | string | null
+    address?: JsonNullableWithAggregatesFilter<"UpgradeRequest">
     tax_code?: StringNullableWithAggregatesFilter<"UpgradeRequest"> | string | null
     businessLicense?: StringNullableWithAggregatesFilter<"UpgradeRequest"> | string | null
+    identityCard?: StringNullableListFilter<"UpgradeRequest">
     status?: EnumRequestStatusWithAggregatesFilter<"UpgradeRequest"> | $Enums.RequestStatus
+    rejectionReason?: StringNullableWithAggregatesFilter<"UpgradeRequest"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"UpgradeRequest"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"UpgradeRequest"> | Date | string
   }
@@ -101263,6 +102630,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerListRelationFilter
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptListRelationFilter
     systemNotificationReadReceipts?: SystemNotificationReadReceiptListRelationFilter
+    userPromotions?: UserPromotionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -101295,6 +102663,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerOrderByRelationAggregateInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptOrderByRelationAggregateInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptOrderByRelationAggregateInput
+    userPromotions?: UserPromotionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -101330,6 +102699,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerListRelationFilter
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptListRelationFilter
     systemNotificationReadReceipts?: SystemNotificationReadReceiptListRelationFilter
+    userPromotions?: UserPromotionListRelationFilter
   }, "id" | "user_name" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -106669,6 +108039,7 @@ export namespace Prisma {
   export type Category_RestaurantCreateInput = {
     id?: string
     name: string
+    icon?: string | null
     isActive?: boolean
     description?: string | null
     bgColor?: string | null
@@ -106679,6 +108050,7 @@ export namespace Prisma {
   export type Category_RestaurantUncheckedCreateInput = {
     id?: string
     name: string
+    icon?: string | null
     isActive?: boolean
     description?: string | null
     bgColor?: string | null
@@ -106689,6 +108061,7 @@ export namespace Prisma {
 
   export type Category_RestaurantUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106698,6 +108071,7 @@ export namespace Prisma {
 
   export type Category_RestaurantUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106709,6 +108083,7 @@ export namespace Prisma {
   export type Category_RestaurantCreateManyInput = {
     id?: string
     name: string
+    icon?: string | null
     isActive?: boolean
     description?: string | null
     bgColor?: string | null
@@ -106718,6 +108093,7 @@ export namespace Prisma {
 
   export type Category_RestaurantUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -106726,6 +108102,7 @@ export namespace Prisma {
 
   export type Category_RestaurantUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -107287,6 +108664,7 @@ export namespace Prisma {
     createdAt?: Date | string
     promotionRestaurants?: PromotionRestaurantCreateNestedManyWithoutPromotionInput
     promotionMenuItems?: PromotionMenuItemCreateNestedManyWithoutPromotionInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutPromotionInput
   }
 
   export type PromotionUncheckedCreateInput = {
@@ -107307,6 +108685,7 @@ export namespace Prisma {
     createdAt?: Date | string
     promotionRestaurants?: PromotionRestaurantUncheckedCreateNestedManyWithoutPromotionInput
     promotionMenuItems?: PromotionMenuItemUncheckedCreateNestedManyWithoutPromotionInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutPromotionInput
   }
 
   export type PromotionUpdateInput = {
@@ -107326,6 +108705,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     promotionRestaurants?: PromotionRestaurantUpdateManyWithoutPromotionNestedInput
     promotionMenuItems?: PromotionMenuItemUpdateManyWithoutPromotionNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutPromotionNestedInput
   }
 
   export type PromotionUncheckedUpdateInput = {
@@ -107345,6 +108725,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     promotionRestaurants?: PromotionRestaurantUncheckedUpdateManyWithoutPromotionNestedInput
     promotionMenuItems?: PromotionMenuItemUncheckedUpdateManyWithoutPromotionNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutPromotionNestedInput
   }
 
   export type PromotionCreateManyInput = {
@@ -107471,6 +108852,56 @@ export namespace Prisma {
   export type PromotionMenuItemUncheckedUpdateManyInput = {
     promotionId?: StringFieldUpdateOperationsInput | string
     menuItemId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserPromotionCreateInput = {
+    id?: string
+    isUsed?: boolean
+    savedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserPromotionsInput
+    promotion: PromotionCreateNestedOneWithoutUserPromotionsInput
+  }
+
+  export type UserPromotionUncheckedCreateInput = {
+    id?: string
+    userId: string
+    promotionId: string
+    isUsed?: boolean
+    savedAt?: Date | string
+  }
+
+  export type UserPromotionUpdateInput = {
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserPromotionsNestedInput
+    promotion?: PromotionUpdateOneRequiredWithoutUserPromotionsNestedInput
+  }
+
+  export type UserPromotionUncheckedUpdateInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    promotionId?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPromotionCreateManyInput = {
+    id?: string
+    userId: string
+    promotionId: string
+    isUsed?: boolean
+    savedAt?: Date | string
+  }
+
+  export type UserPromotionUpdateManyMutationInput = {
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPromotionUncheckedUpdateManyInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    promotionId?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RecipeCreateInput = {
@@ -107778,9 +109209,17 @@ export namespace Prisma {
   export type UpgradeRequestCreateInput = {
     id?: string
     brandName: string
+    logo?: string | null
+    description?: string | null
+    representativeName?: string | null
+    phone_contact?: string | null
+    email_contact?: string | null
+    address?: InputJsonValue | null
     tax_code?: string | null
     businessLicense?: string | null
+    identityCard?: UpgradeRequestCreateidentityCardInput | string[]
     status?: $Enums.RequestStatus
+    rejectionReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutUpgradeRequestInput
@@ -107790,18 +109229,34 @@ export namespace Prisma {
     id?: string
     userId: string
     brandName: string
+    logo?: string | null
+    description?: string | null
+    representativeName?: string | null
+    phone_contact?: string | null
+    email_contact?: string | null
+    address?: InputJsonValue | null
     tax_code?: string | null
     businessLicense?: string | null
+    identityCard?: UpgradeRequestCreateidentityCardInput | string[]
     status?: $Enums.RequestStatus
+    rejectionReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UpgradeRequestUpdateInput = {
     brandName?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    email_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: InputJsonValue | InputJsonValue | null
     tax_code?: NullableStringFieldUpdateOperationsInput | string | null
     businessLicense?: NullableStringFieldUpdateOperationsInput | string | null
+    identityCard?: UpgradeRequestUpdateidentityCardInput | string[]
     status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutUpgradeRequestNestedInput
@@ -107810,9 +109265,17 @@ export namespace Prisma {
   export type UpgradeRequestUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string
     brandName?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    email_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: InputJsonValue | InputJsonValue | null
     tax_code?: NullableStringFieldUpdateOperationsInput | string | null
     businessLicense?: NullableStringFieldUpdateOperationsInput | string | null
+    identityCard?: UpgradeRequestUpdateidentityCardInput | string[]
     status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -107821,18 +109284,34 @@ export namespace Prisma {
     id?: string
     userId: string
     brandName: string
+    logo?: string | null
+    description?: string | null
+    representativeName?: string | null
+    phone_contact?: string | null
+    email_contact?: string | null
+    address?: InputJsonValue | null
     tax_code?: string | null
     businessLicense?: string | null
+    identityCard?: UpgradeRequestCreateidentityCardInput | string[]
     status?: $Enums.RequestStatus
+    rejectionReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
   export type UpgradeRequestUpdateManyMutationInput = {
     brandName?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    email_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: InputJsonValue | InputJsonValue | null
     tax_code?: NullableStringFieldUpdateOperationsInput | string | null
     businessLicense?: NullableStringFieldUpdateOperationsInput | string | null
+    identityCard?: UpgradeRequestUpdateidentityCardInput | string[]
     status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -107840,9 +109319,17 @@ export namespace Prisma {
   export type UpgradeRequestUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string
     brandName?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    email_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: InputJsonValue | InputJsonValue | null
     tax_code?: NullableStringFieldUpdateOperationsInput | string | null
     businessLicense?: NullableStringFieldUpdateOperationsInput | string | null
+    identityCard?: UpgradeRequestUpdateidentityCardInput | string[]
     status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -107876,6 +109363,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -107907,6 +109395,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -107937,6 +109426,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -107967,6 +109457,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -113649,11 +115140,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type BoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -113668,6 +115154,11 @@ export namespace Prisma {
     mode?: QueryMode
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
     isSet?: boolean
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -113691,6 +115182,7 @@ export namespace Prisma {
   export type Category_RestaurantCountOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     description?: SortOrder
     bgColor?: SortOrder
@@ -113701,6 +115193,7 @@ export namespace Prisma {
   export type Category_RestaurantMaxOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     description?: SortOrder
     bgColor?: SortOrder
@@ -113710,6 +115203,7 @@ export namespace Prisma {
   export type Category_RestaurantMinOrderByAggregateInput = {
     id?: SortOrder
     name?: SortOrder
+    icon?: SortOrder
     isActive?: SortOrder
     description?: SortOrder
     bgColor?: SortOrder
@@ -113734,14 +115228,6 @@ export namespace Prisma {
     _max?: NestedStringFilter<$PrismaModel>
   }
 
-  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -113759,6 +115245,14 @@ export namespace Prisma {
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
     isSet?: boolean
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type Enumsalary_typeNullableFilter<$PrismaModel = never> = {
@@ -114066,6 +115560,11 @@ export namespace Prisma {
 
   export type MenuCategoryMapOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type MenuCategoryMenuIdNameCompoundUniqueInput = {
+    menuId: string
+    name: string
   }
 
   export type MenuCategoryCountOrderByAggregateInput = {
@@ -114406,11 +115905,21 @@ export namespace Prisma {
     none?: PromotionMenuItemWhereInput
   }
 
+  export type UserPromotionListRelationFilter = {
+    every?: UserPromotionWhereInput
+    some?: UserPromotionWhereInput
+    none?: UserPromotionWhereInput
+  }
+
   export type PromotionRestaurantOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type PromotionMenuItemOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserPromotionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -114562,6 +116071,35 @@ export namespace Prisma {
     id?: SortOrder
     promotionId?: SortOrder
     menuItemId?: SortOrder
+  }
+
+  export type UserPromotionUserIdPromotionIdCompoundUniqueInput = {
+    userId: string
+    promotionId: string
+  }
+
+  export type UserPromotionCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    promotionId?: SortOrder
+    isUsed?: SortOrder
+    savedAt?: SortOrder
+  }
+
+  export type UserPromotionMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    promotionId?: SortOrder
+    isUsed?: SortOrder
+    savedAt?: SortOrder
+  }
+
+  export type UserPromotionMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    promotionId?: SortOrder
+    isUsed?: SortOrder
+    savedAt?: SortOrder
   }
 
   export type InventoryItemScalarRelationFilter = {
@@ -114877,9 +116415,17 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     brandName?: SortOrder
+    logo?: SortOrder
+    description?: SortOrder
+    representativeName?: SortOrder
+    phone_contact?: SortOrder
+    email_contact?: SortOrder
+    address?: SortOrder
     tax_code?: SortOrder
     businessLicense?: SortOrder
+    identityCard?: SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -114888,9 +116434,15 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     brandName?: SortOrder
+    logo?: SortOrder
+    description?: SortOrder
+    representativeName?: SortOrder
+    phone_contact?: SortOrder
+    email_contact?: SortOrder
     tax_code?: SortOrder
     businessLicense?: SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -114899,9 +116451,15 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     brandName?: SortOrder
+    logo?: SortOrder
+    description?: SortOrder
+    representativeName?: SortOrder
+    phone_contact?: SortOrder
+    email_contact?: SortOrder
     tax_code?: SortOrder
     businessLicense?: SortOrder
     status?: SortOrder
+    rejectionReason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -118964,13 +120522,13 @@ export namespace Prisma {
     set?: string
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
     unset?: boolean
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type RestaurantUpdateManyWithoutCategoryRestaurantsNestedInput = {
@@ -119646,6 +121204,13 @@ export namespace Prisma {
     connect?: PromotionMenuItemWhereUniqueInput | PromotionMenuItemWhereUniqueInput[]
   }
 
+  export type UserPromotionCreateNestedManyWithoutPromotionInput = {
+    create?: XOR<UserPromotionCreateWithoutPromotionInput, UserPromotionUncheckedCreateWithoutPromotionInput> | UserPromotionCreateWithoutPromotionInput[] | UserPromotionUncheckedCreateWithoutPromotionInput[]
+    connectOrCreate?: UserPromotionCreateOrConnectWithoutPromotionInput | UserPromotionCreateOrConnectWithoutPromotionInput[]
+    createMany?: UserPromotionCreateManyPromotionInputEnvelope
+    connect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+  }
+
   export type PromotionRestaurantUncheckedCreateNestedManyWithoutPromotionInput = {
     create?: XOR<PromotionRestaurantCreateWithoutPromotionInput, PromotionRestaurantUncheckedCreateWithoutPromotionInput> | PromotionRestaurantCreateWithoutPromotionInput[] | PromotionRestaurantUncheckedCreateWithoutPromotionInput[]
     connectOrCreate?: PromotionRestaurantCreateOrConnectWithoutPromotionInput | PromotionRestaurantCreateOrConnectWithoutPromotionInput[]
@@ -119658,6 +121223,13 @@ export namespace Prisma {
     connectOrCreate?: PromotionMenuItemCreateOrConnectWithoutPromotionInput | PromotionMenuItemCreateOrConnectWithoutPromotionInput[]
     createMany?: PromotionMenuItemCreateManyPromotionInputEnvelope
     connect?: PromotionMenuItemWhereUniqueInput | PromotionMenuItemWhereUniqueInput[]
+  }
+
+  export type UserPromotionUncheckedCreateNestedManyWithoutPromotionInput = {
+    create?: XOR<UserPromotionCreateWithoutPromotionInput, UserPromotionUncheckedCreateWithoutPromotionInput> | UserPromotionCreateWithoutPromotionInput[] | UserPromotionUncheckedCreateWithoutPromotionInput[]
+    connectOrCreate?: UserPromotionCreateOrConnectWithoutPromotionInput | UserPromotionCreateOrConnectWithoutPromotionInput[]
+    createMany?: UserPromotionCreateManyPromotionInputEnvelope
+    connect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
   }
 
   export type NullableFloatFieldUpdateOperationsInput = {
@@ -119706,6 +121278,20 @@ export namespace Prisma {
     deleteMany?: PromotionMenuItemScalarWhereInput | PromotionMenuItemScalarWhereInput[]
   }
 
+  export type UserPromotionUpdateManyWithoutPromotionNestedInput = {
+    create?: XOR<UserPromotionCreateWithoutPromotionInput, UserPromotionUncheckedCreateWithoutPromotionInput> | UserPromotionCreateWithoutPromotionInput[] | UserPromotionUncheckedCreateWithoutPromotionInput[]
+    connectOrCreate?: UserPromotionCreateOrConnectWithoutPromotionInput | UserPromotionCreateOrConnectWithoutPromotionInput[]
+    upsert?: UserPromotionUpsertWithWhereUniqueWithoutPromotionInput | UserPromotionUpsertWithWhereUniqueWithoutPromotionInput[]
+    createMany?: UserPromotionCreateManyPromotionInputEnvelope
+    set?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    disconnect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    delete?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    connect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    update?: UserPromotionUpdateWithWhereUniqueWithoutPromotionInput | UserPromotionUpdateWithWhereUniqueWithoutPromotionInput[]
+    updateMany?: UserPromotionUpdateManyWithWhereWithoutPromotionInput | UserPromotionUpdateManyWithWhereWithoutPromotionInput[]
+    deleteMany?: UserPromotionScalarWhereInput | UserPromotionScalarWhereInput[]
+  }
+
   export type PromotionRestaurantUncheckedUpdateManyWithoutPromotionNestedInput = {
     create?: XOR<PromotionRestaurantCreateWithoutPromotionInput, PromotionRestaurantUncheckedCreateWithoutPromotionInput> | PromotionRestaurantCreateWithoutPromotionInput[] | PromotionRestaurantUncheckedCreateWithoutPromotionInput[]
     connectOrCreate?: PromotionRestaurantCreateOrConnectWithoutPromotionInput | PromotionRestaurantCreateOrConnectWithoutPromotionInput[]
@@ -119732,6 +121318,20 @@ export namespace Prisma {
     update?: PromotionMenuItemUpdateWithWhereUniqueWithoutPromotionInput | PromotionMenuItemUpdateWithWhereUniqueWithoutPromotionInput[]
     updateMany?: PromotionMenuItemUpdateManyWithWhereWithoutPromotionInput | PromotionMenuItemUpdateManyWithWhereWithoutPromotionInput[]
     deleteMany?: PromotionMenuItemScalarWhereInput | PromotionMenuItemScalarWhereInput[]
+  }
+
+  export type UserPromotionUncheckedUpdateManyWithoutPromotionNestedInput = {
+    create?: XOR<UserPromotionCreateWithoutPromotionInput, UserPromotionUncheckedCreateWithoutPromotionInput> | UserPromotionCreateWithoutPromotionInput[] | UserPromotionUncheckedCreateWithoutPromotionInput[]
+    connectOrCreate?: UserPromotionCreateOrConnectWithoutPromotionInput | UserPromotionCreateOrConnectWithoutPromotionInput[]
+    upsert?: UserPromotionUpsertWithWhereUniqueWithoutPromotionInput | UserPromotionUpsertWithWhereUniqueWithoutPromotionInput[]
+    createMany?: UserPromotionCreateManyPromotionInputEnvelope
+    set?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    disconnect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    delete?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    connect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    update?: UserPromotionUpdateWithWhereUniqueWithoutPromotionInput | UserPromotionUpdateWithWhereUniqueWithoutPromotionInput[]
+    updateMany?: UserPromotionUpdateManyWithWhereWithoutPromotionInput | UserPromotionUpdateManyWithWhereWithoutPromotionInput[]
+    deleteMany?: UserPromotionScalarWhereInput | UserPromotionScalarWhereInput[]
   }
 
   export type PromotionCreateNestedOneWithoutPromotionRestaurantsInput = {
@@ -119788,6 +121388,34 @@ export namespace Prisma {
     upsert?: MenuItemUpsertWithoutPromotionMenuItemsInput
     connect?: MenuItemWhereUniqueInput
     update?: XOR<XOR<MenuItemUpdateToOneWithWhereWithoutPromotionMenuItemsInput, MenuItemUpdateWithoutPromotionMenuItemsInput>, MenuItemUncheckedUpdateWithoutPromotionMenuItemsInput>
+  }
+
+  export type UserCreateNestedOneWithoutUserPromotionsInput = {
+    create?: XOR<UserCreateWithoutUserPromotionsInput, UserUncheckedCreateWithoutUserPromotionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserPromotionsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type PromotionCreateNestedOneWithoutUserPromotionsInput = {
+    create?: XOR<PromotionCreateWithoutUserPromotionsInput, PromotionUncheckedCreateWithoutUserPromotionsInput>
+    connectOrCreate?: PromotionCreateOrConnectWithoutUserPromotionsInput
+    connect?: PromotionWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserPromotionsNestedInput = {
+    create?: XOR<UserCreateWithoutUserPromotionsInput, UserUncheckedCreateWithoutUserPromotionsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserPromotionsInput
+    upsert?: UserUpsertWithoutUserPromotionsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserPromotionsInput, UserUpdateWithoutUserPromotionsInput>, UserUncheckedUpdateWithoutUserPromotionsInput>
+  }
+
+  export type PromotionUpdateOneRequiredWithoutUserPromotionsNestedInput = {
+    create?: XOR<PromotionCreateWithoutUserPromotionsInput, PromotionUncheckedCreateWithoutUserPromotionsInput>
+    connectOrCreate?: PromotionCreateOrConnectWithoutUserPromotionsInput
+    upsert?: PromotionUpsertWithoutUserPromotionsInput
+    connect?: PromotionWhereUniqueInput
+    update?: XOR<XOR<PromotionUpdateToOneWithWhereWithoutUserPromotionsInput, PromotionUpdateWithoutUserPromotionsInput>, PromotionUncheckedUpdateWithoutUserPromotionsInput>
   }
 
   export type InventoryItemCreateNestedOneWithoutRecipesInput = {
@@ -120004,10 +121632,19 @@ export namespace Prisma {
     update?: XOR<XOR<SystemPaymentMethodUpdateToOneWithWhereWithoutTransactionsInput, SystemPaymentMethodUpdateWithoutTransactionsInput>, SystemPaymentMethodUncheckedUpdateWithoutTransactionsInput>
   }
 
+  export type UpgradeRequestCreateidentityCardInput = {
+    set: string[]
+  }
+
   export type UserCreateNestedOneWithoutUpgradeRequestInput = {
     create?: XOR<UserCreateWithoutUpgradeRequestInput, UserUncheckedCreateWithoutUpgradeRequestInput>
     connectOrCreate?: UserCreateOrConnectWithoutUpgradeRequestInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type UpgradeRequestUpdateidentityCardInput = {
+    set?: string[]
+    push?: string | string[]
   }
 
   export type EnumRequestStatusFieldUpdateOperationsInput = {
@@ -120118,6 +121755,13 @@ export namespace Prisma {
     connect?: SystemNotificationReadReceiptWhereUniqueInput | SystemNotificationReadReceiptWhereUniqueInput[]
   }
 
+  export type UserPromotionCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserPromotionCreateWithoutUserInput, UserPromotionUncheckedCreateWithoutUserInput> | UserPromotionCreateWithoutUserInput[] | UserPromotionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPromotionCreateOrConnectWithoutUserInput | UserPromotionCreateOrConnectWithoutUserInput[]
+    createMany?: UserPromotionCreateManyUserInputEnvelope
+    connect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+  }
+
   export type EmploymentUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<EmploymentCreateWithoutUserInput, EmploymentUncheckedCreateWithoutUserInput> | EmploymentCreateWithoutUserInput[] | EmploymentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: EmploymentCreateOrConnectWithoutUserInput | EmploymentCreateOrConnectWithoutUserInput[]
@@ -120206,6 +121850,13 @@ export namespace Prisma {
     connectOrCreate?: SystemNotificationReadReceiptCreateOrConnectWithoutUserInput | SystemNotificationReadReceiptCreateOrConnectWithoutUserInput[]
     createMany?: SystemNotificationReadReceiptCreateManyUserInputEnvelope
     connect?: SystemNotificationReadReceiptWhereUniqueInput | SystemNotificationReadReceiptWhereUniqueInput[]
+  }
+
+  export type UserPromotionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserPromotionCreateWithoutUserInput, UserPromotionUncheckedCreateWithoutUserInput> | UserPromotionCreateWithoutUserInput[] | UserPromotionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPromotionCreateOrConnectWithoutUserInput | UserPromotionCreateOrConnectWithoutUserInput[]
+    createMany?: UserPromotionCreateManyUserInputEnvelope
+    connect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
   }
 
   export type NullableEnumproviderTypeFieldUpdateOperationsInput = {
@@ -120410,6 +122061,20 @@ export namespace Prisma {
     deleteMany?: SystemNotificationReadReceiptScalarWhereInput | SystemNotificationReadReceiptScalarWhereInput[]
   }
 
+  export type UserPromotionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserPromotionCreateWithoutUserInput, UserPromotionUncheckedCreateWithoutUserInput> | UserPromotionCreateWithoutUserInput[] | UserPromotionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPromotionCreateOrConnectWithoutUserInput | UserPromotionCreateOrConnectWithoutUserInput[]
+    upsert?: UserPromotionUpsertWithWhereUniqueWithoutUserInput | UserPromotionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserPromotionCreateManyUserInputEnvelope
+    set?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    disconnect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    delete?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    connect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    update?: UserPromotionUpdateWithWhereUniqueWithoutUserInput | UserPromotionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserPromotionUpdateManyWithWhereWithoutUserInput | UserPromotionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserPromotionScalarWhereInput | UserPromotionScalarWhereInput[]
+  }
+
   export type EmploymentUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<EmploymentCreateWithoutUserInput, EmploymentUncheckedCreateWithoutUserInput> | EmploymentCreateWithoutUserInput[] | EmploymentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: EmploymentCreateOrConnectWithoutUserInput | EmploymentCreateOrConnectWithoutUserInput[]
@@ -120586,6 +122251,20 @@ export namespace Prisma {
     update?: SystemNotificationReadReceiptUpdateWithWhereUniqueWithoutUserInput | SystemNotificationReadReceiptUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: SystemNotificationReadReceiptUpdateManyWithWhereWithoutUserInput | SystemNotificationReadReceiptUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: SystemNotificationReadReceiptScalarWhereInput | SystemNotificationReadReceiptScalarWhereInput[]
+  }
+
+  export type UserPromotionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserPromotionCreateWithoutUserInput, UserPromotionUncheckedCreateWithoutUserInput> | UserPromotionCreateWithoutUserInput[] | UserPromotionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPromotionCreateOrConnectWithoutUserInput | UserPromotionCreateOrConnectWithoutUserInput[]
+    upsert?: UserPromotionUpsertWithWhereUniqueWithoutUserInput | UserPromotionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserPromotionCreateManyUserInputEnvelope
+    set?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    disconnect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    delete?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    connect?: UserPromotionWhereUniqueInput | UserPromotionWhereUniqueInput[]
+    update?: UserPromotionUpdateWithWhereUniqueWithoutUserInput | UserPromotionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserPromotionUpdateManyWithWhereWithoutUserInput | UserPromotionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserPromotionScalarWhereInput | UserPromotionScalarWhereInput[]
   }
 
   export type EmploymentCreateNestedManyWithoutWorkspaceRoleInput = {
@@ -125959,11 +127638,6 @@ export namespace Prisma {
     not?: NestedStringFilter<$PrismaModel> | string
   }
 
-  export type NestedBoolFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolFilter<$PrismaModel> | boolean
-  }
-
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -125977,6 +127651,11 @@ export namespace Prisma {
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
     isSet?: boolean
+  }
+
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
@@ -126007,14 +127686,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
-    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedBoolFilter<$PrismaModel>
-    _max?: NestedBoolFilter<$PrismaModel>
-  }
-
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -126043,6 +127714,14 @@ export namespace Prisma {
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
     isSet?: boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type NestedEnumsalary_typeNullableFilter<$PrismaModel = never> = {
@@ -127127,6 +128806,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutEmploymentsInput = {
@@ -127157,6 +128837,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutEmploymentsInput = {
@@ -127525,6 +129206,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutEmploymentsInput = {
@@ -127554,6 +129236,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type WorkspaceRoleUpsertWithoutEmploymentsInput = {
@@ -129087,6 +130770,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -129117,6 +130801,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -129239,6 +130924,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -129268,6 +130954,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type PromotionRestaurantCreateWithoutPromotionInput = {
@@ -129306,6 +130993,29 @@ export namespace Prisma {
 
   export type PromotionMenuItemCreateManyPromotionInputEnvelope = {
     data: PromotionMenuItemCreateManyPromotionInput | PromotionMenuItemCreateManyPromotionInput[]
+  }
+
+  export type UserPromotionCreateWithoutPromotionInput = {
+    id?: string
+    isUsed?: boolean
+    savedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserPromotionsInput
+  }
+
+  export type UserPromotionUncheckedCreateWithoutPromotionInput = {
+    id?: string
+    userId: string
+    isUsed?: boolean
+    savedAt?: Date | string
+  }
+
+  export type UserPromotionCreateOrConnectWithoutPromotionInput = {
+    where: UserPromotionWhereUniqueInput
+    create: XOR<UserPromotionCreateWithoutPromotionInput, UserPromotionUncheckedCreateWithoutPromotionInput>
+  }
+
+  export type UserPromotionCreateManyPromotionInputEnvelope = {
+    data: UserPromotionCreateManyPromotionInput | UserPromotionCreateManyPromotionInput[]
   }
 
   export type PromotionRestaurantUpsertWithWhereUniqueWithoutPromotionInput = {
@@ -129358,6 +131068,33 @@ export namespace Prisma {
     menuItemId?: StringFilter<"PromotionMenuItem"> | string
   }
 
+  export type UserPromotionUpsertWithWhereUniqueWithoutPromotionInput = {
+    where: UserPromotionWhereUniqueInput
+    update: XOR<UserPromotionUpdateWithoutPromotionInput, UserPromotionUncheckedUpdateWithoutPromotionInput>
+    create: XOR<UserPromotionCreateWithoutPromotionInput, UserPromotionUncheckedCreateWithoutPromotionInput>
+  }
+
+  export type UserPromotionUpdateWithWhereUniqueWithoutPromotionInput = {
+    where: UserPromotionWhereUniqueInput
+    data: XOR<UserPromotionUpdateWithoutPromotionInput, UserPromotionUncheckedUpdateWithoutPromotionInput>
+  }
+
+  export type UserPromotionUpdateManyWithWhereWithoutPromotionInput = {
+    where: UserPromotionScalarWhereInput
+    data: XOR<UserPromotionUpdateManyMutationInput, UserPromotionUncheckedUpdateManyWithoutPromotionInput>
+  }
+
+  export type UserPromotionScalarWhereInput = {
+    AND?: UserPromotionScalarWhereInput | UserPromotionScalarWhereInput[]
+    OR?: UserPromotionScalarWhereInput[]
+    NOT?: UserPromotionScalarWhereInput | UserPromotionScalarWhereInput[]
+    id?: StringFilter<"UserPromotion"> | string
+    userId?: StringFilter<"UserPromotion"> | string
+    promotionId?: StringFilter<"UserPromotion"> | string
+    isUsed?: BoolFilter<"UserPromotion"> | boolean
+    savedAt?: DateTimeFilter<"UserPromotion"> | Date | string
+  }
+
   export type PromotionCreateWithoutPromotionRestaurantsInput = {
     id?: string
     code: string
@@ -129375,6 +131112,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     promotionMenuItems?: PromotionMenuItemCreateNestedManyWithoutPromotionInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutPromotionInput
   }
 
   export type PromotionUncheckedCreateWithoutPromotionRestaurantsInput = {
@@ -129394,6 +131132,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     promotionMenuItems?: PromotionMenuItemUncheckedCreateNestedManyWithoutPromotionInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutPromotionInput
   }
 
   export type PromotionCreateOrConnectWithoutPromotionRestaurantsInput = {
@@ -129538,6 +131277,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     promotionMenuItems?: PromotionMenuItemUpdateManyWithoutPromotionNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutPromotionNestedInput
   }
 
   export type PromotionUncheckedUpdateWithoutPromotionRestaurantsInput = {
@@ -129556,6 +131296,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     promotionMenuItems?: PromotionMenuItemUncheckedUpdateManyWithoutPromotionNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutPromotionNestedInput
   }
 
   export type RestaurantUpsertWithoutPromotionRestaurantsInput = {
@@ -129689,6 +131430,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     promotionRestaurants?: PromotionRestaurantCreateNestedManyWithoutPromotionInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutPromotionInput
   }
 
   export type PromotionUncheckedCreateWithoutPromotionMenuItemsInput = {
@@ -129708,6 +131450,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     promotionRestaurants?: PromotionRestaurantUncheckedCreateNestedManyWithoutPromotionInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutPromotionInput
   }
 
   export type PromotionCreateOrConnectWithoutPromotionMenuItemsInput = {
@@ -129811,6 +131554,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     promotionRestaurants?: PromotionRestaurantUpdateManyWithoutPromotionNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutPromotionNestedInput
   }
 
   export type PromotionUncheckedUpdateWithoutPromotionMenuItemsInput = {
@@ -129829,6 +131573,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     promotionRestaurants?: PromotionRestaurantUncheckedUpdateManyWithoutPromotionNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutPromotionNestedInput
   }
 
   export type MenuItemUpsertWithoutPromotionMenuItemsInput = {
@@ -129902,6 +131647,238 @@ export namespace Prisma {
     modifierGroups?: ModifierGroupUncheckedUpdateManyWithoutMenuItemNestedInput
     recipes?: RecipeUncheckedUpdateManyWithoutMenuItemNestedInput
     restaurantMenuItems?: RestaurantMenuItemUncheckedUpdateManyWithoutMenuItemNestedInput
+  }
+
+  export type UserCreateWithoutUserPromotionsInput = {
+    id?: string
+    user_name: string
+    email: string
+    sdt?: string | null
+    password?: string | null
+    providerId?: string | null
+    providerType?: $Enums.providerType | null
+    name?: string | null
+    avatar?: string | null
+    gender?: $Enums.Gender | null
+    date_of_birth?: Date | string | null
+    is_active?: $Enums.AccountStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    employments?: EmploymentCreateNestedManyWithoutUserInput
+    systemRole?: SystemRoleCreateNestedOneWithoutUsersInput
+    reservations?: ReservationsCreateNestedManyWithoutUserInput
+    review_restaurant?: Review_RestaurantCreateNestedManyWithoutUserInput
+    reservation_audit_log?: Reservation_Audit_LogCreateNestedManyWithoutChangedByUserInput
+    notifications?: NotificationsCreateNestedManyWithoutUserInput
+    ordersTaken?: OrderCreateNestedManyWithoutTakenByEmpInput
+    upgradeRequest?: UpgradeRequestCreateNestedOneWithoutUserInput
+    brandNotificationReadReceipts?: BrandNotificationReadReceiptCreateNestedManyWithoutUserInput
+    brandSubscriptionTransactions?: BrandSubscriptionTransactionCreateNestedManyWithoutUserInput
+    customerNotifications?: CustomerNotificationCreateNestedManyWithoutUserInput
+    restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
+    restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
+    systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserPromotionsInput = {
+    id?: string
+    user_name: string
+    email: string
+    sdt?: string | null
+    password?: string | null
+    providerId?: string | null
+    providerType?: $Enums.providerType | null
+    name?: string | null
+    avatar?: string | null
+    gender?: $Enums.Gender | null
+    date_of_birth?: Date | string | null
+    is_active?: $Enums.AccountStatus
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    systemRoleId?: string | null
+    employments?: EmploymentUncheckedCreateNestedManyWithoutUserInput
+    reservations?: ReservationsUncheckedCreateNestedManyWithoutUserInput
+    review_restaurant?: Review_RestaurantUncheckedCreateNestedManyWithoutUserInput
+    reservation_audit_log?: Reservation_Audit_LogUncheckedCreateNestedManyWithoutChangedByUserInput
+    notifications?: NotificationsUncheckedCreateNestedManyWithoutUserInput
+    ordersTaken?: OrderUncheckedCreateNestedManyWithoutTakenByEmpInput
+    upgradeRequest?: UpgradeRequestUncheckedCreateNestedOneWithoutUserInput
+    brandNotificationReadReceipts?: BrandNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    brandSubscriptionTransactions?: BrandSubscriptionTransactionUncheckedCreateNestedManyWithoutUserInput
+    customerNotifications?: CustomerNotificationUncheckedCreateNestedManyWithoutUserInput
+    restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
+    restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserPromotionsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserPromotionsInput, UserUncheckedCreateWithoutUserPromotionsInput>
+  }
+
+  export type PromotionCreateWithoutUserPromotionsInput = {
+    id?: string
+    code: string
+    description?: string | null
+    discount_type: string
+    discount_value: number
+    min_order_value?: number | null
+    max_discount?: number | null
+    valid_from: Date | string
+    valid_until: Date | string
+    usage_limit?: number | null
+    used_count?: number
+    brandId?: string | null
+    restaurantId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    promotionRestaurants?: PromotionRestaurantCreateNestedManyWithoutPromotionInput
+    promotionMenuItems?: PromotionMenuItemCreateNestedManyWithoutPromotionInput
+  }
+
+  export type PromotionUncheckedCreateWithoutUserPromotionsInput = {
+    id?: string
+    code: string
+    description?: string | null
+    discount_type: string
+    discount_value: number
+    min_order_value?: number | null
+    max_discount?: number | null
+    valid_from: Date | string
+    valid_until: Date | string
+    usage_limit?: number | null
+    used_count?: number
+    brandId?: string | null
+    restaurantId?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    promotionRestaurants?: PromotionRestaurantUncheckedCreateNestedManyWithoutPromotionInput
+    promotionMenuItems?: PromotionMenuItemUncheckedCreateNestedManyWithoutPromotionInput
+  }
+
+  export type PromotionCreateOrConnectWithoutUserPromotionsInput = {
+    where: PromotionWhereUniqueInput
+    create: XOR<PromotionCreateWithoutUserPromotionsInput, PromotionUncheckedCreateWithoutUserPromotionsInput>
+  }
+
+  export type UserUpsertWithoutUserPromotionsInput = {
+    update: XOR<UserUpdateWithoutUserPromotionsInput, UserUncheckedUpdateWithoutUserPromotionsInput>
+    create: XOR<UserCreateWithoutUserPromotionsInput, UserUncheckedCreateWithoutUserPromotionsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserPromotionsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserPromotionsInput, UserUncheckedUpdateWithoutUserPromotionsInput>
+  }
+
+  export type UserUpdateWithoutUserPromotionsInput = {
+    user_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    sdt?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerType?: NullableEnumproviderTypeFieldUpdateOperationsInput | $Enums.providerType | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    date_of_birth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_active?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    employments?: EmploymentUpdateManyWithoutUserNestedInput
+    systemRole?: SystemRoleUpdateOneWithoutUsersNestedInput
+    reservations?: ReservationsUpdateManyWithoutUserNestedInput
+    review_restaurant?: Review_RestaurantUpdateManyWithoutUserNestedInput
+    reservation_audit_log?: Reservation_Audit_LogUpdateManyWithoutChangedByUserNestedInput
+    notifications?: NotificationsUpdateManyWithoutUserNestedInput
+    ordersTaken?: OrderUpdateManyWithoutTakenByEmpNestedInput
+    upgradeRequest?: UpgradeRequestUpdateOneWithoutUserNestedInput
+    brandNotificationReadReceipts?: BrandNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    brandSubscriptionTransactions?: BrandSubscriptionTransactionUpdateManyWithoutUserNestedInput
+    customerNotifications?: CustomerNotificationUpdateManyWithoutUserNestedInput
+    restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
+    restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserPromotionsInput = {
+    user_name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    sdt?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    providerId?: NullableStringFieldUpdateOperationsInput | string | null
+    providerType?: NullableEnumproviderTypeFieldUpdateOperationsInput | $Enums.providerType | null
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    avatar?: NullableStringFieldUpdateOperationsInput | string | null
+    gender?: NullableEnumGenderFieldUpdateOperationsInput | $Enums.Gender | null
+    date_of_birth?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    is_active?: EnumAccountStatusFieldUpdateOperationsInput | $Enums.AccountStatus
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    systemRoleId?: NullableStringFieldUpdateOperationsInput | string | null
+    employments?: EmploymentUncheckedUpdateManyWithoutUserNestedInput
+    reservations?: ReservationsUncheckedUpdateManyWithoutUserNestedInput
+    review_restaurant?: Review_RestaurantUncheckedUpdateManyWithoutUserNestedInput
+    reservation_audit_log?: Reservation_Audit_LogUncheckedUpdateManyWithoutChangedByUserNestedInput
+    notifications?: NotificationsUncheckedUpdateManyWithoutUserNestedInput
+    ordersTaken?: OrderUncheckedUpdateManyWithoutTakenByEmpNestedInput
+    upgradeRequest?: UpgradeRequestUncheckedUpdateOneWithoutUserNestedInput
+    brandNotificationReadReceipts?: BrandNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    brandSubscriptionTransactions?: BrandSubscriptionTransactionUncheckedUpdateManyWithoutUserNestedInput
+    customerNotifications?: CustomerNotificationUncheckedUpdateManyWithoutUserNestedInput
+    restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
+    restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type PromotionUpsertWithoutUserPromotionsInput = {
+    update: XOR<PromotionUpdateWithoutUserPromotionsInput, PromotionUncheckedUpdateWithoutUserPromotionsInput>
+    create: XOR<PromotionCreateWithoutUserPromotionsInput, PromotionUncheckedCreateWithoutUserPromotionsInput>
+    where?: PromotionWhereInput
+  }
+
+  export type PromotionUpdateToOneWithWhereWithoutUserPromotionsInput = {
+    where?: PromotionWhereInput
+    data: XOR<PromotionUpdateWithoutUserPromotionsInput, PromotionUncheckedUpdateWithoutUserPromotionsInput>
+  }
+
+  export type PromotionUpdateWithoutUserPromotionsInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discount_type?: StringFieldUpdateOperationsInput | string
+    discount_value?: FloatFieldUpdateOperationsInput | number
+    min_order_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_discount?: NullableFloatFieldUpdateOperationsInput | number | null
+    valid_from?: DateTimeFieldUpdateOperationsInput | Date | string
+    valid_until?: DateTimeFieldUpdateOperationsInput | Date | string
+    usage_limit?: NullableIntFieldUpdateOperationsInput | number | null
+    used_count?: IntFieldUpdateOperationsInput | number
+    brandId?: NullableStringFieldUpdateOperationsInput | string | null
+    restaurantId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promotionRestaurants?: PromotionRestaurantUpdateManyWithoutPromotionNestedInput
+    promotionMenuItems?: PromotionMenuItemUpdateManyWithoutPromotionNestedInput
+  }
+
+  export type PromotionUncheckedUpdateWithoutUserPromotionsInput = {
+    code?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    discount_type?: StringFieldUpdateOperationsInput | string
+    discount_value?: FloatFieldUpdateOperationsInput | number
+    min_order_value?: NullableFloatFieldUpdateOperationsInput | number | null
+    max_discount?: NullableFloatFieldUpdateOperationsInput | number | null
+    valid_from?: DateTimeFieldUpdateOperationsInput | Date | string
+    valid_until?: DateTimeFieldUpdateOperationsInput | Date | string
+    usage_limit?: NullableIntFieldUpdateOperationsInput | number | null
+    used_count?: IntFieldUpdateOperationsInput | number
+    brandId?: NullableStringFieldUpdateOperationsInput | string | null
+    restaurantId?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promotionRestaurants?: PromotionRestaurantUncheckedUpdateManyWithoutPromotionNestedInput
+    promotionMenuItems?: PromotionMenuItemUncheckedUpdateManyWithoutPromotionNestedInput
   }
 
   export type InventoryItemCreateWithoutRecipesInput = {
@@ -131086,6 +133063,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSystemRoleInput = {
@@ -131116,6 +133094,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSystemRoleInput = {
@@ -131352,6 +133331,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUpgradeRequestInput = {
@@ -131382,6 +133362,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUpgradeRequestInput = {
@@ -131427,6 +133408,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUpgradeRequestInput = {
@@ -131456,6 +133438,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EmploymentCreateWithoutUserInput = {
@@ -131752,9 +133735,17 @@ export namespace Prisma {
   export type UpgradeRequestCreateWithoutUserInput = {
     id?: string
     brandName: string
+    logo?: string | null
+    description?: string | null
+    representativeName?: string | null
+    phone_contact?: string | null
+    email_contact?: string | null
+    address?: InputJsonValue | null
     tax_code?: string | null
     businessLicense?: string | null
+    identityCard?: UpgradeRequestCreateidentityCardInput | string[]
     status?: $Enums.RequestStatus
+    rejectionReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -131762,9 +133753,17 @@ export namespace Prisma {
   export type UpgradeRequestUncheckedCreateWithoutUserInput = {
     id?: string
     brandName: string
+    logo?: string | null
+    description?: string | null
+    representativeName?: string | null
+    phone_contact?: string | null
+    email_contact?: string | null
+    address?: InputJsonValue | null
     tax_code?: string | null
     businessLicense?: string | null
+    identityCard?: UpgradeRequestCreateidentityCardInput | string[]
     status?: $Enums.RequestStatus
+    rejectionReason?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -131946,6 +133945,29 @@ export namespace Prisma {
 
   export type SystemNotificationReadReceiptCreateManyUserInputEnvelope = {
     data: SystemNotificationReadReceiptCreateManyUserInput | SystemNotificationReadReceiptCreateManyUserInput[]
+  }
+
+  export type UserPromotionCreateWithoutUserInput = {
+    id?: string
+    isUsed?: boolean
+    savedAt?: Date | string
+    promotion: PromotionCreateNestedOneWithoutUserPromotionsInput
+  }
+
+  export type UserPromotionUncheckedCreateWithoutUserInput = {
+    id?: string
+    promotionId: string
+    isUsed?: boolean
+    savedAt?: Date | string
+  }
+
+  export type UserPromotionCreateOrConnectWithoutUserInput = {
+    where: UserPromotionWhereUniqueInput
+    create: XOR<UserPromotionCreateWithoutUserInput, UserPromotionUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserPromotionCreateManyUserInputEnvelope = {
+    data: UserPromotionCreateManyUserInput | UserPromotionCreateManyUserInput[]
   }
 
   export type EmploymentUpsertWithWhereUniqueWithoutUserInput = {
@@ -132169,18 +134191,34 @@ export namespace Prisma {
 
   export type UpgradeRequestUpdateWithoutUserInput = {
     brandName?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    email_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: InputJsonValue | InputJsonValue | null
     tax_code?: NullableStringFieldUpdateOperationsInput | string | null
     businessLicense?: NullableStringFieldUpdateOperationsInput | string | null
+    identityCard?: UpgradeRequestUpdateidentityCardInput | string[]
     status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UpgradeRequestUncheckedUpdateWithoutUserInput = {
     brandName?: StringFieldUpdateOperationsInput | string
+    logo?: NullableStringFieldUpdateOperationsInput | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    representativeName?: NullableStringFieldUpdateOperationsInput | string | null
+    phone_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    email_contact?: NullableStringFieldUpdateOperationsInput | string | null
+    address?: InputJsonValue | InputJsonValue | null
     tax_code?: NullableStringFieldUpdateOperationsInput | string | null
     businessLicense?: NullableStringFieldUpdateOperationsInput | string | null
+    identityCard?: UpgradeRequestUpdateidentityCardInput | string[]
     status?: EnumRequestStatusFieldUpdateOperationsInput | $Enums.RequestStatus
+    rejectionReason?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -132363,6 +134401,22 @@ export namespace Prisma {
     userId?: StringFilter<"SystemNotificationReadReceipt"> | string
     readAt?: DateTimeFilter<"SystemNotificationReadReceipt"> | Date | string
     isDeleted?: BoolFilter<"SystemNotificationReadReceipt"> | boolean
+  }
+
+  export type UserPromotionUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserPromotionWhereUniqueInput
+    update: XOR<UserPromotionUpdateWithoutUserInput, UserPromotionUncheckedUpdateWithoutUserInput>
+    create: XOR<UserPromotionCreateWithoutUserInput, UserPromotionUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserPromotionUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserPromotionWhereUniqueInput
+    data: XOR<UserPromotionUpdateWithoutUserInput, UserPromotionUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserPromotionUpdateManyWithWhereWithoutUserInput = {
+    where: UserPromotionScalarWhereInput
+    data: XOR<UserPromotionUpdateManyMutationInput, UserPromotionUncheckedUpdateManyWithoutUserInput>
   }
 
   export type EmploymentCreateWithoutWorkspaceRoleInput = {
@@ -134767,6 +136821,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBrandNotificationReadReceiptsInput = {
@@ -134797,6 +136852,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBrandNotificationReadReceiptsInput = {
@@ -134875,6 +136931,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBrandNotificationReadReceiptsInput = {
@@ -134904,6 +136961,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type BrandCreateWithoutBrandPaymentConfigsInput = {
@@ -135654,6 +137712,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBrandSubscriptionTransactionsInput = {
@@ -135684,6 +137743,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBrandSubscriptionTransactionsInput = {
@@ -135811,6 +137871,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBrandSubscriptionTransactionsInput = {
@@ -135840,6 +137901,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SystemPaymentMethodUpsertWithoutBrandSubscriptionTransactionsInput = {
@@ -135909,6 +137971,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutCustomerNotificationsInput = {
@@ -135939,6 +138002,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutCustomerNotificationsInput = {
@@ -135984,6 +138048,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutCustomerNotificationsInput = {
@@ -136013,6 +138078,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type InventoryItemCreateWithoutInventoryAlertsInput = {
@@ -138980,6 +141046,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutOrdersTakenInput = {
@@ -139010,6 +141077,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutOrdersTakenInput = {
@@ -139364,6 +141432,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutOrdersTakenInput = {
@@ -139393,6 +141462,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type OrderItemUpsertWithWhereUniqueWithoutOrderInput = {
@@ -140630,6 +142700,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReservation_audit_logInput = {
@@ -140660,6 +142731,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReservation_audit_logInput = {
@@ -140782,6 +142854,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReservation_audit_logInput = {
@@ -140811,6 +142884,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ReservationsCreateWithoutReservation_tablesInput = {
@@ -141259,6 +143333,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReservationsInput = {
@@ -141289,6 +143364,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReservationsInput = {
@@ -141664,6 +143740,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReservationsInput = {
@@ -141693,6 +143770,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type EmploymentUpsertWithoutReservationsInput = {
@@ -142350,6 +144428,7 @@ export namespace Prisma {
   export type Category_RestaurantCreateWithoutRestaurantsInput = {
     id?: string
     name: string
+    icon?: string | null
     isActive?: boolean
     description?: string | null
     bgColor?: string | null
@@ -142359,6 +144438,7 @@ export namespace Prisma {
   export type Category_RestaurantUncheckedCreateWithoutRestaurantsInput = {
     id?: string
     name: string
+    icon?: string | null
     isActive?: boolean
     description?: string | null
     bgColor?: string | null
@@ -143137,6 +145217,7 @@ export namespace Prisma {
     NOT?: Category_RestaurantScalarWhereInput | Category_RestaurantScalarWhereInput[]
     id?: StringFilter<"Category_Restaurant"> | string
     name?: StringFilter<"Category_Restaurant"> | string
+    icon?: StringNullableFilter<"Category_Restaurant"> | string | null
     isActive?: BoolFilter<"Category_Restaurant"> | boolean
     description?: StringNullableFilter<"Category_Restaurant"> | string | null
     bgColor?: StringNullableFilter<"Category_Restaurant"> | string | null
@@ -144035,6 +146116,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRestaurantCustomersInput = {
@@ -144065,6 +146147,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRestaurantCustomersInput = {
@@ -144224,6 +146307,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRestaurantCustomersInput = {
@@ -144253,6 +146337,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RestaurantCreateWithoutRestaurantEventsInput = {
@@ -144799,6 +146884,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationCreateNestedManyWithoutUserInput
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutRestaurantNotificationReadReceiptsInput = {
@@ -144829,6 +146915,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUncheckedCreateNestedManyWithoutUserInput
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutRestaurantNotificationReadReceiptsInput = {
@@ -144907,6 +146994,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUpdateManyWithoutUserNestedInput
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutRestaurantNotificationReadReceiptsInput = {
@@ -144936,6 +147024,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUncheckedUpdateManyWithoutUserNestedInput
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RestaurantCreateWithoutRestaurantRevenuesInput = {
@@ -145413,6 +147502,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReview_restaurantInput = {
@@ -145443,6 +147533,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReview_restaurantInput = {
@@ -145675,6 +147766,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReview_restaurantInput = {
@@ -145704,6 +147796,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RestaurantUpsertWithoutReview_restaurantInput = {
@@ -146911,6 +149004,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationCreateNestedManyWithoutUserInput
     restaurantCustomers?: RestaurantCustomerCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSystemNotificationReadReceiptsInput = {
@@ -146941,6 +149035,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUncheckedCreateNestedManyWithoutUserInput
     restaurantCustomers?: RestaurantCustomerUncheckedCreateNestedManyWithoutUserInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedCreateNestedManyWithoutUserInput
+    userPromotions?: UserPromotionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSystemNotificationReadReceiptsInput = {
@@ -147017,6 +149112,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUpdateManyWithoutUserNestedInput
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSystemNotificationReadReceiptsInput = {
@@ -147046,6 +149142,7 @@ export namespace Prisma {
     customerNotifications?: CustomerNotificationUncheckedUpdateManyWithoutUserNestedInput
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AdminPaymentConfigCreateWithoutSystemPaymentMethodInput = {
@@ -148945,6 +151042,13 @@ export namespace Prisma {
     menuItemId: string
   }
 
+  export type UserPromotionCreateManyPromotionInput = {
+    id?: string
+    userId: string
+    isUsed?: boolean
+    savedAt?: Date | string
+  }
+
   export type PromotionRestaurantUpdateWithoutPromotionInput = {
     restaurant?: RestaurantUpdateOneRequiredWithoutPromotionRestaurantsNestedInput
   }
@@ -148967,6 +151071,24 @@ export namespace Prisma {
 
   export type PromotionMenuItemUncheckedUpdateManyWithoutPromotionInput = {
     menuItemId?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type UserPromotionUpdateWithoutPromotionInput = {
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserPromotionsNestedInput
+  }
+
+  export type UserPromotionUncheckedUpdateWithoutPromotionInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPromotionUncheckedUpdateManyWithoutPromotionInput = {
+    userId?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserCreateManySystemRoleInput = {
@@ -149013,6 +151135,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSystemRoleInput = {
@@ -149042,6 +151165,7 @@ export namespace Prisma {
     restaurantCustomers?: RestaurantCustomerUncheckedUpdateManyWithoutUserNestedInput
     restaurantNotificationReadReceipts?: RestaurantNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
     systemNotificationReadReceipts?: SystemNotificationReadReceiptUncheckedUpdateManyWithoutUserNestedInput
+    userPromotions?: UserPromotionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutSystemRoleInput = {
@@ -149218,6 +151342,13 @@ export namespace Prisma {
     notificationId: string
     readAt?: Date | string
     isDeleted?: boolean
+  }
+
+  export type UserPromotionCreateManyUserInput = {
+    id?: string
+    promotionId: string
+    isUsed?: boolean
+    savedAt?: Date | string
   }
 
   export type EmploymentUpdateWithoutUserInput = {
@@ -149682,6 +151813,24 @@ export namespace Prisma {
     notificationId?: StringFieldUpdateOperationsInput | string
     readAt?: DateTimeFieldUpdateOperationsInput | Date | string
     isDeleted?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserPromotionUpdateWithoutUserInput = {
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    promotion?: PromotionUpdateOneRequiredWithoutUserPromotionsNestedInput
+  }
+
+  export type UserPromotionUncheckedUpdateWithoutUserInput = {
+    promotionId?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPromotionUncheckedUpdateManyWithoutUserInput = {
+    promotionId?: StringFieldUpdateOperationsInput | string
+    isUsed?: BoolFieldUpdateOperationsInput | boolean
+    savedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type EmploymentCreateManyWorkspaceRoleInput = {
@@ -152517,6 +154666,7 @@ export namespace Prisma {
 
   export type Category_RestaurantUpdateWithoutRestaurantsInput = {
     name?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -152525,6 +154675,7 @@ export namespace Prisma {
 
   export type Category_RestaurantUncheckedUpdateWithoutRestaurantsInput = {
     name?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null
@@ -152534,6 +154685,7 @@ export namespace Prisma {
 
   export type Category_RestaurantUncheckedUpdateManyWithoutRestaurantsInput = {
     name?: StringFieldUpdateOperationsInput | string
+    icon?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     description?: NullableStringFieldUpdateOperationsInput | string | null
     bgColor?: NullableStringFieldUpdateOperationsInput | string | null

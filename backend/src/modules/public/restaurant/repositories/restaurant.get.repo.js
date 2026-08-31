@@ -13,21 +13,25 @@ export const getPublicRestaurantCoreInfoRepo = async (id) => {
             logo: true,
             imageMain: true,
             images: true,
-            phoneContact: true,
-            emailContact: true,
+            phone_contact: true,
+            email_contact: true,
             address: true,
             description: true,
-            averageRating: true,
-            totalRating: true,
-            policies: true,
-            socialLinks: true,
-            faqs: true,
-            deliveryPartners: true,
-            maxPartySize: true,
-            bookingWindowDays: true,
-            cancellationHours: true,
-            depositRequired: true,
-            depositPerPax: true,
+            ratingStats: {
+                select: {
+                    averageRating: true,
+                    totalRating: true,
+                }
+            },
+            bookingConfig: {
+                select: {
+                    maxPartySize: true,
+                    bookingWindowDays: true,
+                    cancellationHours: true,
+                    depositRequired: true,
+                    depositAmount: true,
+                }
+            },
             brand: {
                 select: {
                     id: true,
@@ -41,7 +45,7 @@ export const getPublicRestaurantCoreInfoRepo = async (id) => {
                     type: true,
                 }
             },
-            categories: {
+            categoryRestaurants: {
                 select: {
                     id: true,
                     name: true,
@@ -57,7 +61,7 @@ export const getPublicRestaurantCoreInfoRepo = async (id) => {
                     bgColor: true,
                 }
             },
-            amenities: {
+            restaurantAmenities: {
                 select: {
                     id: true,
                     name: true,

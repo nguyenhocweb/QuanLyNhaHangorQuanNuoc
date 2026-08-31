@@ -1,0 +1,26 @@
+[
+  {
+    "title": "Đêm Nhạc Acoustic Lãng Mạn & Tiệc Rượu Vang",
+    "description": "Thưởng thức các bản tình ca acoustic nhẹ nhàng cùng ban nhạc sống và ưu đãi tặng 1 ly vang đỏ cho mỗi set ăn tối.",
+    "image": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop&q=80",
+    "startDate": "2026-09-02T19:30:00.000Z",
+    "endDate": "2026-09-02T22:30:00.000Z",
+    "isActive": true
+  },
+  {
+    "title": "Lễ Hội Hải Sản Tươi Sống & Buffet Tôm Hùm Cuối Tuần",
+    "description": "Đại tiệc buffet hải sản không giới hạn với hơn 50 món nướng, hấp, sốt phô mai chế biến trực tiếp tại quầy mở.",
+    "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80",
+    "startDate": "2026-09-05T18:00:00.000Z",
+    "endDate": "2026-09-06T22:00:00.000Z",
+    "isActive": true
+  },
+  {
+    "title": "Workshop Trải Nghiệm Làm Pizza Thủ Công Cho Bé & Gia Đình",
+    "description": "Các bé được tự tay nhào bột, phủ phô mai, rắc topping và nướng bánh cùng sự hướng dẫn tận tình của Bếp Trưởng.",
+    "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80",
+    "startDate": "2026-09-12T09:00:00.000Z",
+    "endDate": "2026-09-12T11:30:00.000Z",
+    "isActive": true
+  }
+]

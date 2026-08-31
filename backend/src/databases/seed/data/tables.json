@@ -1,0 +1,39 @@
+{
+  "area_table_templates": [
+    {
+      "area_type": "GROUND_FLOOR",
+      "name_pattern": "Sảnh Chính Tầng Trệt",
+      "prefix": "T",
+      "count": 6,
+      "shape": "RECT",
+      "min_capacity": 2,
+      "max_capacity": 4,
+      "is_combinable": true
+    },
+    {
+      "area_type": "VIP_ROOM",
+      "name_pattern": "Phòng VIP Riêng Tư",
+      "prefix": "VIP",
+      "count": 3,
+      "shape": "ROUND",
+      "min_capacity": 6,
+      "max_capacity": 12,
+      "is_combinable": false
+    },
+    {
+      "area_type": "ROOFTOP",
+      "name_pattern": "Sân Thượng Rooftop View Đẹp",
+      "prefix": "R",
+      "count": 4,
+      "shape": "LONG",
+      "min_capacity": 4,
+      "max_capacity": 8,
+      "is_combinable": true
+    }
+  ],
+  "maintenance_reasons": [
+    "Bảo dưỡng định kỳ và thay kính cường lực mặt bàn",
+    "Nâng cấp hệ thống sạc không dây và mã QR kim loại tại bàn",
+    "Sơn mới khung gỗ và kiểm tra chân bàn chống rung lắc"
+  ]
+}

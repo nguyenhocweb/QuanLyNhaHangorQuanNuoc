@@ -1,0 +1,48 @@
+[
+  {
+    "order_status": "PAID",
+    "payment_status": "PAID",
+    "payment_method": "CARD",
+    "tip_amount": 50000,
+    "discount_amount": 0,
+    "note": "Bàn VIP tiếp khách, phục vụ rượu trước khi lên món chính",
+    "items": [
+      { "item_index": 0, "quantity": 2, "note": "Chín vừa (Medium-rare)", "status": "SERVED" },
+      { "item_index": 1, "quantity": 1, "note": "Cắt làm 8 miếng", "status": "SERVED" }
+    ]
+  },
+  {
+    "order_status": "SERVED",
+    "payment_status": "PENDING",
+    "payment_method": "MOMO",
+    "tip_amount": 20000,
+    "discount_amount": 50000,
+    "note": "Gia đình dùng bữa, xin thêm 2 bộ chén đĩa phụ cho em bé",
+    "items": [
+      { "item_index": 0, "quantity": 1, "note": "Không cay", "status": "SERVED" },
+      { "item_index": 1, "quantity": 2, "note": "Ít ngọt", "status": "SERVED" }
+    ]
+  },
+  {
+    "order_status": "SENT_TO_KITCHEN",
+    "payment_status": "PENDING",
+    "payment_method": "CASH",
+    "tip_amount": 0,
+    "discount_amount": 0,
+    "note": "Bàn gọi món đợt 1, đang chờ bếp lên món",
+    "items": [
+      { "item_index": 0, "quantity": 1, "note": "Lên món nhanh giúp khách", "status": "PREPARING" }
+    ]
+  },
+  {
+    "order_status": "OPEN",
+    "payment_status": "PENDING",
+    "payment_method": "ZALOPAY",
+    "tip_amount": 0,
+    "discount_amount": 0,
+    "note": "Khách vừa quét mã QR tại bàn, đang chọn thêm món",
+    "items": [
+      { "item_index": 1, "quantity": 1, "note": "", "status": "QUEUED" }
+    ]
+  }
+]

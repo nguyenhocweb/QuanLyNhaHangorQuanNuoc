@@ -3,7 +3,7 @@ import { findUpgradeRequestById } from "../repositories/index.js";
 import { BadRequestError, NotFoundError, ConflictError } from "../../../../core/constants/error/index.js";
 import { emitUserPermissionUpdate, emitBrandSubscriptionUpdate } from "../../../../core/utils/socket.js";
 
-export const updateUpgradeRequestStatusService = async (id, status, planId) => {
+export const updateUpgradeRequestStatusService = async (id, status, planId, rejectionReason) => {
     if (!["APPROVED", "REJECTED"].includes(status)) {
         throw new BadRequestError("Trạng thái không hợp lệ");
     }
@@ -20,7 +20,10 @@ export const updateUpgradeRequestStatusService = async (id, status, planId) => {
     if (status === "REJECTED") {
         return await prisma.upgradeRequest.update({
             where: { id },
-            data: { status: "REJECTED" }
+            data: { 
+                status: "REJECTED",
+                rejectionReason: rejectionReason || "Hồ sơ chưa đạt yêu cầu của hệ thống."
+            }
         });
     }
 
@@ -29,7 +32,10 @@ export const updateUpgradeRequestStatusService = async (id, status, planId) => {
         // Cập nhật trạng thái yêu cầu
         const updatedRequest = await tx.upgradeRequest.update({
             where: { id },
-            data: { status: "APPROVED" }
+            data: { 
+                status: "APPROVED",
+                rejectionReason: null
+            }
         });
 
         // 1. Cập nhật role người dùng (Lấy role cho Workspace)
@@ -67,7 +73,7 @@ export const updateUpgradeRequestStatusService = async (id, status, planId) => {
             permissionId: p.id
         }));
 
-        // Kiểm tra xem user này đã có thương hiệu chưa (tránh lỗi conflict unique trên Brand name hoặc Employment)
+        // Kiểm tra xem user này đã có thương hiệu trùng tên chưa
         const existingBrand = await tx.brand.findUnique({
             where: { name: upgradeRequest.brandName }
         });
@@ -78,8 +84,13 @@ export const updateUpgradeRequestStatusService = async (id, status, planId) => {
         const newBrand = await tx.brand.create({
             data: {
                 name: upgradeRequest.brandName,
+                logo: upgradeRequest.logo || null,
+                description: upgradeRequest.description || null,
                 tax_code: upgradeRequest.tax_code || null,
-                imageMain: upgradeRequest.businessLicense || upgradeRequest.user?.avatar || "https://res.cloudinary.com/demo/image/upload/v1/default_brand.jpg",
+                phone_contact: upgradeRequest.phone_contact || null,
+                email_contact: upgradeRequest.email_contact || null,
+                address: upgradeRequest.address || null,
+                imageMain: upgradeRequest.logo || upgradeRequest.user?.avatar || "https://res.cloudinary.com/demo/image/upload/v1/default_brand.jpg",
                 isActive: "ACTIVE", // Đã duyệt thì ACTIVE luôn
                 subscriptions: {
                     create: [

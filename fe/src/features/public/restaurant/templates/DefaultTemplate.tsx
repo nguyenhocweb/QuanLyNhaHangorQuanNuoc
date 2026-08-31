@@ -182,6 +182,7 @@ export default function DefaultTemplate({ idRestaurant, coreInfo, hoursData }: D
             <BookingConfirmationModal 
                 isOpen={isConfirmModalOpen}
                 onClose={() => setIsConfirmModalOpen(false)}
+                idRestaurant={idRestaurant}
                 draftData={bookingDraft}
             />
         </div>

@@ -1,0 +1,165 @@
+{
+  "system_roles": [
+    { "name": "Admin", "description": "Quản trị viên tối cao của nền tảng (Toàn quyền hệ thống)" },
+    { "name": "Khách hàng", "description": "Người dùng thông thường, thực khách đặt bàn và xem thực đơn" }
+  ],
+  "workspace_roles": [
+    { "name": "Quản lý thương hiệu", "description": "Chủ sở hữu hoặc quản lý chuỗi thương hiệu F&B" },
+    { "name": "Quản lý nhà hàng", "description": "Cửa hàng trưởng, quản lý chi nhánh nhà hàng cụ thể" },
+    { "name": "Nhân viên", "description": "Nhân viên phục vụ, thu ngân hoặc nhân viên bếp" }
+  ],
+  "permissions": [
+    { "name": "BRAND_PROFILE_MANAGEMENT", "type": "BRAND", "description": "Quản lý hồ sơ thương hiệu, thông tin chuỗi" },
+    { "name": "BRANCH_MANAGEMENT", "type": "BRAND", "description": "Quản lý, thêm mới và đóng mở chi nhánh nhà hàng" },
+    { "name": "BRAND_MENU_MANAGEMENT", "type": "BRAND", "description": "Quản lý bảng thực đơn danh mục dùng chung toàn chuỗi" },
+    { "name": "BRAND_FINANCE", "type": "BRAND", "description": "Xem báo cáo doanh thu, dòng tiền toàn chuỗi" },
+    { "name": "BRAND_EMPLOYEE_MANAGEMENT", "type": "BRAND", "description": "Phân công nhân sự, cửa hàng trưởng cho các chi nhánh" },
+    { "name": "BRAND_PROMOTION", "type": "BRAND", "description": "Tạo các chương trình khuyến mãi, voucher toàn chuỗi" },
+    { "name": "BRAND_AI_CONFIG", "type": "BRAND", "description": "Cấu hình AI Agent hỗ trợ khách hàng và tối ưu thực đơn" },
+    { "name": "TABLE_MANAGEMENT", "type": "RESTAURANT", "description": "Quản lý sơ đồ bàn, tình trạng bàn ăn tại chi nhánh" },
+    { "name": "ORDER_MANAGEMENT", "type": "RESTAURANT", "description": "Tạo và xử lý đơn gọi món, hóa đơn tại bàn" },
+    { "name": "RESERVATION_ONLINE", "type": "RESTAURANT", "description": "Tiếp nhận và xác nhận đặt bàn trực tuyến của khách" },
+    { "name": "LOCAL_INVENTORY", "type": "RESTAURANT", "description": "Kiểm kê và định lượng nguyên vật liệu tại chi nhánh" },
+    { "name": "KITCHEN_DISPLAY", "type": "RESTAURANT", "description": "Điều phối màn hình hiển thị nhà bếp (KDS)" }
+  ],
+  "subscription_plans": [
+    {
+      "name": "Miễn Phí (Starter)",
+      "description": "Dành cho quán ăn nhỏ lẻ mới bắt đầu số hóa",
+      "price": 0,
+      "billingCycle": "LIFETIME",
+      "maxRestaurants": 1,
+      "isPublic": true,
+      "isActive": true,
+      "featuresData": {
+        "MENU_MANAGEMENT": true,
+        "TABLE_MANAGEMENT": true,
+        "ORDER_MANAGEMENT": true,
+        "RESERVATION_ONLINE": true,
+        "CUSTOMER_REVIEWS": true,
+        "qr_menu": true,
+        "basic_pos": true,
+        "max_tables": 20,
+        "ai_support": false
+      }
+    },
+    {
+      "name": "Tiêu Chuẩn (Standard)",
+      "description": "Dành cho nhà hàng độc lập quy mô vừa",
+      "price": 499000,
+      "billingCycle": "MONTHLY",
+      "maxRestaurants": 3,
+      "isPublic": true,
+      "isActive": true,
+      "featuresData": {
+        "MENU_MANAGEMENT": true,
+        "TABLE_MANAGEMENT": true,
+        "ORDER_MANAGEMENT": true,
+        "RESERVATION_ONLINE": true,
+        "CUSTOMER_REVIEWS": true,
+        "ADVANCED_PROMOTIONS": true,
+        "LOCAL_INVENTORY": true,
+        "qr_menu": true,
+        "full_pos": true,
+        "max_tables": 50,
+        "ai_support": false
+      }
+    },
+    {
+      "name": "Chuyên Nghiệp (Pro)",
+      "description": "Dành cho chuỗi F&B từ 3 đến 10 chi nhánh",
+      "price": 1299000,
+      "billingCycle": "MONTHLY",
+      "maxRestaurants": 10,
+      "isPublic": true,
+      "isActive": true,
+      "featuresData": {
+        "MENU_MANAGEMENT": true,
+        "TABLE_MANAGEMENT": true,
+        "ORDER_MANAGEMENT": true,
+        "RESERVATION_ONLINE": true,
+        "CUSTOMER_REVIEWS": true,
+        "ADVANCED_PROMOTIONS": true,
+        "LOCAL_INVENTORY": true,
+        "KITCHEN_DISPLAY": true,
+        "CRM_LOYALTY": true,
+        "REVENUE_ANALYTICS": true,
+        "qr_menu": true,
+        "full_pos": true,
+        "ai_support": true,
+        "max_tables": 200
+      }
+    },
+    {
+      "name": "Doanh Nghiệp (Enterprise)",
+      "description": "Dành cho tập đoàn ẩm thực lớn, không giới hạn quy mô",
+      "price": 2999000,
+      "billingCycle": "MONTHLY",
+      "maxRestaurants": 100,
+      "isPublic": true,
+      "isActive": true,
+      "featuresData": {
+        "MENU_MANAGEMENT": true,
+        "TABLE_MANAGEMENT": true,
+        "ORDER_MANAGEMENT": true,
+        "RESERVATION_ONLINE": true,
+        "CUSTOMER_REVIEWS": true,
+        "ADVANCED_PROMOTIONS": true,
+        "EMPLOYEE_PERMISSIONS": true,
+        "PAYMENT_INTEGRATION": true,
+        "ZALO_SMS_NOTIFICATION": true,
+        "REVENUE_ANALYTICS": true,
+        "CENTRAL_SUPPLY_CHAIN": true,
+        "LOCAL_INVENTORY": true,
+        "KITCHEN_DISPLAY": true,
+        "AI_CHATBOT_BOOKING": true,
+        "AI_INVENTORY_PREDICT": true,
+        "CRM_LOYALTY": true,
+        "qr_menu": true,
+        "full_pos": true,
+        "ai_support": true,
+        "unlimited_restaurants": true,
+        "dedicated_support": true
+      }
+    }
+  ],
+  "categories": [
+    { "name": "Nhà hàng", "icon": "FiHome", "bgColor": "#EEF2FF", "textColor": "#4F46E5" },
+    { "name": "Quán Cafe", "icon": "FiCoffee", "bgColor": "#FFFBEB", "textColor": "#D97706" },
+    { "name": "Lẩu & Nướng", "icon": "FiSun", "bgColor": "#FEF2F2", "textColor": "#DC2626" },
+    { "name": "Quán Chay", "icon": "FiHeart", "bgColor": "#F0FDF4", "textColor": "#16A34A" },
+    { "name": "Hải sản", "icon": "FiWind", "bgColor": "#F0F9FF", "textColor": "#0284C7" },
+    { "name": "Trà sữa", "icon": "FiSmile", "bgColor": "#FDF4FF", "textColor": "#C026D3" }
+  ],
+  "tags": [
+    { "name": "Sang trọng", "slug": "sang-trong" },
+    { "name": "Bình dân", "slug": "binh-dan" },
+    { "name": "Gia đình", "slug": "gia-dinh" },
+    { "name": "Hẹn hò", "slug": "hen-ho" },
+    { "name": "Trẻ trung", "slug": "tre-trung" },
+    { "name": "View đẹp", "slug": "view-dep" }
+  ],
+  "amenities": [
+    { "name": "Wifi miễn phí", "icon": "FaWifi" },
+    { "name": "Bãi đậu ô tô", "icon": "FaCar" },
+    { "name": "Thanh toán thẻ", "icon": "FaCreditCard" },
+    { "name": "Máy lạnh", "icon": "FaSnowflake" },
+    { "name": "Phòng VIP", "icon": "FaCrown" },
+    { "name": "Khu vui chơi trẻ em", "icon": "FaChild" }
+  ],
+  "templates": [
+    { "code": "premium3d", "name": "Cao cấp 3D", "type": "BRAND_TEMPLATE" },
+    { "code": "standard", "name": "Tiêu chuẩn", "type": "BRAND_TEMPLATE" },
+    { "code": "luxury", "name": "Sang trọng", "type": "BRAND_TEMPLATE" },
+    { "code": "REST_DEFAULT", "name": "Tiêu chuẩn (Mặc định)", "type": "RESTAURANT_TEMPLATE" },
+    { "code": "REST_LUXURY", "name": "Sang trọng", "type": "RESTAURANT_TEMPLATE" },
+    { "code": "REST_HOTPOT", "name": "Lẩu & Nướng", "type": "RESTAURANT_TEMPLATE" },
+    { "code": "REST_CAFE", "name": "Quán Cafe", "type": "RESTAURANT_TEMPLATE" }
+  ],
+  "system_payment_methods": [
+    { "name": "Tiền mặt", "code": "CASH", "description": "Thanh toán trực tiếp bằng tiền mặt" },
+    { "name": "Cổng thanh toán MoMo", "code": "MOMO", "description": "Ví điện tử MoMo Merchant" },
+    { "name": "Cổng thanh toán VNPay", "code": "VNPAY", "description": "Cổng thanh toán VNPay-QR & Thẻ nội địa" },
+    { "name": "Cổng thanh toán ZaloPay", "code": "ZALOPAY", "description": "Ví điện tử ZaloPay Merchant" }
+  ]
+}

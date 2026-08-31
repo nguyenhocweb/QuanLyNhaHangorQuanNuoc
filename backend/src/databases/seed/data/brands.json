@@ -1,0 +1,2902 @@
+[
+  {
+    "manager_user_name": "bm_golden_gate_ceo",
+    "brand_name": "Golden Gate Restaurant Group",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "ceo.goldengate@fnbvietnam.vn",
+    "phone_contact": "0903888001",
+    "description": "Hệ thống ẩm thực đẳng cấp Golden Gate Restaurant Group - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000000000",
+    "link": "https://bm-golden-gate-ceo.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "100 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7769,
+      "longitude": 106.7009
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Golden Gate Restaurant Group! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Golden Gate Restaurant Group để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pizza_4ps_founder",
+    "brand_name": "Pizza 4P's Craft Artisan Pizza",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "masuko@pizza4ps.com",
+    "phone_contact": "0909444002",
+    "description": "Hệ thống ẩm thực đẳng cấp Pizza 4P's Craft Artisan Pizza - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000012345",
+    "link": "https://bm-pizza-4ps-founder.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "101 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.777899999999999,
+      "longitude": 106.70190000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Pizza 4P's Craft Artisan Pizza! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Pizza 4P's Craft Artisan Pizza để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_haidilao_vn_director",
+    "brand_name": "Haidilao Hotpot Vietnam",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "director.vn@haidilao.com",
+    "phone_contact": "0918555003",
+    "description": "Hệ thống ẩm thực đẳng cấp Haidilao Hotpot Vietnam - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000024690",
+    "link": "https://bm-haidilao-vn-director.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "102 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7789,
+      "longitude": 106.7029
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Haidilao Hotpot Vietnam! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Haidilao Hotpot Vietnam để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_highlands_coffee_mgt",
+    "brand_name": "Highlands Coffee",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "mgt@highlandscoffee.com.vn",
+    "phone_contact": "0987666004",
+    "description": "Hệ thống ẩm thực đẳng cấp Highlands Coffee - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000037035",
+    "link": "https://bm-highlands-coffee-mgt.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "103 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7799,
+      "longitude": 106.7039
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Highlands Coffee! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Highlands Coffee để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_phuc_long_heritage",
+    "brand_name": "Phúc Long Tea & Coffee",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "heritage@phuclong.masan.vn",
+    "phone_contact": "0934777005",
+    "description": "Hệ thống ẩm thực đẳng cấp Phúc Long Tea & Coffee - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000049380",
+    "link": "https://bm-phuc-long-heritage.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "104 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.780899999999999,
+      "longitude": 106.70490000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Phúc Long Tea & Coffee! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Phúc Long Tea & Coffee để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_the_coffee_house_ops",
+    "brand_name": "The Coffee House",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "operations@thecoffeehouse.vn",
+    "phone_contact": "0908111006",
+    "description": "Hệ thống ẩm thực đẳng cấp The Coffee House - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000061725",
+    "link": "https://bm-the-coffee-house-ops.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "105 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7819,
+      "longitude": 106.7059
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với The Coffee House! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của The Coffee House để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_redsun_iti_group",
+    "brand_name": "Redsun ITI",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "contact@redsun-iti.vn",
+    "phone_contact": "0912222007",
+    "description": "Hệ thống ẩm thực đẳng cấp Redsun ITI - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000074070",
+    "link": "https://bm-redsun-iti-group.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "106 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7829,
+      "longitude": 106.7069
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Redsun ITI! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Redsun ITI để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_marukame_udon_vn",
+    "brand_name": "Marukame Udon Noodle House",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "marukame.vn@toridoll.com",
+    "phone_contact": "0945333008",
+    "description": "Hệ thống ẩm thực đẳng cấp Marukame Udon Noodle House - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000086415",
+    "link": "https://bm-marukame-udon-vn.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "107 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7839,
+      "longitude": 106.70790000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Marukame Udon Noodle House! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Marukame Udon Noodle House để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_san_fu_lou_canton",
+    "brand_name": "San Fu Lou Cantonese Kitchen",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "bod@d1-concepts.com",
+    "phone_contact": "0967444009",
+    "description": "Hệ thống ẩm thực đẳng cấp San Fu Lou Cantonese Kitchen - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000098760",
+    "link": "https://bm-san-fu-lou-canton.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "108 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.784899999999999,
+      "longitude": 106.7089
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với San Fu Lou Cantonese Kitchen! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của San Fu Lou Cantonese Kitchen để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_dim_tu_tac_culinary",
+    "brand_name": "Dim Tu Tac Restaurant Group",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "management@dimtutac.com",
+    "phone_contact": "0978555010",
+    "description": "Hệ thống ẩm thực đẳng cấp Dim Tu Tac Restaurant Group - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000111105",
+    "link": "https://bm-dim-tu-tac-culinary.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "109 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7859,
+      "longitude": 106.7099
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": true,
+      "serviceChargeRate": 5,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 50000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Dim Tu Tac Restaurant Group! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Dim Tu Tac Restaurant Group để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_lau_bo_nha_go_dalat",
+    "brand_name": "Lẩu Bò Nhà Gỗ Đà Lạt",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "laubonhago.dalat@gmail.com",
+    "phone_contact": "0902666011",
+    "description": "Hệ thống ẩm thực đẳng cấp Lẩu Bò Nhà Gỗ Đà Lạt - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000123450",
+    "link": "https://bm-lau-bo-nha-go-dalat.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "110 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7869,
+      "longitude": 106.71090000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Lẩu Bò Nhà Gỗ Đà Lạt! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Lẩu Bò Nhà Gỗ Đà Lạt để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_banh_mi_huynh_hoa",
+    "brand_name": "Bánh Mì Huỳnh Hoa Sài Gòn",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "huynhhoa.bakery@yahoo.com",
+    "phone_contact": "0913777012",
+    "description": "Hệ thống ẩm thực đẳng cấp Bánh Mì Huỳnh Hoa Sài Gòn - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000135795",
+    "link": "https://bm-banh-mi-huynh-hoa.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "111 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.787899999999999,
+      "longitude": 106.7119
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Bánh Mì Huỳnh Hoa Sài Gòn! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Bánh Mì Huỳnh Hoa Sài Gòn để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_com_tam_cali_chain",
+    "brand_name": "Cơm Tấm Cali Hệ Thống 20 Chi Nhánh",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "founder@comtamcali.com",
+    "phone_contact": "0938888013",
+    "description": "Hệ thống ẩm thực đẳng cấp Cơm Tấm Cali Hệ Thống 20 Chi Nhánh - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000148140",
+    "link": "https://bm-com-tam-cali-chain.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "112 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7889,
+      "longitude": 106.7129
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Cơm Tấm Cali Hệ Thống 20 Chi Nhánh! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Cơm Tấm Cali Hệ Thống 20 Chi Nhánh để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_bun_dau_tien_hai",
+    "brand_name": "Bún Đậu Mắm Tôm Tiến Hải Quán",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "tienhai.bundaumamtom@gmail.com",
+    "phone_contact": "0971999014",
+    "description": "Hệ thống ẩm thực đẳng cấp Bún Đậu Mắm Tôm Tiến Hải Quán - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000160485",
+    "link": "https://bm-bun-dau-tien-hai.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "113 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7899,
+      "longitude": 106.71390000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Bún Đậu Mắm Tôm Tiến Hải Quán! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Bún Đậu Mắm Tôm Tiến Hải Quán để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_tra_sua_koi_the_vn",
+    "brand_name": "KOI Thé Bubble Tea Vietnam",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "koithe.vietnam@koicafe.com",
+    "phone_contact": "0949111015",
+    "description": "Hệ thống ẩm thực đẳng cấp KOI Thé Bubble Tea Vietnam - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000172830",
+    "link": "https://bm-tra-sua-koi-the-vn.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "114 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.790899999999999,
+      "longitude": 106.7149
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với KOI Thé Bubble Tea Vietnam! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của KOI Thé Bubble Tea Vietnam để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_katinate_saigon_cafe",
+    "brand_name": "Katinat Saigon Kafe",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "katinate.bod@katinate.vn",
+    "phone_contact": "0962222016",
+    "description": "Hệ thống ẩm thực đẳng cấp Katinat Saigon Kafe - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000185175",
+    "link": "https://bm-katinate-saigon-cafe.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": true,
+    "new": false,
+    "address": {
+      "street": "115 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7919,
+      "longitude": 106.7159
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Katinat Saigon Kafe! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Katinat Saigon Kafe để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_cheese_coffee_craft",
+    "brand_name": "Cheese Coffee European Concept",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "cheesecoffee.mgt@gmail.com",
+    "phone_contact": "0983333017",
+    "description": "Hệ thống ẩm thực đẳng cấp Cheese Coffee European Concept - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000197520",
+    "link": "https://bm-cheese-coffee-craft.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "116 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7929,
+      "longitude": 106.71690000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Cheese Coffee European Concept! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Cheese Coffee European Concept để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_chay_ba_xa_organic",
+    "brand_name": "Chuỗi Ẩm Thực Chay Bà Xã",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "nhahangchaybaxa@gmail.com",
+    "phone_contact": "0909444018",
+    "description": "Hệ thống ẩm thực đẳng cấp Chuỗi Ẩm Thực Chay Bà Xã - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000209865",
+    "link": "https://bm-chay-ba-xa-organic.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "117 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.793899999999999,
+      "longitude": 106.7179
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Chuỗi Ẩm Thực Chay Bà Xã! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Chuỗi Ẩm Thực Chay Bà Xã để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_chay_hum_vegetarian",
+    "brand_name": "Hum Vegetarian Garden & Dining",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "hum.dining@humvietnam.vn",
+    "phone_contact": "0915555019",
+    "description": "Hệ thống ẩm thực đẳng cấp Hum Vegetarian Garden & Dining - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000222210",
+    "link": "https://bm-chay-hum-vegetarian.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "118 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7949,
+      "longitude": 106.7189
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Hum Vegetarian Garden & Dining! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Hum Vegetarian Garden & Dining để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pasta_fresca_artisan",
+    "brand_name": "Pasta Fresca Saigon Authentic Italian",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "pastafresca.hcm@gmail.com",
+    "phone_contact": "0936666020",
+    "description": "Hệ thống ẩm thực đẳng cấp Pasta Fresca Saigon Authentic Italian - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000234555",
+    "link": "https://bm-pasta-fresca-artisan.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "119 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7959,
+      "longitude": 106.71990000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": true,
+      "greetingMessage": "Kính chào quý khách đã đến với Pasta Fresca Saigon Authentic Italian! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Pasta Fresca Saigon Authentic Italian để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_google_el_gaucho_steak",
+    "brand_name": "El Gaucho Argentinian Steakhouse",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "elgaucho.vn.corp@gmail.com",
+    "phone_contact": "0977777021",
+    "description": "Hệ thống ẩm thực đẳng cấp El Gaucho Argentinian Steakhouse - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000246900",
+    "link": "https://bm-google-el-gaucho-steak.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "120 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.796899999999999,
+      "longitude": 106.7209
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với El Gaucho Argentinian Steakhouse! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của El Gaucho Argentinian Steakhouse để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_google_an_nam_gourmet",
+    "brand_name": "Annam Gourmet Cafe & Market",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "annam.gourmet.hq@gmail.com",
+    "phone_contact": "0948888022",
+    "description": "Hệ thống ẩm thực đẳng cấp Annam Gourmet Cafe & Market - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000259245",
+    "link": "https://bm-google-an-nam-gourmet.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "121 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7979,
+      "longitude": 106.7219
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Annam Gourmet Cafe & Market! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Annam Gourmet Cafe & Market để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_google_ba_mientay_kitchen",
+    "brand_name": "Chuỗi Ẩm Thực Ba Miền Tây",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "bamientay.corp@gmail.com",
+    "phone_contact": "0969999023",
+    "description": "Hệ thống ẩm thực đẳng cấp Chuỗi Ẩm Thực Ba Miền Tây - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000271590",
+    "link": "https://bm-google-ba-mientay-kitchen.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "122 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7989,
+      "longitude": 106.72290000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Chuỗi Ẩm Thực Ba Miền Tây! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Chuỗi Ẩm Thực Ba Miền Tây để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_fb_lau_nam_ashima",
+    "brand_name": "Lẩu Nấm Thiên Nhiên Ashima",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "ashima.hotpot.owner@facebook.com",
+    "phone_contact": "0981111024",
+    "description": "Hệ thống ẩm thực đẳng cấp Lẩu Nấm Thiên Nhiên Ashima - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000283935",
+    "link": "https://bm-fb-lau-nam-ashima.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "123 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.7999,
+      "longitude": 106.7239
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Lẩu Nấm Thiên Nhiên Ashima! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Lẩu Nấm Thiên Nhiên Ashima để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_fb_manwah_taiwanese",
+    "brand_name": "Manwah Taiwanese Hotpot Vietnam",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "manwah.taiwan.hq@facebook.com",
+    "phone_contact": "0903222025",
+    "description": "Hệ thống ẩm thực đẳng cấp Manwah Taiwanese Hotpot Vietnam - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000296280",
+    "link": "https://bm-fb-manwah-taiwanese.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "124 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.800899999999999,
+      "longitude": 106.7249
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Manwah Taiwanese Hotpot Vietnam! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Manwah Taiwanese Hotpot Vietnam để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_long_name_corp_president",
+    "brand_name": "Hoàng Long Vũ Luxury Dining Group",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "president.nguyen.phan.hoang.long@corporation.vn",
+    "phone_contact": "0914333026",
+    "description": "Hệ thống ẩm thực đẳng cấp Hoàng Long Vũ Luxury Dining Group - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000308625",
+    "link": "https://bm-long-name-corp-president.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "125 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8019,
+      "longitude": 106.72590000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Hoàng Long Vũ Luxury Dining Group! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Hoàng Long Vũ Luxury Dining Group để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_short_name_owner",
+    "brand_name": "An Đỗ Specialty Coffee",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "an.do@fnbgroup.io",
+    "phone_contact": "0935444027",
+    "description": "Hệ thống ẩm thực đẳng cấp An Đỗ Specialty Coffee - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000320970",
+    "link": "https://bm-short-name-owner.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "126 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8029,
+      "longitude": 106.7269
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với An Đỗ Specialty Coffee! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của An Đỗ Specialty Coffee để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_leap_year_ceo_1984",
+    "brand_name": "Quang Bửu Fusion Bistro",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "ceo.leapyear@leaptable.vn",
+    "phone_contact": "0976555028",
+    "description": "Hệ thống ẩm thực đẳng cấp Quang Bửu Fusion Bistro - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000333315",
+    "link": "https://bm-leap-year-ceo-1984.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "127 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.803899999999999,
+      "longitude": 106.7279
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Quang Bửu Fusion Bistro! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Quang Bửu Fusion Bistro để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_foreign_expat_owner",
+    "brand_name": "Le Bistro Gourmet French Haute Cuisine",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "chef.antoine@bistrogourmet.fr",
+    "phone_contact": "0947666029",
+    "description": "Hệ thống ẩm thực đẳng cấp Le Bistro Gourmet French Haute Cuisine - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000345660",
+    "link": "https://bm-foreign-expat-owner.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "128 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8049,
+      "longitude": 106.72890000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Le Bistro Gourmet French Haute Cuisine! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Le Bistro Gourmet French Haute Cuisine để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_vnmobile_hotline",
+    "brand_name": "Tiệm Lẩu Phố Nhỏ",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "hotline.vnm@tiemlau.vn",
+    "phone_contact": "0563777030",
+    "description": "Hệ thống ẩm thực đẳng cấp Tiệm Lẩu Phố Nhỏ - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000358005",
+    "link": "https://bm-vnmobile-hotline.nhahang.vn",
+    "isActive": "ACTIVE",
+    "isFeatured": false,
+    "new": false,
+    "address": {
+      "street": "129 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8059,
+      "longitude": 106.7299
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "ACTIVE"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Tiệm Lẩu Phố Nhỏ! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Tiệm Lẩu Phố Nhỏ để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pending_pho_thin_hn",
+    "brand_name": "Phở Thìn Lò Đúc",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "onboarding.phothin@gmail.com",
+    "phone_contact": "0908888031",
+    "description": "Hệ thống ẩm thực đẳng cấp Phở Thìn Lò Đúc - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000370350",
+    "link": "https://bm-pending-pho-thin-hn.nhahang.vn",
+    "isActive": "PENDING",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "130 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.806899999999999,
+      "longitude": 106.7309
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "PENDING_PAYMENT"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Phở Thìn Lò Đúc! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Phở Thìn Lò Đúc để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pending_kem_bo_nari",
+    "brand_name": "Kem Bơ Nari Đà Nẵng",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "kembonari.danang@gmail.com",
+    "phone_contact": "0919999032",
+    "description": "Hệ thống ẩm thực đẳng cấp Kem Bơ Nari Đà Nẵng - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000382695",
+    "link": "https://bm-pending-kem-bo-nari.nhahang.vn",
+    "isActive": "PENDING",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "131 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8079,
+      "longitude": 106.73190000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "PENDING_PAYMENT"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Kem Bơ Nari Đà Nẵng! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Kem Bơ Nari Đà Nẵng để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pending_google_no_phone",
+    "brand_name": "Nam Đức Craft Brewery",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "fresh.brand.signup@gmail.com",
+    "phone_contact": "02838221199",
+    "description": "Hệ thống ẩm thực đẳng cấp Nam Đức Craft Brewery - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000395040",
+    "link": "https://bm-pending-google-no-phone.nhahang.vn",
+    "isActive": "PENDING",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "132 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8089,
+      "longitude": 106.7329
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "PENDING_PAYMENT"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Nam Đức Craft Brewery! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Nam Đức Craft Brewery để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pending_banh_cuon_tay_ho",
+    "brand_name": "Bánh Cuốn Tây Hồ Saigon",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "tayhobanhcuon.corp@gmail.com",
+    "phone_contact": "0931222034",
+    "description": "Hệ thống ẩm thực đẳng cấp Bánh Cuốn Tây Hồ Saigon - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000407385",
+    "link": "https://bm-pending-banh-cuon-tay-ho.nhahang.vn",
+    "isActive": "PENDING",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "133 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.809899999999999,
+      "longitude": 106.7339
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "PENDING_PAYMENT"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Bánh Cuốn Tây Hồ Saigon! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Bánh Cuốn Tây Hồ Saigon để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pending_lau_ga_la_e",
+    "brand_name": "Lẩu Gà Lá É Tao Ngộ",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "laugalae.founder@gmail.com",
+    "phone_contact": "0972333035",
+    "description": "Hệ thống ẩm thực đẳng cấp Lẩu Gà Lá É Tao Ngộ - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000419730",
+    "link": "https://bm-pending-lau-ga-la-e.nhahang.vn",
+    "isActive": "PENDING",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "134 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8109,
+      "longitude": 106.73490000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "PENDING_PAYMENT"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Lẩu Gà Lá É Tao Ngộ! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Lẩu Gà Lá É Tao Ngộ để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pending_tra_chanh_pho_co",
+    "brand_name": "Trà Chanh Phố Cổ Hà Nội",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "trachanh.phoco.hanoi@gmail.com",
+    "phone_contact": "0943444036",
+    "description": "Hệ thống ẩm thực đẳng cấp Trà Chanh Phố Cổ Hà Nội - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000432075",
+    "link": "https://bm-pending-tra-chanh-pho-co.nhahang.vn",
+    "isActive": "PENDING",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "135 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8119,
+      "longitude": 106.7359
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "PENDING_PAYMENT"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Trà Chanh Phố Cổ Hà Nội! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Trà Chanh Phố Cổ Hà Nội để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pending_com_nieu_sai_gon",
+    "brand_name": "Cơm Niêu Sài Gòn Ẩm Thực Truyền Thống",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "comnieusaigon.mgt@gmail.com",
+    "phone_contact": "0964555037",
+    "description": "Hệ thống ẩm thực đẳng cấp Cơm Niêu Sài Gòn Ẩm Thực Truyền Thống - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000444420",
+    "link": "https://bm-pending-com-nieu-sai-gon.nhahang.vn",
+    "isActive": "PENDING",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "136 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.812899999999999,
+      "longitude": 106.7369
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "PENDING_PAYMENT"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Cơm Niêu Sài Gòn Ẩm Thực Truyền Thống! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Cơm Niêu Sài Gòn Ẩm Thực Truyền Thống để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_pending_nem_nuong_nha_trang",
+    "brand_name": "Nem Nướng Ninh Hòa Đặng Văn Quyên",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "nemnuong.dangvanquyen@gmail.com",
+    "phone_contact": "0985666038",
+    "description": "Hệ thống ẩm thực đẳng cấp Nem Nướng Ninh Hòa Đặng Văn Quyên - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000456765",
+    "link": "https://bm-pending-nem-nuong-nha-trang.nhahang.vn",
+    "isActive": "PENDING",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "137 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8139,
+      "longitude": 106.73790000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": true,
+      "status": "PENDING_PAYMENT"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Nem Nướng Ninh Hòa Đặng Văn Quyên! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Nem Nướng Ninh Hòa Đặng Văn Quyên để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_inactive_mon_hue_group",
+    "brand_name": "Huy Vietnam Món Huế Chuỗi Đã Ngưng",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "huyvietnam.monhue.holdings@gmail.com",
+    "phone_contact": "0906777039",
+    "description": "Hệ thống ẩm thực đẳng cấp Huy Vietnam Món Huế Chuỗi Đã Ngưng - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000469110",
+    "link": "https://bm-inactive-mon-hue-group.nhahang.vn",
+    "isActive": "INACTIVE",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "138 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8149,
+      "longitude": 106.7389
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "EXPIRED"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Huy Vietnam Món Huế Chuỗi Đã Ngưng! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Huy Vietnam Món Huế Chuỗi Đã Ngưng để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_inactive_soya_garden_milk",
+    "brand_name": "Soya Garden Organic Soya Milk",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "soyagarden.vn.expired@gmail.com",
+    "phone_contact": "0917888040",
+    "description": "Hệ thống ẩm thực đẳng cấp Soya Garden Organic Soya Milk - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000481455",
+    "link": "https://bm-inactive-soya-garden-milk.nhahang.vn",
+    "isActive": "INACTIVE",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "139 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8159,
+      "longitude": 106.7399
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "EXPIRED"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Soya Garden Organic Soya Milk! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Soya Garden Organic Soya Milk để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_inactive_tra_sua_ten_ren",
+    "brand_name": "Ten Ren Tea Vietnam",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "tenren.vietnam.closed@gmail.com",
+    "phone_contact": "0938999041",
+    "description": "Hệ thống ẩm thực đẳng cấp Ten Ren Tea Vietnam - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000493800",
+    "link": "https://bm-inactive-tra-sua-ten-ren.nhahang.vn",
+    "isActive": "INACTIVE",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "140 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.816899999999999,
+      "longitude": 106.74090000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "EXPIRED"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Ten Ren Tea Vietnam! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Ten Ren Tea Vietnam để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_inactive_gloria_jeans_coffee",
+    "brand_name": "Gloria Jean's Coffees Vietnam",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "gloriajeans.vn@franchise.com",
+    "phone_contact": "0979111042",
+    "description": "Hệ thống ẩm thực đẳng cấp Gloria Jean's Coffees Vietnam - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000506145",
+    "link": "https://bm-inactive-gloria-jeans-coffee.nhahang.vn",
+    "isActive": "INACTIVE",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "141 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8179,
+      "longitude": 106.7419
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "EXPIRED"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Gloria Jean's Coffees Vietnam! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Gloria Jean's Coffees Vietnam để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_inactive_pho_24_heritage",
+    "brand_name": "Phở 24 Noodle Bar",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "pho24.heritage.archive@gmail.com",
+    "phone_contact": "0940222043",
+    "description": "Hệ thống ẩm thực đẳng cấp Phở 24 Noodle Bar - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000518490",
+    "link": "https://bm-inactive-pho-24-heritage.nhahang.vn",
+    "isActive": "INACTIVE",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "142 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8189,
+      "longitude": 106.7429
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Cơ bản",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "EXPIRED"
+    },
+    "paymentConfig": {
+      "momoActive": true,
+      "vnpayActive": true,
+      "isTestMode": false
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Phở 24 Noodle Bar! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Phở 24 Noodle Bar để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_banned_fake_starbucks_scam",
+    "brand_name": "Starbucks Fake Brand Fraud",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "fakestarbucks.scam@tempmail.com",
+    "phone_contact": "0991888044",
+    "description": "Hệ thống ẩm thực đẳng cấp Starbucks Fake Brand Fraud - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000530835",
+    "link": "https://bm-banned-fake-starbucks-scam.nhahang.vn",
+    "isActive": "TERMINATED",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "143 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.819899999999999,
+      "longitude": 106.74390000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "SUSPENDED"
+    },
+    "paymentConfig": {
+      "momoActive": false,
+      "vnpayActive": false,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Starbucks Fake Brand Fraud! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Starbucks Fake Brand Fraud để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_banned_vat_tax_evasion",
+    "brand_name": "Chuỗi Nhà Hàng Gian Lận Thuế",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "tronsauthue.enterprise@burnermail.org",
+    "phone_contact": "0992999045",
+    "description": "Hệ thống ẩm thực đẳng cấp Chuỗi Nhà Hàng Gian Lận Thuế - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000543180",
+    "link": "https://bm-banned-vat-tax-evasion.nhahang.vn",
+    "isActive": "TERMINATED",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "144 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8209,
+      "longitude": 106.7449
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "SUSPENDED"
+    },
+    "paymentConfig": {
+      "momoActive": false,
+      "vnpayActive": false,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Chuỗi Nhà Hàng Gian Lận Thuế! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Chuỗi Nhà Hàng Gian Lận Thuế để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_banned_unpaid_saas_debtor",
+    "brand_name": "Vũ Gia Nợ Cước Phần Mềm",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "quitenocuoc.debt@trashmail.com",
+    "phone_contact": "0993111046",
+    "description": "Hệ thống ẩm thực đẳng cấp Vũ Gia Nợ Cước Phần Mềm - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000555525",
+    "link": "https://bm-banned-unpaid-saas-debtor.nhahang.vn",
+    "isActive": "TERMINATED",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "145 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8219,
+      "longitude": 106.7459
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "SUSPENDED"
+    },
+    "paymentConfig": {
+      "momoActive": false,
+      "vnpayActive": false,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Vũ Gia Nợ Cước Phần Mềm! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Vũ Gia Nợ Cước Phần Mềm để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_banned_toxic_food_safety",
+    "brand_name": "Hoàng Gia Seafood Vi Phạm ATTP",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "ngodochucnang.food@fakeinbox.com",
+    "phone_contact": "0994222047",
+    "description": "Hệ thống ẩm thực đẳng cấp Hoàng Gia Seafood Vi Phạm ATTP - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000567870",
+    "link": "https://bm-banned-toxic-food-safety.nhahang.vn",
+    "isActive": "TERMINATED",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "146 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.822899999999999,
+      "longitude": 106.74690000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_FASTFOOD_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "SUSPENDED"
+    },
+    "paymentConfig": {
+      "momoActive": false,
+      "vnpayActive": false,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Hoàng Gia Seafood Vi Phạm ATTP! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Hoàng Gia Seafood Vi Phạm ATTP để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_banned_money_laundering",
+    "brand_name": "Syndicate Shadow Dining Club",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "ruatienfnb.syndicate@mailnesia.com",
+    "phone_contact": "0995333048",
+    "description": "Hệ thống ẩm thực đẳng cấp Syndicate Shadow Dining Club - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000580215",
+    "link": "https://bm-banned-money-laundering.nhahang.vn",
+    "isActive": "TERMINATED",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "147 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8239,
+      "longitude": 106.7479
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CAFE_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "SUSPENDED"
+    },
+    "paymentConfig": {
+      "momoActive": false,
+      "vnpayActive": false,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Syndicate Shadow Dining Club! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Syndicate Shadow Dining Club để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_banned_fake_reservation_bot",
+    "brand_name": "Bot Farm Ddos Nhà Hàng Khác",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "botmaster.restaurant@trashmail.me",
+    "phone_contact": "0996444049",
+    "description": "Hệ thống ẩm thực đẳng cấp Bot Farm Ddos Nhà Hàng Khác - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000592560",
+    "link": "https://bm-banned-fake-reservation-bot.nhahang.vn",
+    "isActive": "TERMINATED",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "148 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.8249,
+      "longitude": 106.7489
+    },
+    "taxConfig": {
+      "isVatInclusive": true,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_LUXURY_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "SUSPENDED"
+    },
+    "paymentConfig": {
+      "momoActive": false,
+      "vnpayActive": false,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Bot Farm Ddos Nhà Hàng Khác! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Bot Farm Ddos Nhà Hàng Khác để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  },
+  {
+    "manager_user_name": "bm_banned_copyright_theft",
+    "brand_name": "Đạo Nhái Concept Toàn Diện",
+    "logo": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=200&auto=format&fit=crop&q=80",
+    "imageMain": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80",
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=800&auto=format&fit=crop&q=80",
+      "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80"
+    ],
+    "email_contact": "anthapphimmenu.copy@tempmail.io",
+    "phone_contact": "0997555050",
+    "description": "Hệ thống ẩm thực đẳng cấp Đạo Nhái Concept Toàn Diện - Trải nghiệm ẩm thực và dịch vụ khách hàng chuẩn mực quốc tế.",
+    "tax_code": "1000604905",
+    "link": "https://bm-banned-copyright-theft.nhahang.vn",
+    "isActive": "TERMINATED",
+    "isFeatured": false,
+    "new": true,
+    "address": {
+      "street": "149 Đường Nguyễn Huệ",
+      "ward": "Bến Nghé",
+      "wardCode": "790101",
+      "district": "Quận 1",
+      "districtCode": "7901",
+      "province": "Thành phố Hồ Chí Minh",
+      "provinceCode": "79",
+      "latitude": 10.825899999999999,
+      "longitude": 106.74990000000001
+    },
+    "taxConfig": {
+      "isVatInclusive": false,
+      "defaultVatRate": 8,
+      "applyServiceCharge": false,
+      "serviceChargeRate": 0,
+      "forceGlobalTaxConfig": true
+    },
+    "inventoryConfig": {
+      "inventoryApprovalThreshold": 10000000
+    },
+    "templateCode": "TPL_BRAND_CASUAL_01",
+    "subscription": {
+      "planName": "Chuyên nghiệp",
+      "billingCycle": "MONTHLY",
+      "autoRenew": false,
+      "status": "SUSPENDED"
+    },
+    "paymentConfig": {
+      "momoActive": false,
+      "vnpayActive": false,
+      "isTestMode": true
+    },
+    "aiConfig": {
+      "isActive": false,
+      "greetingMessage": "Kính chào quý khách đã đến với Đạo Nhái Concept Toàn Diện! Em là trợ lý thông minh, em có thể hỗ trợ đặt bàn hoặc xem thực đơn ngay ạ!",
+      "fallbackMessage": "Dạ em xin phép ghi nhận thông tin và chuyển ngay đến Quản lý của Đạo Nhái Concept Toàn Diện để hỗ trợ quý khách ạ!",
+      "agentEscalation": true
+    }
+  }
+]

@@ -8,6 +8,7 @@ export const getCategoriesRestaurantRepository = {
             select: {
                 id: true,
                 name: true,
+                icon: true,
                 isActive: true,
                 bgColor: true,
                 textColor: true,

@@ -81,8 +81,7 @@ export const getMyReviewsStatsRepo = async (userId) => {
     const [stats, totalReviews, completedReservations] = await Promise.all([
         prisma.review_Restaurant.aggregate({
             where: { userId },
-            _avg: { overall_rating: true },
-            _sum: { helpful_count: true }
+            _avg: { overall_rating: true }
         }),
         prisma.review_Restaurant.count({
             where: { userId }
@@ -106,7 +105,7 @@ export const getMyReviewsStatsRepo = async (userId) => {
     return {
         totalReviews,
         averageRating: stats._avg.overall_rating ? Number(stats._avg.overall_rating.toFixed(1)) : 0,
-        helpfulCount: stats._sum.helpful_count || 0,
+        helpfulCount: 0,
         unreviewedCount
     };
 };

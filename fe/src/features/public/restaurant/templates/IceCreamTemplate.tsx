@@ -212,6 +212,7 @@ export default function IceCreamTemplate({ idRestaurant, coreInfo, hoursData }: 
                 <BookingConfirmationModal 
                     isOpen={isConfirmModalOpen}
                     onClose={() => setIsConfirmModalOpen(false)}
+                    idRestaurant={idRestaurant}
                     draftData={bookingDraft}
                 />
             </div>

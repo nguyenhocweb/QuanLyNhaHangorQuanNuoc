@@ -27,6 +27,7 @@ import subscriptionRouter from "./subscription/subscription.router.js";
 import apiKeyRouter from "./api_key/api_key.router.js";
 import aiChatboxRouter from "./ai_chatbox/ai_chatbox.router.js";
 import aiModelRouter from "./ai_model/ai_model.router.js";
+import paymentConfigRouter from "./payment_config/payment_config.router.js";
 
 // Import Notification từ thư mục chung
 import notificationRouter from "../notifications/notification.router.js";
@@ -61,6 +62,7 @@ route.use("/:id_brand/subscription", subscriptionRouter);
 route.use("/:id_brand/api-key", apiKeyRouter);
 route.use("/:id_brand/ai-chatboxes", aiChatboxRouter);
 route.use("/:id_brand/ai-models", aiModelRouter);
+route.use("/:id_brand/payment-configs", paymentConfigRouter);
 
 // Đặc biệt: Notifications
 route.use("/:id_brand/notifications", (req, res, next) => {

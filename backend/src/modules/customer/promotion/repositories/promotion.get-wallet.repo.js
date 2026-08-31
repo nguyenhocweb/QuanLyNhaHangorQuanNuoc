@@ -78,6 +78,14 @@ export const getMyVoucherWalletRepo = async (userId, { page = 1, limit = 10, sta
             savedAt: up.savedAt,
             promotion: {
                 ...promo,
+                discountType: promo.discount_type,
+                discountValue: promo.discount_value,
+                minOrderValue: promo.min_order_value,
+                maxDiscount: promo.max_discount,
+                validFrom: promo.valid_from,
+                validUntil: promo.valid_until,
+                usageLimit: promo.usage_limit,
+                usedCount: promo.used_count,
                 restaurant: resInfo || null,
                 brand: brandInfo || null
             }
@@ -87,17 +95,17 @@ export const getMyVoucherWalletRepo = async (userId, { page = 1, limit = 10, sta
     // Lọc chi tiết active / expiring_soon / expired trong bộ nhớ
     if (status === "ACTIVE") {
         mappedItems = mappedItems.filter(item => {
-            const validUntil = new Date(item.promotion.validUntil);
+            const validUntil = new Date(item.promotion.valid_until);
             return validUntil >= now && item.promotion.isActive;
         });
     } else if (status === "EXPIRING_SOON") {
         mappedItems = mappedItems.filter(item => {
-            const validUntil = new Date(item.promotion.validUntil);
+            const validUntil = new Date(item.promotion.valid_until);
             return validUntil >= now && validUntil <= threeDaysLater && item.promotion.isActive;
         });
     } else if (status === "EXPIRED") {
         mappedItems = mappedItems.filter(item => {
-            const validUntil = new Date(item.promotion.validUntil);
+            const validUntil = new Date(item.promotion.valid_until);
             return validUntil < now || !item.promotion.isActive;
         });
     }
@@ -140,7 +148,7 @@ export const getMyVoucherWalletStatsRepo = async (userId) => {
         }
         const promo = promotionMap.get(up.promotionId);
         if (promo && promo.isActive) {
-            const validUntil = new Date(promo.validUntil);
+            const validUntil = new Date(promo.valid_until);
             if (validUntil >= now) {
                 activeCount++;
                 if (validUntil <= threeDaysLater) {

@@ -1,20 +1,28 @@
 import { z } from "zod";
+import { demoValidator } from "../../../../core/utils/validator.js";
 
 const upgradeRequest = {
     body: z.object({
-        brandName: z.string({
-            required_error: "Tên thương hiệu là bắt buộc",
-            invalid_type_error: "Tên thương hiệu phải là chuỗi"
-        }).min(2, "Tên thương hiệu phải có ít nhất 2 ký tự"),
+        brandName: demoValidator.chuoi("Tên thương hiệu"),
+        logo: z.string().url("Đường dẫn logo không hợp lệ").optional().or(z.literal("")),
+        description: z.string().optional(),
         
-        taxCode: z.string({
-            invalid_type_error: "Mã số thuế phải là chuỗi"
+        representativeName: demoValidator.chuoi("Họ tên người đại diện").optional(),
+        phoneContact: demoValidator.soDienThoai("Số điện thoại liên hệ").optional(),
+        emailContact: demoValidator.email("Email liên hệ").optional(),
+        address: z.object({
+            street: z.string().optional(),
+            ward: z.string().optional(),
+            wardCode: z.string().optional(),
+            district: z.string().optional(),
+            districtCode: z.string().optional(),
+            province: z.string().optional(),
+            provinceCode: z.string().optional(),
         }).optional(),
-        
-        businessLicense: z.string({
-            required_error: "Vui lòng tải lên giấy phép kinh doanh",
-            invalid_type_error: "Giấy phép kinh doanh phải là đường dẫn URL"
-        }).url("Đường dẫn giấy phép kinh doanh không hợp lệ")
+
+        taxCode: z.string().optional(),
+        businessLicense: z.string().url("Đường dẫn giấy phép kinh doanh không hợp lệ").optional().or(z.literal("")),
+        identityCard: z.array(z.string()).optional().default([]),
     })
 };
 

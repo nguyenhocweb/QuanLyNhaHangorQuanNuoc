@@ -1,6 +1,7 @@
 model Category_Restaurant {
   id            String       @id @default(auto()) @map("_id") @db.ObjectId
   name          String       @unique // VD: Lẩu, Nướng, Chay, Hàn Quốc...
+  icon          String?      // Biểu tượng icon (FiCoffee, FiLayers, ...)
   isActive      Boolean      @default(true)
   description   String?
   bgColor       String?      @default("#EEF2FF") // Default indigo-50

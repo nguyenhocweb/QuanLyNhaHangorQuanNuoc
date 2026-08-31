@@ -3,15 +3,11 @@ import { prisma } from "../../../../databases/init.mongodb.js";
 export const getPublicRestaurantReviewsRepo = async (restaurantId, skip, limit, rating = null, sortBy = "latest", hasImage = false) => {
     const where = {
         restaurantId,
-        status: "APPROVED"
+        is_public: true
     };
 
-    if (rating && rating >= 1 && rating <= 5) {
-        where.overall_rating = rating;
-    }
-
-    if (hasImage === 'true' || hasImage === true) {
-        where.images = { isEmpty: false };
+    if (rating && Number(rating) >= 1 && Number(rating) <= 5) {
+        where.overall_rating = Number(rating);
     }
 
     let orderBy = {};
@@ -48,13 +44,19 @@ export const getPublicRestaurantReviewsRepo = async (restaurantId, skip, limit, 
                 ambiance_rating: true,
                 comment: true,
                 staff_response: true,
-                images: true,
-                helpful_count: true,
                 createdAt: true,
                 user: {
                     select: {
+                        id: true,
                         name: true,
                         avatar: true
+                    }
+                },
+                reservation: {
+                    select: {
+                        guest_name: true,
+                        party_size: true,
+                        reservation_date: true
                     }
                 }
             }

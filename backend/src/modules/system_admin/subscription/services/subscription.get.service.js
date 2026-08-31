@@ -1,9 +1,9 @@
-import { FEATURE_NAMES } from "../../../../constants/subscription.constant.js";
+import { CONFIGURABLE_FEATURE_NAMES } from "../../../../constants/subscription.constant.js";
 import * as getRepo from "../repositories/subscription.get.repo.js";
 
-// Lấy danh sách tính năng
+// Lấy danh sách tính năng nâng cao có thể cấu hình
 export const getSubscriptionFeatures = async () => {
-    return FEATURE_NAMES;
+    return CONFIGURABLE_FEATURE_NAMES;
 };
 
 // Lấy danh sách gói cước (kèm phân trang, tìm kiếm)

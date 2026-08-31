@@ -8,7 +8,6 @@ export const tableUpdateValidator = z.object({
         table_type: z.enum(["STANDARD", "VIP"]).optional(),
         min_capacity: demoValidator.int("Sức chứa tối thiểu", 1).optional(),
         max_capacity: demoValidator.int("Sức chứa tối đa", 1).optional(),
-        is_vip: demoValidator.boolean("VIP").optional(),
         shape: z.enum(["ROUND", "RECT", "LONG", "SQUARE", "CIRCLE", "OVAL", "TRIANGLE", "HEXAGON", "STAR", "LINE"]).optional(),
         color: demoValidator.chuoi("Màu sắc").optional(),
         is_combinable: demoValidator.boolean("Có thể ghép bàn").optional(),

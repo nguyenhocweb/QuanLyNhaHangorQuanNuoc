@@ -43,7 +43,6 @@ export const getAreasWithTablesService = async (restaurantId) => {
             return {
                 id: table.id,
                 table_number: table.table_number,
-                is_vip: table.is_vip,
                 min_capacity: table.min_capacity,
                 max_capacity: table.max_capacity,
                 status: table.status,

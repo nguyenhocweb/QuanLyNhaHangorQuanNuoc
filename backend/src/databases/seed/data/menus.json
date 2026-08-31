@@ -1,0 +1,178 @@
+[
+  {
+    "category_name": "Món Khai Vị & Salad",
+    "description": "Các món gỏi, salad tươi mát kích thích vị giác đầu bữa ăn",
+    "sort_order": 1,
+    "items": [
+      {
+        "name": "Salad Cá Hồi Xông Khói Sốt Chanh Dây",
+        "slug": "salad-ca-hoi-xong-khoi",
+        "base_price": 145000,
+        "calories": 280,
+        "prep_time": 10,
+        "spice_level": 0,
+        "is_featured": true,
+        "dietary_tags": ["Healthy", "High-Protein"],
+        "allergens": ["Hải sản"],
+        "image": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=800&auto=format&fit=crop&q=80"
+      },
+      {
+        "name": "Khoai Tây Lắc Phô Mai Truffle Sợi",
+        "slug": "khoai-tay-lac-pho-mai-truffle",
+        "base_price": 89000,
+        "calories": 350,
+        "prep_time": 8,
+        "spice_level": 0,
+        "is_featured": false,
+        "dietary_tags": ["Vegetarian"],
+        "allergens": ["Sữa/Bơ"],
+        "image": "https://images.unsplash.com/photo-1576107232684-1279f3908594?w=800&auto=format&fit=crop&q=80"
+      },
+      {
+        "name": "Súp Kem Bí Đỏ Nấm Húng Quế",
+        "slug": "sup-kem-bi-do-nam",
+        "base_price": 95000,
+        "calories": 220,
+        "prep_time": 8,
+        "spice_level": 0,
+        "is_featured": false,
+        "dietary_tags": ["Vegetarian", "Healthy"],
+        "allergens": ["Sữa"],
+        "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=800&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "category_name": "Món Chính Đặc Sắc",
+    "description": "Tinh hoa ẩm thực chế biến từ nguyên liệu thượng hạng chuẩn bếp trưởng",
+    "sort_order": 2,
+    "items": [
+      {
+        "name": "Bò Wagyu Thượng Hạng Nướng Đá Nóng",
+        "slug": "bo-wagyu-nuong-da-nong",
+        "base_price": 680000,
+        "calories": 620,
+        "prep_time": 18,
+        "spice_level": 1,
+        "is_featured": true,
+        "dietary_tags": ["Signature", "Chef-Special"],
+        "allergens": ["Thịt bò"],
+        "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=80",
+        "variants": [
+          { "name": "Phần Tiêu Chuẩn (200g)", "sku_suffix": "REG", "price": 680000 },
+          { "name": "Phần Lớn Thượng Hạng (350g VIP)", "sku_suffix": "LRG", "price": 1050000 }
+        ]
+      },
+      {
+        "name": "Pizza 4 Loại Phô Mai Nướng Củi Truyền Thống",
+        "slug": "pizza-4-loai-pho-mai",
+        "base_price": 260000,
+        "calories": 550,
+        "prep_time": 15,
+        "spice_level": 0,
+        "is_featured": true,
+        "dietary_tags": ["Italian-Original"],
+        "allergens": ["Gluten", "Sữa/Phô mai"],
+        "image": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&auto=format&fit=crop&q=80",
+        "variants": [
+          { "name": "Size Vừa (9 inch)", "sku_suffix": "M", "price": 260000 },
+          { "name": "Size Lớn (12 inch)", "sku_suffix": "L", "price": 350000 }
+        ],
+        "modifiers": {
+          "group_name": "Thêm Topping Phô Mai & Trứng",
+          "min_selections": 0,
+          "max_selections": 3,
+          "options": [
+            { "name": "Thêm Phô Mai Mozzarella Sợi", "price_extra": 35000 },
+            { "name": "Thêm Trứng Ốp La Lòng Đào", "price_extra": 15000 },
+            { "name": "Thêm Nấm Truffle Đen", "price_extra": 55000 }
+          ]
+        }
+      },
+      {
+        "name": "Cá Hồi Áp Chảo Sốt Bơ Tỏi Măng Tây",
+        "slug": "ca-hoi-ap-chao-sot-bo-toi",
+        "base_price": 380000,
+        "calories": 480,
+        "prep_time": 15,
+        "spice_level": 0,
+        "is_featured": true,
+        "dietary_tags": ["Healthy", "Omega-3"],
+        "allergens": ["Hải sản", "Bơ"],
+        "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "category_name": "Lẩu & Nướng Hảo Hạng",
+    "description": "Nước dùng hầm xương 24h và thịt tươi thái mỏng nhúng lẩu",
+    "sort_order": 3,
+    "items": [
+      {
+        "name": "Set Lẩu Nấm Thiên Nhiên Thượng Phẩm",
+        "slug": "set-lau-nam-thien-nhien",
+        "base_price": 490000,
+        "calories": 410,
+        "prep_time": 20,
+        "spice_level": 0,
+        "is_featured": true,
+        "dietary_tags": ["Healthy", "Organic"],
+        "allergens": ["Nấm"],
+        "image": "https://images.unsplash.com/photo-1547592180-85f173990554?w=800&auto=format&fit=crop&q=80"
+      },
+      {
+        "name": "Combo Nướng Thịt Dẻ Sườn Bò Mỹ & Nầm Heo",
+        "slug": "combo-nuong-de-suon-bo-my",
+        "base_price": 550000,
+        "calories": 750,
+        "prep_time": 15,
+        "spice_level": 1,
+        "is_featured": true,
+        "dietary_tags": ["BBQ", "High-Protein"],
+        "allergens": ["Thịt bò", "Mè"],
+        "image": "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&auto=format&fit=crop&q=80"
+      }
+    ]
+  },
+  {
+    "category_name": "Đồ Uống & Tráng Miệng",
+    "description": "Trà hoa quả nhiệt đới, cocktail & bánh ngọt tráng miệng",
+    "sort_order": 4,
+    "items": [
+      {
+        "name": "Trà Oolong Đào Cam Sả Tươi",
+        "slug": "tra-oolong-dao-cam-sa",
+        "base_price": 65000,
+        "calories": 120,
+        "prep_time": 5,
+        "spice_level": 0,
+        "is_featured": false,
+        "dietary_tags": ["Cold-Drink"],
+        "allergens": [],
+        "image": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=800&auto=format&fit=crop&q=80",
+        "modifiers": {
+          "group_name": "Chọn Độ Ngọt & Lượng Đá",
+          "min_selections": 0,
+          "max_selections": 2,
+          "options": [
+            { "name": "Ít ngọt (50% Đường)", "price_extra": 0 },
+            { "name": "Ít đá (50% Đá)", "price_extra": 0 },
+            { "name": "Thêm Trân Châu Trắng Giòn", "price_extra": 10000 }
+          ]
+        }
+      },
+      {
+        "name": "Bánh Tiramisu Truyền Thống Ý",
+        "slug": "banh-tiramisu-truyen-thong",
+        "base_price": 85000,
+        "calories": 290,
+        "prep_time": 5,
+        "spice_level": 0,
+        "is_featured": true,
+        "dietary_tags": ["Dessert"],
+        "allergens": ["Trứng", "Sữa", "Rượu Rum"],
+        "image": "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&auto=format&fit=crop&q=80"
+      }
+    ]
+  }
+]

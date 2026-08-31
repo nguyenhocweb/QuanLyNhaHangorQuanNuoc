@@ -21,7 +21,35 @@ import notificationRouter from "../notifications/notification.router.js";
 
 const route = Router();
 
-// Các route có :restaurantId
+// ==========================================
+// 1. Direct Routes (URL dạng /api/v1/restaurant-manager/order?restaurantId=...)
+// ==========================================
+route.use("/ai", aiRouter);
+route.use("/area", areaRouter);
+route.use("/cashier", cashierRouter);
+route.use("/crm", crmRouter);
+route.use("/inventory-request", requestsRouter);
+route.use("/inventory-stock", stocksRouter);
+route.use("/inventory-stock-count", stockCountsRouter);
+route.use("/inventory/requests", requestsRouter);
+route.use("/menu", menuRouter);
+route.use("/operating-hours", operatingHoursRouter);
+route.use("/order", orderRouter);
+route.use("/promotion", promotionRouter);
+route.use("/report", reportRouter);
+route.use("/reservation", reservationRouter);
+route.use("/review", reviewRouter);
+route.use("/staff", staffRouter);
+route.use("/table", tableRouter);
+route.use("/table-maintenance", tableMaintenanceRouter);
+route.use("/notifications", (req, res, next) => {
+    req.workspaceContext = "RESTAURANT";
+    next();
+}, notificationRouter);
+
+// ==========================================
+// 2. Parametric Routes (URL dạng /api/v1/restaurant-manager/:restaurantId/order)
+// ==========================================
 route.use("/:restaurantId/ai", aiRouter);
 route.use("/:restaurantId/area", areaRouter);
 route.use("/:restaurantId/cashier", cashierRouter);
@@ -29,6 +57,7 @@ route.use("/:restaurantId/crm", crmRouter);
 route.use("/:restaurantId/inventory-request", requestsRouter);
 route.use("/:restaurantId/inventory-stock", stocksRouter);
 route.use("/:restaurantId/inventory-stock-count", stockCountsRouter);
+route.use("/:restaurantId/inventory/requests", requestsRouter);
 route.use("/:restaurantId/menu", menuRouter);
 route.use("/:restaurantId/operating-hours", operatingHoursRouter);
 route.use("/:restaurantId/order", orderRouter);

@@ -1,91 +1,67 @@
-// seed/index.js
-import { connectDB, disconnectDB, prisma } from '../init.mongodb.js';
+import { prisma } from "../init.mongodb.js";
+import { seedSystemRoles } from "./runners/00-system-roles.seed.js";
+import { seedUsers } from "./runners/01-users.seed.js";
+import { seedBrands } from "./runners/02-brands.seed.js";
+import { seedRestaurants } from "./runners/03-restaurants.seed.js";
+import { seedTables } from "./runners/04-tables.seed.js";
+import { seedMenus } from "./runners/05-menus.seed.js";
+import { seedCrmAndReservations } from "./runners/06-crm-reservations.seed.js";
+import { seedOrders } from "./runners/07-orders.seed.js";
+import { seedInventory } from "./runners/08-inventory.seed.js";
+import { seedSystemAudit } from "./runners/09-system-audit.seed.js";
 
-import { users_Extension } from './extensions/user.extension.js';
-import { Brand_Extension } from './extensions/brand.extension.js';
-import { restaurant_Extension } from './extensions/restaurant.extension.js';
-import { employment_Extension } from './extensions/employment.extension.js';
-import { emp_vd_per_extension } from "./extensions/emloyment_vs_permission.extension.js";
-import { operatingHoursExtension } from "./extensions/operating_hours.extension.js";
-import { RestaurantAreas_Extension } from "./extensions/restaurant_areas.extension.js"
-import { Special_Schedules_Extension } from "./extensions/special_schedules.extension.js";
-import { table_Extension } from "./extensions/table.extension.js";
-import { reservations_Extension } from  "./extensions/reservations.extension.js";
-import { reservationTablesExtension } from "./extensions/reservationTables.extension.js"
-import { notificationExtension } from "./extensions/notifications.extension.js"
-import { reviewRestaurantExtension } from "./extensions/review_restaurant.extension.js";
-import { reservationAuditLogsExtension } from "./extensions/reservation_audit_log.extension.js"
-import { menusExtension } from "./extensions/menu.extension.js";
+/**
+ * MASTER SEED ORCHESTRATOR
+ * Điều phối luồng khởi tạo dữ liệu đa tầng cho 100% 71 Bảng Cơ Sở Dữ Liệu
+ */
+async function main() {
+    console.log("==================================================================");
+    console.log("🚀 BẮT ĐẦU CHẠY SEEDING DỮ LIỆU TOÀN DIỆN (SYSTEM MASTER SEED)...");
+    console.log("==================================================================");
 
-const runSeed = async () => {
+    const startTime = Date.now();
+
     try {
-        console.log('🌱 Starting Mock Data Seed...');
-        
-        await connectDB();
-        
-        console.log('🗑️ Cleaning old mock data (Skipping Mandatory Data)...');
-        
-        await prisma.permission_vs_Employment.deleteMany({});
-        
-        await prisma.notifications.deleteMany({});
-        await prisma.Reservation_Audit_Log.deleteMany({});
-        await prisma.reservation_Tables.deleteMany({});
-        await prisma.Review_Restaurant.deleteMany({});
-        await prisma.reservations.deleteMany({});
-        
-        await prisma.employment.deleteMany({});
-        await prisma.operating_Hours.deleteMany({});
-        await prisma.special_Schedules.deleteMany({});
-        await prisma.tables.deleteMany({});
-        await prisma.restaurant_Areas.deleteMany({});
-        await prisma.MenuCategory.deleteMany({});
-        await prisma.Menu.deleteMany({});
-        
-        await prisma.invoice.deleteMany({});
-        await prisma.brandSubscriptionTransaction.deleteMany({});
-        await prisma.brandSubscription.deleteMany({});
-        
-        await prisma.brandRevenue.deleteMany({});
-        await prisma.restaurantRevenue.deleteMany({});
-        await prisma.restaurant.deleteMany({});
-        await prisma.brand.deleteMany({});
-        
-        // Delete all users EXCEPT the mandatory Admin user
-        await prisma.user.deleteMany({
-            where: {
-                email: { not: "admin01@example.com" }
-            }
-        });
-        // await prisma.role.deleteMany({}); // MANDATORY DATA (SystemRole / WorkspaceRole)
+        // [Tầng 0] Khởi tạo Master Roles, Plans, Categories & Phân quyền hệ thống
+        await seedSystemRoles();
 
-        console.log('🚀 Seeding Mock Data...');
+        // [Tầng 1] Khởi tạo Users (Admin, 50 QLTH, 60 QLNH, 51 Khách hàng từ JSON)
+        await seedUsers();
         
-        await users_Extension(prisma);
-        await Brand_Extension(prisma);
-        await restaurant_Extension(prisma);
-        await employment_Extension(prisma);
-        await emp_vd_per_extension(prisma);
-        
-        await operatingHoursExtension(prisma);
-        await Special_Schedules_Extension(prisma);
-        await RestaurantAreas_Extension(prisma);
-        await table_Extension(prisma);
-        
-        await reservations_Extension(prisma);
-        await reservationTablesExtension(prisma);
-        await notificationExtension(prisma);
-        
-        // await reviewRestaurantExtension(prisma);
-        await reservationAuditLogsExtension(prisma);
-        await menusExtension(prisma);
+        // [Tầng 2] Khởi tạo 50 Brands & Toàn bộ cấu hình hệ sinh thái Multi-Tenant
+        await seedBrands();
 
-        console.log('✅ Hoàn thành quá trình Seed Mock Data!');
+        // [Tầng 3] Khởi tạo 60 Restaurants & Chi nhánh, Khu vực, Giờ mở cửa, Phân quyền
+        await seedRestaurants();
+
+        // [Tầng 4] Khởi tạo Bàn Ăn (Tables), Sơ Đồ Bàn POS & Lịch Bảo Trì
+        await seedTables();
+
+        // [Tầng 5] Khởi tạo Thực Đơn (Menus), Danh Mục, Món Ăn, Biến Thể, Topping
+        await seedMenus();
+
+        // [Tầng 6] Khởi tạo CRM Khách Hàng Thân Thiết, Đặt Bàn, Voucher & Đánh Giá 5 Sao
+        await seedCrmAndReservations();
+
+        // [Tầng 7] Khởi tạo Đơn Gọi Món (Orders), Bếp KDS, Thanh Toán & Hóa Đơn VAT
+        await seedOrders();
+
+        // [Tầng 8] Khởi tạo Chuỗi Cung Ứng, Kho Nguyên Liệu, Định Lượng & Đơn Mua Hàng
+        await seedInventory();
+
+        // [Tầng 9] Khởi tạo Kiểm Toán Hệ Thống, AI ApiKeys, UpgradeRequests & Webhook Logs
+        await seedSystemAudit();
+
+        const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+        console.log("==================================================================");
+        console.log(`🎉 TOÀN BỘ 71 BẢNG DATABASE ĐÃ ĐƯỢC SEED THÀNH CÔNG TRONG ${duration} GIÂY!`);
+        console.log("==================================================================");
     } catch (error) {
-        console.error('❌ Seed Failed:', error);
+        console.error("🔥 LỖI XẢY RA TRONG QUÁ TRÌNH SEEDING:", error);
+        process.exit(1);
     } finally {
-        await disconnectDB();
-        process.exit(0);
+        await prisma.$disconnect();
     }
-};
+}
 
-runSeed();
+main();

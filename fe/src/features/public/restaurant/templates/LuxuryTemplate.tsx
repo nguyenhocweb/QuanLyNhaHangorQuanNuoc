@@ -175,6 +175,7 @@ export default function LuxuryTemplate({ idRestaurant, coreInfo, hoursData }: Te
                 <BookingConfirmationModal
                     isOpen={isConfirmModalOpen}
                     onClose={() => setIsConfirmModalOpen(false)}
+                    idRestaurant={idRestaurant}
                     draftData={bookingDraft}
                     variant="luxury"
                 />

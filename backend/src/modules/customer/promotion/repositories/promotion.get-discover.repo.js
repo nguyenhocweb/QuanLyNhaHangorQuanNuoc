@@ -9,7 +9,7 @@ export const getDiscoverPromotionsRepo = async (userId, { page = 1, limit = 10, 
 
     const where = {
         isActive: true,
-        validUntil: {
+        valid_until: {
             gte: now
         }
     };
@@ -35,7 +35,7 @@ export const getDiscoverPromotionsRepo = async (userId, { page = 1, limit = 10, 
             skip: parseInt(skip),
             take: parseInt(limit),
             orderBy: {
-                validUntil: 'asc'
+                valid_until: 'asc'
             }
         }),
         prisma.promotion.count({ where })
@@ -75,6 +75,14 @@ export const getDiscoverPromotionsRepo = async (userId, { page = 1, limit = 10, 
 
         return {
             ...p,
+            discountType: p.discount_type,
+            discountValue: p.discount_value,
+            minOrderValue: p.min_order_value,
+            maxDiscount: p.max_discount,
+            validFrom: p.valid_from,
+            validUntil: p.valid_until,
+            usageLimit: p.usage_limit,
+            usedCount: p.used_count,
             restaurant: resInfo || null,
             brand: brandInfo || null,
             isSaved: savedSet.has(p.id)

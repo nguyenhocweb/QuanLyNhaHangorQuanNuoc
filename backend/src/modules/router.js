@@ -1,4 +1,4 @@
-﻿import { Router } from "express";
+import { Router } from "express";
 
 // --- MIDDLEWARES ---
 import { authenticateToken } from "../core/middlewares/authenticateToken.js";
@@ -20,6 +20,7 @@ const route = Router();
 // 1. PUBLIC API (Không cần đăng nhập)
 // ==========================================
 route.use("/", publicRouter);
+route.use("/public", publicRouter);
 route.use("/cloudinary", cloudinaryRouter);
 
 // ==========================================
@@ -35,7 +36,7 @@ route.use("/user", authenticateToken, sharedUserRouter);
 route.use(
     "/customer",
     authenticateToken,
-    authorizeRole("Khách hàng", "Admin"),
+    authorizeRole("Khách hàng", "Admin", "Quản lý thương hiệu", "Quản lý nhà hàng", "Nhân viên"),
     customerRouter
 );
 

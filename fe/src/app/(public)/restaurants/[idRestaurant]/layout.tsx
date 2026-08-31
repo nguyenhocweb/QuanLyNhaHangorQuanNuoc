@@ -9,8 +9,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     try {
         // Fetch metadata from backend bypassing the client-side axios instance
         // Assuming backend runs on port 8000. In production, use process.env.NEXT_PUBLIC_API_URL
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1';
-        const { data } = await axios.get(`${apiUrl}/public/restaurant/v2/${params.idRestaurant}`);
+        const apiUrl = process.env.NEXT_PUBLIC_BASE_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1';
+        const { data } = await axios.get(`${apiUrl}/restaurant/v2/${params.idRestaurant}`);
         const restaurant = data.metadata;
 
         return {

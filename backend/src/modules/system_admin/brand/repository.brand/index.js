@@ -1,38 +1,35 @@
-﻿import { prisma } from "../../../../databases/init.mongodb.js";
+import { prisma } from "../../../../databases/init.mongodb.js"
+
+export const countBrands = async (where = {}) => {
+    const condition = (where && typeof where === 'object' && 'where' in where) ? where.where : where;
+    return prisma.brand.count({
+        where: condition || {}
+    });
+};
+
+export const getBrandsPagination = countBrands;
+const today = new Date();
+const day = today.getDay();//lấy thứ trong tuần
 
 export const createBrand = async (data) => {
     const brand = await prisma.brand.create({
-        data,
-        select: {
-            id: true,
-        },
+        data: data
     });
-
-    return brand?.id || null;
+    return brand.id;
 };
 
-export const updateBrandById = async (_id, data) => {
+export const updateBrandById = async (id, data) => {
     try {
-        await prisma.brand.update({
-            where: { id: _id },
-            data,
+        const brand = await prisma.brand.update({
+            where: { id: id },
+            data: data
         });
-        return true;
+        return brand;
     } catch (error) {
-        if (error?.code === "P2025") {
-            return false;
-        }
-        throw error;
+        return null;
     }
 };
 
-export const countBrands = async (where) => {
-    return prisma.brand.count({
-        where: where
-    });
-}
-const today = new Date();
-const day = today.getDay();//lấy thứ trong tuần
 export const getBrandById = async (_id) => {
     const brand = await prisma.brand.findUnique({
         where: { id: _id },
@@ -53,7 +50,6 @@ export const getBrandById = async (_id) => {
             updatedAt: true,
             address: true,
             new: true,
-            reason: true,
             _count: {
                 select: {
                     restaurants: true
@@ -65,13 +61,9 @@ export const getBrandById = async (_id) => {
                 }
             },
             employments: {
-                where: { 
-                    restaurantId: null,
-                    workspaceRole: {
-                        name: { in: ["Quản lý thương hiệu", "Quản lý thương hiệu"] }
-                    }
-                },
                 select: {
+                    restaurantId: true,
+                    workspaceRole: { select: { name: true } },
                     user: {
                         select: { id: true, name: true, user_name: true, email: true, sdt: true, avatar: true }
                     }
@@ -105,12 +97,12 @@ export const getBrandById = async (_id) => {
                     ratingStats: true,
                     address: true,
                     isNew: true,
-                    categories: {
+                    categoryRestaurants: {
                         select: {
                             name: true
                         }
                     },
-                    operatingHours: {
+                    operating_hours: {
                         where: { day_of_week: day },
                         take: 1,
                         select: {
@@ -119,12 +111,9 @@ export const getBrandById = async (_id) => {
                         }
                     },
                     employments: {
-                        where: {
-                            workspaceRole: {
-                                name: "Quản lý nhà hàng"
-                            }
-                        },
                         select: {
+                            restaurantId: true,
+                            workspaceRole: { select: { name: true } },
                             user: {
                                 select: { id: true, name: true, user_name: true, email: true, sdt: true, avatar: true }
                             }
@@ -134,20 +123,31 @@ export const getBrandById = async (_id) => {
             }
         }
     });
+
     if (!brand) return null;
-        brand.restaurants = brand.restaurants.map(({ operatingHours, ...rest }) => {
+
+    // Lọc quản lý thương hiệu cấp Brand
+    brand.employments = (brand.employments || []).filter(
+        e => !e.restaurantId && e.workspaceRole?.name === "Quản lý thương hiệu"
+    );
+
+    brand.restaurants = brand.restaurants.map(({ operating_hours, employments, ...rest }) => {
         // Lấy phần tử đầu tiên nếu mảng có dữ liệu
-        const hours = operatingHours[0];
+        const hours = operating_hours?.[0];
+        const restaurantManagers = (employments || []).filter(
+            e => e.workspaceRole?.name === "Quản lý nhà hàng"
+        );
+
         return {
             ...rest,
+            employments: restaurantManagers,
             time: hours
                 ? `${hours.open_time} - ${hours.close_time}`
                 : "Hôm nay nghỉ"
         };
     });
-    const {imageMain,images,_count, ...rest}=brand;
-    
-    // Format to frontend camelCase
+
+    const { _count, tax_code, email_contact, phone_contact, new: isNewField, imageMain, images, ...rest } = brand;
     rest.taxCode = rest.tax_code;
     delete rest.tax_code;
     rest.emailContact = rest.email_contact;
@@ -163,8 +163,9 @@ export const getBrandById = async (_id) => {
         return r;
     });
 
-    return { ...rest, restaurants: brand.restaurants, images: imageMain ? [imageMain, ...images] : images, restaurantCount: _count?.restaurants || 0 };
+    return { ...rest, employments: brand.employments, restaurants: brand.restaurants, images: imageMain ? [imageMain, ...images] : images, restaurantCount: _count?.restaurants || 0 };
 }
+
 export const getBrands = async ({ where, page, limit }) => {
     const result = await prisma.brand.findMany({
         where: where,
@@ -191,35 +192,34 @@ export const getBrands = async ({ where, page, limit }) => {
             link: true,
             _count: {
                 select: {
-                    restaurants: true // Đếm tất cả nhà hàng (hoặc giữ nguyên tuỳ ý)
+                    restaurants: true // Đếm tất cả nhà hàng
                 }
             },
             employments: {
-                where: { 
-                    restaurantId: null,
-                    workspaceRole: {
-                        name: { in: ["Quản lý thương hiệu", "Quản lý thương hiệu"] }
-                    }
-                },
                 select: {
+                    restaurantId: true,
+                    workspaceRole: { select: { name: true } },
                     user: {
-                        select: { id: true, name: true, email: true, sdt: true, avatar: true }
+                        select: { id: true, name: true, user_name: true, email: true, sdt: true, avatar: true }
                     }
                 }
             }
         }
     });
+
     if (result) {
-        return result.map(({ _count, tax_code, email_contact, phone_contact, new: isNewField, ...e }) => ({ 
+        return result.map(({ _count, tax_code, email_contact, phone_contact, new: isNewField, employments, ...e }) => ({ 
             ...e, 
             taxCode: tax_code,
             emailContact: email_contact,
             phoneContact: phone_contact,
             isNew: isNewField,
             numberRestaurant: _count.restaurants,
-            restaurantCount: _count.restaurants 
-        }))
+            restaurantCount: _count.restaurants,
+            employments: (employments || []).filter(
+                emp => !emp.restaurantId && emp.workspaceRole?.name === "Quản lý thương hiệu"
+            )
+        }));
     }
-    return null
+    return null;
 }
-

@@ -198,6 +198,7 @@ export default function CafeTemplate({ idRestaurant, coreInfo, hoursData }: Cafe
                 <BookingConfirmationModal 
                     isOpen={isConfirmModalOpen}
                     onClose={() => setIsConfirmModalOpen(false)}
+                    idRestaurant={idRestaurant}
                     draftData={bookingDraft}
                 />
             </div>

@@ -19,7 +19,7 @@ export const cancelReservationService = async (id, userId, reason) => {
     }
 
     // Kiểm tra quy định hủy bàn của nhà hàng (cancellationHours)
-    const cancellationHours = reservation.restaurant?.cancellationHours || 0;
+    const cancellationHours = reservation.restaurant?.bookingConfig?.cancellationHours || 0;
     
     if (cancellationHours > 0 && reservation.reservation_date && reservation.start_time) {
         // Kết hợp reservation_date và start_time

@@ -17,7 +17,7 @@ export const getPublicRestaurantMenuRepo = async (restaurantId) => {
         where: {
             OR: [
                 { restaurantId: restaurantId },
-                { brandId: restaurant.brandId }
+                ...(restaurant.brandId ? [{ brandId: restaurant.brandId }] : [])
             ],
             is_active: true
         },
@@ -28,52 +28,70 @@ export const getPublicRestaurantMenuRepo = async (restaurantId) => {
             id: true,
             name: true,
             description: true,
-            categoryMaps: {
+            type: true,
+            available_days: true,
+            available_from: true,
+            available_until: true,
+            menucategory: {
+                where: {
+                    is_active: true
+                },
                 orderBy: {
                     sort_order: 'asc'
                 },
                 select: {
-                    category: {
+                    id: true,
+                    name: true,
+                    description: true,
+                    image_url: true,
+                    items: {
+                        where: {
+                            is_available: true
+                        },
+                        orderBy: {
+                            sort_order: 'asc'
+                        },
                         select: {
                             id: true,
                             name: true,
                             description: true,
-                            itemMaps: {
-                                orderBy: {
-                                    sort_order: 'asc'
-                                },
+                            image: true,
+                            images: true,
+                            base_price: true,
+                            discount_percent: true,
+                            is_featured: true,
+                            allergens: true,
+                            spice_level: true,
+                            prep_time: true,
+                            itemVariants: {
                                 select: {
-                                    menuItem: {
+                                    id: true,
+                                    name: true,
+                                    price: true
+                                }
+                            },
+                            modifierGroups: {
+                                select: {
+                                    id: true,
+                                    name: true,
+                                    minSelections: true,
+                                    maxSelections: true,
+                                    options: {
                                         select: {
                                             id: true,
                                             name: true,
-                                            description: true,
-                                            image: true,
-                                            images: true,
-                                            basePrice: true,
-                                            is_featured: true,
-                                            allergens: true,
-                                            spice_level: true,
-                                            prep_time: true,
-                                            variants: {
-                                                select: {
-                                                    id: true,
-                                                    name: true,
-                                                    price: true
-                                                }
-                                            },
-                                            restaurantMaps: {
-                                                where: {
-                                                    restaurantId: restaurantId,
-                                                    isAvailable: true // Item còn hàng ở nhà hàng này
-                                                },
-                                                select: {
-                                                    overridePrice: true,
-                                                    isAvailable: true
-                                                }
-                                            }
+                                            priceExtra: true
                                         }
                                     }
+                                }
+                            },
+                            restaurantMenuItems: {
+                                where: {
+                                    restaurantId: restaurantId
+                                },
+                                select: {
+                                    overridePrice: true,
+                                    isAvailable: true
                                 }
                             }
                         }
@@ -83,5 +101,74 @@ export const getPublicRestaurantMenuRepo = async (restaurantId) => {
         }
     });
 
-    return activeMenus;
+    // Format & map to user-friendly structure
+    return activeMenus.map(menu => ({
+        id: menu.id,
+        name: menu.name,
+        description: menu.description,
+        type: menu.type,
+        available_days: menu.available_days,
+        available_from: menu.available_from,
+        available_until: menu.available_until,
+        categories: (menu.menucategory || []).map(cat => ({
+            id: cat.id,
+            name: cat.name,
+            description: cat.description,
+            image_url: cat.image_url,
+            items: (cat.items || []).map(item => {
+                const restOverride = item.restaurantMenuItems?.[0];
+                const finalPrice = (restOverride && restOverride.overridePrice !== null)
+                    ? restOverride.overridePrice
+                    : item.base_price;
+                return {
+                    id: item.id,
+                    name: item.name,
+                    description: item.description,
+                    image: item.image,
+                    images: item.images,
+                    price: finalPrice,
+                    basePrice: finalPrice,
+                    base_price: finalPrice,
+                    discount_percent: item.discount_percent,
+                    is_featured: item.is_featured,
+                    allergens: item.allergens,
+                    spice_level: item.spice_level,
+                    prep_time: item.prep_time,
+                    variants: item.itemVariants || [],
+                    modifierGroups: item.modifierGroups || [],
+                    isAvailable: restOverride ? restOverride.isAvailable : true
+                };
+            })
+        })),
+        menucategory: (menu.menucategory || []).map(cat => ({
+            id: cat.id,
+            name: cat.name,
+            description: cat.description,
+            image_url: cat.image_url,
+            items: (cat.items || []).map(item => {
+                const restOverride = item.restaurantMenuItems?.[0];
+                const finalPrice = (restOverride && restOverride.overridePrice !== null)
+                    ? restOverride.overridePrice
+                    : item.base_price;
+                return {
+                    id: item.id,
+                    name: item.name,
+                    description: item.description,
+                    image: item.image,
+                    images: item.images,
+                    price: finalPrice,
+                    basePrice: finalPrice,
+                    base_price: finalPrice,
+                    discount_percent: item.discount_percent,
+                    is_featured: item.is_featured,
+                    allergens: item.allergens,
+                    spice_level: item.spice_level,
+                    prep_time: item.prep_time,
+                    variants: item.itemVariants || [],
+                    modifierGroups: item.modifierGroups || [],
+                    isAvailable: restOverride ? restOverride.isAvailable : true
+                };
+            })
+        }))
+    }));
 };

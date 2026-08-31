@@ -17,7 +17,7 @@ const getReviews = async (restaurantId, filter) => {
 
 const getReviewStats = async (restaurantId) => {
     const reviews = await prisma.review_Restaurant.findMany({
-        where: { restaurantId, status: "APPROVED" },
+        where: { restaurantId, is_public: true },
         select: {
             overall_rating: true,
             food_rating: true,

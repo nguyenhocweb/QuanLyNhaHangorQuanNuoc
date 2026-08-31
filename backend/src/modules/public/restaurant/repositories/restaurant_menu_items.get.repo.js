@@ -19,73 +19,70 @@ export const getPublicMenuItemsRepo = async (restaurantId, query) => {
 
     // 2. Xây dựng bộ điều kiện filter cho MenuItem
     const whereCondition = {
-        // Chỉ lấy món ăn được PHÂN BỔ cho chi nhánh và có isAvailable = true
-        restaurantMaps: {
-            some: {
-                restaurantId: restaurantId,
-                isAvailable: true
-            }
-        },
-        // Phải thuộc Menu đang active của nhà hàng hoặc thương hiệu
-        categoryMaps: {
-            some: {
-                category: {
-                    menuMaps: {
-                        some: {
-                            menu: {
-                                is_active: true,
-                                OR: [
-                                    { restaurantId: restaurantId },
-                                    { brandId: restaurant.brandId }
-                                ]
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        OR: [
+            { restaurantId: restaurantId },
+            ...(restaurant.brandId ? [{ brandId: restaurant.brandId }] : [])
+        ],
+        is_available: true
     };
 
-    if (search) {
-        whereCondition.name = { contains: search, mode: "insensitive" };
+    if (search && search.trim()) {
+        whereCondition.name = { contains: search.trim(), mode: "insensitive" };
     }
 
-    if (categoryId) {
-        // Món ăn phải thuộc danh mục này
-        whereCondition.categoryMaps.some.categoryId = categoryId;
+    if (categoryId && categoryId.trim()) {
+        whereCondition.categoryId = categoryId.trim();
     }
 
-    if (menuId) {
-        // Món ăn phải thuộc Menu này
-        whereCondition.categoryMaps.some.category.menuMaps.some.menuId = menuId;
+    if (menuId && menuId.trim()) {
+        whereCondition.category = {
+            menuId: menuId.trim()
+        };
     }
 
-    // 3. Thực thi Query Lấy dữ liệu và Count (cho phân trang)
+    // 3. Thực thi Query Lấy dữ liệu và Count
     const [total, items] = await Promise.all([
         prisma.menuItem.count({ where: whereCondition }),
         prisma.menuItem.findMany({
             where: whereCondition,
             skip,
             take: limit,
+            orderBy: [
+                { is_featured: 'desc' },
+                { sort_order: 'asc' }
+            ],
             select: {
                 id: true,
                 name: true,
                 description: true,
                 image: true,
                 images: true,
-                basePrice: true,
+                base_price: true,
+                discount_percent: true,
                 is_featured: true,
                 allergens: true,
                 spice_level: true,
                 prep_time: true,
-                variants: {
+                category: {
+                    select: {
+                        id: true,
+                        name: true,
+                        menu: {
+                            select: {
+                                id: true,
+                                name: true
+                            }
+                        }
+                    }
+                },
+                itemVariants: {
                     select: {
                         id: true,
                         name: true,
                         price: true
                     }
                 },
-                restaurantMaps: {
+                restaurantMenuItems: {
                     where: {
                         restaurantId: restaurantId
                     },
@@ -93,30 +90,35 @@ export const getPublicMenuItemsRepo = async (restaurantId, query) => {
                         overridePrice: true,
                         isAvailable: true
                     }
-                },
-                // Include category name and menu name if needed for UI badges
-                categoryMaps: {
-                    select: {
-                        category: {
-                            select: {
-                                name: true,
-                                menuMaps: {
-                                    select: {
-                                        menu: {
-                                            select: {
-                                                name: true
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    take: 1
                 }
             }
         })
     ]);
 
-    return { total, items };
+    const formattedItems = items.map(item => {
+        const restOverride = item.restaurantMenuItems?.[0];
+        const finalPrice = (restOverride && restOverride.overridePrice !== null)
+            ? restOverride.overridePrice
+            : item.base_price;
+        return {
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            image: item.image,
+            images: item.images,
+            basePrice: finalPrice,
+            base_price: finalPrice,
+            discount_percent: item.discount_percent,
+            is_featured: item.is_featured,
+            allergens: item.allergens,
+            spice_level: item.spice_level,
+            prep_time: item.prep_time,
+            categoryName: item.category?.name,
+            menuName: item.category?.menu?.name,
+            variants: item.itemVariants || [],
+            isAvailable: restOverride ? restOverride.isAvailable : true
+        };
+    });
+
+    return { total, items: formattedItems };
 };

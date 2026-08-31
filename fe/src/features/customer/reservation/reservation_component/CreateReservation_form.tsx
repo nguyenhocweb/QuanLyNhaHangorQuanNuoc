@@ -39,14 +39,14 @@ const CreateReservation_form = ({ idRestaurant }: { idRestaurant: string }) => {
     } = useForm({
         resolver: zodResolver(ReservationShema),
         defaultValues: {
-            autoTable:true,
+            autoTable: true,
             idRestaurant,
-            userId:User.id,
-            guest_email:User.email,
-            guest_phone:User.phone,
-            guest_name:User.name,
-            reservation_date:new Date().toISOString().split("T")[0],
-            party_size:1
+            userId: User?.id || "",
+            guest_email: User?.email || "",
+            guest_phone: User?.sdt || User?.phone || "",
+            guest_name: User?.name || "",
+            reservation_date: new Date().toISOString().split("T")[0],
+            party_size: 1
         }
     })
    

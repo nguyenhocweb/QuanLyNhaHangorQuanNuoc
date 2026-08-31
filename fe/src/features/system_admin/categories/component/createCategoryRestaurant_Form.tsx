@@ -7,6 +7,7 @@ import { createCategorySchema, CreateCategoryFormValues } from "../schema/create
 import { useCreateCategoryRestaurant } from "../hook/useCreateCategoryRestaurant_hook";
 import { FiLoader, FiLayers, FiZap, FiRefreshCw } from "react-icons/fi";
 import { useRandomColor } from "@/src/core/hooks/useRandomColor";
+import { CATEGORY_ICONS, PRESET_CATEGORY_ICON_NAMES } from "../constants/category_icons";
 
 const CreateCategoryRestaurant = ({ onclickClose }: { onclickClose: () => void }) => {
     const { mutate, isPending } = useCreateCategoryRestaurant(onclickClose);
@@ -19,9 +20,10 @@ const CreateCategoryRestaurant = ({ onclickClose }: { onclickClose: () => void }
         setValue,
         formState: { errors }
     } = useForm<CreateCategoryFormValues>({
-        resolver: zodResolver(createCategorySchema),
+        resolver: zodResolver(createCategorySchema) as any,
         defaultValues: {
             name: "",
+            icon: "",
             description: "",
             bgColor: "#EEF2FF",
             textColor: "#6366F1"
@@ -32,10 +34,11 @@ const CreateCategoryRestaurant = ({ onclickClose }: { onclickClose: () => void }
         mutate(data);
     };
 
-    // Theo dõi giá trị color để update preview
+    // Theo dõi giá trị color và icon để update preview
     const bgColor = watch("bgColor") || "#EEF2FF";
     const textColor = watch("textColor") || "#6366F1";
     const name = watch("name") || "Tên loại hình mẫu";
+    const currentIcon = watch("icon") || "";
 
     return (
         <Div variant="bg_white" vitri="col_none" className=" relative w-100" style={{'--bg-color': bgColor, '--text-color': textColor} as React.CSSProperties}>
@@ -58,6 +61,34 @@ const CreateCategoryRestaurant = ({ onclickClose }: { onclickClose: () => void }
                         />
                         {errors.name && <P className="text-red-500 text-sm mt-1">{errors.name.message}</P>}
                     </Div>
+
+                    {/* Biểu tượng Icon (Tùy chọn) */}
+                    <Div vitri="col_none" size="full" className="gap-2">
+                        <Label>Biểu tượng (Icon - Tùy chọn)</Label>
+                        <Input
+                            sizea="full"
+                            placeholder="Chọn icon bên dưới hoặc nhập mã icon (VD: FiCoffee)..."
+                            {...register("icon")}
+                        />
+                        <div className="flex flex-wrap gap-1.5 mt-1 max-h-[85px] overflow-y-auto p-1 border border-gray-100 rounded-lg bg-gray-50/50">
+                            {PRESET_CATEGORY_ICON_NAMES.map((iconName) => (
+                                <button
+                                    key={iconName}
+                                    type="button"
+                                    onClick={() => setValue("icon", iconName, { shouldValidate: true })}
+                                    className={`p-1.5 rounded-lg border text-sm transition-all flex items-center justify-center ${
+                                        currentIcon === iconName 
+                                            ? "bg-indigo-600 text-white border-indigo-600 shadow-sm" 
+                                            : "bg-white text-gray-600 border-gray-200 hover:border-indigo-300 hover:text-indigo-600"
+                                    }`}
+                                    title={iconName}
+                                >
+                                    {CATEGORY_ICONS[iconName]}
+                                </button>
+                            ))}
+                        </div>
+                    </Div>
+
                     <Div vitri="col_none" size="full" className="gap-2">
                         <Div vitri="row_between" size="full">
                             <Label className="mb-0">Màu sắc (Colors)</Label>
@@ -120,12 +151,12 @@ const CreateCategoryRestaurant = ({ onclickClose }: { onclickClose: () => void }
                     <Div vitri="col_none" size="full">
                         <Label>Màu sắc Preview</Label>
                         <div className="flex items-center gap-3 mt-2">
-                            <Div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm border border-gray-100" 
+                            <Div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm border border-gray-100 text-xl" 
                                 style={{ 
                                     backgroundColor: errors.bgColor ? '#EEF2FF' : 'var(--bg-color, #EEF2FF)', 
                                     color: errors.textColor ? '#6366F1' : 'var(--text-color, #6366F1)' 
                                 }}>
-                                <FiLayers className="text-xl" />
+                                {(currentIcon && CATEGORY_ICONS[currentIcon]) ? CATEGORY_ICONS[currentIcon] : <FiLayers />}
                             </Div>
                             <span 
                                 className="font-semibold text-[14px] px-4 py-2 rounded-lg whitespace-nowrap shadow-sm border border-gray-100"
@@ -139,27 +170,33 @@ const CreateCategoryRestaurant = ({ onclickClose }: { onclickClose: () => void }
                         </div>
                     </Div>
                     <Div vitri="col_none" size="full">
-                        <Label>Mô tả</Label>
-                        <textarea 
-                            className={`w-full h-30 p-3 border rounded-lg resize-none ${errors.description ? "border-red-500" : "border-gray-200"}`}
-                            placeholder="Mô tả loại hình nhà hàng"
+                        <Label>Mô tả (Tùy chọn)</Label>
+                        <Input
+                            sizea="full"
+                            placeholder="Nhập mô tả loại hình (nếu có)"
                             {...register("description")}
                         />
-                        {errors.description && <P className="text-red-500 text-sm mt-1">{errors.description.message}</P>}
                     </Div>
-                </Div>
-                <Div className=" justify-end mt-5" gap="g3_4" >
-                    <Button type="button" variant="red" sizea="p3_2" onClick={() => onclickClose()} disabled={isPending}>Hủy</Button>
-                    <Button type="submit" variant="green" sizea="p3_2" disabled={isPending}>
+                    <Button 
+                        sizea="full" 
+                        variant="indigo" 
+                        className="h-[48px] text-[15px] font-semibold flex items-center justify-center gap-2 mt-4 rounded-xl shadow-md shadow-indigo-200 transition-all hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] text-white bg-gradient-to-r from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700" 
+                        disabled={isPending}
+                        type="submit"
+                    >
                         {isPending ? (
-                            <span className="flex items-center gap-2">
-                                <FiLoader className="animate-spin" /> Đang thêm...
-                            </span>
-                        ) : "Thêm"}
+                            <>
+                                <FiLoader className="animate-spin text-lg" />
+                                <span>Đang xử lý...</span>
+                            </>
+                        ) : (
+                            "Tạo loại hình nhà hàng"
+                        )}
                     </Button>
                 </Div>
             </form>
         </Div>
-    )
-}
-export default CreateCategoryRestaurant
+    );
+};
+
+export default CreateCategoryRestaurant;

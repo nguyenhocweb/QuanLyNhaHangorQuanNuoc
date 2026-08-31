@@ -5,9 +5,9 @@ const homeSelect={
             description: true,
             id: true,
             name: true,
-            basePrice: true,
+            base_price: true,
             image: true,
-            restaurantMaps: {
+            restaurantMenuItems: {
                 include: {
                     restaurant: {
                         select: { name: true }
@@ -17,7 +17,7 @@ const homeSelect={
             brand: {
                 select: { name: true }
             },
-            variants: {
+            itemVariants: {
                 select: { name: true, price: true }
             }
 };
@@ -25,9 +25,9 @@ const brandSelect={
     description: true,
     id: true,
     name: true,
-    basePrice: true,
+    base_price: true,
     image: true,
-    variants: {
+    itemVariants: {
         select: { name: true, price: true }
     }
 }
@@ -45,18 +45,16 @@ export const getDishs = async ({page, limit, where, type}) => {
         select: type === "home" ? homeSelect : brandSelect
     });
     
-    if(type !== "home") return result ? result.map(({ basePrice, variants, ...e }) => ({ 
+    if(type !== "home") return result ? result.map(({ itemVariants, ...e }) => ({ 
         ...e, 
-        base_price: basePrice,
-        variants: variants?.length ? variants : undefined
+        variants: itemVariants?.length ? itemVariants : undefined
     })) : null;
 
-    return result ? result.map(({ restaurantMaps, brand, basePrice, variants, ...e }) => ({
+    return result ? result.map(({ restaurantMenuItems, brand, itemVariants, ...e }) => ({
         ...e,
-        base_price: basePrice,
-        restaurantName: restaurantMaps?.[0]?.restaurant?.name ?? undefined,
+        restaurantName: restaurantMenuItems?.[0]?.restaurant?.name ?? undefined,
         brandName: brand?.name ?? undefined,
-        variants: variants?.length ? variants : undefined
+        variants: itemVariants?.length ? itemVariants : undefined
     })) : null
 }
 export const countDishs = async (where) => {

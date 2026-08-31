@@ -18,7 +18,7 @@ export const recalculateRestaurantRatingRepo = async (restaurantId) => {
     const stats = await prisma.review_Restaurant.aggregate({
         where: {
             restaurantId: restaurantId,
-            status: "APPROVED"
+            is_public: true
         },
         _avg: {
             overall_rating: true,

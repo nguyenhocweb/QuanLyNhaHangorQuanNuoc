@@ -141,16 +141,19 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
                         </div>
 
                         <div className="md:col-span-2 border-t border-gray-100 pt-6">
+                            <div className="mb-4 p-3.5 bg-emerald-50 border border-emerald-200/80 rounded-xl flex items-start gap-3">
+                                <span className="text-emerald-600 text-lg leading-none mt-0.5">✨</span>
+                                <div>
+                                    <h4 className="text-[13px] font-bold text-emerald-900">Tính năng Vận hành Cốt lõi (Mặc định 100%)</h4>
+                                    <p className="text-[12px] text-emerald-700 mt-0.5">
+                                        Quản lý Thực đơn, Sơ đồ Bàn, Đặt bàn Online, Gọi món tại bàn và Đánh giá luôn được kích hoạt sẵn cho mọi thương hiệu sử dụng gói này.
+                                    </p>
+                                </div>
+                            </div>
+
                             <div className="flex items-center justify-between mb-1">
-                                <label className="block text-[13px] font-semibold text-gray-700">Các tính năng (FeaturesData) <span className="text-red-500">*</span></label>
+                                <label className="block text-[13px] font-semibold text-gray-700">Các tính năng Nâng cao (Tùy chọn) <span className="text-red-500">*</span></label>
                                 <div className="flex items-center gap-3">
-                                    <button type="button" onClick={() => {
-                                        const basicFeatures: Record<string, boolean> = {};
-                                        BASIC_OPERATIONAL_FEATURES.forEach(k => basicFeatures[k] = true);
-                                        setValue('featuresData', basicFeatures, { shouldValidate: true });
-                                    }} className="text-[12px] font-semibold text-green-600 hover:text-green-800 transition-colors">
-                                        * Chọn cơ bản
-                                    </button>
                                     <button type="button" onClick={() => {
                                         const allFeatures: Record<string, boolean> = {};
                                         Object.keys(featureNames).forEach(k => allFeatures[k] = true);
@@ -165,7 +168,7 @@ export const CreateSubscriptionForm: React.FC<CreateSubscriptionFormProps> = ({ 
                                     </button>
                                 </div>
                             </div>
-                            <p className="text-[12px] text-gray-500 mb-4">Lựa chọn các tính năng được phép sử dụng trong gói cước này.</p>
+                            <p className="text-[12px] text-gray-500 mb-4">Lựa chọn các tính năng giá trị gia tăng được phép sử dụng trong gói cước này.</p>
                             
                             <div className="mb-4 mt-6">
                                 <h3 className="text-[13px] font-bold text-gray-800 uppercase tracking-wider mb-3 pb-2 border-b border-gray-100 border-dashed">Chức năng của Thương hiệu</h3>

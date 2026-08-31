@@ -1,0 +1,58 @@
+{
+  "ai_platforms": [
+    {
+      "platform_name": "OpenAI Platform",
+      "models": [
+        { "name": "gpt-4o", "displayName": "GPT-4 Omni Multimodal" },
+        { "name": "gpt-4o-mini", "displayName": "GPT-4o Mini Fast Inference" }
+      ],
+      "default_api_key": {
+        "name": "Primary Enterprise OpenAI Key",
+        "encryptedKey": "enc_sk_live_999888777666555444333222111",
+        "keyHash": "HASH_SECRET_KEY_PROD_2026",
+        "prefix": "sk-live-999...",
+        "keyType": "ADMIN",
+        "status": "ACTIVE"
+      }
+    },
+    {
+      "platform_name": "Google Gemini Cloud",
+      "models": [
+        { "name": "gemini-1.5-pro", "displayName": "Gemini 1.5 Pro 1M Context" },
+        { "name": "gemini-1.5-flash", "displayName": "Gemini 1.5 Flash Low Latency" }
+      ],
+      "default_api_key": {
+        "name": "Google Gemini Platform Key",
+        "encryptedKey": "enc_ai_gemini_pro_secret_key_prod_888",
+        "keyHash": "HASH_SECRET_GEMINI_KEY_2026",
+        "prefix": "AIzaSy...",
+        "keyType": "ADMIN",
+        "status": "ACTIVE"
+      }
+    }
+  ],
+  "system_revenues": [
+    {
+      "amount": 59800000,
+      "source": "BRAND_SUBSCRIPTION",
+      "description": "Thu phí gói đăng ký Enterprise hàng tháng từ chuỗi Golden Gate Restaurant Group"
+    },
+    {
+      "amount": 29900000,
+      "source": "BRAND_SUBSCRIPTION",
+      "description": "Thu phí gói đăng ký Pro hàng tháng từ chuỗi Pizza 4P's Craft Artisan Pizza"
+    },
+    {
+      "amount": 15500000,
+      "source": "SERVICE_FEE",
+      "description": "Phí dịch vụ tích hợp SMS Brandname & Cổng thanh toán tập trung VNPay-QR"
+    }
+  ],
+  "system_notifications": [
+    {
+      "title": "Nâng cấp hệ thống Cloud Server v2.5",
+      "body": "Hệ thống sẽ tiến hành bảo trì định kỳ cụm máy chủ vào 02:00 sáng ngày Chủ Nhật nhằm nâng cao tốc độ tải POS và Bếp KDS.",
+      "type": "SYSTEM"
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import { useDeleteCategoryRestaurant } from "../hook/useDeleteCategoryRestaurant
 import UpdateCategoryRestaurant from "./updateCategoryRestaurant_Form";
 import CreateCategoryRestaurant from "./createCategoryRestaurant_Form";
 import { ConfirmModal } from "@/src/core/components/layout/public-ConfirmModal";
+import { CATEGORY_ICONS } from "../constants/category_icons";
 
 const CategoryRestaurantComponent = () => {
     const [page, setPage] = useState(1);
@@ -160,14 +161,14 @@ const CategoryRestaurantComponent = () => {
                                     <td className="py-4 px-5">
                                         <div className="flex items-center gap-3">
                                             <div 
-                                                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm"
+                                                className="w-10 h-10 rounded-xl flex items-center justify-center shadow-sm text-lg"
                                                 style={{ 
                                                     backgroundColor: e.bgColor || '#EEF2FF',
                                                     color: e.textColor || '#6366F1',
                                                     boxShadow: `0 1px 2px 0 ${e.bgColor || '#EEF2FF'}80`
                                                 }}
                                             >
-                                                <FiLayers className="text-lg" />
+                                                {(e.icon && CATEGORY_ICONS[e.icon]) ? CATEGORY_ICONS[e.icon] : <FiLayers className="text-lg" />}
                                             </div>
                                             <span 
                                                 className="font-semibold text-[14px] px-3 py-1.5 rounded-lg whitespace-nowrap shadow-sm border border-gray-100"

@@ -4,6 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { validator } from '@/src/core/lib/validations';
 import { useAuthStore } from '@/src/features/auth/auth_store/use-auth-store';
+import { createReservation_service } from '@/src/features/customer/reservation/reservation_service/createReservation_service';
+import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { FaTimes, FaUser, FaPhone, FaEnvelope, FaRegCalendarAlt, FaClock, FaUserFriends, FaCommentAlt, FaHeart } from 'react-icons/fa';
 import { cn } from '@/src/core/lib/tw';
@@ -22,17 +24,23 @@ type BookingFormValues = z.infer<typeof bookingSchema>;
 interface Props {
     isOpen: boolean;
     onClose: () => void;
+    idRestaurant?: string;
     draftData: {
         date: string;
         time: string;
-        endTime: string;
+        endTime?: string;
         partySize: number;
+        restaurantId?: string;
+        idRestaurant?: string;
+        selectedTable?: { id: string; name: string };
+        tables?: string[];
     } | null;
     variant?: 'default' | 'luxury' | 'immersive' | 'zen' | 'hotpot' | 'sushi';
 }
 
-const BookingConfirmationModal: React.FC<Props> = ({ isOpen, onClose, draftData, variant = 'default' }) => {
+const BookingConfirmationModal: React.FC<Props> = ({ isOpen, onClose, idRestaurant, draftData, variant = 'default' }) => {
     const { user } = useAuthStore();
+    const queryClient = useQueryClient();
     const [isSubmitting, setIsSubmitting] = React.useState(false);
     const isLuxury = variant === 'luxury';
     const isImmersive = variant === 'immersive';
@@ -54,7 +62,7 @@ const BookingConfirmationModal: React.FC<Props> = ({ isOpen, onClose, draftData,
         if (isOpen && user) {
             reset({
                 guest_name: user.name || "",
-                guest_phone: user.sdt || "",
+                guest_phone: user.sdt || user.phone || "",
                 guest_email: user.email || "",
                 occasion: "NORMAL",
             });
@@ -63,22 +71,49 @@ const BookingConfirmationModal: React.FC<Props> = ({ isOpen, onClose, draftData,
 
     if (!isOpen || !draftData) return null;
 
-    const onSubmit = (data: BookingFormValues) => {
+    const onSubmit = async (data: BookingFormValues) => {
         setIsSubmitting(true);
-        const payload = {
-            ...draftData,
-            end_time: draftData.endTime,
-            ...data
-        };
+        try {
+            const finalRestaurantId = draftData.idRestaurant || draftData.restaurantId || idRestaurant;
+            
+            // Tính toán endTime nếu chưa có
+            let finalEndTime = draftData.endTime;
+            if (!finalEndTime && draftData.time) {
+                const [h, m] = draftData.time.split(':').map(Number);
+                let eh = (h + 2) % 24;
+                finalEndTime = `${eh.toString().padStart(2, '0')}:${(m || 0).toString().padStart(2, '0')}`;
+            }
 
-        // TODO: Call API with payload
-        console.log("Booking Payload:", payload);
+            const payload: any = {
+                idRestaurant: finalRestaurantId,
+                restaurantId: finalRestaurantId,
+                reservation_date: draftData.date,
+                start_time: draftData.time,
+                end_time: finalEndTime || "22:00",
+                party_size: Number(draftData.partySize),
+                guest_name: data.guest_name,
+                guest_phone: data.guest_phone,
+                guest_email: data.guest_email || null,
+                occasion: data.occasion || "NORMAL",
+                special_requests: data.special_requests || null,
+                dietary_restrictions: data.dietary_restrictions || null,
+                tables: draftData.selectedTable?.id ? [draftData.selectedTable.id] : (draftData.tables || [])
+            };
 
-        setTimeout(() => {
-            setIsSubmitting(false);
+            await createReservation_service(payload);
+
+            // Invalidate React Query cache để dữ liệu lập tức cập nhật
+            queryClient.invalidateQueries({ queryKey: ['CUSTOMER_RESERVATIONS'] });
+            queryClient.invalidateQueries({ queryKey: ['tables'] });
+
             toast.success("Đặt bàn thành công! Chúng tôi sẽ liên hệ sớm để xác nhận.");
             onClose();
-        }, 1500);
+        } catch (error: any) {
+            console.error("Booking API Error:", error);
+            toast.error(error?.response?.data?.message || error?.message || "Đặt bàn thất bại, vui lòng thử lại!");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -174,6 +209,24 @@ const BookingConfirmationModal: React.FC<Props> = ({ isOpen, onClose, draftData,
                             <FaUserFriends />
                             <span className={isLuxury || isImmersive || isHotpot ? "text-white" : ""}>{draftData.partySize} người</span>
                         </div>
+                        {draftData.selectedTable && (
+                            <>
+                                <div className={cn("w-px hidden sm:block", 
+                                    isLuxury ? "bg-[#333]" : 
+                                    isImmersive ? "bg-white/20" :
+                                    isHotpot ? "bg-[#4A1C1C]" :
+                                    "bg-indigo-200"
+                                )}></div>
+                                <div className={cn("flex items-center gap-2 font-medium", 
+                                    isLuxury ? "text-yellow-600" : 
+                                    isImmersive ? "text-gray-200" :
+                                    isHotpot ? "text-[#FFCDD2]" :
+                                    "text-indigo-700"
+                                )}>
+                                    <span>Bàn đã chọn: <strong className={isLuxury || isImmersive || isHotpot ? "text-white" : ""}>{draftData.selectedTable.name}</strong></span>
+                                </div>
+                            </>
+                        )}
                     </div>
 
                     <form id="booking-form" onSubmit={handleSubmit(onSubmit)} className="space-y-6">

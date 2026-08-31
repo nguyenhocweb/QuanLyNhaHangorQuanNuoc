@@ -14,12 +14,18 @@ export interface Reservation {
     end_time?: string;
     party_size: number;
     status: ReservationStatus;
-    source: ReservationSource;
+    source?: ReservationSource;
     occasion?: Occasion;
     special_requests?: string;
+    dietary_restrictions?: any;
     internal_notes?: string;
-    deposit_paid: boolean;
-    depositPerPax?: number;
+    deposit_paid?: boolean;
+    deposit_amount?: number;
+    confirmed_at?: string;
+    cancelled_at?: string;
+    cancellation_reason?: string;
+    seated_at?: string;
+    completed_at?: string;
     createdAt: string;
     updatedAt: string;
     // Relationships
@@ -40,8 +46,16 @@ export interface Reservation {
     }>;
 }
 
+export interface ReservationStats {
+    pending: number;
+    today: number;
+    seated: number;
+    upcoming: number;
+}
+
 export interface GetReservationsResponse {
     data: Reservation[];
+    stats?: ReservationStats;
     total: number;
     page: number;
     limit: number;

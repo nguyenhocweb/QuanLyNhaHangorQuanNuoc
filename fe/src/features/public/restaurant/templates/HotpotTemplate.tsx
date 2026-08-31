@@ -205,6 +205,7 @@ export default function HotpotTemplate({ idRestaurant, coreInfo, hoursData }: Ho
                 <BookingConfirmationModal 
                     isOpen={isConfirmModalOpen}
                     onClose={() => setIsConfirmModalOpen(false)}
+                    idRestaurant={idRestaurant}
                     draftData={bookingDraft}
                     variant="hotpot"
                 />

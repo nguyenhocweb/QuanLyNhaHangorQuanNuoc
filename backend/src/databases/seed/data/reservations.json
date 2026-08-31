@@ -1,0 +1,56 @@
+[
+  {
+    "occasion": "BIRTHDAY",
+    "party_size": 6,
+    "special_requests": "Bố trí bàn cạnh cửa sổ, hỗ trợ cắm nến bánh kem sinh nhật và chuẩn bị nhạc chúc mừng",
+    "status": "COMPLETED",
+    "source": "WEB",
+    "deposit_paid": true,
+    "deposit_amount": 200000
+  },
+  {
+    "occasion": "BUSINESS",
+    "party_size": 8,
+    "special_requests": "Phòng VIP yên tĩnh tiếp khách đối tác nước ngoài, chuẩn bị sẵn menu rượu vang và ly pha lê",
+    "status": "COMPLETED",
+    "source": "MOBILE",
+    "deposit_paid": true,
+    "deposit_amount": 500000
+  },
+  {
+    "occasion": "ANNIVERSARY",
+    "party_size": 2,
+    "special_requests": "Bàn nến hoa hồng kỷ niệm 5 năm ngày cưới, không gian lãng mạn góc sân thượng",
+    "status": "SEATED",
+    "source": "WEB",
+    "deposit_paid": true,
+    "deposit_amount": 200000
+  },
+  {
+    "occasion": "DATE",
+    "party_size": 2,
+    "special_requests": "Bàn view đẹp ngoài trời tầng thượng, chuẩn bị 2 ly cocktail chào mừng",
+    "status": "CONFIRMED",
+    "source": "WEB",
+    "deposit_paid": false,
+    "deposit_amount": 0
+  },
+  {
+    "occasion": "NORMAL",
+    "party_size": 4,
+    "special_requests": "Gia đình có 1 bé nhỏ cần chuẩn bị sẵn 1 ghế ăn dặm trẻ em",
+    "status": "COMPLETED",
+    "source": "PHONE",
+    "deposit_paid": false,
+    "deposit_amount": 0
+  },
+  {
+    "occasion": "NORMAL",
+    "party_size": 3,
+    "special_requests": "Khách bận đột xuất xin phép dời lịch hoặc hủy đơn",
+    "status": "CANCELLED",
+    "source": "WALK_IN",
+    "deposit_paid": false,
+    "deposit_amount": 0
+  }
+]

@@ -7,7 +7,13 @@ import { getPublicRestaurantReviewsController } from "./controllers/restaurant_r
 import { getPublicRestaurantHoursController } from "./controllers/restaurant_hours.get.controller.js";
 import asyncHandler from "../../../core/utils/asyncHandler.js";
 
+import { getRestaurantsController } from "./controler.restaurant/getRestaurants.controller.js";
+import getRestaurantsValidator from "./validator.restaurant/getRestaurants.validator.js";
+
 const route = Router();
+
+// Lấy danh sách nhà hàng
+route.get("", validate(getRestaurantsValidator), getRestaurantsController);
 
 // Lấy thông tin cơ bản
 route.get("/:id", validate(restaurantPublicValidator), asyncHandler(getPublicRestaurantController));

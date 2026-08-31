@@ -130,6 +130,7 @@ export default function ImmersiveTemplate({ idRestaurant, coreInfo, hoursData }:
             <BookingConfirmationModal
                 isOpen={isConfirmModalOpen}
                 onClose={() => setIsConfirmModalOpen(false)}
+                idRestaurant={idRestaurant}
                 draftData={bookingDraft}
                 variant="immersive"
             />

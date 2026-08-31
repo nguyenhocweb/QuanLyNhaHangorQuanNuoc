@@ -8,14 +8,31 @@ export const getRestaurantMenuRepo = async (restaurantId, { skip = 0, take = 50,
     const brandId = restaurant?.brandId;
 
     const where = {
-        restaurantMaps: {
-            some: {
-                restaurantId,
-                ...(isAvailable !== undefined && isAvailable !== '' ? { isAvailable: isAvailable === 'true' || isAvailable === true } : {})
+        OR: [
+            { restaurantId },
+            ...(brandId ? [{ brandId }] : []),
+            { restaurantMenuItems: { some: { restaurantId } } }
+        ],
+        ...(categoryId ? {
+            OR: [
+                { categoryId },
+                { itemCategoryMaps: { some: { categoryId } } }
+            ]
+        } : {}),
+        ...(menuId ? {
+            OR: [
+                { category: { menuId } },
+                { category: { menuCategoryMaps: { some: { menuId } } } }
+            ]
+        } : {}),
+        ...(isAvailable !== undefined && isAvailable !== '' ? {
+            restaurantMenuItems: {
+                some: {
+                    restaurantId,
+                    isAvailable: isAvailable === 'true' || isAvailable === true
+                }
             }
-        },
-        ...(categoryId ? { categoryMaps: { some: { categoryId } } } : {}),
-        ...(menuId ? { categoryMaps: { some: { category: { menuMaps: { some: { menuId } } } } } } : {}),
+        } : {}),
         ...(search ? { name: { contains: search, mode: "insensitive" } } : {})
     };
 
@@ -26,11 +43,22 @@ export const getRestaurantMenuRepo = async (restaurantId, { skip = 0, take = 50,
             take: Number(take),
             orderBy: { createdAt: "desc" },
             include: {
-                categoryMaps: {
+                category: {
+                    include: {
+                        menu: { select: { id: true, name: true } },
+                        menuCategoryMaps: {
+                            include: {
+                                menu: { select: { id: true, name: true } }
+                            }
+                        }
+                    }
+                },
+                itemCategoryMaps: {
                     include: {
                         category: {
                             include: {
-                                menuMaps: {
+                                menu: { select: { id: true, name: true } },
+                                menuCategoryMaps: {
                                     include: {
                                         menu: { select: { id: true, name: true } }
                                     }
@@ -39,38 +67,125 @@ export const getRestaurantMenuRepo = async (restaurantId, { skip = 0, take = 50,
                         }
                     }
                 },
-                variants: true,
+                itemVariants: true,
                 modifierGroups: {
                     include: { options: true }
                 },
-                restaurantMaps: {
+                restaurantMenuItems: {
                     where: { restaurantId }
                 }
             }
         }),
         prisma.menuItem.count({ where }),
-        brandId ? prisma.menuCategory.findMany({
-            where: { brandId, is_active: true },
-            select: { id: true, name: true, menuMaps: { select: { menuId: true } } },
+        prisma.menuCategory.findMany({
+            where: {
+                OR: [
+                    { menu: { restaurantId } },
+                    ...(brandId ? [{ menu: { brandId } }] : []),
+                    { menuCategoryMaps: { some: { menu: { restaurantId } } } },
+                    ...(brandId ? [{ menuCategoryMaps: { some: { menu: { brandId } } } }] : [])
+                ],
+                is_active: true
+            },
+            select: {
+                id: true,
+                name: true,
+                menuId: true,
+                menuCategoryMaps: {
+                    select: { menuId: true }
+                }
+            },
             orderBy: { sort_order: "asc" }
-        }) : Promise.resolve([]),
-        brandId ? prisma.menu.findMany({
-            where: { brandId, is_active: true },
+        }),
+        prisma.menu.findMany({
+            where: {
+                OR: [
+                    { restaurantId },
+                    ...(brandId ? [{ brandId }] : [])
+                ],
+                is_active: true
+            },
             select: { id: true, name: true },
             orderBy: { sort_order: "asc" }
-        }) : Promise.resolve([])
+        })
     ]);
 
-    // Format output so restaurantMenuItem details are easily accessible
+    // Format output so frontend receives the exact shape it expects
     const formattedData = data.map(item => {
-        const restaurantMenu = item.restaurantMaps?.[0] || {};
+        const restaurantMenu = item.restaurantMenuItems?.[0] || {};
+        
+        // Map categoryMaps so frontend can read categories & menus
+        const catList = [];
+        if (item.category) {
+            const menuMaps = [];
+            if (item.category.menu) {
+                menuMaps.push({ menu: item.category.menu });
+            }
+            if (item.category.menuCategoryMaps) {
+                item.category.menuCategoryMaps.forEach(m => {
+                    if (m.menu && !menuMaps.some(x => x.menu?.id === m.menu.id)) {
+                        menuMaps.push({ menu: m.menu });
+                    }
+                });
+            }
+            catList.push({
+                category: {
+                    id: item.category.id,
+                    name: item.category.name,
+                    menuMaps
+                }
+            });
+        }
+        if (item.itemCategoryMaps) {
+            item.itemCategoryMaps.forEach(icm => {
+                if (icm.category && !catList.some(c => c.category?.id === icm.category.id)) {
+                    const menuMaps = [];
+                    if (icm.category.menu) menuMaps.push({ menu: icm.category.menu });
+                    if (icm.category.menuCategoryMaps) {
+                        icm.category.menuCategoryMaps.forEach(m => {
+                            if (m.menu && !menuMaps.some(x => x.menu?.id === m.menu.id)) {
+                                menuMaps.push({ menu: m.menu });
+                            }
+                        });
+                    }
+                    catList.push({
+                        category: {
+                            id: icm.category.id,
+                            name: icm.category.name,
+                            menuMaps
+                        }
+                    });
+                }
+            });
+        }
+
         return {
             ...item,
-            isAvailable: restaurantMenu.isAvailable ?? true,
+            basePrice: item.base_price,
+            isAvailable: restaurantMenu.isAvailable ?? item.is_available ?? true,
             overridePrice: restaurantMenu.overridePrice ?? null,
-            restaurantMenuItemId: restaurantMenu.id || null
+            restaurantMenuItemId: restaurantMenu.id || null,
+            categoryMaps: catList,
+            variants: item.itemVariants || []
         };
     });
 
-    return { data: formattedData, total, categories, menus };
+    const formattedCategories = categories.map(cat => {
+        const menuMaps = [];
+        if (cat.menuId) menuMaps.push({ menuId: cat.menuId });
+        if (cat.menuCategoryMaps) {
+            cat.menuCategoryMaps.forEach(m => {
+                if (!menuMaps.some(x => x.menuId === m.menuId)) {
+                    menuMaps.push({ menuId: m.menuId });
+                }
+            });
+        }
+        return {
+            id: cat.id,
+            name: cat.name,
+            menuMaps
+        };
+    });
+
+    return { data: formattedData, total, categories: formattedCategories, menus };
 };

@@ -22,16 +22,24 @@ export const VoucherCard: React.FC<VoucherCardProps> = ({ promotion, isUsed = fa
         }
     };
 
+    const discountType = promotion.discountType || (promotion as any).discount_type || "PERCENTAGE";
+    const discountValue = promotion.discountValue ?? (promotion as any).discount_value ?? 0;
+    const minOrderValue = promotion.minOrderValue ?? (promotion as any).min_order_value ?? 0;
+    const maxDiscount = promotion.maxDiscount ?? (promotion as any).max_discount;
+    const validUntil = promotion.validUntil || (promotion as any).valid_until || new Date().toISOString();
+    const usedCount = promotion.usedCount ?? (promotion as any).used_count ?? 0;
+    const usageLimit = promotion.usageLimit ?? (promotion as any).usage_limit;
+
     // Kiểm tra sắp hết hạn (trong 3 ngày)
     const now = new Date();
-    const validUntilDate = new Date(promotion.validUntil);
+    const validUntilDate = new Date(validUntil);
     const diffTime = validUntilDate.getTime() - now.getTime();
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     const isExpiringSoon = !isUsed && diffDays > 0 && diffDays <= 3;
     const isExpired = !isUsed && diffTime <= 0;
 
     // Phân loại màu sắc thẻ ticket theo discountType
-    const isPercentage = promotion.discountType === "PERCENTAGE";
+    const isPercentage = discountType === "PERCENTAGE";
     const bgBadge = isPercentage ? "bg-amber-500" : "bg-indigo-600";
     const borderAccent = isPercentage ? "border-l-amber-500" : "border-l-indigo-600";
 
@@ -91,42 +99,42 @@ export const VoucherCard: React.FC<VoucherCardProps> = ({ promotion, isUsed = fa
                         <h3 className="text-lg font-bold text-gray-800">
                             {isPercentage ? (
                                 <>
-                                    Giảm <span className="text-amber-600">{promotion.discountValue}%</span>
-                                    {promotion.maxDiscount ? ` tối đa ${promotion.maxDiscount.toLocaleString("vi-VN")}đ` : ""}
+                                    Giảm <span className="text-amber-600">{discountValue}%</span>
+                                    {maxDiscount ? ` tối đa ${maxDiscount.toLocaleString("vi-VN")}đ` : ""}
                                 </>
                             ) : (
                                 <>
-                                    Giảm thẳng <span className="text-indigo-600">{promotion.discountValue.toLocaleString("vi-VN")}đ</span>
+                                    Giảm thẳng <span className="text-indigo-600">{discountValue.toLocaleString("vi-VN")}đ</span>
                                 </>
                             )}
                         </h3>
                     </div>
 
                     <p className="text-sm text-gray-600 line-clamp-2 mb-2">
-                        {promotion.description || `Đơn tối thiểu ${promotion.minOrderValue ? promotion.minOrderValue.toLocaleString("vi-VN") + "đ" : "0đ"}`}
+                        {promotion.description || `Đơn tối thiểu ${minOrderValue ? minOrderValue.toLocaleString("vi-VN") + "đ" : "0đ"}`}
                     </p>
 
                     <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-gray-500">
                         <span>
-                            Đơn tối thiểu: <strong className="text-gray-700">{promotion.minOrderValue ? `${promotion.minOrderValue.toLocaleString("vi-VN")}đ` : "0đ"}</strong>
+                            Đơn tối thiểu: <strong className="text-gray-700">{minOrderValue ? `${minOrderValue.toLocaleString("vi-VN")}đ` : "0đ"}</strong>
                         </span>
                         <span>•</span>
                         <span>
-                            HSD: <strong className="text-gray-700">{new Date(promotion.validUntil).toLocaleDateString("vi-VN")}</strong>
+                            HSD: <strong className="text-gray-700">{new Date(validUntil).toLocaleDateString("vi-VN")}</strong>
                         </span>
                     </div>
 
                     {/* Thanh tiến độ sử dụng nếu có giới hạn */}
-                    {promotion.usageLimit && promotion.usageLimit > 0 && (
+                    {usageLimit && usageLimit > 0 && (
                         <div className="mt-3 w-full">
                             <div className="flex justify-between text-xs text-gray-500 mb-1">
-                                <span>Đã dùng: {promotion.usedCount} / {promotion.usageLimit}</span>
-                                <span>{Math.round((promotion.usedCount / promotion.usageLimit) * 100)}%</span>
+                                <span>Đã dùng: {usedCount} / {usageLimit}</span>
+                                <span>{Math.round((usedCount / usageLimit) * 100)}%</span>
                             </div>
                             <div className="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
                                 <div
                                     className="bg-indigo-600 h-full rounded-full transition-all duration-300"
-                                    style={{ width: `${Math.min(100, (promotion.usedCount / promotion.usageLimit) * 100)}%` }}
+                                    style={{ width: `${Math.min(100, (usedCount / usageLimit) * 100)}%` }}
                                 />
                             </div>
                         </div>
@@ -137,28 +145,31 @@ export const VoucherCard: React.FC<VoucherCardProps> = ({ promotion, isUsed = fa
                 <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2 bg-gray-50 px-3 py-1.5 rounded-lg border border-gray-200/60 font-mono text-sm font-bold text-gray-800 tracking-wider">
                         <span>{promotion.code}</span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
                         <button
                             type="button"
                             onClick={handleCopyCode}
-                            disabled={isUsed || isExpired}
-                            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-semibold rounded-xl transition-all duration-200 flex items-center gap-1.5 disabled:opacity-50 disabled:pointer-events-none"
+                            title="Sao chép mã"
+                            className="text-gray-400 hover:text-indigo-600 transition-colors p-1"
                         >
                             <FaCopy className="w-3.5 h-3.5" />
-                            <span>Sao chép</span>
                         </button>
-
-                        {promotion.restaurantId && !isUsed && !isExpired && (
-                            <Link
-                                href={`/restaurant/${promotion.restaurantId}`}
-                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-xl shadow-sm transition-all duration-200 hover:shadow hover:-translate-y-0.5"
-                            >
-                                Đặt bàn ngay
-                            </Link>
-                        )}
                     </div>
+
+                    {promotion.restaurantId ? (
+                        <Link
+                            href={`/restaurant/${promotion.restaurantId}`}
+                            className="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-bold transition-all duration-200 shadow-sm hover:shadow"
+                        >
+                            Sử dụng ngay
+                        </Link>
+                    ) : (
+                        <Link
+                            href="/discover"
+                            className="px-4 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-bold transition-all duration-200 shadow-sm hover:shadow"
+                        >
+                            Khám phá món
+                        </Link>
+                    )}
                 </div>
             </div>
         </div>

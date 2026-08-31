@@ -1,0 +1,2125 @@
+﻿type LocationAddress {
+  street       String?
+  ward         String?
+  wardCode     String?
+  district     String?
+  districtCode String?
+  province     String?
+  provinceCode String?
+  latitude     Float?
+  longitude    Float?
+}
+model AdminPaymentConfig {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  systemPaymentMethodId String @db.ObjectId
+
+  // JSON config (API Keys, Checksum Keys cá»§a Admin)
+  configData Json
+
+  isActive   Boolean @default(true)
+  isTestMode Boolean @default(true)
+
+  verificationStatus ConfigVerificationStatus @default(UNVERIFIED)
+  lastVerifiedAt     DateTime?
+  lastTestOrderCode  String? // DÃ¹ng Ä‘á»ƒ track mÃ£ Ä‘Æ¡n hÃ ng test 1000Ä‘
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  systemPaymentMethod SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
+
+  @@unique([systemPaymentMethodId])
+  @@map("admin_payment_configs")
+}
+model AIChatSession {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String @db.ObjectId
+  brand   Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  platform      ChatPlatform @default(WEB) // Ná»n táº£ng (ZALO, FACEBOOK, WEB)
+  externalId    String? // ID cá»§a ngÆ°á»i dÃ¹ng trÃªn ná»n táº£ng (Zalo ID, FB PSID)
+  customerName  String?
+  customerPhone String?
+
+  status SessionStatus @default(ACTIVE) // ACTIVE, RESOLVED, ESCALATED (chuyá»ƒn cho nhÃ¢n viÃªn tháº­t)
+
+  messages AIChatMessage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([externalId])
+  @@index([createdAt]) // Cáº§n táº¡o TTL Index trÃªn MongoDB Ä‘á»ƒ tá»± xÃ³a sau 30 ngÃ y trÃ¡nh phÃ¬nh DB
+  @@map("ai_chat_sessions")
+}
+
+model AIChatMessage {
+  id        String        @id @default(auto()) @map("_id") @db.ObjectId
+  sessionId String        @db.ObjectId
+  session   AIChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  sender  MessageSender // USER (KhÃ¡ch), AI (Bot), AGENT (NhÃ¢n viÃªn)
+  content String
+  intent  String? // Má»¥c Ä‘Ã­ch nháº­n diá»‡n Ä‘Æ°á»£c (VD: BOOK_TABLE, MENU_INQUIRY)
+
+  metadata Json? // LÆ°u trá»¯ thÃ´ng tin context (VD: {"extractedDate": "2023-12-01", "guests": 4})
+
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+  @@map("ai_chat_messages")
+}
+
+// Cáº¥u hÃ¬nh AI riÃªng cho tá»«ng Brand
+model AIBrandConfig {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String @unique @db.ObjectId
+  brand   Brand  @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  isActive         Boolean @default(false)
+  greetingMessage  String  @default("Xin chÃ o! TÃ´i lÃ  trá»£ lÃ½ áº£o cá»§a nhÃ  hÃ ng. TÃ´i cÃ³ thá»ƒ giÃºp gÃ¬ cho báº¡n?")
+  fallbackMessage  String  @default("Xin lá»—i, tÃ´i chÆ°a hiá»ƒu Ã½ báº¡n. Vui lÃ²ng Ä‘á»£i chÃºt Ä‘á»ƒ tÃ´i chuyá»ƒn mÃ¡y cho nhÃ¢n viÃªn nhÃ©!")
+  agentEscalation  Boolean @default(true) // Cho phÃ©p chuyá»ƒn cho nhÃ¢n viÃªn tháº­t khi AI khÃ´ng hiá»ƒu
+  knowledgeBaseUrl String? // ÄÆ°á»ng dáº«n tá»›i tÃ i liá»‡u training (Menu, Giá» má»Ÿ cá»­a) Ä‘á»ƒ RAG
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ai_brand_configs")
+}
+// 1. Table AI Chatbox (NhÃ  cung cáº¥p)
+model AiChatbox {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  name     String  @unique // Vd: OpenAI, Gemini
+  isActive Boolean @default(true)
+
+  models  AiModel[]
+  apiKeys ApiKey[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ai_chatboxes")
+}
+
+// 2. Table AI Model (CÃ¡c mÃ´ hÃ¬nh cá»¥ thá»ƒ)
+model AiModel {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  name        String // Vd: gpt-4o
+  displayName String // Vd: GPT-4 Omni
+
+  chatboxId String    @db.ObjectId
+  chatbox   AiChatbox @relation(fields: [chatboxId], references: [id], onDelete: Cascade)
+
+  // Quan há»‡ 1-N vá»›i ApiKey (1 Model cÃ³ thá»ƒ cÃ³ nhiá»u Key bá»‹ giá»›i háº¡n riÃªng cho nÃ³)
+  apiKeys ApiKey[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("ai_models")
+}
+
+// 3. Enum Status & Type
+enum ApiKeyStatus {
+  ACTIVE
+  SUSPENDED // [Má»šI] Táº¡m ngÆ°ng
+  REVOKED // Thu há»“i
+  EXPIRED // Háº¿t háº¡n
+}
+
+enum ApiKeyType {
+  ADMIN // Admin
+  CUSTOMER // KhÃ¡ch hÃ ng
+  BRAND // ThÆ°Æ¡ng hiá»‡u
+}
+
+// 4. Table API Key (Cá»‘t lÃµi)
+model ApiKey {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  name String // TÃªn gá»£i nhá»›
+
+  // Báº£o máº­t lÃµi
+  encryptedKey String // KhÃ³a thá»±c táº¿ Ä‘Ã£ bá»‹ mÃ£ hÃ³a
+  keyHash      String @unique // Hash 1 chiá»u Ä‘á»ƒ truy váº¥n
+  prefix       String // KÃ½ tá»± Ä‘áº§u/cuá»‘i Ä‘á»ƒ hiá»ƒn thá»‹ (Vd: sk-123)
+
+  // PhÃ¢n loáº¡i & PhÃ¢n quyá»n
+  keyType ApiKeyType @default(BRAND)
+  brandId String?    @db.ObjectId
+
+  status       ApiKeyStatus @default(ACTIVE)
+  contactEmail String? // Email ngÆ°á»i sá»Ÿ há»¯u key
+
+  // Quan há»‡ (Relations)
+  chatboxId         String    @db.ObjectId
+  chatbox           AiChatbox @relation(fields: [chatboxId], references: [id])
+  restrictedModelId String?   @db.ObjectId // [TÃ¹y chá»n] Giá»›i háº¡n chá»‰ xÃ i cho 1 model
+  restrictedModel   AiModel?  @relation(fields: [restrictedModelId], references: [id])
+
+  // Audit Trail (Dáº¥u váº¿t - VÃ¡ lá»— há»•ng máº¥t dáº¥u)
+  lastUsedAt DateTime?
+  lastIp     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([chatboxId])
+  @@map("api_keys")
+}
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/prisma"
+  previewFeatures = ["prismaSchemaFolder"]
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+model Brand {
+  id                  String                    @id @default(auto()) @map("_id") @db.ObjectId
+  name                String                    @unique
+  logo                String?
+  email_contact       String?
+  phone_contact       String?
+  description         String?
+  tax_code            String?
+  link                String?
+  imageMain           String
+  images              String[]
+  isActive            isActive                  @default(ACTIVE)
+  address             Json?
+  isFeatured          Boolean                   @default(false) // ðŸ‘ˆ tiÃªu biá»ƒu
+  new                 Boolean                   @default(true)
+  restaurants         Restaurant[] // 1 Brand cÃ³ nhiá»u NhÃ  hÃ ng
+  employments         Employment[] // NhÃ¢n sá»± cáº¥p Brand
+  menu                Menu[]
+  items               MenuItem[]
+  paymentConfigs      RestaurantPaymentConfig[]
+  subscriptions       BrandSubscription[]
+  createdAt           DateTime                  @default(now())
+  updatedAt           DateTime                  @updatedAt
+  aichatSessions      AIChatSession[]
+  aibrandConfig       AIBrandConfig?
+  brandNotifications  BrandNotification[]
+  brandPaymentConfigs BrandPaymentConfig[]
+  brandRevenues       BrandRevenue[]
+  invoices            Invoice[]
+  restaurantRevenues  RestaurantRevenue[]
+  template            Template?                 @relation(fields: [templateId], references: [id])
+  templateId          String?                   @db.ObjectId
+
+  taxConfig       BrandTaxConfig?
+  inventoryConfig BrandInventoryConfig?
+
+  @@index([isActive])
+  @@index([createdAt])
+  @@index([isActive, isFeatured])
+  @@map("brands")
+}
+
+type BrandTaxConfig {
+  isVatInclusive       Boolean @default(false)
+  defaultVatRate       Float   @default(10.0)
+  applyServiceCharge   Boolean @default(false)
+  serviceChargeRate    Float   @default(0.0)
+  forceGlobalTaxConfig Boolean @default(true)
+}
+
+type BrandInventoryConfig {
+  inventoryApprovalThreshold Int @default(0)
+}
+model BrandNotification {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String @db.ObjectId
+
+  targetUserId String? @db.ObjectId
+
+  title String
+  body  String
+  type  NotificationType
+
+  referenceId   String?
+  referenceType String?
+
+  createdAt DateTime @default(now())
+
+  readReceipts BrandNotificationReadReceipt[]
+
+  brand Brand @relation(fields: [brandId], references: [id], onDelete: Cascade)
+
+  @@index([brandId, createdAt])
+  @@map("brand_notifications")
+}
+
+model BrandNotificationReadReceipt {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  notificationId String   @db.ObjectId
+  userId         String   @db.ObjectId
+  readAt         DateTime @default(now())
+  isDeleted      Boolean  @default(false)
+
+  notification BrandNotification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  user         User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([notificationId, userId])
+  @@map("brand_notification_read_receipts")
+}
+model BrandPaymentConfig {
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId               String @db.ObjectId
+  systemPaymentMethodId String @db.ObjectId
+
+  configData Json // API keys, secret keys cá»§a Brand
+  isActive   Boolean @default(true)
+  isTestMode Boolean @default(true)
+
+  brand               Brand               @relation(fields: [brandId], references: [id])
+  systemPaymentMethod SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([brandId, systemPaymentMethodId])
+  @@index([isActive])
+  @@map("brand_payment_configs")
+}
+model BrandRevenue {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  brandId     String  @db.ObjectId
+  amount      Float
+  source      String // VD: "RESTAURANT_ORDER"
+  referenceId String? @db.ObjectId
+  description String?
+
+  brand Brand @relation(fields: [brandId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([brandId])
+  @@index([brandId, createdAt])
+  @@index([brandId, source])
+  @@map("brand_revenues")
+}
+model BrandSubscription {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String @db.ObjectId
+  planId  String @db.ObjectId
+
+  startDate DateTime           @default(now())
+  endDate   DateTime
+  status    SubscriptionStatus @default(PENDING_PAYMENT)
+
+  brand Brand            @relation(fields: [brandId], references: [id])
+  plan  SubscriptionPlan @relation(fields: [planId], references: [id])
+
+  // Snapshot dá»¯ liá»‡u táº¡i thá»i Ä‘iá»ƒm mua
+  planName       String?
+  price          Float?
+  maxRestaurants Int?
+  featuresData   Json?
+
+  autoRenew          Boolean   @default(false)
+  currentPeriodStart DateTime? // NgÃ y báº¯t Ä‘áº§u ká»³ cÆ°á»›c hiá»‡n táº¡i
+  currentPeriodEnd   DateTime? // NgÃ y káº¿t thÃºc ká»³ cÆ°á»›c hiá»‡n táº¡i
+  trialEndDate       DateTime? // NgÃ y háº¿t háº¡n dÃ¹ng thá»­
+  cancellationDate   DateTime? // NgÃ y áº¥n nÃºt há»§y
+  cancellationReason String?
+
+  invoices Invoice[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([brandId])
+  @@index([status])
+  @@map("brand_subscriptions")
+}
+model BrandSubscriptionTransaction {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  invoiceId String  @db.ObjectId
+  invoice   Invoice @relation(fields: [invoiceId], references: [id])
+
+  amount Float
+
+  userId String @db.ObjectId // NgÆ°á»i thanh toÃ¡n
+  user   User   @relation(fields: [userId], references: [id])
+
+  systemPaymentMethodId String              @db.ObjectId
+  systemPaymentMethod   SystemPaymentMethod @relation(fields: [systemPaymentMethodId], references: [id])
+
+  externalTransactionId String? // VD: MÃ£ giao dá»‹ch VNPay/Momo/VietQR
+
+  status TransactionStatus
+
+  rawResponse Json? // LÆ°u káº¿t quáº£ tráº£ vá» tá»« cá»•ng thanh toÃ¡n
+
+  ipAddress      String? // IP thá»±c hiá»‡n thanh toÃ¡n
+  userAgent      String? // TrÃ¬nh duyá»‡t/Thiáº¿t bá»‹
+  idempotencyKey String? // KhÃ³a chá»‘ng duplicate giao dá»‹ch
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([invoiceId])
+  @@index([userId])
+  @@index([externalTransactionId])
+  @@map("brand_subscription_transactions")
+}
+model Category_Restaurant {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  name          String       @unique // VD: Láº©u, NÆ°á»›ng, Chay, HÃ n Quá»‘c...
+  isActive      Boolean      @default(true)
+  description   String?
+  bgColor       String?      @default("#EEF2FF") // Default indigo-50
+  textColor     String?      @default("#000000ff") // Default indigo-500
+  // Quan há»‡ ngÆ°á»£c láº¡i vá»›i Restaurant
+  restaurantIds String[]     @db.ObjectId
+  restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
+
+  @@index([isActive])
+  @@map("category_restaurant")
+}
+model CustomerNotification {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+
+  title String
+  body  String
+  type  NotificationType
+
+  referenceId   String?
+  referenceType String?
+
+  isRead    Boolean @default(false)
+  isDeleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, isRead])
+  @@index([createdAt])
+  @@map("customer_notifications")
+}
+// 7. Báº¢NG PHÃ‚N CÃ”NG CÃ”NG VIá»†C (Máº£nh ghÃ©p quan trá»ng nháº¥t)
+// Tráº£ lá»i cÃ¢u há»i: Ai? LÃ m chá»©c vá»¥ gÃ¬? á»ž Ä‘Ã¢u?
+model Employment {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  // AI?
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  // LÃ€M CHá»¨C Vá»¤ GÃŒ?
+  workspaceRoleId String?                    @db.ObjectId
+  workspaceRole   WorkspaceRole?             @relation(fields: [workspaceRoleId], references: [id])
+  per_vs_emp      Permission_vs_Employment[]
+
+  // á»ž ÄÃ‚U? (Ngá»¯ cáº£nh)
+  brandId String? @db.ObjectId
+  brand   Brand?  @relation(fields: [brandId], references: [id])
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+
+  // lÆ°Æ¡ng
+  salary_type salary_type? // tÃ­nh theo giá» or thÃ¡ng sau nÃ y má»Ÿ rá»™ng ra table khÃ¡c
+
+  createdAt DateTime @default(now()) // cho biáº¿t ngÃ y vÃ o lÃ m
+  updatedAt DateTime @updatedAt // cho biáº¿t cáº­p nháº­t lÃºc nÃ o
+
+  // Äáº£m báº£o 1 user khÃ´ng bá»‹ gÃ¡n trÃ¹ng 1 role á»Ÿ cÃ¹ng 1 nhÃ  hÃ ng 2 láº§n
+  reservations       Reservations[] // nhÃ¢n viÃªn phá»¥ trÃ¡ch Ä‘áº·t bÃ n cho khÃ¡ch 
+  reservation_tables Reservation_Tables[] // nhÃ¢n viÃªn phá»¥ trÃ¡ch phÃ¢n table náº¿u cÃ³ 
+
+  @@unique([userId, restaurantId])
+  @@map("employments")
+}
+enum Gender {
+  Nam
+  Nu
+  Khac
+}
+
+enum AccountStatus {
+  PENDING // chá» xÃ¡c minh
+  ACTIVE // Hoáº¡t Ä‘á»™ng bÃ¬nh thÆ°á»ng
+  INACTIVE // Táº¡m khÃ³a (Nghá»‰ viá»‡c/ChÆ°a kÃ­ch hoáº¡t)
+  BANNED // Cáº¥m vÄ©nh viá»…n (Vi pháº¡m)
+}
+
+enum isActive {
+  PENDING // chá» duyá»‡t
+  ACTIVE // Ä‘ang hoáº¡t Ä‘á»™ng
+  INACTIVE // táº¡m thá»i nghÄ©
+  TERMINATED // nghÄ© vÄ©nh viá»…n
+}
+
+enum role_enum {
+  BRAND
+  RESTAURANT
+}
+
+enum salary_type {
+  MONTHLY
+  HOURLY
+}
+
+enum TableShape {
+  ROUND // table dáº¡ng trÃ²n
+  RECT // table dáº¡ng chá»¯ nháº­t
+  LONG // table dáº¡ng dÃ i
+}
+
+enum TableStatus {
+  ACTIVE // hoáº¡t Ä‘á»™ng
+  INACTIVE // khÃ´ng dÃ¹ng
+  MAINTENANCE // dang sá»¯a
+}
+
+enum ScheduleType {
+  HOLIDAY // NGÃ€Y Lá»„
+  SPECIAL_HOURS // thay Ä‘á»•i h má»Ÿ cá»§a táº¡m thá»i
+  PRIVATE_EVENT // sá»± kiá»‡n riÃªng
+  CLOSURE // Ä‘Ã³ng táº¡m báº£o trÃ¬....
+}
+
+enum ReservationStatus {
+  PENDING // chá» xÃ¡c nháº­n
+  CONFIRMED // Ä‘Ã£ xÃ¡c nháº­n
+  SEATED // khÃ¡ch Ä‘Ã£ tá»›i
+  COMPLETED //  khÃ¡ch Ä‘Ã£ Äƒn xong
+  CANCELLED // khÃ¡ch Ä‘Ã£ há»§y
+  NO_SHOW // khÃ¡ch khÃ´ng tá»›i
+}
+
+enum ReservationSource {
+  WEB
+  MOBILE
+  PHONE
+  WALK_IN // khÃ¡ch vÃ£ng lai Ä‘áº·t  ik bá»™ tá»›i Ä‘áº·t
+  THIRD_PARTY // bÃªn thá»© 3 Ä‘áº·t dÃ¹m
+}
+
+enum Occasion {
+  NORMAL // DÃ¹ng bá»¯a bÃ¬nh thÆ°á»ng
+  BIRTHDAY // Sinh nháº­t
+  ANNIVERSARY // Ká»· niá»‡m (ngÃ y cÆ°á»›i, yÃªu nhau...)
+  BUSINESS // Tiáº¿p khÃ¡ch/CÃ´ng viá»‡c
+  DATE // Háº¹n hÃ² cáº·p Ä‘Ã´i
+  OTHER // KhÃ¡c
+}
+
+enum NotificationStatus {
+  PENDING // ÄANG CHá»œ Gá»¬I
+  SENT // ÄÃƒ Gá»¬I
+  DELIVERED // ÄÃƒ Äáº¾N THIáº¾T Bá»Š
+  FAILED // Gá»¬I Lá»–I
+  BOUNCED // EMAIL Bá»Š TRáº¢ Láº I
+}
+
+enum NotificationType {
+  CONFIRMATION // XÃC NHáº¬N Äáº¶T BÃ€N
+  REMINDER // NHáº®C Lá»ŠCH
+  CANCELLATION // THÃ”NG BÃO Há»¦Y
+  WAITLIST // THÃ”NG BÃO CÃ“ BÃ€N TRá»NG
+  CUSTOM // THÃ”NG BÃO KHÃC
+  PROMOTION // THÃ”NG BÃO KHUYáº¾N MÃƒI
+  SYSTEM // THÃ”NG BÃO Há»† THá»NG
+  RESERVATION
+  ORDER
+  INVENTORY
+  SUBSCRIPTION
+}
+
+enum NotificationChannel {
+  EMAIL // SENDGRID
+  SMS // TWILIO
+  PUSH // FIREBASE
+  ZALO // ZALO OA
+  WHATSAPP // WHATSAPP API
+}
+
+enum OrderStatus {
+  OPEN //ÄANG Má»ž (ÄANG Gá»ŒI MÃ“N)
+  SENT_TO_KITCHEN //ÄÃƒ Gá»¬I XUá»NG Báº¾P 
+  PARTIALLY_SERVED //ÄÃƒ PHá»¤C Vá»¤ Má»˜T PHáº¦N 
+  SERVED //ÄÃƒ PHá»¤C Vá»¤ XONG (Äá»¦ MÃ“N)
+  BILL_REQUESTED //KHÃCH YÃŠU Cáº¦U THANH TOÃN
+  PAID //ÄÃƒ THANH TOÃN
+  CANCELLED //ÄÃƒ Há»¦Y ÄÆ N
+}
+
+enum KitchenStatus {
+  QUEUED //ÄANG TRONG HÃ€NG Äá»¢I
+  PREPARING //ÄANG CHáº¾ BIáº¾N
+  READY // MÃ“N Ä‚N ÄÃƒ Sáº´N SÃ€NG (CHá»œ LÃŠN MÃ“N)
+  SERVING // ÄANG MANG RA BÃ€N 
+  SERVED //ÄÃƒ PHá»¤C Vá»¤ XONG 
+  CANCELLED //ÄÃƒ Há»¦Y CHáº¾ BIáº¾N 
+}
+
+enum PaymentMethod {
+  CASH //ÄÃƒ Há»¦Y CHáº¾ BIáº¾N
+  CARD //THáºº (ATM/VISA/MASTER)
+  MOMO // VÃ MOMO
+  ZALOPAY //VÃ ZALOPAY 
+}
+
+enum providerType {
+  GOOGLE
+  FACEBOOK
+  GITHUB
+}
+
+enum PaymentStatus {
+  PENDING //Ä‘ang chá» thanh toÃ¡n
+  PAID //ÄÃ£ thanh toÃ¡n Ä‘á»§ 100%
+  PARTIALLY_PAID //Thanh toÃ¡n má»™t pháº§n Ä‘áº·t cá» tráº£ trÆ°á»›c
+  REFUNDED //ÄÃ£ hoÃ n tiá»n
+  FAILED //Thanh toÃ¡n tháº¥t báº¡i hoÃ n toÃ n
+}
+
+enum TransactionStatus {
+  PENDING
+  SUCCESS
+  FAILED
+  VOIDED
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+enum ConfigVerificationStatus {
+  UNVERIFIED
+  VERIFIED
+  FAILED
+}
+
+enum ChatPlatform {
+  WEB
+  ZALO
+  FACEBOOK
+}
+
+enum SessionStatus {
+  ACTIVE
+  RESOLVED
+  ESCALATED
+}
+
+enum MessageSender {
+  USER
+  AI
+  AGENT
+}
+
+enum SubscriptionStatus {
+  PENDING_PAYMENT
+  ACTIVE
+  EXPIRED
+  CANCELLED
+  SUSPENDED
+}
+
+enum InventoryAlertType {
+  LOW_STOCK
+  EXPIRED
+  OUT_OF_STOCK
+}
+
+enum InventoryAlertStatus {
+  UNREAD
+  READ
+  RESOLVED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  PENDING
+  PAID
+  CANCELLED
+  OVERDUE
+}
+
+enum CustomerTier {
+  NEW
+  BRONZE
+  SILVER
+  GOLD
+  PLATINUM
+}
+
+enum InventoryDocStatus {
+  DRAFT
+  COMPLETED
+  CANCELLED
+}
+
+enum StockTransactionType {
+  IN
+  OUT
+  ADJUSTMENT
+}
+
+enum BillingCycle {
+  MONTHLY
+  QUARTERLY
+  YEARLY
+  LIFETIME
+}
+
+enum MaintenanceStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum NotificationTemplateType {
+  EMAIL
+  SMS
+  PUSH
+}
+
+enum WebTemplateType {
+  BRAND_TEMPLATE
+  RESTAURANT_TEMPLATE
+}
+model InventoryAlert {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId    String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  type   InventoryAlertType
+  status InventoryAlertStatus @default(UNREAD)
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+
+  @@index([restaurantId, status])
+  @@map("inventory_alerts")
+}
+model InventoryItem {
+  id         String  @id @default(auto()) @map("_id") @db.ObjectId
+  brandId    String  @db.ObjectId
+  sku        String  @unique
+  name       String
+  categoryId String? @db.ObjectId
+  supplierId String? @db.ObjectId
+
+  baseUnit      String
+  minPrice      Float  @default(0)
+  maxPrice      Float  @default(0)
+  minStockLevel Float  @default(0) // Má»©c tá»“n kho tá»‘i thiá»ƒu (cáº£nh bÃ¡o)
+
+  type     String  @default("INGREDIENT")
+  isActive Boolean @default(true)
+
+  supplier           Supplier?           @relation(fields: [supplierId], references: [id])
+  stocks             InventoryStock[]
+  transactions       StockTransaction[]
+  recipes            Recipe[]
+  purchaseOrderItems PurchaseOrderItem[]
+  stockCountItems    StockCountItem[]
+
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+  stockTransferItems   StockTransferItem[]
+  inventoryAlerts      InventoryAlert[]
+  purchaseRequestItems PurchaseRequestItem[]
+
+  @@map("inventory_items")
+}
+model InventoryStock {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId    String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  quantity      Float   @default(0) // Sá»‘ lÆ°á»£ng hiá»‡n táº¡i
+  minStockLevel Float   @default(0) // NgÆ°á»¡ng cáº£nh bÃ¡o háº¿t hÃ ng
+  location      String? // Vá»‹ trÃ­ (Ká»‡ A, Tá»§ Ä‘Ã´ng 1)
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+
+  @@unique([restaurantId, inventoryItemId])
+  @@index([restaurantId])
+  @@map("inventory_stocks")
+}
+model Invoice {
+  id                  String @id @default(auto()) @map("_id") @db.ObjectId
+  brandSubscriptionId String @db.ObjectId
+  brandId             String @db.ObjectId
+
+  invoiceNumber String @unique // MÃ£ hÃ³a Ä‘Æ¡n (VD: INV-2023-0001)
+
+  // Sá»‘ tiá»n
+  subTotal       Float // Tá»•ng tiá»n chÆ°a thuáº¿/giáº£m giÃ¡
+  discountAmount Float  @default(0)
+  taxAmount      Float  @default(0)
+  total          Float // Tá»•ng tiá»n pháº£i thanh toÃ¡n
+  currency       String @default("VND")
+
+  // Tráº¡ng thÃ¡i
+  status  InvoiceStatus @default(DRAFT)
+  dueDate DateTime // Háº¡n chÃ³t thanh toÃ¡n
+  paidAt  DateTime? // NgÃ y thanh toÃ¡n xong
+
+  // ThÃ´ng tin xuáº¥t hÃ³a Ä‘Æ¡n Ä‘á» (VAT) chá»¥p táº¡i thá»i Ä‘iá»ƒm xuáº¥t
+  billingCompanyName String?
+  billingTaxCode     String?
+  billingAddress     String?
+  paymentUrl         String? // Link thanh toÃ¡n cá»§a cá»•ng thanh toÃ¡n
+
+  // Relations
+  subscription BrandSubscription              @relation(fields: [brandSubscriptionId], references: [id])
+  brand        Brand                          @relation(fields: [brandId], references: [id])
+  transactions BrandSubscriptionTransaction[]
+
+  @@map("invoices")
+}
+model ItemCategoryMap {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  categoryId String       @db.ObjectId
+  category   MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  menuItemId String   @db.ObjectId
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  sort_order Int @default(0)
+
+  @@unique([categoryId, menuItemId])
+  @@index([categoryId])
+  @@index([menuItemId])
+  @@map("item_category_maps")
+}
+model ItemVariant {
+  id         String @id @default(auto()) @map("_id") @db.ObjectId
+  menuItemId String @db.ObjectId
+  name       String // e.g. "Size S", "Size M"
+  sku        String @unique
+  price      Float // GiÃ¡ thay tháº¿ cho basePrice
+
+  menuItem MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  recipes  Recipe[]
+
+  @@map("item_variants")
+}
+enum TransactionType {
+  EARN
+  SPEND
+  EXPIRED
+}
+
+model LoyaltyTransaction {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String  @db.ObjectId
+  restaurantId String? @db.ObjectId // CÃ³ thá»ƒ tÃ­ch/trá»« Ä‘iá»ƒm á»Ÿ cáº¥p Brand hoáº·c Restaurant
+  brandId      String? @db.ObjectId
+  orderId      String? @db.ObjectId
+  cashierId    String? @db.ObjectId // Ghi nháº­n ID nhÃ¢n viÃªn thu ngÃ¢n Ä‘á»ƒ tra soÃ¡t gian láº­n
+
+  points       Float
+  type         TransactionType
+  isSuspicious Boolean         @default(false)
+  description  String?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([restaurantId, createdAt])
+  @@index([brandId, createdAt])
+  @@index([cashierId, isSuspicious])
+  @@map("loyalty_transactions")
+}
+model Menu {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  brandId String? @db.ObjectId
+  brand   Brand?  @relation(fields: [brandId], references: [id])
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+  name         String // tÃªn menu Ä‘Ã³ Main Menu
+  type         String? // loáº¡i menu
+  description  String?
+
+  available_days Int[] // menu má»Ÿ ngÃ y nÃ o trong tuáº§n
+
+  available_from  String? // thá»i gian phá»¥c vá»¥ trong ngÃ y báº¯t Ä‘áº§u máº¥y h null thÃ¬ cáº£ ngÃ y
+  available_until String? //thá»i gian phá»¥c vá»¥ trong ngÃ y káº¿t thÃºc máº¥y h
+
+  valid_from  DateTime? // menu hiá»‡u lá»±c bbawts Ä‘áº§u tá»« ngÃ y nÃ o  náº¿u null thÃ¬ quanh nÄƒm
+  valid_until DateTime? // menu hiá»‡u lá»±c káº¿t thÃºc tá»« ngÃ y nÃ o
+
+  is_active        Boolean           @default(true) // cÃ²n sá»­ dá»¥ng khÃ´ng hay táº¡m háº¿t 
+  sort_order       Int               @default(0) // thá»© tá»± náº±m trong báº£ng menu 0 Ä‘á»©ng trÆ°á»›c ...
+  menucategory     MenuCategory[]
+  menuCategoryMaps MenuCategoryMap[]
+
+  @@index([brandId])
+  @@index([restaurantId])
+  @@map("menus")
+}
+model MenuCategory {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  menuId String @db.ObjectId
+  menu   Menu   @relation(fields: [menuId], references: [id])
+
+  name        String
+  description String?
+  image_url   String?
+
+  sort_order Int     @default(0)
+  is_active  Boolean @default(true)
+
+  items            MenuItem[]
+  itemCategoryMaps ItemCategoryMap[]
+  menuCategoryMaps MenuCategoryMap[]
+
+  @@unique([menuId, name]) 
+  @@index([menuId])
+  @@map("menu_categories")
+}
+model MenuCategoryMap {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  menuId String @db.ObjectId
+  menu   Menu   @relation(fields: [menuId], references: [id], onDelete: Cascade)
+
+  categoryId String       @db.ObjectId
+  category   MenuCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  sort_order Int @default(0)
+
+  @@unique([menuId, categoryId])
+  @@index([menuId])
+  @@index([categoryId])
+  @@map("menu_category_maps")
+}
+model MenuItem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  categoryId String       @db.ObjectId
+  category   MenuCategory @relation(fields: [categoryId], references: [id])
+
+  brandId String? @db.ObjectId
+  brand   Brand?  @relation(fields: [brandId], references: [id])
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+
+  name        String
+  slug        String
+  description String?
+  image       String
+  images      String[]
+
+  base_price Int
+
+  discount_percent Float?
+  discount_until   DateTime?
+
+  item_type    String?
+  dietary_tags String[]
+  allergens    String[]
+
+  spice_level  Int?
+  prep_time    Int?
+  calories     Int?
+  is_available Boolean @default(true) // cÃ²n bÃ¡n hay khÃ´ng
+  is_featured  Boolean @default(false) // mÃ³n cÃ³ hot khÃ´ng
+
+  sort_order          Int                  @default(0)
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  orderItems          OrderItem[]
+  itemCategoryMaps    ItemCategoryMap[]
+  itemVariants        ItemVariant[]
+  modifierGroups      ModifierGroup[]
+  recipes             Recipe[]
+  restaurantMenuItems RestaurantMenuItem[]
+  promotionMenuItems  PromotionMenuItem[]
+
+  @@index([restaurantId, is_available, sort_order])
+  @@index([restaurantId, categoryId, is_available])
+  @@index([brandId, is_available])
+  @@index([is_featured, is_available])
+  @@index([discount_until, is_available])
+  @@index([createdAt, is_featured, is_available])
+  @@map("menu_items")
+}
+model ModifierGroup {
+  id            String @id @default(auto()) @map("_id") @db.ObjectId
+  menuItemId    String @db.ObjectId
+  name          String // e.g. "LÆ°á»£ng ÄÆ°á»ng", "ThÃªm Topping"
+  minSelections Int    @default(0)
+  maxSelections Int    @default(1)
+
+  menuItem MenuItem         @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  options  ModifierOption[]
+
+  @@map("modifier_groups")
+}
+model ModifierOption {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  modifierGroupId String @db.ObjectId
+  name            String
+  priceExtra      Float  @default(0) // Phá»¥ thu
+
+  group   ModifierGroup @relation(fields: [modifierGroupId], references: [id], onDelete: Cascade)
+  recipes Recipe[]
+
+  @@map("modifier_options")
+}
+model Notifications {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  reservationId String?       @db.ObjectId
+  reservation   Reservations? @relation(fields: [reservationId], references: [id])
+
+  userId String? @db.ObjectId
+  user   User?   @relation(fields: [userId], references: [id])
+
+  type    NotificationType? // loáº¡i thÃ´ng bÃ¡o 
+  channel NotificationChannel? // thuá»™c loáº¡i nÃ o Ä‘á»ƒ gá»­i Ä‘áº¿n
+
+  recipient String // ngÆ°á»i nháº­n
+
+  subject String? // tiÃªu Ä‘á» thÃ´ng bÃ¡o
+  body    String? // ná»™i dung thÃ´ng bÃ¡o
+
+  status NotificationStatus
+
+  sent_at      DateTime? // thá»i Ä‘iá»ƒm gá»­i thÃ´ng bÃ¡o 
+  delivered_at DateTime? // thá»i Ä‘iá»ƒm thÃ´ng bÃ¡o Ä‘c nháº­n 
+
+  external_id   String?
+  error_message String?
+
+  // â­ thÃªm cho web notification
+  is_read Boolean   @default(false)
+  read_at DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([reservationId])
+  @@index([status])
+  @@map("notifications")
+}
+model Operating_Hours {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  day_of_week Int // // xÃ¡c Ä‘á»‹nh ngÃ y trong tuáº§n má»Ÿ cá»­a 0 chá»§ nháº­t -> 6 thá»© 7 
+
+  open_time  String // thá»i gian má»Ÿ cá»­a
+  close_time String // thá»i gian Ä‘Ã³ng cá»­a
+
+  is_closed Boolean @default(false) // ngÃ y nghá»‰ (nguyÃªn ngÃ y) hay ngÃ y má»Ÿ cá»­a
+
+  break_start String? // thá»i gian báº¯t Ä‘áº§u nghÄ©
+  break_end   String? // thá»i gian káº¿t thÃºc nghÄ©
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([restaurantId, day_of_week])
+  @@index([restaurantId])
+  @@index([day_of_week])
+  @@map("operating_hours")
+}
+model Order {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  reservationId String       @db.ObjectId
+  reservation   Reservations @relation(fields: [reservationId], references: [id])
+
+  restaurantId String?     @db.ObjectId
+  restaurant   Restaurant? @relation(fields: [restaurantId], references: [id])
+
+  tableId String? @db.ObjectId
+  table   Tables? @relation(fields: [tableId], references: [id])
+
+  takenByEmpId String? @db.ObjectId
+  takenByEmp   User?   @relation("EmployeeOrders", fields: [takenByEmpId], references: [id])
+
+  order_number String @unique
+
+  status OrderStatus
+
+  subtotal        Float
+  discount_amount Float
+  tax_amount      Float
+  total_amount    Float
+
+  payment_method PaymentMethod?
+  paid_at        DateTime?
+
+  items        OrderItem[]
+  transactions Transaction[]
+  createdAt    DateTime      @default(now())
+
+  @@index([reservationId])
+  @@index([tableId])
+  @@map("orders")
+}
+model OrderItem {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  orderId String @db.ObjectId
+  order   Order  @relation(fields: [orderId], references: [id])
+
+  menuItemId String    @db.ObjectId
+  // optional relation (khÃ´ng báº¯t buá»™c vÃ¬ Ä‘Ã£ snapshot)
+  menuItem   MenuItem? @relation(fields: [menuItemId], references: [id])
+  isNew      Boolean   @default(true)
+  name       String
+  quantity   Int
+
+  unitPrice Float
+  subtotal  Float
+
+  discountAmount Float @default(0)
+  totalPrice     Float
+
+  note   String?
+  status KitchenStatus @default(QUEUED)
+
+  createdAt DateTime @default(now())
+
+  @@index([orderId])
+}
+model Permission {
+  id          String                     @id @default(auto()) @map("_id") @db.ObjectId
+  name        String // LÆ°u máº£ng cÃ¡c quyá»n: ["CREATE_ORDER", "VIEW_REPORT"]
+  description String
+  // 1 chá»©c nÄƒng cÃ³ thá»ƒ cÃ³ nhiá»u ngÆ°á»i dÃ¹ng
+  type        role_enum
+  per_vs_emp  Permission_vs_Employment[]
+
+  @@index([name])
+  @@map("permissions")
+}
+model Permission_vs_Employment {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  permissionId String     @db.ObjectId
+  permissions  Permission @relation(fields: [permissionId], references: [id])
+  employmentId String     @db.ObjectId
+  employment   Employment @relation(fields: [employmentId], references: [id])
+}
+model Promotion {
+  id              String  @id @default(auto()) @map("_id") @db.ObjectId
+  code            String  @unique
+  description     String?
+  discount_type   String // PERCENTAGE hoáº·c FIXED_AMOUNT
+  discount_value  Float
+  min_order_value Float?
+  max_discount    Float?
+
+  valid_from  DateTime
+  valid_until DateTime
+  usage_limit Int? // Tá»•ng sá»‘ láº§n mÃ£ cÃ³ thá»ƒ dÃ¹ng
+  used_count  Int      @default(0)
+
+  brandId      String? @db.ObjectId
+  restaurantId String? @db.ObjectId
+
+  promotionRestaurants PromotionRestaurant[]
+  promotionMenuItems   PromotionMenuItem[]
+  userPromotions       UserPromotion[]
+
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@map("promotions")
+}
+
+model PromotionRestaurant {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  promotionId  String @db.ObjectId
+  restaurantId String @db.ObjectId
+
+  promotion  Promotion  @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@map("promotion_restaurants")
+}
+
+model PromotionMenuItem {
+  id          String @id @default(auto()) @map("_id") @db.ObjectId
+  promotionId String @db.ObjectId
+  menuItemId  String @db.ObjectId
+
+  promotion Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+  menuItem  MenuItem  @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+
+  @@map("promotion_menu_items")
+}
+
+model UserPromotion {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  promotionId String   @db.ObjectId
+  isUsed      Boolean  @default(false)
+  savedAt     DateTime @default(now())
+
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  promotion Promotion @relation(fields: [promotionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, promotionId])
+  @@map("user_promotions")
+}
+model PurchaseOrder {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String @db.ObjectId
+  supplierId   String @db.ObjectId
+  createdBy    String @db.ObjectId
+
+  poNumber String @unique // MÃ£ Ä‘Æ¡n (PO-20260805-01)
+  status   String @default("DRAFT") // DRAFT, PENDING, PARTIAL, COMPLETED, CANCELLED
+
+  totalAmount     Float   @default(0)
+  invoiceImageUrl String? // HÃ¬nh áº£nh hÃ³a Ä‘Æ¡n
+
+  items    PurchaseOrderItem[]
+  supplier Supplier            @relation(fields: [supplierId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([restaurantId, createdAt])
+  @@index([restaurantId, status, createdAt])
+  @@index([supplierId])
+  @@map("purchase_orders")
+}
+
+model PurchaseOrderItem {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  purchaseOrderId String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  orderQty     Float // Äáº·t
+  receivedQty  Float @default(0) // Thá»±c nháº­n
+  unitPrice    Float // ÄÆ¡n giÃ¡
+  actualAmount Float @default(0) // ThÃ nh tiá»n thá»±c táº¿
+
+  purchaseOrder PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  @@map("purchase_order_items")
+}
+model PurchaseRequest {
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  brandId      String    @db.ObjectId
+  restaurantId String    @db.ObjectId
+  requestCode  String    @unique // e.g. PR-12345
+  status       String    @default("PENDING") // PENDING, APPROVED, REJECTED, COMPLETED
+  notes        String?
+  expectedDate DateTime?
+
+  items PurchaseRequestItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+
+  // Back-relations might be needed in Restaurant and Brand models, but if Prisma complains we will add them.
+  @@map("purchase_requests")
+}
+
+model PurchaseRequestItem {
+  id                String @id @default(auto()) @map("_id") @db.ObjectId
+  purchaseRequestId String @db.ObjectId
+  inventoryItemId   String @db.ObjectId
+  requestedQty      Float
+  approvedQty       Float?
+
+  purchaseRequest PurchaseRequest @relation(fields: [purchaseRequestId], references: [id], onDelete: Cascade)
+  inventoryItem   InventoryItem   @relation(fields: [inventoryItemId], references: [id])
+
+  @@map("purchase_request_items")
+}
+model Recipe {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  menuItemId       String? @db.ObjectId
+  variantId        String? @db.ObjectId
+  modifierOptionId String? @db.ObjectId
+
+  quantityRequired Float
+
+  inventoryItem  InventoryItem   @relation(fields: [inventoryItemId], references: [id], onDelete: Cascade)
+  menuItem       MenuItem?       @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  variant        ItemVariant?    @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  modifierOption ModifierOption? @relation(fields: [modifierOptionId], references: [id], onDelete: Cascade)
+
+  @@map("recipes")
+}
+model Reservations {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  confirmation_code String @unique // mÃ£ xÃ¡c nháº­n Ä‘á»ƒ khÃ¡ch cÃ³ thá»ƒ thay Ä‘á»•i or há»§y Ä‘áº·t 
+
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  userId String? @db.ObjectId // khÃ¡ch hÃ ng
+  user   User?   @relation(fields: [userId], references: [id])
+
+  created_by_staff_id String?     @db.ObjectId // láº¥y tá»« table employment
+  created_by_staff    Employment? @relation(fields: [created_by_staff_id], references: [id])
+  // thÃ´ng tin khÃ¡ch
+  guest_name          String
+  guest_phone         String
+  guest_email         String?
+
+  // Booking details
+  reservation_date DateTime // ngÃ y Ä‘áº¿n  
+  start_time       String // giá» khÃ¡ch Ä‘áº¿n 
+  end_time         String // giá» khÃ¡ch Ä‘i
+
+  party_size Int // sá»‘ lÆ°á»£ng ngá»«oi
+
+  status ReservationStatus
+  source ReservationSource?
+
+  // Special requests
+  special_requests     String? // yÃªu cáº§u Ä‘áº·t biá»‡t cá»§a khÃ¡ch Ä‘áº·t bÃ n
+  dietary_restrictions Json? // cÃ¡c háº¡n cháº¿ vÃ  dá»‹ á»©ng náº¿u cÃ³
+
+  occasion Occasion?
+
+  internal_notes String? // ghi chÃº ná»™i bá»™ nhÃ¢n viÃªn chá»‰ cÃ³ nhÃ¢n viÃªn tháº¥y Ä‘c
+
+  // Payment
+  deposit_paid   Boolean @default(false) // khÃ¡ch Ä‘áº·t cá»c chÆ°a
+  deposit_amount Int? // Ä‘áº·t bao nhiÃªu
+
+  // Timeline
+  confirmed_at        DateTime? // thá»i gian nhÃ¢n viÃªn xÃ¡c nháº­n Ä‘Æ¡n
+  cancelled_at        DateTime? // thá»i gian nhÃ¢n viÃªn há»§y Ä‘Æ¡n
+  cancellation_reason String? // lÃ½ do há»§y
+
+  seated_at    DateTime? // thá»i gian khÃ¡ch Ä‘áº¿n
+  completed_at DateTime? // thá»i gian khÃ¡ch Ä‘Ã£ dÃ¹ng xong
+
+  reservation_tables    Reservation_Tables[]
+  review_restaurant     Review_Restaurant?
+  reservation_audit_log Reservation_Audit_Log[]
+  notifications         Notifications[]
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  order                 Order[]
+
+  @@index([restaurantId])
+  @@index([reservation_date])
+  @@index([status])
+  @@map("reservations")
+}
+model Reservation_Audit_Log {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  reservationId String       @db.ObjectId
+  reservation   Reservations @relation(fields: [reservationId], references: [id])
+
+  changedByUserId String? @db.ObjectId
+  changedByUser   User?   @relation(fields: [changedByUserId], references: [id])
+
+  action String
+
+  old_values Json?
+  new_values Json?
+
+  ip_address String? // Ä‘á»‹a chá»‰ ip mÃ¡y náº¿u cáº§n
+  user_agent String? // loáº¡i thiáº¿t bá»‹ 
+
+  createdAt DateTime @default(now())
+
+  @@index([reservationId])
+  @@index([changedByUserId])
+  @@map("reservation_audit_logs")
+}
+model Reservation_Tables {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  reservationId String       @db.ObjectId
+  reservation   Reservations @relation(fields: [reservationId], references: [id])
+
+  tableId String @db.ObjectId
+  table   Tables @relation(fields: [tableId], references: [id])
+
+  assigned_at DateTime @default(now()) // ngÃ y Ä‘c phÃ¢n bÃ n 
+
+  assigned_by_staff_id String?     @db.ObjectId
+  assigned_by_staff    Employment? @relation(fields: [assigned_by_staff_id], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([reservationId, tableId])
+  @@index([reservationId])
+  @@index([tableId])
+  @@map("reservation_tables")
+}
+type RestaurantBookingConfig {
+  maxPartySize      Int?
+  bookingWindowDays Int?
+  cancellationHours Int?
+  depositRequired   Boolean @default(false)
+  depositAmount     Int?
+}
+
+type RestaurantRatingStats {
+  totalRating   Int?
+  averageRating Float @default(0.0)
+  food          Float @default(0.0)
+  service       Float @default(0.0)
+  ambiance      Float @default(0.0)
+}
+
+model Restaurant {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  brandId       String       @db.ObjectId
+  brand         Brand        @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  logo          String?
+  isNew         Boolean      @default(true)
+  name          String?
+  address       Json?
+  city          String?
+  email_contact String?
+  phone_contact String?
+  description   String?
+  statusByAdmin isActive     @default(ACTIVE)
+  reasonByAdmin String?
+  statusByBrand isActive     @default(ACTIVE)
+  reasonByBrand String?
+  imageMain     String
+  images        String[]
+  slug          String?
+  employments   Employment[] // nháº«n viÃªn cáº¥p nhÃ  hÃ ng
+
+  restaurant_areas Restaurant_Areas[]
+  tabels           Tables[]
+
+  // 1. NhÃ³m Cáº¥u hÃ¬nh Äáº·t bÃ n
+  bookingConfig RestaurantBookingConfig?
+
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  menu              Menu[]
+  operating_hours   Operating_Hours[]
+  special_schedules Special_Schedules[] // giá» má»Ÿ cá»­a or Ä‘Ã³ng Ä‘áº·c biá»‡t
+  reservations      Reservations[]
+  review_restaurant Review_Restaurant[]
+  items             MenuItem[]
+  weightedScore     Float?
+
+  // 2. NhÃ³m Äiá»ƒm sá»‘ ÄÃ¡nh giÃ¡
+  ratingStats RestaurantRatingStats?
+
+  // 3. NhÃ³m Cáº¥u hÃ¬nh Thuáº¿ & Kho (káº¿ thá»«a tá»« Brand)
+  taxConfig             BrandTaxConfig?
+  inventoryConfig       BrandInventoryConfig?
+  paymentConfigs        RestaurantPaymentConfig[]
+  // Quan h n-n
+  categoryRestaurantIds String[]                  @db.ObjectId
+  categoryRestaurants   Category_Restaurant[]     @relation(fields: [categoryRestaurantIds], references: [id])
+
+  restaurantAmenityIds String[]               @db.ObjectId
+  restaurantAmenities  Restaurant_Amenities[] @relation(fields: [restaurantAmenityIds], references: [id])
+
+  tagIds                    String[]                      @db.ObjectId
+  tags                      Tags[]                        @relation(fields: [tagIds], references: [id])
+  restaurantMenuItems       RestaurantMenuItem[]
+  aichatSessions            AIChatSession[]
+  inventoryAlerts           InventoryAlert[]
+  purchaseRequests          PurchaseRequest[]
+  restaurantCustomers       RestaurantCustomer[]
+  restaurantEvents          Restaurant_Event[]
+  restaurantNotifications   RestaurantNotification[]
+  restaurantRevenues        RestaurantRevenue[]
+  tableMaintenanceSchedules Table_Maintenance_Schedules[]
+  template                  Template?                     @relation(fields: [templateId], references: [id])
+  templateId                String?                       @db.ObjectId
+  orders                    Order[]
+  promotionRestaurants      PromotionRestaurant[]
+
+  @@index([brandId, statusByAdmin]) // theo brand
+  @@index([statusByAdmin, createdAt]) // list + pagination
+  @@index([city, statusByAdmin]) // filter location
+  @@index([weightedScore, statusByAdmin, isNew]) // Ä‘ang hoáº¡t Ä‘á»™ng vÃ  cÃ³ Ä‘iá»ƒm cao 
+  @@map("restaurants")
+}
+model RestaurantMenuItem {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String @db.ObjectId
+  menuItemId   String @db.ObjectId
+
+  isAvailable   Boolean @default(true) // Háº¿t hÃ ng cá»¥c bá»™
+  overridePrice Float? // GiÃ¡ bÃ¡n ghi Ä‘Ã¨
+
+  menuItem   MenuItem   @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@unique([restaurantId, menuItemId])
+  @@map("restaurant_menu_items")
+}
+model RestaurantPaymentConfig {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  restaurantId String @db.ObjectId
+  brandId      String @db.ObjectId
+
+  provider PaymentMethod
+
+  // JSON config (MongoDB ráº¥t há»£p cho field nÃ y)
+  configData Json
+
+  isActive   Boolean @default(true)
+  isTestMode Boolean @default(true)
+
+  createdAt DateTime @default(now())
+
+  // Relations (optional náº¿u báº¡n Ä‘Ã£ cÃ³ model)
+  restaurant            Restaurant           @relation(fields: [restaurantId], references: [id])
+  brand                 Brand                @relation(fields: [brandId], references: [id])
+  systemPaymentMethod   SystemPaymentMethod? @relation(fields: [systemPaymentMethodId], references: [id])
+  systemPaymentMethodId String?              @db.ObjectId
+
+  @@unique([restaurantId, provider])
+  @@map("restaurant_payment_configs")
+}
+model Restaurant_Amenities {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  icon        String?
+  description String?
+  createdAt   DateTime @default(now())
+
+  restaurantIds String[]     @db.ObjectId
+  restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
+
+  @@map("restaurant_amenities")
+}
+// khu vá»±c táº§ng or table
+model Restaurant_Areas {
+  id              String     @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId    String     @db.ObjectId
+  restaurant      Restaurant @relation(fields: [restaurantId], references: [id])
+  name            String
+  description     String?
+  smoking_allowed Boolean    @default(true) // cho phÃ©p huá»‘c thuá»‘c khÃ´ng 
+  is_outdoor      Boolean // ngoÃ i trá»i hay trong NhÃ 
+  floor_number    Int // táº§ng máº¥y
+  is_active       isActive   @default(ACTIVE)
+
+  tabels Tables[]
+
+  @@index([name])
+  @@map("restaurant_areas")
+}
+type RestaurantPolicy {
+  name        String
+  description String
+}
+
+type SocialLink {
+  platform String
+  url      String
+}
+
+type Faq {
+  question String
+  answer   String
+}
+
+type DeliveryPartner {
+  name String
+  url  String
+  icon String?
+}
+model RestaurantCustomer {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  userId       String     @db.ObjectId
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  totalSpent    Float        @default(0)
+  loyaltyPoints Float        @default(0)
+  orderCount    Int          @default(0)
+  lastVisit     DateTime     @default(now())
+  tier          CustomerTier @default(NEW)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([restaurantId, userId])
+  @@map("restaurant_customers")
+}
+model Restaurant_Event {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  title       String
+  description String?
+  image       String?
+  startDate   DateTime
+  endDate     DateTime?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([restaurantId, startDate])
+  @@map("restaurant_events")
+}
+model RestaurantNotification {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String @db.ObjectId
+
+  targetUserId String? @db.ObjectId
+
+  title String
+  body  String
+  type  NotificationType
+
+  referenceId   String?
+  referenceType String?
+
+  createdAt DateTime @default(now())
+
+  readReceipts RestaurantNotificationReadReceipt[]
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@index([restaurantId, createdAt])
+  @@map("restaurant_notifications")
+}
+
+model RestaurantNotificationReadReceipt {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  notificationId String   @db.ObjectId
+  userId         String   @db.ObjectId
+  readAt         DateTime @default(now())
+  isDeleted      Boolean  @default(false)
+
+  notification RestaurantNotification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  user         User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([notificationId, userId])
+  @@map("restaurant_notification_read_receipts")
+}
+model RestaurantRevenue {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String  @db.ObjectId
+  brandId      String  @db.ObjectId
+  amount       Float
+  source       String // VD: "ORDER_PAYMENT"
+  referenceId  String? @db.ObjectId // orderId
+  description  String?
+
+  restaurant Restaurant @relation(fields: [restaurantId], references: [id])
+  brand      Brand      @relation(fields: [brandId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([restaurantId])
+  @@index([brandId])
+  @@index([restaurantId, createdAt])
+  @@index([restaurantId, source])
+  @@index([referenceId])
+  @@map("restaurant_revenues")
+}
+model Review_Restaurant {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  reservationId String       @unique @db.ObjectId
+  reservation   Reservations @relation(fields: [reservationId], references: [id])
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  overall_rating  Int // Ä‘Ã¡nh giÃ¡ tá»« 1 Ä‘áº¿n 5
+  food_rating     Int? // Ä‘Ã¡nh giÃ¡ Ä‘á»“ Äƒn
+  service_rating  Int? // Ä‘Ã¡nh giÃ¡ dá»‹ch vá»¥
+  ambiance_rating Int? // Ä‘Ã¡nh giÃ¡ khÃ´ng gian quÃ¡n
+
+  comment String? // bÃ¬nh luáº­n 
+
+  is_public Boolean @default(true) // cÃ³ cÃ´ng khia bÃ¬nh luáº­n hay khÃ´ng 
+
+  staff_response String? // pháº£n há»“i tá»« nhÃ  hÃ ng
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([restaurantId])
+  @@index([userId])
+  @@map("reviews_restaurant")
+}
+// thay Ä‘á»•i lá»‹ch táº¡m thá»i or nghÄ© táº¡m thá»i 
+model Special_Schedules {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  date DateTime //NgÃ y Ã¡p dá»¥ng lá»‹ch Ä‘áº·c biá»‡t
+
+  type ScheduleType
+
+  open_time  String? // giá» má»Ÿ Ä‘áº·c biá»‡t null náº¿u cáº£ nagyf Ä‘á»u Ä‘Ã³ng
+  close_time String? // giá» Ä‘Ã³ng Ä‘áº·c biá»‡t null náº¿u cáº£ nagyf Ä‘á»u Ä‘Ã³ng
+
+  reason String? // lÃ½ do cho nagyf nÃ y
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([restaurantId])
+  @@index([date])
+  @@map("special_schedules")
+}
+model StockCount {
+  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String @db.ObjectId
+  brandId      String @db.ObjectId
+  createdBy    String @db.ObjectId
+
+  code       String             @unique // MÃ£ phiáº¿u kiá»ƒm, vd: CHK-20260805-01
+  status     InventoryDocStatus @default(DRAFT)
+  notes      String?
+  reason     String? // LÃ½ do duyá»‡t/tá»« chá»‘i
+  approvedBy String?            @db.ObjectId
+  approvedAt DateTime?
+
+  items StockCountItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("stock_counts")
+}
+
+model StockCountItem {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  stockCountId    String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  systemQty   Float @default(0) // Tá»“n kho trÃªn há»‡ thá»‘ng lÃºc táº¡o
+  actualQty   Float @default(0) // Tá»“n kho thá»±c táº¿ Ä‘áº¿m Ä‘Æ°á»£c
+  discrepancy Float @default(0) // Äá»™ lá»‡ch = actualQty - systemQty
+
+  stockCount    StockCount    @relation(fields: [stockCountId], references: [id], onDelete: Cascade)
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  @@map("stock_count_items")
+}
+model StockTransaction {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId    String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+  userId          String @db.ObjectId // NgÆ°á»i thá»±c hiá»‡n
+
+  type           StockTransactionType
+  quantityChange Float // (+/-) Sá»‘ lÆ°á»£ng thay Ä‘á»•i
+  balanceAfter   Float // Tá»“n kho SAU KHI giao dá»‹ch (DÃ¹ng Ä‘á»ƒ dÃ² sai lá»‡ch)
+  unitCost       Float? // GiÃ¡ vá»‘n táº¡i thá»i Ä‘iá»ƒm giao dá»‹ch
+
+  referenceId String? @db.ObjectId // Tham chiáº¿u Ä‘áº¿n PO, Order, hoáº·c Audit
+  notes       String?
+
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  @@index([restaurantId, inventoryItemId, createdAt])
+  @@map("stock_transactions")
+}
+model StockTransfer {
+  id               String @id @default(auto()) @map("_id") @db.ObjectId
+  fromRestaurantId String @db.ObjectId
+  toRestaurantId   String @db.ObjectId
+  createdBy        String @db.ObjectId
+
+  transferNumber String  @unique
+  status         String  @default("DRAFT") // DRAFT, IN_TRANSIT, COMPLETED, CANCELLED
+  notes          String?
+
+  items StockTransferItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("stock_transfers")
+}
+
+model StockTransferItem {
+  id              String @id @default(auto()) @map("_id") @db.ObjectId
+  stockTransferId String @db.ObjectId
+  inventoryItemId String @db.ObjectId
+
+  transferQty Float // Sá»‘ lÆ°á»£ng xuáº¥t kho
+  receivedQty Float @default(0) // Sá»‘ lÆ°á»£ng thá»±c nháº­n
+
+  stockTransfer StockTransfer @relation(fields: [stockTransferId], references: [id], onDelete: Cascade)
+  inventoryItem InventoryItem @relation(fields: [inventoryItemId], references: [id])
+
+  @@map("stock_transfer_items")
+}
+model SubscriptionPlan {
+  id                String       @id @default(auto()) @map("_id") @db.ObjectId
+  name              String       @unique
+  description       String?
+  price             Float
+  discountPrice     Float? // GiÃ¡ sau khi giáº£m (náº¿u cÃ³ chÆ°Æ¡ng trÃ¬nh khuyáº¿n mÃ£i)
+  discountStartDate DateTime? // NgÃ y báº¯t Ä‘áº§u khuyáº¿n mÃ£i
+  discountEndDate   DateTime? // NgÃ y káº¿t thÃºc khuyáº¿n mÃ£i
+  billingCycle      BillingCycle @default(MONTHLY)
+  maxRestaurants    Int // Sá»‘ nhÃ  hÃ ng tá»‘i Ä‘a (-1 = khÃ´ng giá»›i háº¡n)
+  trialPeriodDays   Int          @default(0) // Sá»‘ ngÃ y dÃ¹ng thá»­ miá»…n phÃ­
+  setupFee          Float        @default(0) // PhÃ­ khá»Ÿi táº¡o ban Ä‘áº§u (náº¿u cÃ³)
+  featuresData      Json? // Thay tháº¿ features [String]. LÆ°u dáº¡ng {"maxUsers": 10, "maxBranches": 2, "hasAnalytics": true}
+  isPublic          Boolean      @default(true) // GÃ³i áº©n dÃ nh riÃªng cho Sale chá»‘t deal Enterprise
+  isActive          Boolean      @default(true)
+
+  subscriptions BrandSubscription[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([price])
+  @@index([billingCycle])
+  @@index([maxRestaurants])
+  @@index([isActive])
+  @@index([isActive, billingCycle])
+  @@map("subscription_plans")
+}
+model Supplier {
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  brandId String  @db.ObjectId
+  name    String
+  taxCode String?
+  contact String? // JSON
+  status  String  @default("ACTIVE") // ACTIVE, INACTIVE
+
+  purchaseOrders PurchaseOrder[]
+  inventoryItems InventoryItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("suppliers")
+}
+model SystemRole {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String  @unique
+  description String?
+  users       User[]
+
+  @@map("SystemRole")
+}
+model SystemNotification {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  targetUserId String? @db.ObjectId
+
+  title String
+  body  String
+  type  NotificationType
+
+  referenceId   String?
+  referenceType String?
+
+  createdAt DateTime @default(now())
+
+  readReceipts SystemNotificationReadReceipt[]
+
+  @@index([createdAt])
+  @@map("system_notifications")
+}
+
+model SystemNotificationReadReceipt {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  notificationId String   @db.ObjectId
+  userId         String   @db.ObjectId
+  readAt         DateTime @default(now())
+  isDeleted      Boolean  @default(false)
+
+  notification SystemNotification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+  user         User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([notificationId, userId])
+  @@map("system_notification_read_receipts")
+}
+model SystemPaymentMethod {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String // TÃªn hiá»ƒn thá»‹ (VD: MoMo, VNPay, Tiá»n máº·t)
+  code        String  @unique // MÃ£ code (VD: MOMO, VNPAY, CASH)
+  description String?
+  iconUrl     String?
+  isActive    Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  adminConfigs                  AdminPaymentConfig[]
+  brandConfigs                  BrandPaymentConfig[]
+  restaurantConfigs             RestaurantPaymentConfig[]
+  transactions                  Transaction[]
+  brandSubscriptionTransactions BrandSubscriptionTransaction[]
+
+  @@index([isActive])
+  @@map("system_payment_methods")
+}
+model SystemRevenue {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  amount      Float
+  source      String // VD: "BRAND_SUBSCRIPTION", "SERVICE_FEE"
+  referenceId String? @db.ObjectId
+  description String?
+
+  createdAt DateTime @default(now())
+
+  @@index([source])
+  @@index([createdAt])
+  @@index([source, createdAt])
+  @@map("system_revenues")
+}
+model SystemWebhookLog {
+  id                    String @id @default(auto()) @map("_id") @db.ObjectId
+  systemPaymentMethodId String @db.ObjectId
+
+  event     String // TÃªn sá»± kiá»‡n (VD: vnpay.payment_success)
+  payload   Json // ToÃ n bá»™ dá»¯ liá»‡u cá»•ng thanh toÃ¡n Ä‘áº©y vá»
+  processed Boolean @default(false) // ÄÃ£ xá»­ lÃ½ thÃ nh cÃ´ng chÆ°a
+  errorMsg  String? // Lá»—i náº¿u xá»­ lÃ½ tháº¥t báº¡i
+
+  createdAt DateTime @default(now())
+
+  @@map("system_webhook_logs")
+}
+// táº¡o tabels cho nhÃ  hÃ ng 
+
+model Tables {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+
+  areaId String           @db.ObjectId
+  area   Restaurant_Areas @relation(fields: [areaId], references: [id])
+
+  tableMaintenanceScheduleIds String[]                      @db.ObjectId
+  tableMaintenanceSchedules   Table_Maintenance_Schedules[] @relation(fields: [tableMaintenanceScheduleIds], references: [id])
+
+  table_number String
+
+  min_capacity Int // sá»‘ lÆ°á»£ng khÃ¡ch Ã­t nháº¥t
+  max_capacity Int // sá»‘ lÆ°á»£ng khÃ¡ch nhiá»u nháº¥t
+
+  shape         TableShape
+  is_combinable Boolean?   @default(false) // cho phÃ©p ghÃ©p table vs ngÆ°á»i khÃ¡c hay khÃ´ng
+
+  pos_x Float? //  sÆ¡ Ä‘á»“ 
+  pos_y Float? //  table nhÃ  hÃ ng
+
+  status TableStatus @default(ACTIVE)
+
+  qr_code            String?              @unique // má»Ÿ link Ä‘á»ƒ Ä‘áº·t mÃ³n tiáº¿p
+  reservation_tables Reservation_Tables[] // bÃ n Ä‘c phÃ¢n khi cÃ³ Ä‘Æ¡n Ä‘áº·t 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  orders    Order[]
+
+  @@unique([restaurantId, table_number])
+  @@map("tables")
+}
+model Table_Maintenance_Schedules {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  restaurantId String     @db.ObjectId
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  tableIds String[] @db.ObjectId
+  tables   Tables[] @relation(fields: [tableIds], references: [id])
+
+  start_time DateTime
+  end_time   DateTime
+  reason     String?
+  status     MaintenanceStatus @default(SCHEDULED)
+
+  created_by_staff_id String? @db.ObjectId
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([restaurantId])
+  @@index([start_time, end_time])
+  @@map("table_maintenance_schedules")
+}
+model Tags {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String   @unique
+  slug        String   @unique
+  description String?
+  textColor   String?  @default("#000000")
+  bgColor     String?  @default("#f3f4f6")
+  createdAt   DateTime @default(now())
+
+  restaurantIds String[]     @db.ObjectId
+  restaurants   Restaurant[] @relation(fields: [restaurantIds], references: [id])
+
+  @@map("tags")
+}
+model Template {
+  id           String          @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  code         String          @unique
+  type         WebTemplateType
+  thumbnailUrl String?
+  description  String?
+
+  desktopImages String[]
+  mobileImages  String[]
+  tabletImages  String[]
+
+  isActive Boolean @default(true)
+
+  allowedPlanIds String[] @db.ObjectId
+
+  brands      Brand[]
+  restaurants Restaurant[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("templates")
+}
+model Transaction {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  orderId String @db.ObjectId
+  amount  Float
+
+  provider PaymentMethod
+
+  externalTransactionId String?
+
+  status TransactionStatus
+
+  rawResponse Json?
+
+  createdAt DateTime @default(now())
+
+  // Relation
+  order                 Order                @relation(fields: [orderId], references: [id])
+  systemPaymentMethod   SystemPaymentMethod? @relation(fields: [systemPaymentMethodId], references: [id])
+  systemPaymentMethodId String?              @db.ObjectId
+
+  @@index([orderId])
+  @@index([externalTransactionId])
+  @@map("transactions")
+}
+model UpgradeRequest {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @unique @db.ObjectId // Má»—i user chá»‰ cÃ³ 1 request chá» duyá»‡t táº¡i 1 thá»i Ä‘iá»ƒm
+  user   User   @relation(fields: [userId], references: [id])
+
+  // CÃ¡c thÃ´ng tin user pháº£i ná»™p Ä‘á»ƒ xin lÃªn quáº£n lÃ½
+  brandName       String // TÃªn thÆ°Æ¡ng hiá»‡u muá»‘n táº¡o
+  tax_code        String? // MÃ£ sá»‘ thuáº¿ (náº¿u cáº§n)
+  businessLicense String? // áº¢nh chá»¥p giáº¥y phÃ©p KD (URL tá»« Cloudinary)
+
+  status    RequestStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@index([status]) // Tá»‘i Æ°u cho query: Ä‘áº¿m sá»‘ Ä‘Æ¡n PENDING cá»§a Admin
+  @@index([createdAt]) // Tá»‘i Æ°u cho viá»‡c Admin sort Ä‘Æ¡n má»›i nháº¥t lÃªn Ä‘áº§u
+  @@index([userId, status]) // Compound Index: Tá»‘i Æ°u cho viá»‡c check xem User nÃ y cÃ³ Ä‘Æ¡n nÃ o Ä‘ang PENDING khÃ´ng
+  @@map("upgrade_request")
+}
+model User {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  user_name    String        @unique
+  email        String        @unique
+  sdt          String?
+  password     String?
+  providerId   String?
+  providerType providerType?
+  // thÃ´ng tin cÆ¡ báº£n
+
+  name          String?
+  avatar        String?
+  gender        Gender?
+  date_of_birth DateTime?
+  is_active     AccountStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  //táº¡o liÃªn káº¿t 
+
+  // --- CÃ¡c Relations (LiÃªn káº¿t tá»›i cÃ¡c vai trÃ² cá»§a User) ---
+  employments                        Employment[] // LiÃªn káº¿t: User nÃ y lÃ m nhÃ¢n viÃªn á»Ÿ Ä‘Ã¢u? cÃ³ or ko 
+  systemRoleId                       String?                             @db.ObjectId // LiÃªn káº¿t : User nÃ y lÃ  khÃ¡ch hÃ ng hay admin
+  systemRole                         SystemRole?                         @relation(fields: [systemRoleId], references: [id])
+  reservations                       Reservations[] //khÃ¡ch hÃ ng Ä‘áº·t bÃ n
+  review_restaurant                  Review_Restaurant[] // ngÆ°á»i Ä‘Ã¡nh fias nhÃ  hÃ ng
+  reservation_audit_log              Reservation_Audit_Log[] // thay Ä‘á»•i Ä‘áº·t 
+  notifications                      Notifications[]
+  ordersTaken                        Order[]                             @relation("EmployeeOrders")
+  upgradeRequest                     UpgradeRequest?
+  brandNotificationReadReceipts      BrandNotificationReadReceipt[]
+  brandSubscriptionTransactions      BrandSubscriptionTransaction[]
+  customerNotifications              CustomerNotification[]
+  restaurantCustomers                RestaurantCustomer[]
+  restaurantNotificationReadReceipts RestaurantNotificationReadReceipt[]
+  systemNotificationReadReceipts     SystemNotificationReadReceipt[]
+  userPromotions                     UserPromotion[]
+
+  @@index([systemRoleId])
+  @@index([name])
+  @@index([sdt])
+  @@map("users")
+}
+model WorkspaceRole {
+  id          String       @id @default(auto()) @map("_id") @db.ObjectId
+  name        String       @unique
+  description String?
+  employments Employment[]
+
+  @@map("WorkspaceRole")
+}

@@ -1,7 +1,8 @@
 import React from 'react';
+import Link from 'next/link';
 import { CustomerReservation } from '../type/reservation.type';
-import { FiClock, FiUsers, FiMapPin, FiPhoneCall } from 'react-icons/fi';
-import { MdOutlineRestaurantMenu } from 'react-icons/md';
+import { FiClock, FiUsers, FiMapPin } from 'react-icons/fi';
+import { MdOutlineRestaurantMenu, MdRestaurant } from 'react-icons/md';
 
 interface Props {
     reservation: CustomerReservation;
@@ -22,6 +23,7 @@ const getStatusConfig = (status: string) => {
 
 export const ReservationCard = ({ reservation, onCancelClick }: Props) => {
     const statusConfig = getStatusConfig(reservation.status);
+    const restaurantId = reservation.restaurantId || reservation.restaurant?.id;
     
     // Kiểm tra xem có thể hủy không (Nếu PENDING/CONFIRMED và thời gian còn lại lớn hơn cancellationHours)
     const canCancel = ['PENDING', 'CONFIRMED'].includes(reservation.status);
@@ -44,7 +46,7 @@ export const ReservationCard = ({ reservation, onCancelClick }: Props) => {
         <div className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between">
             {/* Header */}
             <div className="flex justify-between items-start mb-4">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0">
                     <div className="w-12 h-12 rounded-xl bg-gray-50 border border-gray-100 p-1.5 shrink-0 flex items-center justify-center overflow-hidden">
                         {reservation.restaurant?.logo ? (
                             <img src={reservation.restaurant.logo} alt="Logo" className="w-full h-full object-contain" />
@@ -52,8 +54,8 @@ export const ReservationCard = ({ reservation, onCancelClick }: Props) => {
                             <MdOutlineRestaurantMenu className="text-xl text-gray-400" />
                         )}
                     </div>
-                    <div>
-                        <h3 className="font-bold text-gray-900 line-clamp-1" title={reservation.restaurant?.name || 'Nhà hàng'}>
+                    <div className="min-w-0 flex-1">
+                        <h3 className="font-bold text-gray-900 truncate" title={reservation.restaurant?.name || 'Nhà hàng'}>
                             {reservation.restaurant?.name || 'Nhà hàng (Đã xóa)'}
                         </h3>
                         <p className="text-xs text-gray-500 font-mono mt-0.5">#{reservation.confirmation_code}</p>
@@ -91,9 +93,29 @@ export const ReservationCard = ({ reservation, onCancelClick }: Props) => {
 
             {/* Actions */}
             <div className="pt-4 border-t border-gray-50 flex items-center gap-2">
-                <button className="flex-1 py-2 text-sm font-medium text-indigo-600 bg-indigo-50 rounded-xl hover:bg-indigo-100 transition-colors">
-                    Chi tiết
-                </button>
+                {restaurantId ? (
+                    <Link
+                        href={`/restaurants/${restaurantId}`}
+                        className="flex-1 py-2 text-sm font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 rounded-xl transition-colors text-center flex items-center justify-center"
+                    >
+                        Chi tiết
+                    </Link>
+                ) : (
+                    <button className="flex-1 py-2 text-sm font-medium text-gray-700 bg-gray-50 rounded-xl flex items-center justify-center">
+                        Chi tiết
+                    </button>
+                )}
+
+                {/* Nút Gọi món nếu đang dùng bữa (SEATED) */}
+                {reservation.status === 'SEATED' && restaurantId && (
+                    <Link
+                        href={`/restaurants/${restaurantId}/order?reservationId=${reservation.id}`}
+                        className="flex-1 py-2 px-3 text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-xl shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-1.5"
+                    >
+                        <MdRestaurant className="text-base shrink-0" /> Gọi món
+                    </Link>
+                )}
+
                 {canCancel && (
                     <button 
                         onClick={() => onCancelClick(reservation)}

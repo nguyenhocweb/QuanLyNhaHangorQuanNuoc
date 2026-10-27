@@ -12,8 +12,16 @@ export const role_type = {
 }
 export const gender_to_db = {
     "Nam": "Nam",
+    "NAM": "Nam",
+    "nam": "Nam",
     "Nữ": "Nu",
-    "Khác": "Khac"
+    "Nu": "Nu",
+    "NU": "Nu",
+    "nu": "Nu",
+    "Khác": "Khac",
+    "Khac": "Khac",
+    "KHAC": "Khac",
+    "khac": "Khac"
 }
 export const gender_to_client = {
     "Nam": "Nam",

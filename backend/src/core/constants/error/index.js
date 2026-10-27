@@ -64,8 +64,8 @@ export class ForbiddenError extends ApiError {
  * Lỗi 409 - Xung đột dữ liệu (Thường dùng khi dữ liệu đã tồn tại)
  */
 export class ConflictError extends ApiError {
-  constructor(message = ReasonPhrases.CONFLICT) {
-    super(message, StatusCodes.CONFLICT);
+  constructor(message = 'Conflict') {
+    super(message, 409);
   }
 }
 // lỗi 409

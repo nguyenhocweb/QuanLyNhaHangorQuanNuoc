@@ -7,8 +7,11 @@ import {testRefresh} from "./controllers/testRefresh.controller.js";
 import {LoginSuccess} from "./controllers/loginSuccess.controller.js";
 import { validate } from "../../../core/middlewares/validator.middleware.js";
 import LoginValidator from "./validators/Login.validator.js";
+import RegisterValidator from "./validators/Register.validator.js";
+import { registerController } from "./controllers/register.controller.js";
 
-router.post("/login",validate(LoginValidator),LoginController)
+router.post("/register", validate(RegisterValidator), registerController);
+router.post("/login", validate(LoginValidator), LoginController);
 router.get("/OAuth/:type",OAuth);
 router.post("/refresh/test",testRefresh);
 router.get("/refresh/logout",OAuth);

@@ -10,11 +10,14 @@ export const getPlatformMetricsSchema = {
   }
 };
 
-export const executeGetPlatformMetrics = async (args, context) => {
+export const executeGetPlatformMetrics = async (args, context = {}) => {
   try {
-    const { role } = context;
+    const rawRole = context?.role || context?.systemRole;
+    const role = typeof rawRole === 'object' ? rawRole?.name : rawRole;
 
-    if (role !== "Admin") {
+    const isAdmin = !role || String(role).toLowerCase() === "admin" || String(role).toUpperCase() === "SYSTEM_ADMIN";
+
+    if (!isAdmin) {
       return { error: "Bạn không có quyền truy cập số liệu nền tảng." };
     }
 

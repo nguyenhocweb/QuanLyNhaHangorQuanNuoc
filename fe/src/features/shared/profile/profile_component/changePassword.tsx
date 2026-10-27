@@ -34,8 +34,7 @@ const ChangePassword = () => {
         }))
     }
     const HandleOnsubmit = (data: ChangePasswordForm) => {
-        alert("đã đến")
-        changePassword(data)
+        changePassword(data);
     }
     return (
         <Div className="p-5 gap-3 flex-col" size="full" variant="bg_white">

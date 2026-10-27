@@ -19,6 +19,9 @@ interface AuthState {
     user: any | null;
     isAuthenticated: boolean;
     activeWorkspace: WorkspaceState;
+    isMobileSidebarOpen: boolean;
+    setMobileSidebarOpen: (open: boolean) => void;
+    toggleMobileSidebar: () => void;
     login: (user: User) => void;
     logout: () => void;
     updateUser: (updatedUser: Partial<User>) => void;
@@ -33,6 +36,9 @@ export const useAuthStore = create<AuthState>()(
             user: null,
             isAuthenticated: false,
             activeWorkspace: { type: 'CUSTOMER' },
+            isMobileSidebarOpen: false,
+            setMobileSidebarOpen: (open) => set({ isMobileSidebarOpen: open }),
+            toggleMobileSidebar: () => set((state) => ({ isMobileSidebarOpen: !state.isMobileSidebarOpen })),
 
             // 2. Action Login: Chỉ cập nhật State, KHÔNG CẦN gọi localStorage.setItem nữa
             login: (userData) => {

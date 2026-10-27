@@ -5,7 +5,7 @@ import { useAuthStore } from "@/src/features/auth/auth_store/use-auth-store";
 export const NOTIFICATION_UNREAD_QUERY_KEY = "notification_unread_count";
 
 export const useGetUnreadCount = (workspaceTypeOverride?: string) => {
-  const { activeWorkspace } = useAuthStore();
+  const { activeWorkspace, isAuthenticated } = useAuthStore();
   const workspaceType = workspaceTypeOverride || activeWorkspace.type;
 
   return useQuery({
@@ -13,6 +13,6 @@ export const useGetUnreadCount = (workspaceTypeOverride?: string) => {
     queryFn: () => getUnreadCountService(workspaceType, activeWorkspace.id),
     staleTime: 60 * 1000,
     refetchInterval: 30 * 1000, // Tự động refetch mỗi 30s để đảm bảo badge realtime nếu không có socket
-    enabled: !!workspaceType,
+    enabled: isAuthenticated && !!workspaceType,
   });
 };

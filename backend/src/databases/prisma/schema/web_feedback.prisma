@@ -1,0 +1,44 @@
+model WebFeedback {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+
+  // 1. Người gửi đánh giá (hỗ trợ cả Guest và User đăng nhập)
+  userId           String?          @db.ObjectId
+  isGuest          Boolean          @default(true)
+  guestName        String?
+  guestEmail       String?
+  guestPhone       String?
+
+  // 2. Nội dung và Điểm số
+  rating           Int              // Điểm đánh giá (1-5)
+  title            String?
+  content          String
+  category         FeedbackCategory @default(GENERAL)
+
+  // 3. Ngữ cảnh & Đính kèm
+  pageUrl          String?
+  deviceInfo       String?
+  screenResolution String?
+  attachments      String[]
+
+  // 4. Kiểm duyệt & Hiển thị
+  status           FeedbackStatus   @default(PENDING)
+  isFeatured       Boolean          @default(false)
+  adminNote        String?
+  adminReply       String?
+  repliedAt        DateTime?
+  reviewedBy       String?          @db.ObjectId
+
+  // 5. Bảo mật & Chống Spam
+  ipAddress        String?
+  userAgent        String?
+  isHelpfulCount   Int              @default(0)
+
+  // 6. Thời gian
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+
+  @@index([status, isFeatured])
+  @@index([rating])
+  @@index([createdAt(sort: Desc)])
+  @@map("web_feedbacks")
+}

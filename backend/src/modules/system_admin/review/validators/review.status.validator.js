@@ -6,6 +6,6 @@ export const updateReviewStatusValidator = z.object({
         id: demoValidator.chuoi("ID đánh giá").regex(/^[0-9a-fA-F]{24}$/, "ID đánh giá không hợp lệ")
     }),
     body: z.object({
-        status: z.enum(["PENDING", "APPROVED", "REJECTED_SPAM"])
+        is_public: demoValidator.boolean("Trạng thái công khai")
     })
 });

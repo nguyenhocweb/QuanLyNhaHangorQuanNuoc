@@ -253,3 +253,44 @@ enum WebTemplateType {
   BRAND_TEMPLATE
   RESTAURANT_TEMPLATE
 }
+
+enum FeedbackStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  SPAM
+}
+
+enum FeedbackCategory {
+  UI_UX
+  PERFORMANCE
+  FEATURE
+  BUG_REPORT
+  GENERAL
+}
+
+enum DeveloperRole {
+  PROJECT_LEAD
+  FULLSTACK_DEV
+  FRONTEND_DEV
+  BACKEND_DEV
+  UI_UX_DESIGNER
+  DEVOPS_ENGINEER
+  QA_QC
+}
+
+enum TicketStatus {
+  OPEN
+  PROCESSING
+  RESOLVED
+  CLOSED
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+

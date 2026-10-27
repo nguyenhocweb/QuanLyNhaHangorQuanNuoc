@@ -1,0 +1,617 @@
+====================================================================================================
+                        TỔNG HỢP TOÀN BỘ THẺ VÀ THUỘC TÍNH HTML CHI TIẾT NHẤT (HTML5 FULL REFERENCE)
+====================================================================================================
+
+MỤC LỤC:
+I.   CÁC THUỘC TÍNH TOÀN CỤC (GLOBAL ATTRIBUTES)
+II.  CÁC THUỘC TÍNH SỰ KIỆN (EVENT HANDLER ATTRIBUTES)
+III. CẤU TRÚC GỐC VÀ METADATA TRONG <HEAD>
+IV.  PHÂN ĐOẠN NGỮ NGHĨA VÀ BỐ CỤC TRANG (SEMANTIC & SECTIONING)
+V.   ĐỊNH DẠNG VĂN BẢN VÀ KHỐI CHỮ (TEXT FORMATTING & CONTENT)
+VI.  DANH SÁCH (LISTS)
+VII. BẢNG BIỂU (TABLES)
+VIII.BIỂU MẪU VÀ CÁC PHẦN TỬ NHẬP LIỆU (FORMS & CONTROLS)
+IX.  HÌNH ẢNH, ĐA PHƯƠNG TIỆN & NHÚNG (MEDIA & EMBEDDED CONTENT)
+X.   CÁC THẺ TƯƠNG TÁC, DIALOG & TEMPLATE (INTERACTIVE & SCRIPTING)
+XI.  CÁC THẺ ĐÃ LỖI THỜI HOẶC BỊ LOẠI BỎ (DEPRECATED / OBSOLETE)
+
+====================================================================================================
+I. CÁC THUỘC TÍNH TOÀN CỤC (GLOBAL ATTRIBUTES) - DÙNG ĐƯỢC CHO HẦU HẾT MỌI THẺ
+====================================================================================================
+
+1.  id                  : Định danh duy nhất cho phần tử trong trang (ví dụ: id="header-main").
+2.  class               : Một hoặc nhiều tên lớp CSS, cách nhau bởi khoảng trắng (ví dụ: class="btn btn-primary").
+3.  style               : Khai báo CSS trực tiếp trên phần tử (Inline style, ví dụ: style="color: red; margin: 10px;").
+4.  title               : Chứa thông tin bổ sung, hiển thị dạng Tooltip khi rê chuột vào.
+5.  lang                : Khai báo ngôn ngữ nội dung của phần tử (ví dụ: lang="vi", lang="en-US").
+6.  dir                 : Hướng viết văn bản ("ltr": trái sang phải, "rtl": phải sang trái, "auto": tự động).
+7.  hidden              : Thuộc tính boolean ẩn phần tử khỏi giao diện.
+8.  tabindex            : Thứ tự điều hướng bằng phím Tab (-1: không focus qua tab, 0: theo luồng tự nhiên, >0: ưu tiên).
+9.  accesskey           : Phím tắt bàn phím để focus/kích hoạt phần tử (ví dụ: accesskey="s").
+10. contenteditable     : Cho phép người dùng chỉnh sửa nội dung trực tiếp ("true", "false", "plaintext-only").
+11. draggable           : Cho phép kéo thả phần tử ("true", "false", "auto").
+12. spellcheck          : Bật/tắt kiểm tra chính tả của trình duyệt ("true", "false").
+13. translate           : Báo cho công cụ dịch thuật có nên dịch phần tử này không ("yes", "no").
+14. autofocus           : Tự động focus vào phần tử khi tải trang xong (Boolean).
+15. data-*              : Lưu trữ dữ liệu tùy biến (Custom data attributes, ví dụ: data-id="123", data-user-role="admin").
+16. role                : Khai báo vai trò trợ năng ARIA (Accessibility, ví dụ: role="navigation", role="button", role="dialog").
+17. aria-*              : Toàn bộ hệ thống thuộc tính trợ năng Accessibility (ví dụ: aria-label, aria-hidden, aria-expanded, aria-controls, aria-live, aria-describedby, aria-labelledby, aria-disabled).
+18. enterkeyhint        : Định hình nhãn/biểu tượng phím Enter trên bàn phím ảo di động ("enter", "done", "go", "next", "previous", "search", "send").
+19. inputmode           : Gợi ý loại bàn phím hiển thị trên di động ("none", "text", "decimal", "numeric", "tel", "search", "email", "url").
+20. popover             : Biến phần tử thành popover native ("auto", "manual").
+21. inert               : Vô hiệu hóa tương tác chuột, phím và trợ năng trên phần tử và toàn bộ con của nó (Boolean).
+22. nonce               : Chuỗi mã hóa dùng cho Content Security Policy (CSP).
+23. slot                : Gán phần tử vào một khe <slot> trong Shadow DOM.
+24. is                  : Chỉ định tên custom element tùy biến (Web Components).
+
+====================================================================================================
+II. CÁC THUỘC TÍNH SỰ KIỆN (EVENT HANDLER ATTRIBUTES) - DÙNG TRỰC TIẾP TRÊN THẺ
+====================================================================================================
+
+1.  Sự kiện Cửa sổ / Tài liệu (Window / Document Events):
+    - onload, onunload, onbeforeunload, onresize, onscroll, onerror, onpageshow, onpagehide, onhashchange, onpopstate.
+
+2.  Sự kiện Chuột (Mouse Events):
+    - onclick, ondblclick, onmousedown, onmouseup, onmousemove, onmouseover, onmouseout, onmouseenter, onmouseleave, oncontextmenu, onwheel.
+
+3.  Sự kiện Bàn phím (Keyboard Events):
+    - onkeydown, onkeypress, onkeyup.
+
+4.  Sự kiện Form (Form Events):
+    - onsubmit, onreset, onchange, oninput, oninvalid, onselect, onfocus, onblur, onfocusin, onfocusout.
+
+5.  Sự kiện Kéo thả & Clipboard (Drag & Clipboard Events):
+    - ondrag, ondragstart, ondragend, ondragenter, ondragleave, ondragover, ondrop.
+    - oncopy, oncut, onpaste.
+
+6.  Sự kiện Media (Audio / Video Events):
+    - onplay, onpause, onplaying, onended, ontimeupdate, onvolumechange, onseeking, onseeked, onloadeddata, onloadedmetadata, onwaiting, oncanplay, oncanplaythrough, ondurationchange, onratechange, onstalled, onsuspend.
+
+====================================================================================================
+III. CẤU TRÚC GỐC VÀ METADATA TRONG <HEAD>
+====================================================================================================
+
+1. <!DOCTYPE html>
+   - Mô tả: Khai báo chuẩn HTML5 cho trình duyệt nhận diện chế độ hiển thị chuẩn (Standards Mode).
+
+2. <html>
+   - Mô tả: Thẻ gốc (Root element) chứa toàn bộ tài liệu HTML.
+   - Thuộc tính riêng:
+     * lang       : Mã ngôn ngữ chính (vi, en, ja, zh...).
+     * xmlns      : Không gian tên XML (thường dùng khi xuất bản XHTML).
+
+3. <head>
+   - Mô tả: Chứa các thông tin meta, liên kết tài nguyên, script, style không hiển thị trực tiếp.
+
+4. <title>
+   - Mô tả: Đặt tiêu đề hiển thị trên thanh tab trình duyệt và kết quả tìm kiếm SEO.
+
+5. <meta>
+   - Mô tả: Cung cấp metadata về tài liệu (SEO, responsive, mã hóa ký tự).
+   - Thuộc tính riêng:
+     * charset    : Bảng mã ký tự (thông dụng nhất: charset="UTF-8").
+     * name       : Tên loại meta ("viewport", "description", "keywords", "author", "robots", "theme-color", "format-detection").
+     * content    : Giá trị nội dung tương ứng với name hoặc http-equiv.
+     * http-equiv : Mô phỏng HTTP response header ("refresh", "content-type", "default-style", "x-ua-compatible", "content-security-policy").
+     * property   : Dùng cho Open Graph (Facebook/Zalo: property="og:title", "og:image", "og:description", "og:url").
+
+6. <link>
+   - Mô tả: Liên kết tài liệu hiện tại với các tài nguyên bên ngoài (CSS, Favicon, Font...).
+   - Thuộc tính riêng:
+     * rel        : Mối quan hệ ("stylesheet", "icon", "apple-touch-icon", "canonical", "preload", "prefetch", "preconnect", "dns-prefetch", "manifest", "alternate").
+     * href       : Đường dẫn URL đến file tài nguyên.
+     * type       : MIME type của tài nguyên (ví dụ: "text/css", "image/png").
+     * sizes      : Kích thước icon (ví dụ: "16x16", "32x32", "180x180", "any").
+     * media      : Thiết bị hoặc điều kiện áp dụng (ví dụ: "print", "screen and (max-width: 768px)").
+     * as         : Loại tài nguyên khi dùng rel="preload" ("style", "script", "font", "image", "fetch").
+     * crossorigin: "anonymous" | "use-credentials".
+     * integrity  : Chuỗi hash SRI (Subresource Integrity) để xác thực tính toàn vẹn file.
+     * referrerpolicy: Chính sách gửi Referer header ("no-referrer", "origin", "strict-origin-when-cross-origin"...).
+
+7. <style>
+   - Mô tả: Chứa mã CSS nội bộ (Internal Stylesheet).
+   - Thuộc tính riêng:
+     * media      : Điều kiện áp dụng CSS (ví dụ: "print", "screen").
+     * nonce      : Mã định danh bảo mật CSP.
+
+8. <script>
+   - Mô tả: Nhúng hoặc liên kết mã JavaScript.
+   - Thuộc tính riêng:
+     * src        : Đường dẫn đến file JS.
+     * type       : "text/javascript" (mặc định) | "module" (ES Module) | "application/json" | "importmap".
+     * async      : Tải và thực thi bất đồng bộ ngay khi tải xong.
+     * defer      : Trì hoãn thực thi JS cho đến khi toàn bộ HTML được parse xong.
+     * nomodule   : Chỉ chạy trên các trình duyệt cũ không hỗ trợ ES Module.
+     * crossorigin: Quản lý CORS ("anonymous", "use-credentials").
+     * integrity  : Chuỗi mã hóa hash SRI.
+     * referrerpolicy: Chính sách Referer.
+
+9. <base>
+   - Mô tả: Đặt URL gốc và target mặc định cho tất cả các đường dẫn tương đối trong trang.
+   - Thuộc tính riêng:
+     * href       : URL cơ sở tuyệt đối.
+     * target     : Target mặc định ("_blank", "_self", "_parent", "_top").
+
+====================================================================================================
+IV. PHÂN ĐOẠN NGỮ NGHĨA VÀ BỐ CỤC TRANG (SEMANTIC & SECTIONING)
+====================================================================================================
+
+1. <body>
+   - Mô tả: Chứa toàn bộ nội dung hiển thị được của trang web.
+
+2. <header>
+   - Mô tả: Đầu trang hoặc đầu của một khu vực (chứa logo, tiêu đề, thanh tìm kiếm).
+
+3. <nav>
+   - Mô tả: Khu vực chứa các liên kết điều hướng chính của trang (Menu, breadcrumbs, pagination).
+
+4. <main>
+   - Mô tả: Chứa nội dung chính duy nhất của trang (mỗi trang chỉ nên có 1 thẻ <main> không ẩn).
+
+5. <article>
+   - Mô tả: Khối nội dung độc lập, hoàn chỉnh, có thể tái sử dụng (Bài viết, tin tức, bình luận, thẻ sản phẩm).
+
+6. <section>
+   - Mô tả: Một phần hoặc một phân đoạn nội dung theo chủ đề cụ thể (thường đi kèm 1 thẻ tiêu đề h1-h6).
+
+7. <aside>
+   - Mô tả: Khu vực chứa thông tin phụ (Sidebar, quảng cáo, danh mục liên quan, trích dẫn).
+
+8. <footer>
+   - Mô tả: Chân trang hoặc chân của một khu vực (thông tin bản quyền, liên hệ, chính sách).
+
+9. <div>
+   - Mô tả: Khối chứa chung không mang ý nghĩa ngữ nghĩa (dùng để nhóm layout, style CSS, DOM wrapper).
+
+10. <span>
+    - Mô tả: Thẻ nội dòng (inline) chung không mang ý nghĩa ngữ nghĩa (dùng để áp style hoặc xử lý JS).
+
+11. <h1>, <h2>, <h3>, <h4>, <h5>, <h6>
+    - Mô tả: Hệ thống cấp bậc tiêu đề từ lớn nhất (h1) đến nhỏ nhất (h6).
+
+12. <hgroup>
+    - Mô tả: Nhóm tiêu đề chính và tiêu đề phụ / mô tả (subheading).
+
+13. <address>
+    - Mô tả: Cung cấp thông tin liên hệ của tác giả hoặc tổ chức sở hữu bài viết/trang web.
+
+====================================================================================================
+V. ĐỊNH DẠNG VĂN BẢN VÀ KHỐI CHỮ (TEXT FORMATTING & INLINE ELEMENTS)
+====================================================================================================
+
+1. <p>
+   - Mô tả: Đoạn văn bản (Paragraph).
+
+2. <hr>
+   - Mô tả: Đường kẻ ngang phân cách theo ngữ cảnh hoặc chủ đề.
+
+3. <pre>
+   - Mô tả: Văn bản giữ nguyên khoảng trắng và ngắt dòng (Preformatted Text).
+
+4. <blockquote>
+   - Mô tả: Trích dẫn một đoạn dài từ nguồn khác.
+   - Thuộc tính riêng:
+     * cite       : Đường dẫn URL đến nguồn bài viết được trích dẫn.
+
+5. <q>
+   - Mô tả: Trích dẫn ngắn nội dòng (trình duyệt thường tự thêm dấu ngoặc kép "").
+   - Thuộc tính riêng:
+     * cite       : URL nguồn trích dẫn.
+
+6. <a> (Anchor / Hyperlink)
+   - Mô tả: Tạo siêu liên kết đến trang khác, vị trí trong trang, email, số điện thoại.
+   - Thuộc tính riêng:
+     * href       : Đường dẫn URL, anchor (#id), "mailto:...", "tel:...".
+     * target     : Nơi mở liên kết ("_blank": tab mới, "_self": tab hiện tại, "_parent", "_top", hoặc tên iframe).
+     * download   : Báo hiệu tải file về thay vì điều hướng (có thể đặt tên file tải về: download="bao-cao.pdf").
+     * rel        : Quan hệ liên kết ("noopener", "noreferrer", "nofollow", "author", "external", "tag", "help", "license").
+     * referrerpolicy: Chính sách Referer.
+     * type       : MIME type của tài nguyên liên kết.
+
+7. <strong> : Nhấn mạnh nội dung mang tính quan trọng, khẩn cấp (mặc định in đậm).
+8. <b>      : In đậm văn bản thuần túy về mặt thị giác, không mang ngữ nghĩa quan trọng.
+9. <em>     : Nhấn mạnh ngữ điệu câu nói (Stress emphasis - mặc định in nghiêng).
+10. <i>     : In nghiêng văn bản (tên loài, thuật ngữ chuyên ngành, cụm từ ngoại ngữ, icon).
+11. <u>     : Gạch chân văn bản thuần túy.
+12. <s>     : Gạch ngang văn bản (nội dung không còn đúng hoặc không còn liên quan).
+13. <del>   : Nội dung đã bị xóa/thay thế trong văn bản đã sửa đổi (thuộc tính: cite, datetime).
+14. <ins>   : Nội dung mới được thêm vào văn bản đã sửa đổi (thuộc tính: cite, datetime).
+15. <small> : Giảm kích thước chữ (chú thích phụ, điều khoản dịch vụ, bản quyền).
+16. <sub>   : Chữ chỉ số dưới (Subscript, ví dụ: H<sub>2</sub>O).
+17. <sup>   : Chữ chỉ số trên (Superscript, ví dụ: E = mc<sup>2</sup>).
+18. <code>  : Thể hiện một đoạn mã code máy tính nội dòng.
+19. <kbd>   : Thể hiện phím bấm hoặc thao tác người dùng (ví dụ: <kbd>Ctrl</kbd> + <kbd>C</kbd>).
+20. <samp>  : Thể hiện kết quả đầu ra (output) từ chương trình máy tính.
+21. <var>   : Thể hiện tên biến trong toán học hoặc lập trình (ví dụ: <var>x</var> = 10).
+22. <mark>  : Đánh dấu làm nổi bật (Highlight nền vàng) đoạn văn bản được quan tâm.
+23. <abbr>  : Thể hiện từ viết tắt (thuộc tính: title="Ý nghĩa đầy đủ").
+24. <dfn>   : Đánh dấu thuật ngữ đang được định nghĩa trong câu.
+25. <cite>  : Tên của một tác phẩm sáng tạo (Sách, phim, bài hát, tranh vẽ).
+26. <time>  : Thể hiện ngày tháng, thời gian có cấu trúc máy đọc được.
+    - Thuộc tính: datetime="YYYY-MM-DDThh:mm:ssTZD" (ví dụ: datetime="2026-09-03").
+27. <br>    : Ngắt dòng đơn (Break line - thẻ tự đóng).
+28. <wbr>   : Đề xuất vị trí có thể ngắt dòng nếu từ quá dài (Word Break Opportunity).
+29. <bdi>   : Cách ly văn bản khỏi thuật toán định hướng hiển thị (Bi-directional Isolation).
+30. <bdo>   : Ghi đè hướng hiển thị văn bản (Bi-directional Override, thuộc tính bắt buộc: dir="ltr" | "rtl").
+31. <ruby>, <rt>, <rp>: Dùng cho phiên âm chữ Hán/Nhật/Hàn (Furigana / Pinyin).
+
+====================================================================================================
+VI. DANH SÁCH (LISTS)
+====================================================================================================
+
+1. <ul>
+   - Mô tả: Danh sách không có thứ tự (Unordered list - dấu chấm đầu dòng).
+
+2. <ol>
+   - Mô tả: Danh sách có thứ tự đánh số (Ordered list).
+   - Thuộc tính riêng:
+     * reversed   : Đếm ngược thứ tự (Boolean).
+     * start      : Số bắt đầu (ví dụ: start="5").
+     * type       : Kiểu đánh số ("1": số thường, "a": chữ thường, "A": chữ hoa, "i": la mã thường, "I": la mã hoa).
+
+3. <li>
+   - Mô tả: Một mục trong danh sách (dùng trong <ul> hoặc <ol>).
+   - Thuộc tính riêng (khi trong <ol>):
+     * value      : Gán giá trị số cụ thể cho mục này.
+
+4. <dl>
+   - Mô tả: Danh sách mô tả / định nghĩa (Description List).
+
+5. <dt>
+   - Mô tả: Tên thuật ngữ / Khóa (Description Term).
+
+6. <dd>
+   - Mô tả: Định nghĩa / Giá trị mô tả cho thuật ngữ (Description Details).
+
+====================================================================================================
+VII. BẢNG BIỂU (TABLES)
+====================================================================================================
+
+1. <table>
+   - Mô tả: Vùng chứa bảng dữ liệu.
+
+2. <caption>
+   - Mô tả: Tiêu đề hoặc chú thích của bảng (phải là thẻ con đầu tiên của <table>).
+
+3. <colgroup>
+   - Mô tả: Nhóm các cột trong bảng để gán style đồng loạt.
+   - Thuộc tính riêng:
+     * span       : Số cột trong nhóm.
+
+4. <col>
+   - Mô tả: Định nghĩa thuộc tính cho một cột đơn trong <colgroup>.
+   - Thuộc tính riêng:
+     * span       : Số cột mà thẻ này đại diện.
+
+5. <thead>
+   - Mô tả: Nhóm các hàng tiêu đề của bảng (Table Head).
+
+6. <tbody>
+   - Mô tả: Nhóm các hàng chứa dữ liệu chính của bảng (Table Body).
+
+7. <tfoot>
+   - Mô tả: Nhóm các hàng chân bảng / tổng kết (Table Foot).
+
+8. <tr>
+   - Mô tả: Một hàng trong bảng (Table Row).
+
+9. <th>
+   - Mô tả: Ô tiêu đề của cột hoặc hàng (mặc định in đậm, canh giữa).
+   - Thuộc tính riêng:
+     * colspan    : Số cột mà ô này gộp / chiếm dụng (ví dụ: colspan="2").
+     * rowspan    : Số hàng mà ô này gộp / chiếm dụng (ví dụ: rowspan="3").
+     * scope      : Phạm vi của tiêu đề ("col", "row", "colgroup", "rowgroup").
+     * headers    : Danh sách id của các thẻ <th> liên quan (dùng cho trợ năng).
+     * abbr       : Viết tắt ngắn gọn cho nội dung tiêu đề.
+
+10. <td>
+    - Mô tả: Ô dữ liệu thông thường trong bảng (Table Data).
+    - Thuộc tính riêng:
+      * colspan   : Số cột gộp.
+      * rowspan   : Số hàng gộp.
+      * headers   : Danh sách id của các thẻ <th> tương ứng.
+
+====================================================================================================
+VIII. BIỂU MẪU VÀ CÁC PHẦN TỬ NHẬP LIỆU (FORMS & INPUT CONTROLS)
+====================================================================================================
+
+1. <form>
+   - Mô tả: Vùng chứa biểu mẫu thu thập dữ liệu người dùng gửi về máy chủ.
+   - Thuộc tính riêng:
+     * action     : URL xử lý dữ liệu khi submit.
+     * method     : Phương thức HTTP ("get" | "post" | "dialog").
+     * enctype    : Kiểu mã hóa dữ liệu ("application/x-www-form-urlencoded", "multipart/form-data" [bắt buộc khi upload file], "text/plain").
+     * target     : Cửa sổ nhận kết quả ("_blank", "_self", "_parent", "_top", tên iframe).
+     * autocomplete: Gợi ý điền tự động ("on" | "off").
+     * novalidate : Bỏ qua bước kiểm tra hợp lệ mặc định của trình duyệt khi submit (Boolean).
+     * name       : Tên form.
+     * rel        : Quan hệ liên kết.
+
+2. <input>
+   - Mô tả: Thẻ nhập liệu đa năng nhất (thẻ tự đóng).
+   - Thuộc tính "type":
+     * "text"          : Nhập chuỗi văn bản thông thường.
+     * "password"      : Nhập mật khẩu (ký tự bị ẩn).
+     * "email"         : Nhập email (tự động kiểm tra cú pháp @).
+     * "number"        : Nhập số (hỗ trợ nút tăng giảm).
+     * "tel"           : Nhập số điện thoại.
+     * "url"           : Nhập đường dẫn website.
+     * "search"        : Nhập từ khóa tìm kiếm (có nút xóa nhanh).
+     * "checkbox"      : Hộp kiểm đa chọn.
+     * "radio"         : Nút chọn đơn trong nhóm (các radio cùng name).
+     * "file"          : Chọn file tải lên từ máy tính.
+     * "date"          : Chọn ngày (Năm-Tháng-Ngày).
+     * "time"          : Chọn giờ:phút.
+     * "datetime-local": Chọn ngày và giờ địa phương.
+     * "month"         : Chọn năm và tháng.
+     * "week"          : Chọn tuần trong năm.
+     * "color"         : Bảng chọn mã màu Hex.
+     * "range"         : Thanh trượt chọn giá trị trong khoảng.
+     * "hidden"        : Trường ẩn chứa dữ liệu ngầm không hiển thị.
+     * "submit"        : Nút gửi form.
+     * "reset"         : Nút hoàn tác form về giá trị ban đầu.
+     * "button"        : Nút bấm thường không có hành động mặc định.
+     * "image"         : Nút submit dưới dạng hình ảnh (cần thêm src, alt, width, height).
+
+   - Thuộc tính điều khiển của <input>:
+     * name            : Tên trường dữ liệu gửi lên máy chủ.
+     * value           : Giá trị ban đầu hoặc dữ liệu nhập vào.
+     * placeholder     : Văn bản gợi ý hiển thị khi ô trống.
+     * required        : Bắt buộc phải nhập trước khi gửi (Boolean).
+     * disabled        : Vô hiệu hóa trường, không cho tương tác và không gửi giá trị (Boolean).
+     * readonly        : Chỉ đọc, không chỉnh sửa nhưng vẫn gửi dữ liệu khi submit (Boolean).
+     * checked         : Đánh dấu đã chọn (cho type="checkbox" / "radio").
+     * min / max       : Giá trị nhỏ nhất / lớn nhất (dành cho number, range, date...).
+     * step            : Bước nhảy giá trị (ví dụ: step="0.01", step="5", step="any").
+     * minlength / maxlength: Số ký tự tối thiểu / tối đa được nhập.
+     * pattern         : Biểu thức chính quy Regex để xác thực dữ liệu (ví dụ: pattern="[0-9]{10}").
+     * multiple        : Cho phép chọn nhiều mục cùng lúc (cho type="file" hoặc type="email").
+     * accept          : Định dạng file cho phép chọn (cho type="file", ví dụ: accept="image/*,.pdf").
+     * capture         : Chỉ định camera chụp ảnh trên di động (accept="image/*" capture="user"|"environment").
+     * list            : ID của thẻ <datalist> chứa các gợi ý tự động.
+     * size            : Độ rộng hiển thị tính theo số ký tự.
+     * src, alt, width, height: Dùng riêng cho type="image".
+     * form            : Gán input vào một <form> ở vị trí bất kỳ qua form ID (ví dụ: form="main-form").
+     * formaction      : Ghi đè thuộc tính action của form cha khi bấm nút này.
+     * formenctype     : Ghi đè enctype của form cha.
+     * formmethod      : Ghi đè method của form cha (get/post).
+     * formnovalidate  : Bỏ qua validate form khi bấm nút này.
+     * formtarget      : Ghi đè target của form cha.
+
+3. <textarea>
+   - Mô tả: Khung nhập văn bản nhiều dòng.
+   - Thuộc tính riêng:
+     * name, value, placeholder, required, disabled, readonly, autofocus, form.
+     * rows            : Số dòng hiển thị.
+     * cols            : Số cột hiển thị (độ rộng ký tự).
+     * minlength, maxlength: Giới hạn độ dài ký tự.
+     * wrap            : Cách bẻ dòng ("soft": bẻ dòng thị giác, "hard": bẻ dòng thực sự kèm ký tự ngắt dòng khi gửi, yêu cầu có cols).
+
+4. <button>
+   - Mô tả: Nút bấm tương tác.
+   - Thuộc tính riêng:
+     * type            : Loại nút ("submit" [mặc định trong form], "button", "reset").
+     * name, value, disabled, autofocus, form, formaction, formenctype, formmethod, formnovalidate, formtarget.
+     * popovertarget   : ID của phần tử popover cần điều khiển bật/tắt.
+     * popovertargetaction: Hành động với popover ("toggle", "show", "hide").
+
+5. <select>
+   - Mô tả: Danh sách thả xuống (Dropdown list).
+   - Thuộc tính riêng:
+     * name, required, disabled, autofocus, form, size (số mục hiển thị cùng lúc).
+     * multiple        : Cho phép chọn nhiều mục bằng cách giữ Ctrl/Shift (Boolean).
+     * autocomplete    : Gợi ý autocomplete.
+
+6. <option>
+   - Mô tả: Một mục lựa chọn bên trong <select>, <optgroup> hoặc <datalist>.
+   - Thuộc tính riêng:
+     * value           : Giá trị gửi lên server khi mục này được chọn.
+     * selected        : Đặt làm mục được chọn mặc định (Boolean).
+     * disabled        : Vô hiệu hóa mục này (Boolean).
+     * label           : Văn bản nhãn hiển thị thay thế cho nội dung trong thẻ.
+
+7. <optgroup>
+   - Mô tả: Nhóm các <option> lại theo danh mục trong <select>.
+   - Thuộc tính riêng:
+     * label           : Tên nhóm hiển thị (Bắt buộc).
+     * disabled        : Vô hiệu hóa toàn bộ các option trong nhóm.
+
+8. <label>
+   - Mô tả: Gán nhãn mô tả cho các thành phần điều khiển (nhấp vào nhãn sẽ focus vào ô nhập liệu).
+   - Thuộc tính riêng:
+     * for             : ID của phần tử input mà label này đại diện (ví dụ: for="username").
+
+9. <fieldset>
+   - Mô tả: Khung nhóm các phần tử nhập liệu có liên quan lại với nhau (tạo viền bo xung quanh).
+   - Thuộc tính riêng:
+     * disabled        : Vô hiệu hóa toàn bộ input/button bên trong fieldset.
+     * form            : ID của form liên kết.
+     * name            : Tên nhóm.
+
+10. <legend>
+    - Mô tả: Tiêu đề mô tả cho khung <fieldset> (phải là con đầu tiên của <fieldset>).
+
+11. <datalist>
+    - Mô tả: Danh sách các giá trị gợi ý tự động (autocomplete) cho thẻ <input>.
+    - Kết nối qua thuộc tính id (ví dụ: <datalist id="city-list"> và <input list="city-list">).
+
+12. <output>
+    - Mô tả: Hiển thị kết quả tính toán của biểu mẫu hoặc thao tác JS.
+    - Thuộc tính riêng:
+      * for            : Danh sách ID các input tham gia vào phép tính.
+      * form           : ID của form liên kết.
+      * name           : Tên trường output.
+
+13. <progress>
+    - Mô tả: Thanh tiến trình biểu thị tiến độ hoàn thành một công việc.
+    - Thuộc tính riêng:
+      * value          : Giá trị tiến độ hiện tại.
+      * max            : Giá trị tối đa (mặc định 1.0).
+
+14. <meter>
+    - Mô tả: Thước đo hiển thị giá trị vô hướng trong một phạm vi xác định (Dung lượng ổ đĩa, pin, nhiệt độ).
+    - Thuộc tính riêng:
+      * value          : Giá trị đo lường hiện tại (Bắt buộc).
+      * min / max      : Giá trị nhỏ nhất / lớn nhất của dải đo.
+      * low / high     : Ngưỡng thấp / ngưỡng cao.
+      * optimum        : Giá trị tối ưu lý tưởng.
+
+====================================================================================================
+IX. HÌNH ẢNH, ĐA PHƯƠNG TIỆN & NHÚNG (MEDIA & EMBEDDED CONTENT)
+====================================================================================================
+
+1. <img>
+   - Mô tả: Nhúng hình ảnh vào trang (thẻ tự đóng).
+   - Thuộc tính riêng:
+     * src             : Đường dẫn URL đến file ảnh (Bắt buộc).
+     * alt             : Văn bản thay thế khi ảnh lỗi và cho bộ đọc màn hình SEO (Bắt buộc).
+     * width / height  : Kích thước chiều rộng / chiều cao (pixel).
+     * loading         : "lazy" (tải lười khi cuộn tới) | "eager" (tải ngay lập tức).
+     * decoding        : Giải mã ảnh ("async", "sync", "auto").
+     * srcset          : Danh sách các ảnh tương ứng với các độ phân giải khác nhau (Responsive images).
+     * sizes           : Quy tắc kích thước hiển thị theo media query.
+     * crossorigin     : CORS ("anonymous", "use-credentials").
+     * ismap           : Đánh dấu ảnh là server-side image map (Boolean).
+     * usemap          : Tên bản đồ hình ảnh kết nối với <map name="...">.
+     * referrerpolicy  : Chính sách Referer.
+     * fetchpriority   : Mức độ ưu tiên tải ("high", "low", "auto").
+
+2. <picture>
+   - Mô tả: Vùng chứa nhiều thẻ <source> và 1 thẻ <img> để phục vụ ảnh responsive linh hoạt (Art direction).
+
+3. <audio>
+   - Mô tả: Phát âm thanh / nhạc.
+   - Thuộc tính riêng:
+     * src             : URL file âm thanh (hoặc chứa thẻ <source> bên trong).
+     * controls        : Hiển thị giao diện điều khiển (Play, Pause, Volume, Seekbar) (Boolean).
+     * autoplay        : Tự động phát khi tải trang (Thường bị trình duyệt chặn nếu chưa tương tác).
+     * loop            : Tự động lặp lại khi phát hết (Boolean).
+     * muted           : Tắt tiếng mặc định (Boolean).
+     * preload         : Cơ chế tải trước ("none", "metadata", "auto").
+     * crossorigin     : Thiết lập CORS.
+
+4. <video>
+   - Mô tả: Phát video / phim.
+   - Thuộc tính riêng:
+     * src             : URL file video.
+     * controls        : Hiển thị thanh điều khiển (Boolean).
+     * autoplay        : Tự động phát.
+     * loop            : Lặp lại vô tận (Boolean).
+     * muted           : Tắt tiếng (Bắt buộc phải có nếu muốn tự động autoplay trên hầu hết trình duyệt).
+     * poster          : URL ảnh đại diện hiển thị trước khi video được phát.
+     * width / height  : Chiều rộng / chiều cao khung video.
+     * preload         : Tải trước ("none", "metadata", "auto").
+     * playsinline     : Cho phép phát trực tiếp trong trang trên iOS thay vì mở toàn màn hình (Boolean).
+     * crossorigin     : Thiết lập CORS.
+     * disablepictureinpicture: Vô hiệu hóa tính năng Picture-in-Picture.
+     * controlslist    : Tùy biến nút ("nodownload", "nofullscreen", "noremoteplayback").
+
+5. <source>
+   - Mô tả: Cung cấp nguồn media thay thế cho <picture>, <video>, hoặc <audio>.
+   - Thuộc tính riêng:
+     * src             : URL file media (dùng trong video/audio).
+     * srcset          : Danh sách ảnh theo kích thước (dùng trong picture).
+     * type            : MIME type (ví dụ: "video/mp4", "video/webm", "audio/mpeg", "image/webp", "image/avif").
+     * media           : Media query áp dụng (ví dụ: media="(min-width: 800px)").
+     * sizes           : Quy tắc kích thước.
+     * width / height  : Kích thước pixel.
+
+6. <track>
+   - Mô tả: Cung cấp phụ đề, chú thích bằng văn bản theo mốc thời gian cho <video> và <audio>.
+   - Thuộc tính riêng:
+     * src             : URL file WebVTT (.vtt).
+     * kind            : Loại track ("subtitles", "captions", "descriptions", "chapters", "metadata").
+     * srclang         : Mã ngôn ngữ của phụ đề (ví dụ: srclang="vi", srclang="en").
+     * label           : Tên phụ đề hiển thị trong menu chọn (ví dụ: label="Tiếng Việt").
+     * default         : Đặt làm phụ đề mặc định (Boolean).
+
+7. <iframe>
+   - Mô tả: Nhúng một trang web khác hoặc tài liệu ngoài vào trang hiện tại (Inline Frame).
+   - Thuộc tính riêng:
+     * src             : URL của trang được nhúng.
+     * srcdoc          : Nhúng mã HTML trực tiếp vào iframe.
+     * name            : Tên định danh của iframe (dùng làm target cho thẻ <a> hoặc <form>).
+     * width / height  : Kích thước chiều rộng / chiều cao.
+     * sandbox         : Kích hoạt giới hạn bảo mật nghiêm ngặt ("allow-scripts", "allow-same-origin", "allow-forms", "allow-popups", "allow-modals"...).
+     * allow           : Danh sách cấp phép Feature Policy / Permissions Policy (ví dụ: "camera; microphone; fullscreen; geolocation").
+     * allowfullscreen : Cho phép mở toàn màn hình (Boolean).
+     * loading         : "lazy" (tải lười iframe) | "eager".
+     * referrerpolicy  : Chính sách Referer.
+
+8. <embed>
+   - Mô tả: Điểm tích hợp cho các ứng dụng ngoài hoặc nội dung đa phương tiện tương tác (Flash cũ, plugin, PDF).
+   - Thuộc tính: src, type, width, height.
+
+9. <object>
+   - Mô tả: Nhúng tài nguyên ngoài đa năng (PDF, SVG, audio, video, flash, plugin) và chứa nội dung fallback nếu không load được.
+   - Thuộc tính: data (URL tài nguyên), type (MIME type), name, form, width, height, typemustmatch.
+
+10. <param>
+    - Mô tả: Định nghĩa các tham số cấu hình truyền vào cho thẻ <object>.
+    - Thuộc tính: name, value.
+
+11. <canvas>
+    - Mô tả: Vùng vẽ đồ họa 2D / 3D (WebGL) bằng JavaScript (Game, biểu đồ, hiệu ứng hoạt họa).
+    - Thuộc tính: width, height (Pixel thực tế của vùng vẽ).
+
+12. <svg>
+    - Mô tả: Vùng chứa đồ họa vector SVG trực tiếp trong mã HTML.
+    - Thuộc tính: xmlns, viewBox, width, height, fill, stroke...
+
+13. <map>
+    - Mô tả: Định nghĩa bản đồ hình ảnh phía client có các vùng liên kết có thể nhấp chuột.
+    - Thuộc tính: name (Tên bản đồ để thẻ <img> liên kết qua usemap="#...").
+
+14. <area>
+    - Mô tả: Định nghĩa một vùng có thể nhấp chuột bên trong thẻ <map>.
+    - Thuộc tính: shape ("rect", "circle", "poly", "default"), coords (Tọa độ điểm), href, alt, target, download, rel.
+
+====================================================================================================
+X. CÁC THẺ TƯƠNG TÁC, DIALOG & TEMPLATE (INTERACTIVE & SCRIPTING)
+====================================================================================================
+
+1. <details>
+   - Mô tả: Tạo khối nội dung có thể đóng/mở (Accordion / Dropdown Widget) dạng native không cần JS.
+   - Thuộc tính riêng:
+     * open            : Trạng thái đang mở hiển thị nội dung (Boolean).
+     * name            : Nhóm nhiều thẻ details lại để tạo hiệu ứng chỉ mở 1 thẻ duy nhất (HTML chuẩn mới).
+
+2. <summary>
+   - Mô tả: Tiêu đề hiển thị có thể nhấp vào của thẻ <details> (phải là con đầu tiên của <details>).
+
+3. <dialog>
+   - Mô tả: Hộp thoại Modal / Popup native của HTML5 (điều khiển qua JS: dialog.showModal() hoặc dialog.show()).
+   - Thuộc tính riêng:
+     * open            : Trạng thái đang hiển thị hộp thoại (Boolean).
+
+4. <template>
+   - Mô tả: Chứa đoạn mã HTML không hiển thị khi tải trang, dùng làm khuôn mẫu để clone và render bằng JS.
+
+5. <slot>
+   - Mô tả: Vị trí đặt placeholder nội dung bên trong Web Components (Shadow DOM).
+   - Thuộc tính riêng:
+     * name            : Tên định danh của slot (kết nối với thuộc tính slot="tên" ở phần tử con).
+
+6. <noscript>
+   - Mô tả: Hiển thị nội dung dự phòng cho người dùng nếu trình duyệt tắt hoặc không hỗ trợ JavaScript.
+
+====================================================================================================
+XI. CÁC THẺ ĐÃ LỖI THỜI HOẶC BỊ LOẠI BỎ (DEPRECATED / OBSOLETE IN HTML5)
+(Lưu ý: Không nên sử dụng trong các dự án hiện đại, thay thế hoàn toàn bằng CSS)
+====================================================================================================
+
+- <marquee>     : Văn bản chạy qua lại (Thay bằng CSS Animation).
+- <blink>       : Văn bản nhấp nháy.
+- <center>      : Canh giữa nội dung (Thay bằng CSS text-align: center hoặc Flexbox/Grid).
+- <font>        : Đổi phông chữ, màu sắc, kích cỡ (Thay bằng CSS font-family, color, font-size).
+- <basefont>    : Cài đặt phông chữ mặc định.
+- <big>         : Tăng kích cỡ chữ.
+- <strike>, <tt>: Gạch ngang / Phông máy đánh chữ (Thay bằng <s> / <code> / CSS).
+- <frame>, <frameset>, <noframes>: Chia khung trang web cũ (Thay bằng <iframe> hoặc CSS layout).
+- <dir>         : Danh mục thư mục (Thay bằng <ul>).
+- <acronym>     : Viết tắt (Thay bằng <abbr>).
+- <applet>      : Nhúng Java Applet (Thay bằng <object>).
+
+====================================================================================================
+BẢN QUYỀN TỔNG HỢP: Chuẩn HTML5 Living Standard (W3C / WHATWG)
+====================================================================================================

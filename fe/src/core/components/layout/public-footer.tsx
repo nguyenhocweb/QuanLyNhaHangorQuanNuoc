@@ -105,8 +105,8 @@ const PublicFooter: React.FC = () => {
                 {/* ==================== BỐ CỤC 4 CỘT NỘI DUNG CHUYÊN SÂU ==================== */}
                 <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 border-b border-white/10 pb-16">
                     {/* Cột 1: Thương hiệu & Liên hệ Hotline VIP (Chiếm 4 cột trên LG) */}
-                    <div className="lg:col-span-4 flex flex-col gap-5">
-                        <Link href="/" className="flex items-center gap-2.5 group w-fit">
+                    <div className="lg:col-span-4 flex flex-col items-center text-center md:items-start md:text-left gap-5">
+                        <Link href="/" className="flex items-center gap-2.5 group w-fit mx-auto md:mx-0">
                             <span className="text-3xl font-black tracking-tight text-white transition-transform group-hover:scale-105 duration-300">
                                 NVN<span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400">guyen</span>
                             </span>
@@ -115,49 +115,49 @@ const PublicFooter: React.FC = () => {
                             </span>
                         </Link>
 
-                        <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
+                        <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm mx-auto md:mx-0">
                             Hệ thống quản lý đặt bàn và chuỗi nhà hàng đa thương hiệu cao cấp chuẩn quốc tế. Nơi hội tụ hương vị đỉnh cao và công nghệ quản trị ẩm thực tối ưu.
                         </p>
 
                         {/* Huy hiệu TOP 1 Platform */}
-                        <div className="flex items-center gap-2 py-2 px-3 rounded-xl bg-white/5 border border-white/10 w-fit">
+                        <div className="flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-white/5 border border-white/10 w-fit mx-auto md:mx-0">
                             <FaCrown className="text-amber-400 text-sm" />
                             <span className="text-xs font-bold text-slate-200">🏆 Top 1 Platform Ẩm Thực Việt Nam 2026</span>
                         </div>
 
                         {/* Danh sách Liên hệ Hotline / Email */}
-                        <div className="flex flex-col gap-3 pt-2">
+                        <div className="flex flex-col items-center md:items-start gap-3 pt-2 w-full">
                             <a 
                                 href="tel:0935884541" 
-                                className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border border-purple-500/30 text-white hover:border-purple-400 transition-all duration-300 group w-fit shadow-md hover:shadow-purple-500/20 hover:-translate-y-0.5"
+                                className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-purple-900/40 to-indigo-900/40 border border-purple-500/30 text-white hover:border-purple-400 transition-all duration-300 group w-fit mx-auto md:mx-0 shadow-md hover:shadow-purple-500/20 hover:-translate-y-0.5"
                             >
                                 <div className="w-8 h-8 rounded-lg bg-purple-600/30 flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform">
                                     <FaPhoneAlt className="text-sm animate-pulse" />
                                 </div>
-                                <div className="flex flex-col">
+                                <div className="flex flex-col text-left">
                                     <span className="text-[10px] uppercase font-bold tracking-wider text-purple-300">Hotline VIP Hỗ trợ 24/7</span>
                                     <span className="text-base font-black tracking-wide text-white group-hover:text-purple-300 transition-colors">0935.884.541</span>
                                 </div>
                             </a>
 
-                            <div className="flex items-center gap-3 text-xs text-slate-400">
+                            <div className="flex items-center justify-center md:justify-start gap-3 text-xs text-slate-400">
                                 <FaEnvelope className="text-amber-400 flex-shrink-0" />
                                 <span>Email: <strong className="text-white">support@nvnguyen.com</strong></span>
                             </div>
 
-                            <div className="flex items-start gap-3 text-xs text-slate-400">
-                                <FaMapMarkerAlt className="text-rose-400 flex-shrink-0 mt-0.5" />
+                            <div className="flex items-center justify-center md:justify-start text-center md:text-left gap-3 text-xs text-slate-400 max-w-sm">
+                                <FaMapMarkerAlt className="text-rose-400 flex-shrink-0" />
                                 <span>Trụ sở chính: <strong className="text-white">Hệ thống NVNguyen, TP. Hồ Chí Minh & Hà Nội</strong></span>
                             </div>
                         </div>
                     </div>
 
                     {/* Cột 2: Khám Phá Ẩm Thực (Chiếm 3 cột trên LG) */}
-                    <div className="lg:col-span-3 flex flex-col gap-4 lg:pl-4">
-                        <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-l-2 border-purple-500 pl-3">
+                    <div className="lg:col-span-3 flex flex-col items-center text-center md:items-start md:text-left gap-4 lg:pl-4">
+                        <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-b-2 md:border-b-0 md:border-l-2 border-purple-500 pb-1 md:pb-0 md:pl-3 w-fit mx-auto md:mx-0">
                             Khám Phá Ẩm Thực
                         </h4>
-                        <ul className="flex flex-col gap-2.5 text-xs sm:text-sm">
+                        <ul className="flex flex-col items-center md:items-start gap-2.5 text-xs sm:text-sm w-full">
                             {[
                                 { name: "Thương hiệu Đối tác VIP", href: "/brands" },
                                 { name: "Nhà hàng Được Yêu Thích", href: "/restaurants" },
@@ -166,10 +166,10 @@ const PublicFooter: React.FC = () => {
                                 { name: "Chương trình Ưu đãi VIP", href: "/promotions" },
                                 { name: "Cộng đồng Đánh giá Ẩm thực", href: "#" }
                             ].map((item, idx) => (
-                                <li key={idx}>
+                                <li key={idx} className="w-full flex justify-center md:justify-start">
                                     <Link 
                                         href={item.href} 
-                                        className="group flex items-center gap-2 text-slate-400 hover:text-white transition-all duration-200 py-0.5 w-fit"
+                                        className="group flex items-center justify-center md:justify-start gap-2 text-slate-400 hover:text-white transition-all duration-200 py-0.5 w-fit"
                                     >
                                         <FaArrowRight className="text-[10px] text-purple-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 flex-shrink-0" />
                                         <span className="group-hover:translate-x-1 transition-transform duration-200">{item.name}</span>
@@ -180,11 +180,11 @@ const PublicFooter: React.FC = () => {
                     </div>
 
                     {/* Cột 3: Đối Tác & Hỗ Trợ (Chiếm 2 cột trên LG) */}
-                    <div className="lg:col-span-2 flex flex-col gap-4">
-                        <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-l-2 border-indigo-500 pl-3">
+                    <div className="lg:col-span-2 flex flex-col items-center text-center md:items-start md:text-left gap-4">
+                        <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-b-2 md:border-b-0 md:border-l-2 border-indigo-500 pb-1 md:pb-0 md:pl-3 w-fit mx-auto md:mx-0">
                             Hợp Tác & Pháp Lý
                         </h4>
-                        <ul className="flex flex-col gap-2.5 text-xs sm:text-sm">
+                        <ul className="flex flex-col items-center md:items-start gap-2.5 text-xs sm:text-sm w-full">
                             {[
                                 { name: "Hợp tác Nhượng quyền", href: "#" },
                                 { name: "Đăng ký Mở nhà hàng", href: "#" },
@@ -193,10 +193,10 @@ const PublicFooter: React.FC = () => {
                                 { name: "Điều khoản Sử dụng", href: "#" },
                                 { name: "Câu hỏi Thường gặp (FAQ)", href: "#" }
                             ].map((item, idx) => (
-                                <li key={idx}>
+                                <li key={idx} className="w-full flex justify-center md:justify-start">
                                     <Link 
                                         href={item.href} 
-                                        className="group flex items-center gap-2 text-slate-400 hover:text-white transition-all duration-200 py-0.5 w-fit"
+                                        className="group flex items-center justify-center md:justify-start gap-2 text-slate-400 hover:text-white transition-all duration-200 py-0.5 w-fit"
                                     >
                                         <FaArrowRight className="text-[10px] text-indigo-400 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 flex-shrink-0" />
                                         <span className="group-hover:translate-x-1 transition-transform duration-200">{item.name}</span>
@@ -207,15 +207,15 @@ const PublicFooter: React.FC = () => {
                     </div>
 
                     {/* Cột 4: Hệ Sinh Thái & Tải Ứng Dụng (Chiếm 3 cột trên LG) */}
-                    <div className="lg:col-span-3 flex flex-col gap-5">
-                        <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-l-2 border-pink-500 pl-3">
+                    <div className="lg:col-span-3 flex flex-col items-center text-center md:items-start md:text-left gap-5">
+                        <h4 className="text-sm font-extrabold text-white uppercase tracking-wider border-b-2 md:border-b-0 md:border-l-2 border-pink-500 pb-1 md:pb-0 md:pl-3 w-fit mx-auto md:mx-0">
                             Kết Nối & Ứng Dụng
                         </h4>
 
                         {/* Cụm nút Mạng xã hội 3D Floating Badges */}
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col items-center md:items-start gap-2 w-full">
                             <span className="text-xs text-slate-400 font-medium">Theo dõi chúng tôi trên mạng xã hội:</span>
-                            <div className="flex items-center gap-2.5 flex-wrap pt-1">
+                            <div className="flex items-center justify-center md:justify-start gap-2.5 flex-wrap pt-1">
                                 {[
                                     { icon: FaFacebookF, name: "Facebook", bgHover: "hover:bg-[#1877F2]/20 hover:text-[#1877F2] hover:border-[#1877F2]/50 hover:shadow-[#1877F2]/30" },
                                     { icon: FaTiktok, name: "TikTok", bgHover: "hover:bg-white/20 hover:text-white hover:border-white/50 hover:shadow-white/20" },
@@ -239,15 +239,15 @@ const PublicFooter: React.FC = () => {
                         </div>
 
                         {/* Khối Tải ứng dụng (App Download Preview) */}
-                        <div className="flex flex-col gap-2.5 pt-2">
+                        <div className="flex flex-col items-center md:items-start gap-2.5 pt-2 w-full">
                             <span className="text-xs text-slate-400 font-medium">Trải nghiệm đặt bàn siêu tốc trên App:</span>
-                            <div className="grid grid-cols-2 gap-2.5">
+                            <div className="grid grid-cols-2 gap-2.5 max-w-xs md:max-w-none mx-auto md:mx-0 w-full">
                                 <a 
                                     href="#" 
                                     className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-purple-500/50 hover:bg-white/10 flex items-center gap-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md group"
                                 >
                                     <FaApple className="text-2xl text-white group-hover:text-purple-400 transition-colors flex-shrink-0" />
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col text-left">
                                         <span className="text-[9px] text-slate-400 uppercase font-semibold">Download on the</span>
                                         <span className="text-xs font-bold text-white">App Store</span>
                                     </div>
@@ -258,7 +258,7 @@ const PublicFooter: React.FC = () => {
                                     className="p-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-500/50 hover:bg-white/10 flex items-center gap-2.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md group"
                                 >
                                     <FaGooglePlay className="text-xl text-emerald-400 flex-shrink-0" />
-                                    <div className="flex flex-col">
+                                    <div className="flex flex-col text-left">
                                         <span className="text-[9px] text-slate-400 uppercase font-semibold">GET IT ON</span>
                                         <span className="text-xs font-bold text-white">Google Play</span>
                                     </div>

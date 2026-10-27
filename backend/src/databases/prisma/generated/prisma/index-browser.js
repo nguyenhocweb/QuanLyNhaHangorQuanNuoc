@@ -512,6 +512,27 @@ exports.Prisma.BrandSubscriptionTransactionScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ContactTicketScalarFieldEnum = {
+  id: 'id',
+  ticketCode: 'ticketCode',
+  guestName: 'guestName',
+  guestEmail: 'guestEmail',
+  guestPhone: 'guestPhone',
+  hasZalo: 'hasZalo',
+  subject: 'subject',
+  message: 'message',
+  status: 'status',
+  priority: 'priority',
+  adminNote: 'adminNote',
+  adminReply: 'adminReply',
+  assignedTo: 'assignedTo',
+  ipAddress: 'ipAddress',
+  deviceInfo: 'deviceInfo',
+  resolvedAt: 'resolvedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CustomerNotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -1117,6 +1138,58 @@ exports.Prisma.TemplateScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.WebAuthorScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  avatarUrl: 'avatarUrl',
+  bio: 'bio',
+  role: 'role',
+  roleTitle: 'roleTitle',
+  techStack: 'techStack',
+  contributions: 'contributions',
+  githubUrl: 'githubUrl',
+  linkedinUrl: 'linkedinUrl',
+  portfolioUrl: 'portfolioUrl',
+  email: 'email',
+  facebookUrl: 'facebookUrl',
+  phone: 'phone',
+  hasZalo: 'hasZalo',
+  zaloUrl: 'zaloUrl',
+  displayOrder: 'displayOrder',
+  isActive: 'isActive',
+  isLeader: 'isLeader',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.WebFeedbackScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  isGuest: 'isGuest',
+  guestName: 'guestName',
+  guestEmail: 'guestEmail',
+  guestPhone: 'guestPhone',
+  rating: 'rating',
+  title: 'title',
+  content: 'content',
+  category: 'category',
+  pageUrl: 'pageUrl',
+  deviceInfo: 'deviceInfo',
+  screenResolution: 'screenResolution',
+  attachments: 'attachments',
+  status: 'status',
+  isFeatured: 'isFeatured',
+  adminNote: 'adminNote',
+  adminReply: 'adminReply',
+  repliedAt: 'repliedAt',
+  reviewedBy: 'reviewedBy',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  isHelpfulCount: 'isHelpfulCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -1253,6 +1326,20 @@ exports.SubscriptionStatus = exports.$Enums.SubscriptionStatus = {
   SUSPENDED: 'SUSPENDED'
 };
 
+exports.TicketStatus = exports.$Enums.TicketStatus = {
+  OPEN: 'OPEN',
+  PROCESSING: 'PROCESSING',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED'
+};
+
+exports.TicketPriority = exports.$Enums.TicketPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+};
+
 exports.InventoryAlertType = exports.$Enums.InventoryAlertType = {
   LOW_STOCK: 'LOW_STOCK',
   EXPIRED: 'EXPIRED',
@@ -1387,6 +1474,31 @@ exports.WebTemplateType = exports.$Enums.WebTemplateType = {
   RESTAURANT_TEMPLATE: 'RESTAURANT_TEMPLATE'
 };
 
+exports.DeveloperRole = exports.$Enums.DeveloperRole = {
+  PROJECT_LEAD: 'PROJECT_LEAD',
+  FULLSTACK_DEV: 'FULLSTACK_DEV',
+  FRONTEND_DEV: 'FRONTEND_DEV',
+  BACKEND_DEV: 'BACKEND_DEV',
+  UI_UX_DESIGNER: 'UI_UX_DESIGNER',
+  DEVOPS_ENGINEER: 'DEVOPS_ENGINEER',
+  QA_QC: 'QA_QC'
+};
+
+exports.FeedbackCategory = exports.$Enums.FeedbackCategory = {
+  UI_UX: 'UI_UX',
+  PERFORMANCE: 'PERFORMANCE',
+  FEATURE: 'FEATURE',
+  BUG_REPORT: 'BUG_REPORT',
+  GENERAL: 'GENERAL'
+};
+
+exports.FeedbackStatus = exports.$Enums.FeedbackStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  SPAM: 'SPAM'
+};
+
 exports.Prisma.ModelName = {
   Category_Restaurant: 'Category_Restaurant',
   Employment: 'Employment',
@@ -1423,6 +1535,7 @@ exports.Prisma.ModelName = {
   BrandRevenue: 'BrandRevenue',
   BrandSubscription: 'BrandSubscription',
   BrandSubscriptionTransaction: 'BrandSubscriptionTransaction',
+  ContactTicket: 'ContactTicket',
   CustomerNotification: 'CustomerNotification',
   InventoryAlert: 'InventoryAlert',
   InventoryItem: 'InventoryItem',
@@ -1468,7 +1581,9 @@ exports.Prisma.ModelName = {
   Table_Maintenance_Schedules: 'Table_Maintenance_Schedules',
   Tables: 'Tables',
   Tags: 'Tags',
-  Template: 'Template'
+  Template: 'Template',
+  WebAuthor: 'WebAuthor',
+  WebFeedback: 'WebFeedback'
 };
 
 /**

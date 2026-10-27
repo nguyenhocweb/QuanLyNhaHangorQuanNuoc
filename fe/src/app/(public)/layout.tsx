@@ -12,12 +12,12 @@ import { Div } from "@/src/core/components/ui";
 export default function PublicLayout({ children }: PublicLayoutProps) {
     const pathname = usePathname()
     return (
-        <Div size="full_screen" vitri="col_none" className=" bg-slate-50">
+        <Div size="full_screen" vitri="col_none" className="bg-slate-50 overflow-x-hidden max-w-full w-full">
             {/* 2. Thanh điều hướng dùng chung cho mọi trang Public */}
             <PublicHeader />
             {/* 3. Phần ruột thay đổi theo từng trang (Trang chủ, Liên hệ, Giới thiệu...) */}
             {/* class "flex-1" cực kỳ quan trọng: Nó sẽ đẩy content giãn ra hết mức có thể, ép Footer chìm xuống đáy */}
-            <main className="w-full pb-16 bg-gray-100" key={pathname}>
+            <main className="w-full pb-16 bg-gray-100 overflow-x-hidden max-w-full" key={pathname}>
                 {children}
             </main>
             {/* 4. Chân trang dùng chung */}

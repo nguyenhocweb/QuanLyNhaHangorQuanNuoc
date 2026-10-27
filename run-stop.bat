@@ -8,8 +8,11 @@ FOR /F "tokens=5" %%T IN ('netstat -a -n -o ^| findstr :4000') DO (
     taskkill /F /PID %%T >nul 2>&1
 )
 
-echo Dang tat Frontend (Port 3000)...
+echo Dang tat Frontend (Port 3000 / 3002)...
 FOR /F "tokens=5" %%T IN ('netstat -a -n -o ^| findstr :3000') DO (
+    taskkill /F /PID %%T >nul 2>&1
+)
+FOR /F "tokens=5" %%T IN ('netstat -a -n -o ^| findstr :3002') DO (
     taskkill /F /PID %%T >nul 2>&1
 )
 

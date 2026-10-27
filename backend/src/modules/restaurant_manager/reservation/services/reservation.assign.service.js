@@ -3,6 +3,7 @@ import { getReservationByIdRepo } from "../repositories/reservation.get.repo.js"
 import { NotFoundError, ConflictError } from "../../../../core/constants/error/index.js";
 import { prisma } from "../../../../databases/init.mongodb.js";
 import { emitReservationUpdate, emitTableUpdate } from "../../../../core/utils/socket.js";
+import { notifyCustomerReservationChange } from "../utils/reservation.notification.js";
 
 export const assignTableService = async (reservationId, restaurantId, tableId, staffId) => {
     const existingReservation = await getReservationByIdRepo(reservationId, restaurantId);
@@ -12,19 +13,29 @@ export const assignTableService = async (reservationId, restaurantId, tableId, s
 
     // Kiểm tra xem bàn có tồn tại trong nhà hàng không
     const table = await prisma.tables.findFirst({
-        where: { id: tableId, restaurantId }
+        where: { id: tableId, restaurantId },
+        include: { area: true }
     });
     
     if (!table) {
         throw new NotFoundError("Bàn không tồn tại");
     }
-
-    // Ở một hệ thống thực tế cần check xem khung giờ đó bàn này đã có ai gán chưa
-    // Để giữ đơn giản cho MVP, ta chỉ gán.
     
     const result = await assignTableRepo(reservationId, tableId, staffId);
     emitReservationUpdate(restaurantId);
     emitTableUpdate(restaurantId);
+
+    const resName = existingReservation.restaurant?.name || "nhà hàng";
+    const tableName = table.name || `Bàn #${table.table_number}`;
+    const areaName = table.area?.name ? ` (${table.area.name})` : "";
+
+    notifyCustomerReservationChange({
+        reservation: existingReservation,
+        title: "Đã xếp bàn cho đơn đặt của bạn",
+        body: `Đơn đặt bàn mã ${existingReservation.confirmation_code} tại "${resName}" đã được xếp vào ${tableName}${areaName}.`,
+        type: "RESERVATION"
+    });
+
     return result;
 };
 
@@ -34,3 +45,4 @@ export const unassignTableService = async (reservationId, restaurantId, tableId)
     emitTableUpdate(restaurantId);
     return result;
 };
+

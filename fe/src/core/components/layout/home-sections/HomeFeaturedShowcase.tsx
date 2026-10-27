@@ -15,29 +15,9 @@ export const HomeFeaturedShowcase: React.FC = () => {
 
             {/* Phân khu 1: Thương hiệu Tiêu biểu */}
             <div id="featured-brands" className="w-full flex flex-col gap-8 relative z-10">
-                <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-gray-100 pb-6">
-                    <div className="flex flex-col gap-2">
-                        <FadeIn>
-                            <span className="text-xs font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-3.5 py-1.5 rounded-full w-fit">
-                                👑 Đối tác Chiến lược
-                            </span>
-                        </FadeIn>
-                        <FadeIn delay={0.1}>
-                            <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900">
-                                Thương hiệu <span className="text-indigo-600">Tiêu biểu</span>
-                            </h2>
-                        </FadeIn>
-                    </div>
-                    <FadeIn delay={0.2}>
-                        <p className="text-sm text-gray-500 max-w-sm">
-                            Các chuỗi nhà hàng danh tiếng đồng hành cùng NVNguyen đem đến chất lượng dịch vụ chuẩn mực quốc tế.
-                        </p>
-                    </FadeIn>
-                </div>
-
-                <FadeIn delay={0.3}>
+                <FadeIn delay={0.2}>
                     <div className="w-full">
-                        <FeaturedBrandComponent type="home" />
+                        <FeaturedBrandComponent type="home" limit={6} />
                     </div>
                 </FadeIn>
             </div>
@@ -66,7 +46,7 @@ export const HomeFeaturedShowcase: React.FC = () => {
 
                 <FadeIn delay={0.3}>
                     <div className="w-full">
-                        <Featured_Restaurant_Component type="home" />
+                        <Featured_Restaurant_Component type="home" limit={6} />
                     </div>
                 </FadeIn>
             </div>
@@ -95,7 +75,7 @@ export const HomeFeaturedShowcase: React.FC = () => {
 
                 <FadeIn delay={0.3}>
                     <div className="w-full">
-                        <FeaturedDishComponent type="home" />
+                        <FeaturedDishComponent type="home" limit={6} />
                     </div>
                 </FadeIn>
             </div>

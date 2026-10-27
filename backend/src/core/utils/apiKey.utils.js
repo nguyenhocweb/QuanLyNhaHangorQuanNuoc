@@ -54,11 +54,21 @@ export const encryptKey = (text) => {
  * @returns {string} The decrypted plain text API key
  */
 export const decryptKey = (text) => {
-  const textParts = text.split(':');
-  const iv = Buffer.from(textParts.shift(), 'hex');
-  const encryptedText = Buffer.from(textParts.join(':'), 'hex');
-  const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
-  let decrypted = decipher.update(encryptedText);
-  decrypted = Buffer.concat([decrypted, decipher.final()]);
-  return decrypted.toString();
+  if (!text) return '';
+  if (!text.includes(':')) {
+    // Nếu text không có định dạng iv:encryptedText (vd: key thô hoặc seed cũ)
+    return text;
+  }
+  try {
+    const textParts = text.split(':');
+    const iv = Buffer.from(textParts.shift(), 'hex');
+    const encryptedText = Buffer.from(textParts.join(':'), 'hex');
+    const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY), iv);
+    let decrypted = decipher.update(encryptedText);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    return decrypted.toString();
+  } catch (error) {
+    console.warn('[DecryptKey Warning] Không thể giải mã key, trả về text ban đầu:', error.message);
+    return text;
+  }
 };

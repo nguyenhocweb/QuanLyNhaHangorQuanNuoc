@@ -1,9 +1,19 @@
-
-import type { Metadata } from "next";
+import gotekSDK from "@/src/core/components/layout/nhung_code/code" // Import GoTek SDK 
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
 import QueryProvider from "../core/components/providers/QueryProvider";
 import "./globals.css"
+import Script from 'next/script';
 import { Toaster } from "sonner"
+import GotekChatbot from "@/src/core/components/layout/nhung_code/code";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -37,9 +47,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} antialiased`}
       >
         <QueryProvider>
- 
-            {children}
-     
+
+          {children}
+
+
+
           <Toaster
             position="top-right"
             richColors        // màu xanh/đỏ đẹp cho success/error
@@ -47,6 +59,9 @@ export default function RootLayout({
             duration={4000}
           />
         </QueryProvider>
+
+
+
       </body>
     </html>
   );

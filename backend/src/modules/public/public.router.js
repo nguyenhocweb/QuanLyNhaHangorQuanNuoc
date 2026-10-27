@@ -10,6 +10,10 @@ import reviewRouter from "./review/review.router.js";
 import tagRouter from "./tag/tag.router.js";
 import webhookRouter from "./webhook/webhook.router.js";
 import dishRouter from "./menu/route.dish.js";
+import tableKioskRouter from "./table_kiosk/table_kiosk.public.router.js";
+import webFeedbackRouter from "./web_feedback/web_feedback.router.js";
+import webAuthorRouter from "./web_author/web_author.router.js";
+import contactTicketRouter from "./contact_ticket/contact_ticket.router.js";
 
 const route = Router();
 
@@ -24,5 +28,11 @@ route.use("/review", reviewRouter);
 route.use("/tag", tagRouter);
 route.use("/webhook", webhookRouter);
 route.use("/dish", dishRouter);
+route.use("/table-kiosk", tableKioskRouter);
+route.use("/web-feedback", webFeedbackRouter);
+route.use("/web-author", webAuthorRouter);
+route.use("/contact-ticket", contactTicketRouter);
 
 export default route;
+
+

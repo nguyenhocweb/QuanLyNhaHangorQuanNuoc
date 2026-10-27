@@ -3,8 +3,17 @@
     {
       "platform_name": "OpenAI Platform",
       "models": [
-        { "name": "gpt-4o", "displayName": "GPT-4 Omni Multimodal" },
-        { "name": "gpt-4o-mini", "displayName": "GPT-4o Mini Fast Inference" }
+        { "name": "gpt-4.5-preview", "displayName": "GPT-4.5 Preview Siêu Mô Hình Đa Nhiệm" },
+        { "name": "gpt-4o", "displayName": "GPT-4 Omni Flagship Multimodal" },
+        { "name": "gpt-4o-mini", "displayName": "GPT-4o Mini Siêu Nhanh & Tối Ưu Chi Phí" },
+        { "name": "o1", "displayName": "OpenAI o1 Suy Luận Logic Chuyên Sâu" },
+        { "name": "o1-mini", "displayName": "OpenAI o1 Mini Suy Luận Toán & Code Nhanh" },
+        { "name": "o3-mini", "displayName": "OpenAI o3 Mini Thế Hệ Lý Luận Mới Nhất" },
+        { "name": "gpt-4-turbo", "displayName": "GPT-4 Turbo 128k Ngữ Cảnh" },
+        { "name": "gpt-3.5-turbo", "displayName": "GPT-3.5 Turbo Tiêu Chuẩn Phổ Thông" },
+        { "name": "text-embedding-3-small", "displayName": "Text Embedding 3 Small" },
+        { "name": "text-embedding-3-large", "displayName": "Text Embedding 3 Large" },
+        { "name": "dall-e-3", "displayName": "DALL-E 3 Tạo Hình Ảnh AI Chuyên Nghiệp" }
       ],
       "default_api_key": {
         "name": "Primary Enterprise OpenAI Key",
@@ -18,8 +27,16 @@
     {
       "platform_name": "Google Gemini Cloud",
       "models": [
-        { "name": "gemini-1.5-pro", "displayName": "Gemini 1.5 Pro 1M Context" },
-        { "name": "gemini-1.5-flash", "displayName": "Gemini 1.5 Flash Low Latency" }
+        { "name": "gemini-2.5-flash", "displayName": "Gemini 2.5 Flash Siêu Nhanh & Mới Nhất" },
+        { "name": "gemini-2.5-pro", "displayName": "Gemini 2.5 Pro Đỉnh Cao Suy Luận & Code" },
+        { "name": "gemini-2.0-flash", "displayName": "Gemini 2.0 Flash Tốc Độ Cao & Đa Phương Thức" },
+        { "name": "gemini-2.0-flash-lite", "displayName": "Gemini 2.0 Flash Lite Tối Ưu Độ Trễ & Chi Phí" },
+        { "name": "gemini-2.0-pro-exp-02-05", "displayName": "Gemini 2.0 Pro Experimental Đỉnh Cao Code & Phân Tích" },
+        { "name": "gemini-2.0-flash-thinking-exp", "displayName": "Gemini 2.0 Flash Thinking Suy Luận Trực Quan" },
+        { "name": "gemini-1.5-pro", "displayName": "Gemini 1.5 Pro Ngữ Cảnh Siêu Khủng 2M Tokens" },
+        { "name": "gemini-1.5-flash", "displayName": "Gemini 1.5 Flash Xử Lý Siêu Tốc Đa Tác Vụ" },
+        { "name": "gemini-1.5-flash-8b", "displayName": "Gemini 1.5 Flash-8B Siêu Nhẹ & Hiệu Suất Cao" },
+        { "name": "text-embedding-004", "displayName": "Text Embedding 004 Vector Hóa Dữ Liệu" }
       ],
       "default_api_key": {
         "name": "Google Gemini Platform Key",
@@ -29,6 +46,56 @@
         "keyType": "ADMIN",
         "status": "ACTIVE"
       }
+    },
+    {
+      "platform_name": "Anthropic Claude",
+      "models": [
+        { "name": "claude-3-7-sonnet-20250219", "displayName": "Claude 3.7 Sonnet Suy Luận Lai & Coding Đỉnh Cao" },
+        { "name": "claude-3-5-sonnet-20241022", "displayName": "Claude 3.5 Sonnet v2 Tiêu Chuẩn Vàng Trí Tuệ Nhân Tạo" },
+        { "name": "claude-3-5-haiku-20241022", "displayName": "Claude 3.5 Haiku Siêu Nhanh & Nhạy Bén" },
+        { "name": "claude-3-opus-20240229", "displayName": "Claude 3 Opus Phân Tích Chuyên Sâu Tài Liệu Phức Tạp" }
+      ]
+    },
+    {
+      "platform_name": "DeepSeek AI",
+      "models": [
+        { "name": "deepseek-chat", "displayName": "DeepSeek-V3 671B MoE Đa Nhiệm Tổng Hợp" },
+        { "name": "deepseek-reasoner", "displayName": "DeepSeek-R1 Đỉnh Cao Suy Luận Chuỗi Tư Duy" }
+      ]
+    },
+    {
+      "platform_name": "Groq Cloud (LPU Ultra-Fast)",
+      "models": [
+        { "name": "llama-3.3-70b-versatile", "displayName": "Llama 3.3 70B Versatile Siêu Tốc Độ" },
+        { "name": "llama-3.1-8b-instant", "displayName": "Llama 3.1 8B Instant Phản Hồi Tức Thì" },
+        { "name": "mixtral-8x7b-32768", "displayName": "Mixtral 8x7B MoE 32k Ngữ Cảnh" },
+        { "name": "deepseek-r1-distill-llama-70b", "displayName": "DeepSeek R1 Distill Llama 70B Groq LPU" }
+      ]
+    },
+    {
+      "platform_name": "Mistral AI",
+      "models": [
+        { "name": "mistral-large-latest", "displayName": "Mistral Large 2 Flagship Lý Luận Phức Tạp" },
+        { "name": "mistral-small-latest", "displayName": "Mistral Small 3 Nhanh & Hiệu Quả" },
+        { "name": "codestral-latest", "displayName": "Codestral Chuyên Gia Lập Trình & Tối Ưu Code" },
+        { "name": "pixtral-large-latest", "displayName": "Pixtral Large Đa Phương Thức Hình Ảnh" }
+      ]
+    },
+    {
+      "platform_name": "xAI (Grok)",
+      "models": [
+        { "name": "grok-2-1212", "displayName": "Grok 2 Đa Phương Thức Thông Minh" },
+        { "name": "grok-2-vision-1212", "displayName": "Grok 2 Vision Thị Giác Máy Tính" },
+        { "name": "grok-beta", "displayName": "Grok Beta Thử Nghiệm Lý Luận" }
+      ]
+    },
+    {
+      "platform_name": "Perplexity AI",
+      "models": [
+        { "name": "sonar-pro", "displayName": "Sonar Pro Tìm Kiếm & Tra Cứu Tri Thức Chuyên Sâu" },
+        { "name": "sonar", "displayName": "Sonar Tìm Kiếm Nhanh Dữ Liệu Thời Gian Thực" },
+        { "name": "sonar-reasoning", "displayName": "Sonar Reasoning Suy Luận Kèm Dẫn Nguồn Web" }
+      ]
     }
   ],
   "system_revenues": [

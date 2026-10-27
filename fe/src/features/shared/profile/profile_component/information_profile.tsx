@@ -40,8 +40,11 @@ const ImformationProfile = () => {
             date_of_birth: user?.date_of_birth ? new Date(user.date_of_birth).toISOString().split('T')[0] : "",
             gender: user.gender || ""
         }
-        if(JSON.stringify(userDataOld)===JSON.stringify(data)) toast.success("Thông tin chưa được thay đổi")
-            updateProfile(data);
+        if (JSON.stringify(userDataOld) === JSON.stringify(data)) {
+            toast.info("Thông tin chưa có gì thay đổi");
+            return;
+        }
+        updateProfile(data);
     }
 
 

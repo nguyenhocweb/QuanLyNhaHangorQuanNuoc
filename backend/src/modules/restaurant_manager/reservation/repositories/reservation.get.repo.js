@@ -108,6 +108,9 @@ export const getReservationByIdRepo = async (id, restaurantId) => {
     return prisma.reservations.findFirst({
         where: { id, restaurantId },
         include: { 
+            restaurant: {
+                select: { id: true, name: true }
+            },
             reservation_tables: { 
                 include: { 
                     table: {

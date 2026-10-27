@@ -6,9 +6,9 @@ export const getReviewById = async (reviewId) => {
     });
 };
 
-export const updateReviewStatusRepo = async (reviewId, status) => {
+export const updateReviewStatusRepo = async (reviewId, is_public) => {
     return await prisma.review_Restaurant.update({
         where: { id: reviewId },
-        data: { status }
+        data: { is_public }
     });
 };

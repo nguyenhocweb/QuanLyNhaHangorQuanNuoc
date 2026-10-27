@@ -7,6 +7,7 @@ import { HomeFeaturedShowcase } from "./home-sections/HomeFeaturedShowcase";
 import { HomeSocialProofMarquee } from "./home-sections/HomeSocialProofMarquee";
 import { HomeCtaBanner } from "./home-sections/HomeCtaBanner";
 import { BackgroundMesh3D } from "../animation/BackgroundMesh3D";
+import { WebAuthorsSection } from "@/src/features/public/web_author/component/WebAuthorsSection";
 
 const PublicHome: React.FC = () => {
     return (
@@ -26,8 +27,11 @@ const PublicHome: React.FC = () => {
             {/* Khối 4: Dòng chảy Đánh giá Thực tế từ Khách hàng */}
             <HomeSocialProofMarquee />
 
-            {/* Khối 5: Banner Kêu gọi Hành động (CTA) */}
+            {/* Khối 5: Banner Kêu gọi Hành động (CTA Banner) */}
             <HomeCtaBanner />
+
+            {/* Khối 6: Đội Ngũ Kỹ Sư Kiến Tạo Hệ Thống (Web Authors) */}
+            <WebAuthorsSection />
         </div>
     );
 };

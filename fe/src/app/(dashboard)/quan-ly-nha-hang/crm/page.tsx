@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { CrmDashboard } from '@/src/features/restaurant_manager/crm/components/CrmDashboard';
+import { CrmDashboard } from '@/src/features/quan_ly_nha_hang/crm/components/CrmDashboard';
 import { useAuthStore } from '@/src/features/auth/auth_store/use-auth-store';
 
 export default function RestaurantCrmPage() {

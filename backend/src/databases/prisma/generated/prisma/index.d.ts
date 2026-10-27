@@ -209,6 +209,11 @@ export type BrandSubscription = $Result.DefaultSelection<Prisma.$BrandSubscripti
  */
 export type BrandSubscriptionTransaction = $Result.DefaultSelection<Prisma.$BrandSubscriptionTransactionPayload>
 /**
+ * Model ContactTicket
+ * 
+ */
+export type ContactTicket = $Result.DefaultSelection<Prisma.$ContactTicketPayload>
+/**
  * Model CustomerNotification
  * 
  */
@@ -438,6 +443,16 @@ export type Tags = $Result.DefaultSelection<Prisma.$TagsPayload>
  * 
  */
 export type Template = $Result.DefaultSelection<Prisma.$TemplatePayload>
+/**
+ * Model WebAuthor
+ * 
+ */
+export type WebAuthor = $Result.DefaultSelection<Prisma.$WebAuthorPayload>
+/**
+ * Model WebFeedback
+ * 
+ */
+export type WebFeedback = $Result.DefaultSelection<Prisma.$WebFeedbackPayload>
 
 /**
  * Enums
@@ -826,6 +841,60 @@ export const WebTemplateType: {
 export type WebTemplateType = (typeof WebTemplateType)[keyof typeof WebTemplateType]
 
 
+export const FeedbackStatus: {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  SPAM: 'SPAM'
+};
+
+export type FeedbackStatus = (typeof FeedbackStatus)[keyof typeof FeedbackStatus]
+
+
+export const FeedbackCategory: {
+  UI_UX: 'UI_UX',
+  PERFORMANCE: 'PERFORMANCE',
+  FEATURE: 'FEATURE',
+  BUG_REPORT: 'BUG_REPORT',
+  GENERAL: 'GENERAL'
+};
+
+export type FeedbackCategory = (typeof FeedbackCategory)[keyof typeof FeedbackCategory]
+
+
+export const DeveloperRole: {
+  PROJECT_LEAD: 'PROJECT_LEAD',
+  FULLSTACK_DEV: 'FULLSTACK_DEV',
+  FRONTEND_DEV: 'FRONTEND_DEV',
+  BACKEND_DEV: 'BACKEND_DEV',
+  UI_UX_DESIGNER: 'UI_UX_DESIGNER',
+  DEVOPS_ENGINEER: 'DEVOPS_ENGINEER',
+  QA_QC: 'QA_QC'
+};
+
+export type DeveloperRole = (typeof DeveloperRole)[keyof typeof DeveloperRole]
+
+
+export const TicketStatus: {
+  OPEN: 'OPEN',
+  PROCESSING: 'PROCESSING',
+  RESOLVED: 'RESOLVED',
+  CLOSED: 'CLOSED'
+};
+
+export type TicketStatus = (typeof TicketStatus)[keyof typeof TicketStatus]
+
+
+export const TicketPriority: {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH',
+  URGENT: 'URGENT'
+};
+
+export type TicketPriority = (typeof TicketPriority)[keyof typeof TicketPriority]
+
+
 export const TransactionType: {
   EARN: 'EARN',
   SPEND: 'SPEND',
@@ -987,6 +1056,26 @@ export const NotificationTemplateType: typeof $Enums.NotificationTemplateType
 export type WebTemplateType = $Enums.WebTemplateType
 
 export const WebTemplateType: typeof $Enums.WebTemplateType
+
+export type FeedbackStatus = $Enums.FeedbackStatus
+
+export const FeedbackStatus: typeof $Enums.FeedbackStatus
+
+export type FeedbackCategory = $Enums.FeedbackCategory
+
+export const FeedbackCategory: typeof $Enums.FeedbackCategory
+
+export type DeveloperRole = $Enums.DeveloperRole
+
+export const DeveloperRole: typeof $Enums.DeveloperRole
+
+export type TicketStatus = $Enums.TicketStatus
+
+export const TicketStatus: typeof $Enums.TicketStatus
+
+export type TicketPriority = $Enums.TicketPriority
+
+export const TicketPriority: typeof $Enums.TicketPriority
 
 export type TransactionType = $Enums.TransactionType
 
@@ -1426,6 +1515,16 @@ export class PrismaClient<
     * ```
     */
   get brandSubscriptionTransaction(): Prisma.BrandSubscriptionTransactionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.contactTicket`: Exposes CRUD operations for the **ContactTicket** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ContactTickets
+    * const contactTickets = await prisma.contactTicket.findMany()
+    * ```
+    */
+  get contactTicket(): Prisma.ContactTicketDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.customerNotification`: Exposes CRUD operations for the **CustomerNotification** model.
@@ -1886,6 +1985,26 @@ export class PrismaClient<
     * ```
     */
   get template(): Prisma.TemplateDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.webAuthor`: Exposes CRUD operations for the **WebAuthor** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WebAuthors
+    * const webAuthors = await prisma.webAuthor.findMany()
+    * ```
+    */
+  get webAuthor(): Prisma.WebAuthorDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.webFeedback`: Exposes CRUD operations for the **WebFeedback** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more WebFeedbacks
+    * const webFeedbacks = await prisma.webFeedback.findMany()
+    * ```
+    */
+  get webFeedback(): Prisma.WebFeedbackDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -2362,6 +2481,7 @@ export namespace Prisma {
     BrandRevenue: 'BrandRevenue',
     BrandSubscription: 'BrandSubscription',
     BrandSubscriptionTransaction: 'BrandSubscriptionTransaction',
+    ContactTicket: 'ContactTicket',
     CustomerNotification: 'CustomerNotification',
     InventoryAlert: 'InventoryAlert',
     InventoryItem: 'InventoryItem',
@@ -2407,7 +2527,9 @@ export namespace Prisma {
     Table_Maintenance_Schedules: 'Table_Maintenance_Schedules',
     Tables: 'Tables',
     Tags: 'Tags',
-    Template: 'Template'
+    Template: 'Template',
+    WebAuthor: 'WebAuthor',
+    WebFeedback: 'WebFeedback'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -2426,7 +2548,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "category_Restaurant" | "employment" | "itemCategoryMap" | "itemVariant" | "menuCategory" | "menuCategoryMap" | "modifierGroup" | "modifierOption" | "notifications" | "promotion" | "promotionRestaurant" | "promotionMenuItem" | "userPromotion" | "recipe" | "restaurantMenuItem" | "restaurantPaymentConfig" | "systemRole" | "transaction" | "upgradeRequest" | "user" | "workspaceRole" | "adminPaymentConfig" | "aIChatSession" | "aIChatMessage" | "aIBrandConfig" | "aiChatbox" | "aiModel" | "apiKey" | "brand" | "brandNotification" | "brandNotificationReadReceipt" | "brandPaymentConfig" | "brandRevenue" | "brandSubscription" | "brandSubscriptionTransaction" | "customerNotification" | "inventoryAlert" | "inventoryItem" | "inventoryStock" | "invoice" | "loyaltyTransaction" | "menu" | "menuItem" | "operating_Hours" | "order" | "orderItem" | "permission" | "permission_vs_Employment" | "purchaseOrder" | "purchaseOrderItem" | "purchaseRequest" | "purchaseRequestItem" | "reservation_Audit_Log" | "reservation_Tables" | "reservations" | "restaurant" | "restaurant_Amenities" | "restaurant_Areas" | "restaurantCustomer" | "restaurant_Event" | "restaurantNotification" | "restaurantNotificationReadReceipt" | "restaurantRevenue" | "review_Restaurant" | "special_Schedules" | "stockCount" | "stockCountItem" | "stockTransaction" | "stockTransfer" | "stockTransferItem" | "subscriptionPlan" | "supplier" | "systemNotification" | "systemNotificationReadReceipt" | "systemPaymentMethod" | "systemRevenue" | "systemWebhookLog" | "table_Maintenance_Schedules" | "tables" | "tags" | "template"
+      modelProps: "category_Restaurant" | "employment" | "itemCategoryMap" | "itemVariant" | "menuCategory" | "menuCategoryMap" | "modifierGroup" | "modifierOption" | "notifications" | "promotion" | "promotionRestaurant" | "promotionMenuItem" | "userPromotion" | "recipe" | "restaurantMenuItem" | "restaurantPaymentConfig" | "systemRole" | "transaction" | "upgradeRequest" | "user" | "workspaceRole" | "adminPaymentConfig" | "aIChatSession" | "aIChatMessage" | "aIBrandConfig" | "aiChatbox" | "aiModel" | "apiKey" | "brand" | "brandNotification" | "brandNotificationReadReceipt" | "brandPaymentConfig" | "brandRevenue" | "brandSubscription" | "brandSubscriptionTransaction" | "contactTicket" | "customerNotification" | "inventoryAlert" | "inventoryItem" | "inventoryStock" | "invoice" | "loyaltyTransaction" | "menu" | "menuItem" | "operating_Hours" | "order" | "orderItem" | "permission" | "permission_vs_Employment" | "purchaseOrder" | "purchaseOrderItem" | "purchaseRequest" | "purchaseRequestItem" | "reservation_Audit_Log" | "reservation_Tables" | "reservations" | "restaurant" | "restaurant_Amenities" | "restaurant_Areas" | "restaurantCustomer" | "restaurant_Event" | "restaurantNotification" | "restaurantNotificationReadReceipt" | "restaurantRevenue" | "review_Restaurant" | "special_Schedules" | "stockCount" | "stockCountItem" | "stockTransaction" | "stockTransfer" | "stockTransferItem" | "subscriptionPlan" | "supplier" | "systemNotification" | "systemNotificationReadReceipt" | "systemPaymentMethod" | "systemRevenue" | "systemWebhookLog" | "table_Maintenance_Schedules" | "tables" | "tags" | "template" | "webAuthor" | "webFeedback"
       txIsolationLevel: never
     }
     model: {
@@ -5017,6 +5139,80 @@ export namespace Prisma {
           count: {
             args: Prisma.BrandSubscriptionTransactionCountArgs<ExtArgs>
             result: $Utils.Optional<BrandSubscriptionTransactionCountAggregateOutputType> | number
+          }
+        }
+      }
+      ContactTicket: {
+        payload: Prisma.$ContactTicketPayload<ExtArgs>
+        fields: Prisma.ContactTicketFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ContactTicketFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ContactTicketFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload>
+          }
+          findFirst: {
+            args: Prisma.ContactTicketFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ContactTicketFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload>
+          }
+          findMany: {
+            args: Prisma.ContactTicketFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload>[]
+          }
+          create: {
+            args: Prisma.ContactTicketCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload>
+          }
+          createMany: {
+            args: Prisma.ContactTicketCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.ContactTicketDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload>
+          }
+          update: {
+            args: Prisma.ContactTicketUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload>
+          }
+          deleteMany: {
+            args: Prisma.ContactTicketDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ContactTicketUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.ContactTicketUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ContactTicketPayload>
+          }
+          aggregate: {
+            args: Prisma.ContactTicketAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateContactTicket>
+          }
+          groupBy: {
+            args: Prisma.ContactTicketGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ContactTicketGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.ContactTicketFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.ContactTicketAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.ContactTicketCountArgs<ExtArgs>
+            result: $Utils.Optional<ContactTicketCountAggregateOutputType> | number
           }
         }
       }
@@ -8424,6 +8620,154 @@ export namespace Prisma {
           }
         }
       }
+      WebAuthor: {
+        payload: Prisma.$WebAuthorPayload<ExtArgs>
+        fields: Prisma.WebAuthorFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WebAuthorFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WebAuthorFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload>
+          }
+          findFirst: {
+            args: Prisma.WebAuthorFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WebAuthorFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload>
+          }
+          findMany: {
+            args: Prisma.WebAuthorFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload>[]
+          }
+          create: {
+            args: Prisma.WebAuthorCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload>
+          }
+          createMany: {
+            args: Prisma.WebAuthorCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.WebAuthorDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload>
+          }
+          update: {
+            args: Prisma.WebAuthorUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload>
+          }
+          deleteMany: {
+            args: Prisma.WebAuthorDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WebAuthorUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WebAuthorUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebAuthorPayload>
+          }
+          aggregate: {
+            args: Prisma.WebAuthorAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWebAuthor>
+          }
+          groupBy: {
+            args: Prisma.WebAuthorGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WebAuthorGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.WebAuthorFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.WebAuthorAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.WebAuthorCountArgs<ExtArgs>
+            result: $Utils.Optional<WebAuthorCountAggregateOutputType> | number
+          }
+        }
+      }
+      WebFeedback: {
+        payload: Prisma.$WebFeedbackPayload<ExtArgs>
+        fields: Prisma.WebFeedbackFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.WebFeedbackFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.WebFeedbackFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload>
+          }
+          findFirst: {
+            args: Prisma.WebFeedbackFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.WebFeedbackFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload>
+          }
+          findMany: {
+            args: Prisma.WebFeedbackFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload>[]
+          }
+          create: {
+            args: Prisma.WebFeedbackCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload>
+          }
+          createMany: {
+            args: Prisma.WebFeedbackCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          delete: {
+            args: Prisma.WebFeedbackDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload>
+          }
+          update: {
+            args: Prisma.WebFeedbackUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload>
+          }
+          deleteMany: {
+            args: Prisma.WebFeedbackDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.WebFeedbackUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          upsert: {
+            args: Prisma.WebFeedbackUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$WebFeedbackPayload>
+          }
+          aggregate: {
+            args: Prisma.WebFeedbackAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateWebFeedback>
+          }
+          groupBy: {
+            args: Prisma.WebFeedbackGroupByArgs<ExtArgs>
+            result: $Utils.Optional<WebFeedbackGroupByOutputType>[]
+          }
+          findRaw: {
+            args: Prisma.WebFeedbackFindRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          aggregateRaw: {
+            args: Prisma.WebFeedbackAggregateRawArgs<ExtArgs>
+            result: JsonObject
+          }
+          count: {
+            args: Prisma.WebFeedbackCountArgs<ExtArgs>
+            result: $Utils.Optional<WebFeedbackCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -8538,6 +8882,7 @@ export namespace Prisma {
     brandRevenue?: BrandRevenueOmit
     brandSubscription?: BrandSubscriptionOmit
     brandSubscriptionTransaction?: BrandSubscriptionTransactionOmit
+    contactTicket?: ContactTicketOmit
     customerNotification?: CustomerNotificationOmit
     inventoryAlert?: InventoryAlertOmit
     inventoryItem?: InventoryItemOmit
@@ -8584,6 +8929,8 @@ export namespace Prisma {
     tables?: TablesOmit
     tags?: TagsOmit
     template?: TemplateOmit
+    webAuthor?: WebAuthorOmit
+    webFeedback?: WebFeedbackOmit
   }
 
   /* Types for Logging */
@@ -48554,6 +48901,1081 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: BrandSubscriptionTransactionInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ContactTicket
+   */
+
+  export type AggregateContactTicket = {
+    _count: ContactTicketCountAggregateOutputType | null
+    _min: ContactTicketMinAggregateOutputType | null
+    _max: ContactTicketMaxAggregateOutputType | null
+  }
+
+  export type ContactTicketMinAggregateOutputType = {
+    id: string | null
+    ticketCode: string | null
+    guestName: string | null
+    guestEmail: string | null
+    guestPhone: string | null
+    hasZalo: boolean | null
+    subject: string | null
+    message: string | null
+    status: $Enums.TicketStatus | null
+    priority: $Enums.TicketPriority | null
+    adminNote: string | null
+    adminReply: string | null
+    assignedTo: string | null
+    ipAddress: string | null
+    deviceInfo: string | null
+    resolvedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ContactTicketMaxAggregateOutputType = {
+    id: string | null
+    ticketCode: string | null
+    guestName: string | null
+    guestEmail: string | null
+    guestPhone: string | null
+    hasZalo: boolean | null
+    subject: string | null
+    message: string | null
+    status: $Enums.TicketStatus | null
+    priority: $Enums.TicketPriority | null
+    adminNote: string | null
+    adminReply: string | null
+    assignedTo: string | null
+    ipAddress: string | null
+    deviceInfo: string | null
+    resolvedAt: Date | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ContactTicketCountAggregateOutputType = {
+    id: number
+    ticketCode: number
+    guestName: number
+    guestEmail: number
+    guestPhone: number
+    hasZalo: number
+    subject: number
+    message: number
+    status: number
+    priority: number
+    adminNote: number
+    adminReply: number
+    assignedTo: number
+    ipAddress: number
+    deviceInfo: number
+    resolvedAt: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ContactTicketMinAggregateInputType = {
+    id?: true
+    ticketCode?: true
+    guestName?: true
+    guestEmail?: true
+    guestPhone?: true
+    hasZalo?: true
+    subject?: true
+    message?: true
+    status?: true
+    priority?: true
+    adminNote?: true
+    adminReply?: true
+    assignedTo?: true
+    ipAddress?: true
+    deviceInfo?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ContactTicketMaxAggregateInputType = {
+    id?: true
+    ticketCode?: true
+    guestName?: true
+    guestEmail?: true
+    guestPhone?: true
+    hasZalo?: true
+    subject?: true
+    message?: true
+    status?: true
+    priority?: true
+    adminNote?: true
+    adminReply?: true
+    assignedTo?: true
+    ipAddress?: true
+    deviceInfo?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ContactTicketCountAggregateInputType = {
+    id?: true
+    ticketCode?: true
+    guestName?: true
+    guestEmail?: true
+    guestPhone?: true
+    hasZalo?: true
+    subject?: true
+    message?: true
+    status?: true
+    priority?: true
+    adminNote?: true
+    adminReply?: true
+    assignedTo?: true
+    ipAddress?: true
+    deviceInfo?: true
+    resolvedAt?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ContactTicketAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactTicket to aggregate.
+     */
+    where?: ContactTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactTickets to fetch.
+     */
+    orderBy?: ContactTicketOrderByWithRelationInput | ContactTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ContactTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ContactTickets
+    **/
+    _count?: true | ContactTicketCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ContactTicketMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ContactTicketMaxAggregateInputType
+  }
+
+  export type GetContactTicketAggregateType<T extends ContactTicketAggregateArgs> = {
+        [P in keyof T & keyof AggregateContactTicket]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateContactTicket[P]>
+      : GetScalarType<T[P], AggregateContactTicket[P]>
+  }
+
+
+
+
+  export type ContactTicketGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ContactTicketWhereInput
+    orderBy?: ContactTicketOrderByWithAggregationInput | ContactTicketOrderByWithAggregationInput[]
+    by: ContactTicketScalarFieldEnum[] | ContactTicketScalarFieldEnum
+    having?: ContactTicketScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ContactTicketCountAggregateInputType | true
+    _min?: ContactTicketMinAggregateInputType
+    _max?: ContactTicketMaxAggregateInputType
+  }
+
+  export type ContactTicketGroupByOutputType = {
+    id: string
+    ticketCode: string
+    guestName: string
+    guestEmail: string
+    guestPhone: string | null
+    hasZalo: boolean
+    subject: string | null
+    message: string
+    status: $Enums.TicketStatus
+    priority: $Enums.TicketPriority
+    adminNote: string | null
+    adminReply: string | null
+    assignedTo: string | null
+    ipAddress: string | null
+    deviceInfo: string | null
+    resolvedAt: Date | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ContactTicketCountAggregateOutputType | null
+    _min: ContactTicketMinAggregateOutputType | null
+    _max: ContactTicketMaxAggregateOutputType | null
+  }
+
+  type GetContactTicketGroupByPayload<T extends ContactTicketGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ContactTicketGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ContactTicketGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ContactTicketGroupByOutputType[P]>
+            : GetScalarType<T[P], ContactTicketGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ContactTicketSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    ticketCode?: boolean
+    guestName?: boolean
+    guestEmail?: boolean
+    guestPhone?: boolean
+    hasZalo?: boolean
+    subject?: boolean
+    message?: boolean
+    status?: boolean
+    priority?: boolean
+    adminNote?: boolean
+    adminReply?: boolean
+    assignedTo?: boolean
+    ipAddress?: boolean
+    deviceInfo?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["contactTicket"]>
+
+
+
+  export type ContactTicketSelectScalar = {
+    id?: boolean
+    ticketCode?: boolean
+    guestName?: boolean
+    guestEmail?: boolean
+    guestPhone?: boolean
+    hasZalo?: boolean
+    subject?: boolean
+    message?: boolean
+    status?: boolean
+    priority?: boolean
+    adminNote?: boolean
+    adminReply?: boolean
+    assignedTo?: boolean
+    ipAddress?: boolean
+    deviceInfo?: boolean
+    resolvedAt?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ContactTicketOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "ticketCode" | "guestName" | "guestEmail" | "guestPhone" | "hasZalo" | "subject" | "message" | "status" | "priority" | "adminNote" | "adminReply" | "assignedTo" | "ipAddress" | "deviceInfo" | "resolvedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["contactTicket"]>
+
+  export type $ContactTicketPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ContactTicket"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      ticketCode: string
+      guestName: string
+      guestEmail: string
+      guestPhone: string | null
+      hasZalo: boolean
+      subject: string | null
+      message: string
+      status: $Enums.TicketStatus
+      priority: $Enums.TicketPriority
+      adminNote: string | null
+      adminReply: string | null
+      assignedTo: string | null
+      ipAddress: string | null
+      deviceInfo: string | null
+      resolvedAt: Date | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["contactTicket"]>
+    composites: {}
+  }
+
+  type ContactTicketGetPayload<S extends boolean | null | undefined | ContactTicketDefaultArgs> = $Result.GetResult<Prisma.$ContactTicketPayload, S>
+
+  type ContactTicketCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ContactTicketFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ContactTicketCountAggregateInputType | true
+    }
+
+  export interface ContactTicketDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ContactTicket'], meta: { name: 'ContactTicket' } }
+    /**
+     * Find zero or one ContactTicket that matches the filter.
+     * @param {ContactTicketFindUniqueArgs} args - Arguments to find a ContactTicket
+     * @example
+     * // Get one ContactTicket
+     * const contactTicket = await prisma.contactTicket.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ContactTicketFindUniqueArgs>(args: SelectSubset<T, ContactTicketFindUniqueArgs<ExtArgs>>): Prisma__ContactTicketClient<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ContactTicket that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ContactTicketFindUniqueOrThrowArgs} args - Arguments to find a ContactTicket
+     * @example
+     * // Get one ContactTicket
+     * const contactTicket = await prisma.contactTicket.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ContactTicketFindUniqueOrThrowArgs>(args: SelectSubset<T, ContactTicketFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ContactTicketClient<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactTicket that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTicketFindFirstArgs} args - Arguments to find a ContactTicket
+     * @example
+     * // Get one ContactTicket
+     * const contactTicket = await prisma.contactTicket.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ContactTicketFindFirstArgs>(args?: SelectSubset<T, ContactTicketFindFirstArgs<ExtArgs>>): Prisma__ContactTicketClient<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ContactTicket that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTicketFindFirstOrThrowArgs} args - Arguments to find a ContactTicket
+     * @example
+     * // Get one ContactTicket
+     * const contactTicket = await prisma.contactTicket.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ContactTicketFindFirstOrThrowArgs>(args?: SelectSubset<T, ContactTicketFindFirstOrThrowArgs<ExtArgs>>): Prisma__ContactTicketClient<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContactTickets that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTicketFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ContactTickets
+     * const contactTickets = await prisma.contactTicket.findMany()
+     * 
+     * // Get first 10 ContactTickets
+     * const contactTickets = await prisma.contactTicket.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const contactTicketWithIdOnly = await prisma.contactTicket.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ContactTicketFindManyArgs>(args?: SelectSubset<T, ContactTicketFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ContactTicket.
+     * @param {ContactTicketCreateArgs} args - Arguments to create a ContactTicket.
+     * @example
+     * // Create one ContactTicket
+     * const ContactTicket = await prisma.contactTicket.create({
+     *   data: {
+     *     // ... data to create a ContactTicket
+     *   }
+     * })
+     * 
+     */
+    create<T extends ContactTicketCreateArgs>(args: SelectSubset<T, ContactTicketCreateArgs<ExtArgs>>): Prisma__ContactTicketClient<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ContactTickets.
+     * @param {ContactTicketCreateManyArgs} args - Arguments to create many ContactTickets.
+     * @example
+     * // Create many ContactTickets
+     * const contactTicket = await prisma.contactTicket.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ContactTicketCreateManyArgs>(args?: SelectSubset<T, ContactTicketCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a ContactTicket.
+     * @param {ContactTicketDeleteArgs} args - Arguments to delete one ContactTicket.
+     * @example
+     * // Delete one ContactTicket
+     * const ContactTicket = await prisma.contactTicket.delete({
+     *   where: {
+     *     // ... filter to delete one ContactTicket
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ContactTicketDeleteArgs>(args: SelectSubset<T, ContactTicketDeleteArgs<ExtArgs>>): Prisma__ContactTicketClient<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ContactTicket.
+     * @param {ContactTicketUpdateArgs} args - Arguments to update one ContactTicket.
+     * @example
+     * // Update one ContactTicket
+     * const contactTicket = await prisma.contactTicket.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ContactTicketUpdateArgs>(args: SelectSubset<T, ContactTicketUpdateArgs<ExtArgs>>): Prisma__ContactTicketClient<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ContactTickets.
+     * @param {ContactTicketDeleteManyArgs} args - Arguments to filter ContactTickets to delete.
+     * @example
+     * // Delete a few ContactTickets
+     * const { count } = await prisma.contactTicket.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ContactTicketDeleteManyArgs>(args?: SelectSubset<T, ContactTicketDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ContactTickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTicketUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ContactTickets
+     * const contactTicket = await prisma.contactTicket.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ContactTicketUpdateManyArgs>(args: SelectSubset<T, ContactTicketUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one ContactTicket.
+     * @param {ContactTicketUpsertArgs} args - Arguments to update or create a ContactTicket.
+     * @example
+     * // Update or create a ContactTicket
+     * const contactTicket = await prisma.contactTicket.upsert({
+     *   create: {
+     *     // ... data to create a ContactTicket
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ContactTicket we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ContactTicketUpsertArgs>(args: SelectSubset<T, ContactTicketUpsertArgs<ExtArgs>>): Prisma__ContactTicketClient<$Result.GetResult<Prisma.$ContactTicketPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ContactTickets that matches the filter.
+     * @param {ContactTicketFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const contactTicket = await prisma.contactTicket.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: ContactTicketFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a ContactTicket.
+     * @param {ContactTicketAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const contactTicket = await prisma.contactTicket.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: ContactTicketAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of ContactTickets.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTicketCountArgs} args - Arguments to filter ContactTickets to count.
+     * @example
+     * // Count the number of ContactTickets
+     * const count = await prisma.contactTicket.count({
+     *   where: {
+     *     // ... the filter for the ContactTickets we want to count
+     *   }
+     * })
+    **/
+    count<T extends ContactTicketCountArgs>(
+      args?: Subset<T, ContactTicketCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ContactTicketCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ContactTicket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTicketAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ContactTicketAggregateArgs>(args: Subset<T, ContactTicketAggregateArgs>): Prisma.PrismaPromise<GetContactTicketAggregateType<T>>
+
+    /**
+     * Group by ContactTicket.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ContactTicketGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ContactTicketGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ContactTicketGroupByArgs['orderBy'] }
+        : { orderBy?: ContactTicketGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ContactTicketGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetContactTicketGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ContactTicket model
+   */
+  readonly fields: ContactTicketFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ContactTicket.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ContactTicketClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ContactTicket model
+   */
+  interface ContactTicketFieldRefs {
+    readonly id: FieldRef<"ContactTicket", 'String'>
+    readonly ticketCode: FieldRef<"ContactTicket", 'String'>
+    readonly guestName: FieldRef<"ContactTicket", 'String'>
+    readonly guestEmail: FieldRef<"ContactTicket", 'String'>
+    readonly guestPhone: FieldRef<"ContactTicket", 'String'>
+    readonly hasZalo: FieldRef<"ContactTicket", 'Boolean'>
+    readonly subject: FieldRef<"ContactTicket", 'String'>
+    readonly message: FieldRef<"ContactTicket", 'String'>
+    readonly status: FieldRef<"ContactTicket", 'TicketStatus'>
+    readonly priority: FieldRef<"ContactTicket", 'TicketPriority'>
+    readonly adminNote: FieldRef<"ContactTicket", 'String'>
+    readonly adminReply: FieldRef<"ContactTicket", 'String'>
+    readonly assignedTo: FieldRef<"ContactTicket", 'String'>
+    readonly ipAddress: FieldRef<"ContactTicket", 'String'>
+    readonly deviceInfo: FieldRef<"ContactTicket", 'String'>
+    readonly resolvedAt: FieldRef<"ContactTicket", 'DateTime'>
+    readonly createdAt: FieldRef<"ContactTicket", 'DateTime'>
+    readonly updatedAt: FieldRef<"ContactTicket", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ContactTicket findUnique
+   */
+  export type ContactTicketFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactTicket to fetch.
+     */
+    where: ContactTicketWhereUniqueInput
+  }
+
+  /**
+   * ContactTicket findUniqueOrThrow
+   */
+  export type ContactTicketFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactTicket to fetch.
+     */
+    where: ContactTicketWhereUniqueInput
+  }
+
+  /**
+   * ContactTicket findFirst
+   */
+  export type ContactTicketFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactTicket to fetch.
+     */
+    where?: ContactTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactTickets to fetch.
+     */
+    orderBy?: ContactTicketOrderByWithRelationInput | ContactTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactTickets.
+     */
+    cursor?: ContactTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactTickets.
+     */
+    distinct?: ContactTicketScalarFieldEnum | ContactTicketScalarFieldEnum[]
+  }
+
+  /**
+   * ContactTicket findFirstOrThrow
+   */
+  export type ContactTicketFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactTicket to fetch.
+     */
+    where?: ContactTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactTickets to fetch.
+     */
+    orderBy?: ContactTicketOrderByWithRelationInput | ContactTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ContactTickets.
+     */
+    cursor?: ContactTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactTickets.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ContactTickets.
+     */
+    distinct?: ContactTicketScalarFieldEnum | ContactTicketScalarFieldEnum[]
+  }
+
+  /**
+   * ContactTicket findMany
+   */
+  export type ContactTicketFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * Filter, which ContactTickets to fetch.
+     */
+    where?: ContactTicketWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ContactTickets to fetch.
+     */
+    orderBy?: ContactTicketOrderByWithRelationInput | ContactTicketOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ContactTickets.
+     */
+    cursor?: ContactTicketWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ContactTickets from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ContactTickets.
+     */
+    skip?: number
+    distinct?: ContactTicketScalarFieldEnum | ContactTicketScalarFieldEnum[]
+  }
+
+  /**
+   * ContactTicket create
+   */
+  export type ContactTicketCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * The data needed to create a ContactTicket.
+     */
+    data: XOR<ContactTicketCreateInput, ContactTicketUncheckedCreateInput>
+  }
+
+  /**
+   * ContactTicket createMany
+   */
+  export type ContactTicketCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ContactTickets.
+     */
+    data: ContactTicketCreateManyInput | ContactTicketCreateManyInput[]
+  }
+
+  /**
+   * ContactTicket update
+   */
+  export type ContactTicketUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * The data needed to update a ContactTicket.
+     */
+    data: XOR<ContactTicketUpdateInput, ContactTicketUncheckedUpdateInput>
+    /**
+     * Choose, which ContactTicket to update.
+     */
+    where: ContactTicketWhereUniqueInput
+  }
+
+  /**
+   * ContactTicket updateMany
+   */
+  export type ContactTicketUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ContactTickets.
+     */
+    data: XOR<ContactTicketUpdateManyMutationInput, ContactTicketUncheckedUpdateManyInput>
+    /**
+     * Filter which ContactTickets to update
+     */
+    where?: ContactTicketWhereInput
+    /**
+     * Limit how many ContactTickets to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactTicket upsert
+   */
+  export type ContactTicketUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * The filter to search for the ContactTicket to update in case it exists.
+     */
+    where: ContactTicketWhereUniqueInput
+    /**
+     * In case the ContactTicket found by the `where` argument doesn't exist, create a new ContactTicket with this data.
+     */
+    create: XOR<ContactTicketCreateInput, ContactTicketUncheckedCreateInput>
+    /**
+     * In case the ContactTicket was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ContactTicketUpdateInput, ContactTicketUncheckedUpdateInput>
+  }
+
+  /**
+   * ContactTicket delete
+   */
+  export type ContactTicketDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
+    /**
+     * Filter which ContactTicket to delete.
+     */
+    where: ContactTicketWhereUniqueInput
+  }
+
+  /**
+   * ContactTicket deleteMany
+   */
+  export type ContactTicketDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ContactTickets to delete
+     */
+    where?: ContactTicketWhereInput
+    /**
+     * Limit how many ContactTickets to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ContactTicket findRaw
+   */
+  export type ContactTicketFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ContactTicket aggregateRaw
+   */
+  export type ContactTicketAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * ContactTicket without action
+   */
+  export type ContactTicketDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ContactTicket
+     */
+    select?: ContactTicketSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ContactTicket
+     */
+    omit?: ContactTicketOmit<ExtArgs> | null
   }
 
 
@@ -99378,6 +100800,2326 @@ export namespace Prisma {
 
 
   /**
+   * Model WebAuthor
+   */
+
+  export type AggregateWebAuthor = {
+    _count: WebAuthorCountAggregateOutputType | null
+    _avg: WebAuthorAvgAggregateOutputType | null
+    _sum: WebAuthorSumAggregateOutputType | null
+    _min: WebAuthorMinAggregateOutputType | null
+    _max: WebAuthorMaxAggregateOutputType | null
+  }
+
+  export type WebAuthorAvgAggregateOutputType = {
+    displayOrder: number | null
+  }
+
+  export type WebAuthorSumAggregateOutputType = {
+    displayOrder: number | null
+  }
+
+  export type WebAuthorMinAggregateOutputType = {
+    id: string | null
+    fullName: string | null
+    avatarUrl: string | null
+    bio: string | null
+    role: $Enums.DeveloperRole | null
+    roleTitle: string | null
+    githubUrl: string | null
+    linkedinUrl: string | null
+    portfolioUrl: string | null
+    email: string | null
+    facebookUrl: string | null
+    phone: string | null
+    hasZalo: boolean | null
+    zaloUrl: string | null
+    displayOrder: number | null
+    isActive: boolean | null
+    isLeader: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WebAuthorMaxAggregateOutputType = {
+    id: string | null
+    fullName: string | null
+    avatarUrl: string | null
+    bio: string | null
+    role: $Enums.DeveloperRole | null
+    roleTitle: string | null
+    githubUrl: string | null
+    linkedinUrl: string | null
+    portfolioUrl: string | null
+    email: string | null
+    facebookUrl: string | null
+    phone: string | null
+    hasZalo: boolean | null
+    zaloUrl: string | null
+    displayOrder: number | null
+    isActive: boolean | null
+    isLeader: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WebAuthorCountAggregateOutputType = {
+    id: number
+    fullName: number
+    avatarUrl: number
+    bio: number
+    role: number
+    roleTitle: number
+    techStack: number
+    contributions: number
+    githubUrl: number
+    linkedinUrl: number
+    portfolioUrl: number
+    email: number
+    facebookUrl: number
+    phone: number
+    hasZalo: number
+    zaloUrl: number
+    displayOrder: number
+    isActive: number
+    isLeader: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WebAuthorAvgAggregateInputType = {
+    displayOrder?: true
+  }
+
+  export type WebAuthorSumAggregateInputType = {
+    displayOrder?: true
+  }
+
+  export type WebAuthorMinAggregateInputType = {
+    id?: true
+    fullName?: true
+    avatarUrl?: true
+    bio?: true
+    role?: true
+    roleTitle?: true
+    githubUrl?: true
+    linkedinUrl?: true
+    portfolioUrl?: true
+    email?: true
+    facebookUrl?: true
+    phone?: true
+    hasZalo?: true
+    zaloUrl?: true
+    displayOrder?: true
+    isActive?: true
+    isLeader?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WebAuthorMaxAggregateInputType = {
+    id?: true
+    fullName?: true
+    avatarUrl?: true
+    bio?: true
+    role?: true
+    roleTitle?: true
+    githubUrl?: true
+    linkedinUrl?: true
+    portfolioUrl?: true
+    email?: true
+    facebookUrl?: true
+    phone?: true
+    hasZalo?: true
+    zaloUrl?: true
+    displayOrder?: true
+    isActive?: true
+    isLeader?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WebAuthorCountAggregateInputType = {
+    id?: true
+    fullName?: true
+    avatarUrl?: true
+    bio?: true
+    role?: true
+    roleTitle?: true
+    techStack?: true
+    contributions?: true
+    githubUrl?: true
+    linkedinUrl?: true
+    portfolioUrl?: true
+    email?: true
+    facebookUrl?: true
+    phone?: true
+    hasZalo?: true
+    zaloUrl?: true
+    displayOrder?: true
+    isActive?: true
+    isLeader?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WebAuthorAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebAuthor to aggregate.
+     */
+    where?: WebAuthorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebAuthors to fetch.
+     */
+    orderBy?: WebAuthorOrderByWithRelationInput | WebAuthorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WebAuthorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebAuthors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebAuthors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WebAuthors
+    **/
+    _count?: true | WebAuthorCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WebAuthorAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WebAuthorSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WebAuthorMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WebAuthorMaxAggregateInputType
+  }
+
+  export type GetWebAuthorAggregateType<T extends WebAuthorAggregateArgs> = {
+        [P in keyof T & keyof AggregateWebAuthor]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWebAuthor[P]>
+      : GetScalarType<T[P], AggregateWebAuthor[P]>
+  }
+
+
+
+
+  export type WebAuthorGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebAuthorWhereInput
+    orderBy?: WebAuthorOrderByWithAggregationInput | WebAuthorOrderByWithAggregationInput[]
+    by: WebAuthorScalarFieldEnum[] | WebAuthorScalarFieldEnum
+    having?: WebAuthorScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WebAuthorCountAggregateInputType | true
+    _avg?: WebAuthorAvgAggregateInputType
+    _sum?: WebAuthorSumAggregateInputType
+    _min?: WebAuthorMinAggregateInputType
+    _max?: WebAuthorMaxAggregateInputType
+  }
+
+  export type WebAuthorGroupByOutputType = {
+    id: string
+    fullName: string
+    avatarUrl: string | null
+    bio: string | null
+    role: $Enums.DeveloperRole
+    roleTitle: string
+    techStack: string[]
+    contributions: string[]
+    githubUrl: string | null
+    linkedinUrl: string | null
+    portfolioUrl: string | null
+    email: string | null
+    facebookUrl: string | null
+    phone: string | null
+    hasZalo: boolean
+    zaloUrl: string | null
+    displayOrder: number
+    isActive: boolean
+    isLeader: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: WebAuthorCountAggregateOutputType | null
+    _avg: WebAuthorAvgAggregateOutputType | null
+    _sum: WebAuthorSumAggregateOutputType | null
+    _min: WebAuthorMinAggregateOutputType | null
+    _max: WebAuthorMaxAggregateOutputType | null
+  }
+
+  type GetWebAuthorGroupByPayload<T extends WebAuthorGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WebAuthorGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WebAuthorGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WebAuthorGroupByOutputType[P]>
+            : GetScalarType<T[P], WebAuthorGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WebAuthorSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    fullName?: boolean
+    avatarUrl?: boolean
+    bio?: boolean
+    role?: boolean
+    roleTitle?: boolean
+    techStack?: boolean
+    contributions?: boolean
+    githubUrl?: boolean
+    linkedinUrl?: boolean
+    portfolioUrl?: boolean
+    email?: boolean
+    facebookUrl?: boolean
+    phone?: boolean
+    hasZalo?: boolean
+    zaloUrl?: boolean
+    displayOrder?: boolean
+    isActive?: boolean
+    isLeader?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["webAuthor"]>
+
+
+
+  export type WebAuthorSelectScalar = {
+    id?: boolean
+    fullName?: boolean
+    avatarUrl?: boolean
+    bio?: boolean
+    role?: boolean
+    roleTitle?: boolean
+    techStack?: boolean
+    contributions?: boolean
+    githubUrl?: boolean
+    linkedinUrl?: boolean
+    portfolioUrl?: boolean
+    email?: boolean
+    facebookUrl?: boolean
+    phone?: boolean
+    hasZalo?: boolean
+    zaloUrl?: boolean
+    displayOrder?: boolean
+    isActive?: boolean
+    isLeader?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WebAuthorOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "fullName" | "avatarUrl" | "bio" | "role" | "roleTitle" | "techStack" | "contributions" | "githubUrl" | "linkedinUrl" | "portfolioUrl" | "email" | "facebookUrl" | "phone" | "hasZalo" | "zaloUrl" | "displayOrder" | "isActive" | "isLeader" | "createdAt" | "updatedAt", ExtArgs["result"]["webAuthor"]>
+
+  export type $WebAuthorPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WebAuthor"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      fullName: string
+      avatarUrl: string | null
+      bio: string | null
+      role: $Enums.DeveloperRole
+      roleTitle: string
+      techStack: string[]
+      contributions: string[]
+      githubUrl: string | null
+      linkedinUrl: string | null
+      portfolioUrl: string | null
+      email: string | null
+      facebookUrl: string | null
+      phone: string | null
+      hasZalo: boolean
+      zaloUrl: string | null
+      displayOrder: number
+      isActive: boolean
+      isLeader: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["webAuthor"]>
+    composites: {}
+  }
+
+  type WebAuthorGetPayload<S extends boolean | null | undefined | WebAuthorDefaultArgs> = $Result.GetResult<Prisma.$WebAuthorPayload, S>
+
+  type WebAuthorCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WebAuthorFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WebAuthorCountAggregateInputType | true
+    }
+
+  export interface WebAuthorDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WebAuthor'], meta: { name: 'WebAuthor' } }
+    /**
+     * Find zero or one WebAuthor that matches the filter.
+     * @param {WebAuthorFindUniqueArgs} args - Arguments to find a WebAuthor
+     * @example
+     * // Get one WebAuthor
+     * const webAuthor = await prisma.webAuthor.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WebAuthorFindUniqueArgs>(args: SelectSubset<T, WebAuthorFindUniqueArgs<ExtArgs>>): Prisma__WebAuthorClient<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WebAuthor that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WebAuthorFindUniqueOrThrowArgs} args - Arguments to find a WebAuthor
+     * @example
+     * // Get one WebAuthor
+     * const webAuthor = await prisma.webAuthor.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WebAuthorFindUniqueOrThrowArgs>(args: SelectSubset<T, WebAuthorFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WebAuthorClient<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebAuthor that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebAuthorFindFirstArgs} args - Arguments to find a WebAuthor
+     * @example
+     * // Get one WebAuthor
+     * const webAuthor = await prisma.webAuthor.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WebAuthorFindFirstArgs>(args?: SelectSubset<T, WebAuthorFindFirstArgs<ExtArgs>>): Prisma__WebAuthorClient<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebAuthor that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebAuthorFindFirstOrThrowArgs} args - Arguments to find a WebAuthor
+     * @example
+     * // Get one WebAuthor
+     * const webAuthor = await prisma.webAuthor.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WebAuthorFindFirstOrThrowArgs>(args?: SelectSubset<T, WebAuthorFindFirstOrThrowArgs<ExtArgs>>): Prisma__WebAuthorClient<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebAuthors that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebAuthorFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WebAuthors
+     * const webAuthors = await prisma.webAuthor.findMany()
+     * 
+     * // Get first 10 WebAuthors
+     * const webAuthors = await prisma.webAuthor.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const webAuthorWithIdOnly = await prisma.webAuthor.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WebAuthorFindManyArgs>(args?: SelectSubset<T, WebAuthorFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WebAuthor.
+     * @param {WebAuthorCreateArgs} args - Arguments to create a WebAuthor.
+     * @example
+     * // Create one WebAuthor
+     * const WebAuthor = await prisma.webAuthor.create({
+     *   data: {
+     *     // ... data to create a WebAuthor
+     *   }
+     * })
+     * 
+     */
+    create<T extends WebAuthorCreateArgs>(args: SelectSubset<T, WebAuthorCreateArgs<ExtArgs>>): Prisma__WebAuthorClient<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WebAuthors.
+     * @param {WebAuthorCreateManyArgs} args - Arguments to create many WebAuthors.
+     * @example
+     * // Create many WebAuthors
+     * const webAuthor = await prisma.webAuthor.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WebAuthorCreateManyArgs>(args?: SelectSubset<T, WebAuthorCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a WebAuthor.
+     * @param {WebAuthorDeleteArgs} args - Arguments to delete one WebAuthor.
+     * @example
+     * // Delete one WebAuthor
+     * const WebAuthor = await prisma.webAuthor.delete({
+     *   where: {
+     *     // ... filter to delete one WebAuthor
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WebAuthorDeleteArgs>(args: SelectSubset<T, WebAuthorDeleteArgs<ExtArgs>>): Prisma__WebAuthorClient<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WebAuthor.
+     * @param {WebAuthorUpdateArgs} args - Arguments to update one WebAuthor.
+     * @example
+     * // Update one WebAuthor
+     * const webAuthor = await prisma.webAuthor.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WebAuthorUpdateArgs>(args: SelectSubset<T, WebAuthorUpdateArgs<ExtArgs>>): Prisma__WebAuthorClient<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WebAuthors.
+     * @param {WebAuthorDeleteManyArgs} args - Arguments to filter WebAuthors to delete.
+     * @example
+     * // Delete a few WebAuthors
+     * const { count } = await prisma.webAuthor.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WebAuthorDeleteManyArgs>(args?: SelectSubset<T, WebAuthorDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebAuthors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebAuthorUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WebAuthors
+     * const webAuthor = await prisma.webAuthor.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WebAuthorUpdateManyArgs>(args: SelectSubset<T, WebAuthorUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WebAuthor.
+     * @param {WebAuthorUpsertArgs} args - Arguments to update or create a WebAuthor.
+     * @example
+     * // Update or create a WebAuthor
+     * const webAuthor = await prisma.webAuthor.upsert({
+     *   create: {
+     *     // ... data to create a WebAuthor
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WebAuthor we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WebAuthorUpsertArgs>(args: SelectSubset<T, WebAuthorUpsertArgs<ExtArgs>>): Prisma__WebAuthorClient<$Result.GetResult<Prisma.$WebAuthorPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebAuthors that matches the filter.
+     * @param {WebAuthorFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const webAuthor = await prisma.webAuthor.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: WebAuthorFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a WebAuthor.
+     * @param {WebAuthorAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const webAuthor = await prisma.webAuthor.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: WebAuthorAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of WebAuthors.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebAuthorCountArgs} args - Arguments to filter WebAuthors to count.
+     * @example
+     * // Count the number of WebAuthors
+     * const count = await prisma.webAuthor.count({
+     *   where: {
+     *     // ... the filter for the WebAuthors we want to count
+     *   }
+     * })
+    **/
+    count<T extends WebAuthorCountArgs>(
+      args?: Subset<T, WebAuthorCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WebAuthorCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WebAuthor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebAuthorAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WebAuthorAggregateArgs>(args: Subset<T, WebAuthorAggregateArgs>): Prisma.PrismaPromise<GetWebAuthorAggregateType<T>>
+
+    /**
+     * Group by WebAuthor.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebAuthorGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WebAuthorGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WebAuthorGroupByArgs['orderBy'] }
+        : { orderBy?: WebAuthorGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WebAuthorGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWebAuthorGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WebAuthor model
+   */
+  readonly fields: WebAuthorFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WebAuthor.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WebAuthorClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WebAuthor model
+   */
+  interface WebAuthorFieldRefs {
+    readonly id: FieldRef<"WebAuthor", 'String'>
+    readonly fullName: FieldRef<"WebAuthor", 'String'>
+    readonly avatarUrl: FieldRef<"WebAuthor", 'String'>
+    readonly bio: FieldRef<"WebAuthor", 'String'>
+    readonly role: FieldRef<"WebAuthor", 'DeveloperRole'>
+    readonly roleTitle: FieldRef<"WebAuthor", 'String'>
+    readonly techStack: FieldRef<"WebAuthor", 'String[]'>
+    readonly contributions: FieldRef<"WebAuthor", 'String[]'>
+    readonly githubUrl: FieldRef<"WebAuthor", 'String'>
+    readonly linkedinUrl: FieldRef<"WebAuthor", 'String'>
+    readonly portfolioUrl: FieldRef<"WebAuthor", 'String'>
+    readonly email: FieldRef<"WebAuthor", 'String'>
+    readonly facebookUrl: FieldRef<"WebAuthor", 'String'>
+    readonly phone: FieldRef<"WebAuthor", 'String'>
+    readonly hasZalo: FieldRef<"WebAuthor", 'Boolean'>
+    readonly zaloUrl: FieldRef<"WebAuthor", 'String'>
+    readonly displayOrder: FieldRef<"WebAuthor", 'Int'>
+    readonly isActive: FieldRef<"WebAuthor", 'Boolean'>
+    readonly isLeader: FieldRef<"WebAuthor", 'Boolean'>
+    readonly createdAt: FieldRef<"WebAuthor", 'DateTime'>
+    readonly updatedAt: FieldRef<"WebAuthor", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WebAuthor findUnique
+   */
+  export type WebAuthorFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * Filter, which WebAuthor to fetch.
+     */
+    where: WebAuthorWhereUniqueInput
+  }
+
+  /**
+   * WebAuthor findUniqueOrThrow
+   */
+  export type WebAuthorFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * Filter, which WebAuthor to fetch.
+     */
+    where: WebAuthorWhereUniqueInput
+  }
+
+  /**
+   * WebAuthor findFirst
+   */
+  export type WebAuthorFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * Filter, which WebAuthor to fetch.
+     */
+    where?: WebAuthorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebAuthors to fetch.
+     */
+    orderBy?: WebAuthorOrderByWithRelationInput | WebAuthorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebAuthors.
+     */
+    cursor?: WebAuthorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebAuthors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebAuthors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebAuthors.
+     */
+    distinct?: WebAuthorScalarFieldEnum | WebAuthorScalarFieldEnum[]
+  }
+
+  /**
+   * WebAuthor findFirstOrThrow
+   */
+  export type WebAuthorFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * Filter, which WebAuthor to fetch.
+     */
+    where?: WebAuthorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebAuthors to fetch.
+     */
+    orderBy?: WebAuthorOrderByWithRelationInput | WebAuthorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebAuthors.
+     */
+    cursor?: WebAuthorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebAuthors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebAuthors.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebAuthors.
+     */
+    distinct?: WebAuthorScalarFieldEnum | WebAuthorScalarFieldEnum[]
+  }
+
+  /**
+   * WebAuthor findMany
+   */
+  export type WebAuthorFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * Filter, which WebAuthors to fetch.
+     */
+    where?: WebAuthorWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebAuthors to fetch.
+     */
+    orderBy?: WebAuthorOrderByWithRelationInput | WebAuthorOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WebAuthors.
+     */
+    cursor?: WebAuthorWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebAuthors from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebAuthors.
+     */
+    skip?: number
+    distinct?: WebAuthorScalarFieldEnum | WebAuthorScalarFieldEnum[]
+  }
+
+  /**
+   * WebAuthor create
+   */
+  export type WebAuthorCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * The data needed to create a WebAuthor.
+     */
+    data: XOR<WebAuthorCreateInput, WebAuthorUncheckedCreateInput>
+  }
+
+  /**
+   * WebAuthor createMany
+   */
+  export type WebAuthorCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WebAuthors.
+     */
+    data: WebAuthorCreateManyInput | WebAuthorCreateManyInput[]
+  }
+
+  /**
+   * WebAuthor update
+   */
+  export type WebAuthorUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * The data needed to update a WebAuthor.
+     */
+    data: XOR<WebAuthorUpdateInput, WebAuthorUncheckedUpdateInput>
+    /**
+     * Choose, which WebAuthor to update.
+     */
+    where: WebAuthorWhereUniqueInput
+  }
+
+  /**
+   * WebAuthor updateMany
+   */
+  export type WebAuthorUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WebAuthors.
+     */
+    data: XOR<WebAuthorUpdateManyMutationInput, WebAuthorUncheckedUpdateManyInput>
+    /**
+     * Filter which WebAuthors to update
+     */
+    where?: WebAuthorWhereInput
+    /**
+     * Limit how many WebAuthors to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebAuthor upsert
+   */
+  export type WebAuthorUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * The filter to search for the WebAuthor to update in case it exists.
+     */
+    where: WebAuthorWhereUniqueInput
+    /**
+     * In case the WebAuthor found by the `where` argument doesn't exist, create a new WebAuthor with this data.
+     */
+    create: XOR<WebAuthorCreateInput, WebAuthorUncheckedCreateInput>
+    /**
+     * In case the WebAuthor was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WebAuthorUpdateInput, WebAuthorUncheckedUpdateInput>
+  }
+
+  /**
+   * WebAuthor delete
+   */
+  export type WebAuthorDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+    /**
+     * Filter which WebAuthor to delete.
+     */
+    where: WebAuthorWhereUniqueInput
+  }
+
+  /**
+   * WebAuthor deleteMany
+   */
+  export type WebAuthorDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebAuthors to delete
+     */
+    where?: WebAuthorWhereInput
+    /**
+     * Limit how many WebAuthors to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebAuthor findRaw
+   */
+  export type WebAuthorFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * WebAuthor aggregateRaw
+   */
+  export type WebAuthorAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * WebAuthor without action
+   */
+  export type WebAuthorDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebAuthor
+     */
+    select?: WebAuthorSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebAuthor
+     */
+    omit?: WebAuthorOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model WebFeedback
+   */
+
+  export type AggregateWebFeedback = {
+    _count: WebFeedbackCountAggregateOutputType | null
+    _avg: WebFeedbackAvgAggregateOutputType | null
+    _sum: WebFeedbackSumAggregateOutputType | null
+    _min: WebFeedbackMinAggregateOutputType | null
+    _max: WebFeedbackMaxAggregateOutputType | null
+  }
+
+  export type WebFeedbackAvgAggregateOutputType = {
+    rating: number | null
+    isHelpfulCount: number | null
+  }
+
+  export type WebFeedbackSumAggregateOutputType = {
+    rating: number | null
+    isHelpfulCount: number | null
+  }
+
+  export type WebFeedbackMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    isGuest: boolean | null
+    guestName: string | null
+    guestEmail: string | null
+    guestPhone: string | null
+    rating: number | null
+    title: string | null
+    content: string | null
+    category: $Enums.FeedbackCategory | null
+    pageUrl: string | null
+    deviceInfo: string | null
+    screenResolution: string | null
+    status: $Enums.FeedbackStatus | null
+    isFeatured: boolean | null
+    adminNote: string | null
+    adminReply: string | null
+    repliedAt: Date | null
+    reviewedBy: string | null
+    ipAddress: string | null
+    userAgent: string | null
+    isHelpfulCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WebFeedbackMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    isGuest: boolean | null
+    guestName: string | null
+    guestEmail: string | null
+    guestPhone: string | null
+    rating: number | null
+    title: string | null
+    content: string | null
+    category: $Enums.FeedbackCategory | null
+    pageUrl: string | null
+    deviceInfo: string | null
+    screenResolution: string | null
+    status: $Enums.FeedbackStatus | null
+    isFeatured: boolean | null
+    adminNote: string | null
+    adminReply: string | null
+    repliedAt: Date | null
+    reviewedBy: string | null
+    ipAddress: string | null
+    userAgent: string | null
+    isHelpfulCount: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type WebFeedbackCountAggregateOutputType = {
+    id: number
+    userId: number
+    isGuest: number
+    guestName: number
+    guestEmail: number
+    guestPhone: number
+    rating: number
+    title: number
+    content: number
+    category: number
+    pageUrl: number
+    deviceInfo: number
+    screenResolution: number
+    attachments: number
+    status: number
+    isFeatured: number
+    adminNote: number
+    adminReply: number
+    repliedAt: number
+    reviewedBy: number
+    ipAddress: number
+    userAgent: number
+    isHelpfulCount: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type WebFeedbackAvgAggregateInputType = {
+    rating?: true
+    isHelpfulCount?: true
+  }
+
+  export type WebFeedbackSumAggregateInputType = {
+    rating?: true
+    isHelpfulCount?: true
+  }
+
+  export type WebFeedbackMinAggregateInputType = {
+    id?: true
+    userId?: true
+    isGuest?: true
+    guestName?: true
+    guestEmail?: true
+    guestPhone?: true
+    rating?: true
+    title?: true
+    content?: true
+    category?: true
+    pageUrl?: true
+    deviceInfo?: true
+    screenResolution?: true
+    status?: true
+    isFeatured?: true
+    adminNote?: true
+    adminReply?: true
+    repliedAt?: true
+    reviewedBy?: true
+    ipAddress?: true
+    userAgent?: true
+    isHelpfulCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WebFeedbackMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    isGuest?: true
+    guestName?: true
+    guestEmail?: true
+    guestPhone?: true
+    rating?: true
+    title?: true
+    content?: true
+    category?: true
+    pageUrl?: true
+    deviceInfo?: true
+    screenResolution?: true
+    status?: true
+    isFeatured?: true
+    adminNote?: true
+    adminReply?: true
+    repliedAt?: true
+    reviewedBy?: true
+    ipAddress?: true
+    userAgent?: true
+    isHelpfulCount?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type WebFeedbackCountAggregateInputType = {
+    id?: true
+    userId?: true
+    isGuest?: true
+    guestName?: true
+    guestEmail?: true
+    guestPhone?: true
+    rating?: true
+    title?: true
+    content?: true
+    category?: true
+    pageUrl?: true
+    deviceInfo?: true
+    screenResolution?: true
+    attachments?: true
+    status?: true
+    isFeatured?: true
+    adminNote?: true
+    adminReply?: true
+    repliedAt?: true
+    reviewedBy?: true
+    ipAddress?: true
+    userAgent?: true
+    isHelpfulCount?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type WebFeedbackAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebFeedback to aggregate.
+     */
+    where?: WebFeedbackWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebFeedbacks to fetch.
+     */
+    orderBy?: WebFeedbackOrderByWithRelationInput | WebFeedbackOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: WebFeedbackWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebFeedbacks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebFeedbacks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned WebFeedbacks
+    **/
+    _count?: true | WebFeedbackCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: WebFeedbackAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: WebFeedbackSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: WebFeedbackMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: WebFeedbackMaxAggregateInputType
+  }
+
+  export type GetWebFeedbackAggregateType<T extends WebFeedbackAggregateArgs> = {
+        [P in keyof T & keyof AggregateWebFeedback]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateWebFeedback[P]>
+      : GetScalarType<T[P], AggregateWebFeedback[P]>
+  }
+
+
+
+
+  export type WebFeedbackGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WebFeedbackWhereInput
+    orderBy?: WebFeedbackOrderByWithAggregationInput | WebFeedbackOrderByWithAggregationInput[]
+    by: WebFeedbackScalarFieldEnum[] | WebFeedbackScalarFieldEnum
+    having?: WebFeedbackScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: WebFeedbackCountAggregateInputType | true
+    _avg?: WebFeedbackAvgAggregateInputType
+    _sum?: WebFeedbackSumAggregateInputType
+    _min?: WebFeedbackMinAggregateInputType
+    _max?: WebFeedbackMaxAggregateInputType
+  }
+
+  export type WebFeedbackGroupByOutputType = {
+    id: string
+    userId: string | null
+    isGuest: boolean
+    guestName: string | null
+    guestEmail: string | null
+    guestPhone: string | null
+    rating: number
+    title: string | null
+    content: string
+    category: $Enums.FeedbackCategory
+    pageUrl: string | null
+    deviceInfo: string | null
+    screenResolution: string | null
+    attachments: string[]
+    status: $Enums.FeedbackStatus
+    isFeatured: boolean
+    adminNote: string | null
+    adminReply: string | null
+    repliedAt: Date | null
+    reviewedBy: string | null
+    ipAddress: string | null
+    userAgent: string | null
+    isHelpfulCount: number
+    createdAt: Date
+    updatedAt: Date
+    _count: WebFeedbackCountAggregateOutputType | null
+    _avg: WebFeedbackAvgAggregateOutputType | null
+    _sum: WebFeedbackSumAggregateOutputType | null
+    _min: WebFeedbackMinAggregateOutputType | null
+    _max: WebFeedbackMaxAggregateOutputType | null
+  }
+
+  type GetWebFeedbackGroupByPayload<T extends WebFeedbackGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<WebFeedbackGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof WebFeedbackGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], WebFeedbackGroupByOutputType[P]>
+            : GetScalarType<T[P], WebFeedbackGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type WebFeedbackSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    isGuest?: boolean
+    guestName?: boolean
+    guestEmail?: boolean
+    guestPhone?: boolean
+    rating?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    pageUrl?: boolean
+    deviceInfo?: boolean
+    screenResolution?: boolean
+    attachments?: boolean
+    status?: boolean
+    isFeatured?: boolean
+    adminNote?: boolean
+    adminReply?: boolean
+    repliedAt?: boolean
+    reviewedBy?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    isHelpfulCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["webFeedback"]>
+
+
+
+  export type WebFeedbackSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    isGuest?: boolean
+    guestName?: boolean
+    guestEmail?: boolean
+    guestPhone?: boolean
+    rating?: boolean
+    title?: boolean
+    content?: boolean
+    category?: boolean
+    pageUrl?: boolean
+    deviceInfo?: boolean
+    screenResolution?: boolean
+    attachments?: boolean
+    status?: boolean
+    isFeatured?: boolean
+    adminNote?: boolean
+    adminReply?: boolean
+    repliedAt?: boolean
+    reviewedBy?: boolean
+    ipAddress?: boolean
+    userAgent?: boolean
+    isHelpfulCount?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type WebFeedbackOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "isGuest" | "guestName" | "guestEmail" | "guestPhone" | "rating" | "title" | "content" | "category" | "pageUrl" | "deviceInfo" | "screenResolution" | "attachments" | "status" | "isFeatured" | "adminNote" | "adminReply" | "repliedAt" | "reviewedBy" | "ipAddress" | "userAgent" | "isHelpfulCount" | "createdAt" | "updatedAt", ExtArgs["result"]["webFeedback"]>
+
+  export type $WebFeedbackPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "WebFeedback"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string | null
+      isGuest: boolean
+      guestName: string | null
+      guestEmail: string | null
+      guestPhone: string | null
+      rating: number
+      title: string | null
+      content: string
+      category: $Enums.FeedbackCategory
+      pageUrl: string | null
+      deviceInfo: string | null
+      screenResolution: string | null
+      attachments: string[]
+      status: $Enums.FeedbackStatus
+      isFeatured: boolean
+      adminNote: string | null
+      adminReply: string | null
+      repliedAt: Date | null
+      reviewedBy: string | null
+      ipAddress: string | null
+      userAgent: string | null
+      isHelpfulCount: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["webFeedback"]>
+    composites: {}
+  }
+
+  type WebFeedbackGetPayload<S extends boolean | null | undefined | WebFeedbackDefaultArgs> = $Result.GetResult<Prisma.$WebFeedbackPayload, S>
+
+  type WebFeedbackCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<WebFeedbackFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: WebFeedbackCountAggregateInputType | true
+    }
+
+  export interface WebFeedbackDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['WebFeedback'], meta: { name: 'WebFeedback' } }
+    /**
+     * Find zero or one WebFeedback that matches the filter.
+     * @param {WebFeedbackFindUniqueArgs} args - Arguments to find a WebFeedback
+     * @example
+     * // Get one WebFeedback
+     * const webFeedback = await prisma.webFeedback.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends WebFeedbackFindUniqueArgs>(args: SelectSubset<T, WebFeedbackFindUniqueArgs<ExtArgs>>): Prisma__WebFeedbackClient<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one WebFeedback that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {WebFeedbackFindUniqueOrThrowArgs} args - Arguments to find a WebFeedback
+     * @example
+     * // Get one WebFeedback
+     * const webFeedback = await prisma.webFeedback.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends WebFeedbackFindUniqueOrThrowArgs>(args: SelectSubset<T, WebFeedbackFindUniqueOrThrowArgs<ExtArgs>>): Prisma__WebFeedbackClient<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebFeedback that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFeedbackFindFirstArgs} args - Arguments to find a WebFeedback
+     * @example
+     * // Get one WebFeedback
+     * const webFeedback = await prisma.webFeedback.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends WebFeedbackFindFirstArgs>(args?: SelectSubset<T, WebFeedbackFindFirstArgs<ExtArgs>>): Prisma__WebFeedbackClient<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first WebFeedback that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFeedbackFindFirstOrThrowArgs} args - Arguments to find a WebFeedback
+     * @example
+     * // Get one WebFeedback
+     * const webFeedback = await prisma.webFeedback.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends WebFeedbackFindFirstOrThrowArgs>(args?: SelectSubset<T, WebFeedbackFindFirstOrThrowArgs<ExtArgs>>): Prisma__WebFeedbackClient<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebFeedbacks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFeedbackFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all WebFeedbacks
+     * const webFeedbacks = await prisma.webFeedback.findMany()
+     * 
+     * // Get first 10 WebFeedbacks
+     * const webFeedbacks = await prisma.webFeedback.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const webFeedbackWithIdOnly = await prisma.webFeedback.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends WebFeedbackFindManyArgs>(args?: SelectSubset<T, WebFeedbackFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a WebFeedback.
+     * @param {WebFeedbackCreateArgs} args - Arguments to create a WebFeedback.
+     * @example
+     * // Create one WebFeedback
+     * const WebFeedback = await prisma.webFeedback.create({
+     *   data: {
+     *     // ... data to create a WebFeedback
+     *   }
+     * })
+     * 
+     */
+    create<T extends WebFeedbackCreateArgs>(args: SelectSubset<T, WebFeedbackCreateArgs<ExtArgs>>): Prisma__WebFeedbackClient<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many WebFeedbacks.
+     * @param {WebFeedbackCreateManyArgs} args - Arguments to create many WebFeedbacks.
+     * @example
+     * // Create many WebFeedbacks
+     * const webFeedback = await prisma.webFeedback.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends WebFeedbackCreateManyArgs>(args?: SelectSubset<T, WebFeedbackCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Delete a WebFeedback.
+     * @param {WebFeedbackDeleteArgs} args - Arguments to delete one WebFeedback.
+     * @example
+     * // Delete one WebFeedback
+     * const WebFeedback = await prisma.webFeedback.delete({
+     *   where: {
+     *     // ... filter to delete one WebFeedback
+     *   }
+     * })
+     * 
+     */
+    delete<T extends WebFeedbackDeleteArgs>(args: SelectSubset<T, WebFeedbackDeleteArgs<ExtArgs>>): Prisma__WebFeedbackClient<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one WebFeedback.
+     * @param {WebFeedbackUpdateArgs} args - Arguments to update one WebFeedback.
+     * @example
+     * // Update one WebFeedback
+     * const webFeedback = await prisma.webFeedback.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends WebFeedbackUpdateArgs>(args: SelectSubset<T, WebFeedbackUpdateArgs<ExtArgs>>): Prisma__WebFeedbackClient<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more WebFeedbacks.
+     * @param {WebFeedbackDeleteManyArgs} args - Arguments to filter WebFeedbacks to delete.
+     * @example
+     * // Delete a few WebFeedbacks
+     * const { count } = await prisma.webFeedback.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends WebFeedbackDeleteManyArgs>(args?: SelectSubset<T, WebFeedbackDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more WebFeedbacks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFeedbackUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many WebFeedbacks
+     * const webFeedback = await prisma.webFeedback.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends WebFeedbackUpdateManyArgs>(args: SelectSubset<T, WebFeedbackUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create or update one WebFeedback.
+     * @param {WebFeedbackUpsertArgs} args - Arguments to update or create a WebFeedback.
+     * @example
+     * // Update or create a WebFeedback
+     * const webFeedback = await prisma.webFeedback.upsert({
+     *   create: {
+     *     // ... data to create a WebFeedback
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the WebFeedback we want to update
+     *   }
+     * })
+     */
+    upsert<T extends WebFeedbackUpsertArgs>(args: SelectSubset<T, WebFeedbackUpsertArgs<ExtArgs>>): Prisma__WebFeedbackClient<$Result.GetResult<Prisma.$WebFeedbackPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more WebFeedbacks that matches the filter.
+     * @param {WebFeedbackFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const webFeedback = await prisma.webFeedback.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(args?: WebFeedbackFindRawArgs): Prisma.PrismaPromise<JsonObject>
+
+    /**
+     * Perform aggregation operations on a WebFeedback.
+     * @param {WebFeedbackAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const webFeedback = await prisma.webFeedback.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(args?: WebFeedbackAggregateRawArgs): Prisma.PrismaPromise<JsonObject>
+
+
+    /**
+     * Count the number of WebFeedbacks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFeedbackCountArgs} args - Arguments to filter WebFeedbacks to count.
+     * @example
+     * // Count the number of WebFeedbacks
+     * const count = await prisma.webFeedback.count({
+     *   where: {
+     *     // ... the filter for the WebFeedbacks we want to count
+     *   }
+     * })
+    **/
+    count<T extends WebFeedbackCountArgs>(
+      args?: Subset<T, WebFeedbackCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], WebFeedbackCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a WebFeedback.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFeedbackAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends WebFeedbackAggregateArgs>(args: Subset<T, WebFeedbackAggregateArgs>): Prisma.PrismaPromise<GetWebFeedbackAggregateType<T>>
+
+    /**
+     * Group by WebFeedback.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {WebFeedbackGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends WebFeedbackGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: WebFeedbackGroupByArgs['orderBy'] }
+        : { orderBy?: WebFeedbackGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, WebFeedbackGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetWebFeedbackGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the WebFeedback model
+   */
+  readonly fields: WebFeedbackFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for WebFeedback.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__WebFeedbackClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the WebFeedback model
+   */
+  interface WebFeedbackFieldRefs {
+    readonly id: FieldRef<"WebFeedback", 'String'>
+    readonly userId: FieldRef<"WebFeedback", 'String'>
+    readonly isGuest: FieldRef<"WebFeedback", 'Boolean'>
+    readonly guestName: FieldRef<"WebFeedback", 'String'>
+    readonly guestEmail: FieldRef<"WebFeedback", 'String'>
+    readonly guestPhone: FieldRef<"WebFeedback", 'String'>
+    readonly rating: FieldRef<"WebFeedback", 'Int'>
+    readonly title: FieldRef<"WebFeedback", 'String'>
+    readonly content: FieldRef<"WebFeedback", 'String'>
+    readonly category: FieldRef<"WebFeedback", 'FeedbackCategory'>
+    readonly pageUrl: FieldRef<"WebFeedback", 'String'>
+    readonly deviceInfo: FieldRef<"WebFeedback", 'String'>
+    readonly screenResolution: FieldRef<"WebFeedback", 'String'>
+    readonly attachments: FieldRef<"WebFeedback", 'String[]'>
+    readonly status: FieldRef<"WebFeedback", 'FeedbackStatus'>
+    readonly isFeatured: FieldRef<"WebFeedback", 'Boolean'>
+    readonly adminNote: FieldRef<"WebFeedback", 'String'>
+    readonly adminReply: FieldRef<"WebFeedback", 'String'>
+    readonly repliedAt: FieldRef<"WebFeedback", 'DateTime'>
+    readonly reviewedBy: FieldRef<"WebFeedback", 'String'>
+    readonly ipAddress: FieldRef<"WebFeedback", 'String'>
+    readonly userAgent: FieldRef<"WebFeedback", 'String'>
+    readonly isHelpfulCount: FieldRef<"WebFeedback", 'Int'>
+    readonly createdAt: FieldRef<"WebFeedback", 'DateTime'>
+    readonly updatedAt: FieldRef<"WebFeedback", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * WebFeedback findUnique
+   */
+  export type WebFeedbackFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * Filter, which WebFeedback to fetch.
+     */
+    where: WebFeedbackWhereUniqueInput
+  }
+
+  /**
+   * WebFeedback findUniqueOrThrow
+   */
+  export type WebFeedbackFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * Filter, which WebFeedback to fetch.
+     */
+    where: WebFeedbackWhereUniqueInput
+  }
+
+  /**
+   * WebFeedback findFirst
+   */
+  export type WebFeedbackFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * Filter, which WebFeedback to fetch.
+     */
+    where?: WebFeedbackWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebFeedbacks to fetch.
+     */
+    orderBy?: WebFeedbackOrderByWithRelationInput | WebFeedbackOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebFeedbacks.
+     */
+    cursor?: WebFeedbackWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebFeedbacks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebFeedbacks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebFeedbacks.
+     */
+    distinct?: WebFeedbackScalarFieldEnum | WebFeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * WebFeedback findFirstOrThrow
+   */
+  export type WebFeedbackFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * Filter, which WebFeedback to fetch.
+     */
+    where?: WebFeedbackWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebFeedbacks to fetch.
+     */
+    orderBy?: WebFeedbackOrderByWithRelationInput | WebFeedbackOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for WebFeedbacks.
+     */
+    cursor?: WebFeedbackWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebFeedbacks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebFeedbacks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of WebFeedbacks.
+     */
+    distinct?: WebFeedbackScalarFieldEnum | WebFeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * WebFeedback findMany
+   */
+  export type WebFeedbackFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * Filter, which WebFeedbacks to fetch.
+     */
+    where?: WebFeedbackWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of WebFeedbacks to fetch.
+     */
+    orderBy?: WebFeedbackOrderByWithRelationInput | WebFeedbackOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing WebFeedbacks.
+     */
+    cursor?: WebFeedbackWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` WebFeedbacks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` WebFeedbacks.
+     */
+    skip?: number
+    distinct?: WebFeedbackScalarFieldEnum | WebFeedbackScalarFieldEnum[]
+  }
+
+  /**
+   * WebFeedback create
+   */
+  export type WebFeedbackCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * The data needed to create a WebFeedback.
+     */
+    data: XOR<WebFeedbackCreateInput, WebFeedbackUncheckedCreateInput>
+  }
+
+  /**
+   * WebFeedback createMany
+   */
+  export type WebFeedbackCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many WebFeedbacks.
+     */
+    data: WebFeedbackCreateManyInput | WebFeedbackCreateManyInput[]
+  }
+
+  /**
+   * WebFeedback update
+   */
+  export type WebFeedbackUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * The data needed to update a WebFeedback.
+     */
+    data: XOR<WebFeedbackUpdateInput, WebFeedbackUncheckedUpdateInput>
+    /**
+     * Choose, which WebFeedback to update.
+     */
+    where: WebFeedbackWhereUniqueInput
+  }
+
+  /**
+   * WebFeedback updateMany
+   */
+  export type WebFeedbackUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update WebFeedbacks.
+     */
+    data: XOR<WebFeedbackUpdateManyMutationInput, WebFeedbackUncheckedUpdateManyInput>
+    /**
+     * Filter which WebFeedbacks to update
+     */
+    where?: WebFeedbackWhereInput
+    /**
+     * Limit how many WebFeedbacks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebFeedback upsert
+   */
+  export type WebFeedbackUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * The filter to search for the WebFeedback to update in case it exists.
+     */
+    where: WebFeedbackWhereUniqueInput
+    /**
+     * In case the WebFeedback found by the `where` argument doesn't exist, create a new WebFeedback with this data.
+     */
+    create: XOR<WebFeedbackCreateInput, WebFeedbackUncheckedCreateInput>
+    /**
+     * In case the WebFeedback was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<WebFeedbackUpdateInput, WebFeedbackUncheckedUpdateInput>
+  }
+
+  /**
+   * WebFeedback delete
+   */
+  export type WebFeedbackDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+    /**
+     * Filter which WebFeedback to delete.
+     */
+    where: WebFeedbackWhereUniqueInput
+  }
+
+  /**
+   * WebFeedback deleteMany
+   */
+  export type WebFeedbackDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which WebFeedbacks to delete
+     */
+    where?: WebFeedbackWhereInput
+    /**
+     * Limit how many WebFeedbacks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * WebFeedback findRaw
+   */
+  export type WebFeedbackFindRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * WebFeedback aggregateRaw
+   */
+  export type WebFeedbackAggregateRawArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[]
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue
+  }
+
+  /**
+   * WebFeedback without action
+   */
+  export type WebFeedbackDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the WebFeedback
+     */
+    select?: WebFeedbackSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the WebFeedback
+     */
+    omit?: WebFeedbackOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -99882,6 +103624,30 @@ export namespace Prisma {
   };
 
   export type BrandSubscriptionTransactionScalarFieldEnum = (typeof BrandSubscriptionTransactionScalarFieldEnum)[keyof typeof BrandSubscriptionTransactionScalarFieldEnum]
+
+
+  export const ContactTicketScalarFieldEnum: {
+    id: 'id',
+    ticketCode: 'ticketCode',
+    guestName: 'guestName',
+    guestEmail: 'guestEmail',
+    guestPhone: 'guestPhone',
+    hasZalo: 'hasZalo',
+    subject: 'subject',
+    message: 'message',
+    status: 'status',
+    priority: 'priority',
+    adminNote: 'adminNote',
+    adminReply: 'adminReply',
+    assignedTo: 'assignedTo',
+    ipAddress: 'ipAddress',
+    deviceInfo: 'deviceInfo',
+    resolvedAt: 'resolvedAt',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ContactTicketScalarFieldEnum = (typeof ContactTicketScalarFieldEnum)[keyof typeof ContactTicketScalarFieldEnum]
 
 
   export const CustomerNotificationScalarFieldEnum: {
@@ -100627,6 +104393,64 @@ export namespace Prisma {
   export type TemplateScalarFieldEnum = (typeof TemplateScalarFieldEnum)[keyof typeof TemplateScalarFieldEnum]
 
 
+  export const WebAuthorScalarFieldEnum: {
+    id: 'id',
+    fullName: 'fullName',
+    avatarUrl: 'avatarUrl',
+    bio: 'bio',
+    role: 'role',
+    roleTitle: 'roleTitle',
+    techStack: 'techStack',
+    contributions: 'contributions',
+    githubUrl: 'githubUrl',
+    linkedinUrl: 'linkedinUrl',
+    portfolioUrl: 'portfolioUrl',
+    email: 'email',
+    facebookUrl: 'facebookUrl',
+    phone: 'phone',
+    hasZalo: 'hasZalo',
+    zaloUrl: 'zaloUrl',
+    displayOrder: 'displayOrder',
+    isActive: 'isActive',
+    isLeader: 'isLeader',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WebAuthorScalarFieldEnum = (typeof WebAuthorScalarFieldEnum)[keyof typeof WebAuthorScalarFieldEnum]
+
+
+  export const WebFeedbackScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    isGuest: 'isGuest',
+    guestName: 'guestName',
+    guestEmail: 'guestEmail',
+    guestPhone: 'guestPhone',
+    rating: 'rating',
+    title: 'title',
+    content: 'content',
+    category: 'category',
+    pageUrl: 'pageUrl',
+    deviceInfo: 'deviceInfo',
+    screenResolution: 'screenResolution',
+    attachments: 'attachments',
+    status: 'status',
+    isFeatured: 'isFeatured',
+    adminNote: 'adminNote',
+    adminReply: 'adminReply',
+    repliedAt: 'repliedAt',
+    reviewedBy: 'reviewedBy',
+    ipAddress: 'ipAddress',
+    userAgent: 'userAgent',
+    isHelpfulCount: 'isHelpfulCount',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type WebFeedbackScalarFieldEnum = (typeof WebFeedbackScalarFieldEnum)[keyof typeof WebFeedbackScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -100971,6 +104795,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'TicketStatus'
+   */
+  export type EnumTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'TicketStatus[]'
+   */
+  export type ListEnumTicketStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketStatus[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TicketPriority'
+   */
+  export type EnumTicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketPriority'>
+    
+
+
+  /**
+   * Reference to a field of type 'TicketPriority[]'
+   */
+  export type ListEnumTicketPriorityFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TicketPriority[]'>
+    
+
+
+  /**
    * Reference to a field of type 'InventoryAlertType'
    */
   export type EnumInventoryAlertTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'InventoryAlertType'>
@@ -101233,6 +105085,48 @@ export namespace Prisma {
    * Reference to a field of type 'WebTemplateType[]'
    */
   export type ListEnumWebTemplateTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'WebTemplateType[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DeveloperRole'
+   */
+  export type EnumDeveloperRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeveloperRole'>
+    
+
+
+  /**
+   * Reference to a field of type 'DeveloperRole[]'
+   */
+  export type ListEnumDeveloperRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeveloperRole[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FeedbackCategory'
+   */
+  export type EnumFeedbackCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'FeedbackCategory[]'
+   */
+  export type ListEnumFeedbackCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'FeedbackStatus'
+   */
+  export type EnumFeedbackStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'FeedbackStatus[]'
+   */
+  export type ListEnumFeedbackStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'FeedbackStatus[]'>
     
   /**
    * Deep Input Types
@@ -103991,6 +107885,123 @@ export namespace Prisma {
     idempotencyKey?: StringNullableWithAggregatesFilter<"BrandSubscriptionTransaction"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"BrandSubscriptionTransaction"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"BrandSubscriptionTransaction"> | Date | string
+  }
+
+  export type ContactTicketWhereInput = {
+    AND?: ContactTicketWhereInput | ContactTicketWhereInput[]
+    OR?: ContactTicketWhereInput[]
+    NOT?: ContactTicketWhereInput | ContactTicketWhereInput[]
+    id?: StringFilter<"ContactTicket"> | string
+    ticketCode?: StringFilter<"ContactTicket"> | string
+    guestName?: StringFilter<"ContactTicket"> | string
+    guestEmail?: StringFilter<"ContactTicket"> | string
+    guestPhone?: StringNullableFilter<"ContactTicket"> | string | null
+    hasZalo?: BoolFilter<"ContactTicket"> | boolean
+    subject?: StringNullableFilter<"ContactTicket"> | string | null
+    message?: StringFilter<"ContactTicket"> | string
+    status?: EnumTicketStatusFilter<"ContactTicket"> | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFilter<"ContactTicket"> | $Enums.TicketPriority
+    adminNote?: StringNullableFilter<"ContactTicket"> | string | null
+    adminReply?: StringNullableFilter<"ContactTicket"> | string | null
+    assignedTo?: StringNullableFilter<"ContactTicket"> | string | null
+    ipAddress?: StringNullableFilter<"ContactTicket"> | string | null
+    deviceInfo?: StringNullableFilter<"ContactTicket"> | string | null
+    resolvedAt?: DateTimeNullableFilter<"ContactTicket"> | Date | string | null
+    createdAt?: DateTimeFilter<"ContactTicket"> | Date | string
+    updatedAt?: DateTimeFilter<"ContactTicket"> | Date | string
+  }
+
+  export type ContactTicketOrderByWithRelationInput = {
+    id?: SortOrder
+    ticketCode?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    hasZalo?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    assignedTo?: SortOrder
+    ipAddress?: SortOrder
+    deviceInfo?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContactTicketWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    ticketCode?: string
+    AND?: ContactTicketWhereInput | ContactTicketWhereInput[]
+    OR?: ContactTicketWhereInput[]
+    NOT?: ContactTicketWhereInput | ContactTicketWhereInput[]
+    guestName?: StringFilter<"ContactTicket"> | string
+    guestEmail?: StringFilter<"ContactTicket"> | string
+    guestPhone?: StringNullableFilter<"ContactTicket"> | string | null
+    hasZalo?: BoolFilter<"ContactTicket"> | boolean
+    subject?: StringNullableFilter<"ContactTicket"> | string | null
+    message?: StringFilter<"ContactTicket"> | string
+    status?: EnumTicketStatusFilter<"ContactTicket"> | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFilter<"ContactTicket"> | $Enums.TicketPriority
+    adminNote?: StringNullableFilter<"ContactTicket"> | string | null
+    adminReply?: StringNullableFilter<"ContactTicket"> | string | null
+    assignedTo?: StringNullableFilter<"ContactTicket"> | string | null
+    ipAddress?: StringNullableFilter<"ContactTicket"> | string | null
+    deviceInfo?: StringNullableFilter<"ContactTicket"> | string | null
+    resolvedAt?: DateTimeNullableFilter<"ContactTicket"> | Date | string | null
+    createdAt?: DateTimeFilter<"ContactTicket"> | Date | string
+    updatedAt?: DateTimeFilter<"ContactTicket"> | Date | string
+  }, "id" | "ticketCode">
+
+  export type ContactTicketOrderByWithAggregationInput = {
+    id?: SortOrder
+    ticketCode?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    hasZalo?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    assignedTo?: SortOrder
+    ipAddress?: SortOrder
+    deviceInfo?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ContactTicketCountOrderByAggregateInput
+    _max?: ContactTicketMaxOrderByAggregateInput
+    _min?: ContactTicketMinOrderByAggregateInput
+  }
+
+  export type ContactTicketScalarWhereWithAggregatesInput = {
+    AND?: ContactTicketScalarWhereWithAggregatesInput | ContactTicketScalarWhereWithAggregatesInput[]
+    OR?: ContactTicketScalarWhereWithAggregatesInput[]
+    NOT?: ContactTicketScalarWhereWithAggregatesInput | ContactTicketScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ContactTicket"> | string
+    ticketCode?: StringWithAggregatesFilter<"ContactTicket"> | string
+    guestName?: StringWithAggregatesFilter<"ContactTicket"> | string
+    guestEmail?: StringWithAggregatesFilter<"ContactTicket"> | string
+    guestPhone?: StringNullableWithAggregatesFilter<"ContactTicket"> | string | null
+    hasZalo?: BoolWithAggregatesFilter<"ContactTicket"> | boolean
+    subject?: StringNullableWithAggregatesFilter<"ContactTicket"> | string | null
+    message?: StringWithAggregatesFilter<"ContactTicket"> | string
+    status?: EnumTicketStatusWithAggregatesFilter<"ContactTicket"> | $Enums.TicketStatus
+    priority?: EnumTicketPriorityWithAggregatesFilter<"ContactTicket"> | $Enums.TicketPriority
+    adminNote?: StringNullableWithAggregatesFilter<"ContactTicket"> | string | null
+    adminReply?: StringNullableWithAggregatesFilter<"ContactTicket"> | string | null
+    assignedTo?: StringNullableWithAggregatesFilter<"ContactTicket"> | string | null
+    ipAddress?: StringNullableWithAggregatesFilter<"ContactTicket"> | string | null
+    deviceInfo?: StringNullableWithAggregatesFilter<"ContactTicket"> | string | null
+    resolvedAt?: DateTimeNullableWithAggregatesFilter<"ContactTicket"> | Date | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ContactTicket"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ContactTicket"> | Date | string
   }
 
   export type CustomerNotificationWhereInput = {
@@ -108036,6 +112047,294 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Template"> | Date | string
   }
 
+  export type WebAuthorWhereInput = {
+    AND?: WebAuthorWhereInput | WebAuthorWhereInput[]
+    OR?: WebAuthorWhereInput[]
+    NOT?: WebAuthorWhereInput | WebAuthorWhereInput[]
+    id?: StringFilter<"WebAuthor"> | string
+    fullName?: StringFilter<"WebAuthor"> | string
+    avatarUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    bio?: StringNullableFilter<"WebAuthor"> | string | null
+    role?: EnumDeveloperRoleFilter<"WebAuthor"> | $Enums.DeveloperRole
+    roleTitle?: StringFilter<"WebAuthor"> | string
+    techStack?: StringNullableListFilter<"WebAuthor">
+    contributions?: StringNullableListFilter<"WebAuthor">
+    githubUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    linkedinUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    portfolioUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    email?: StringNullableFilter<"WebAuthor"> | string | null
+    facebookUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    phone?: StringNullableFilter<"WebAuthor"> | string | null
+    hasZalo?: BoolFilter<"WebAuthor"> | boolean
+    zaloUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    displayOrder?: IntFilter<"WebAuthor"> | number
+    isActive?: BoolFilter<"WebAuthor"> | boolean
+    isLeader?: BoolFilter<"WebAuthor"> | boolean
+    createdAt?: DateTimeFilter<"WebAuthor"> | Date | string
+    updatedAt?: DateTimeFilter<"WebAuthor"> | Date | string
+  }
+
+  export type WebAuthorOrderByWithRelationInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    avatarUrl?: SortOrder
+    bio?: SortOrder
+    role?: SortOrder
+    roleTitle?: SortOrder
+    techStack?: SortOrder
+    contributions?: SortOrder
+    githubUrl?: SortOrder
+    linkedinUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    email?: SortOrder
+    facebookUrl?: SortOrder
+    phone?: SortOrder
+    hasZalo?: SortOrder
+    zaloUrl?: SortOrder
+    displayOrder?: SortOrder
+    isActive?: SortOrder
+    isLeader?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebAuthorWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WebAuthorWhereInput | WebAuthorWhereInput[]
+    OR?: WebAuthorWhereInput[]
+    NOT?: WebAuthorWhereInput | WebAuthorWhereInput[]
+    fullName?: StringFilter<"WebAuthor"> | string
+    avatarUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    bio?: StringNullableFilter<"WebAuthor"> | string | null
+    role?: EnumDeveloperRoleFilter<"WebAuthor"> | $Enums.DeveloperRole
+    roleTitle?: StringFilter<"WebAuthor"> | string
+    techStack?: StringNullableListFilter<"WebAuthor">
+    contributions?: StringNullableListFilter<"WebAuthor">
+    githubUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    linkedinUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    portfolioUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    email?: StringNullableFilter<"WebAuthor"> | string | null
+    facebookUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    phone?: StringNullableFilter<"WebAuthor"> | string | null
+    hasZalo?: BoolFilter<"WebAuthor"> | boolean
+    zaloUrl?: StringNullableFilter<"WebAuthor"> | string | null
+    displayOrder?: IntFilter<"WebAuthor"> | number
+    isActive?: BoolFilter<"WebAuthor"> | boolean
+    isLeader?: BoolFilter<"WebAuthor"> | boolean
+    createdAt?: DateTimeFilter<"WebAuthor"> | Date | string
+    updatedAt?: DateTimeFilter<"WebAuthor"> | Date | string
+  }, "id">
+
+  export type WebAuthorOrderByWithAggregationInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    avatarUrl?: SortOrder
+    bio?: SortOrder
+    role?: SortOrder
+    roleTitle?: SortOrder
+    techStack?: SortOrder
+    contributions?: SortOrder
+    githubUrl?: SortOrder
+    linkedinUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    email?: SortOrder
+    facebookUrl?: SortOrder
+    phone?: SortOrder
+    hasZalo?: SortOrder
+    zaloUrl?: SortOrder
+    displayOrder?: SortOrder
+    isActive?: SortOrder
+    isLeader?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WebAuthorCountOrderByAggregateInput
+    _avg?: WebAuthorAvgOrderByAggregateInput
+    _max?: WebAuthorMaxOrderByAggregateInput
+    _min?: WebAuthorMinOrderByAggregateInput
+    _sum?: WebAuthorSumOrderByAggregateInput
+  }
+
+  export type WebAuthorScalarWhereWithAggregatesInput = {
+    AND?: WebAuthorScalarWhereWithAggregatesInput | WebAuthorScalarWhereWithAggregatesInput[]
+    OR?: WebAuthorScalarWhereWithAggregatesInput[]
+    NOT?: WebAuthorScalarWhereWithAggregatesInput | WebAuthorScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WebAuthor"> | string
+    fullName?: StringWithAggregatesFilter<"WebAuthor"> | string
+    avatarUrl?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    bio?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    role?: EnumDeveloperRoleWithAggregatesFilter<"WebAuthor"> | $Enums.DeveloperRole
+    roleTitle?: StringWithAggregatesFilter<"WebAuthor"> | string
+    techStack?: StringNullableListFilter<"WebAuthor">
+    contributions?: StringNullableListFilter<"WebAuthor">
+    githubUrl?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    linkedinUrl?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    portfolioUrl?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    email?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    facebookUrl?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    phone?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    hasZalo?: BoolWithAggregatesFilter<"WebAuthor"> | boolean
+    zaloUrl?: StringNullableWithAggregatesFilter<"WebAuthor"> | string | null
+    displayOrder?: IntWithAggregatesFilter<"WebAuthor"> | number
+    isActive?: BoolWithAggregatesFilter<"WebAuthor"> | boolean
+    isLeader?: BoolWithAggregatesFilter<"WebAuthor"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"WebAuthor"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WebAuthor"> | Date | string
+  }
+
+  export type WebFeedbackWhereInput = {
+    AND?: WebFeedbackWhereInput | WebFeedbackWhereInput[]
+    OR?: WebFeedbackWhereInput[]
+    NOT?: WebFeedbackWhereInput | WebFeedbackWhereInput[]
+    id?: StringFilter<"WebFeedback"> | string
+    userId?: StringNullableFilter<"WebFeedback"> | string | null
+    isGuest?: BoolFilter<"WebFeedback"> | boolean
+    guestName?: StringNullableFilter<"WebFeedback"> | string | null
+    guestEmail?: StringNullableFilter<"WebFeedback"> | string | null
+    guestPhone?: StringNullableFilter<"WebFeedback"> | string | null
+    rating?: IntFilter<"WebFeedback"> | number
+    title?: StringNullableFilter<"WebFeedback"> | string | null
+    content?: StringFilter<"WebFeedback"> | string
+    category?: EnumFeedbackCategoryFilter<"WebFeedback"> | $Enums.FeedbackCategory
+    pageUrl?: StringNullableFilter<"WebFeedback"> | string | null
+    deviceInfo?: StringNullableFilter<"WebFeedback"> | string | null
+    screenResolution?: StringNullableFilter<"WebFeedback"> | string | null
+    attachments?: StringNullableListFilter<"WebFeedback">
+    status?: EnumFeedbackStatusFilter<"WebFeedback"> | $Enums.FeedbackStatus
+    isFeatured?: BoolFilter<"WebFeedback"> | boolean
+    adminNote?: StringNullableFilter<"WebFeedback"> | string | null
+    adminReply?: StringNullableFilter<"WebFeedback"> | string | null
+    repliedAt?: DateTimeNullableFilter<"WebFeedback"> | Date | string | null
+    reviewedBy?: StringNullableFilter<"WebFeedback"> | string | null
+    ipAddress?: StringNullableFilter<"WebFeedback"> | string | null
+    userAgent?: StringNullableFilter<"WebFeedback"> | string | null
+    isHelpfulCount?: IntFilter<"WebFeedback"> | number
+    createdAt?: DateTimeFilter<"WebFeedback"> | Date | string
+    updatedAt?: DateTimeFilter<"WebFeedback"> | Date | string
+  }
+
+  export type WebFeedbackOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    isGuest?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    rating?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    pageUrl?: SortOrder
+    deviceInfo?: SortOrder
+    screenResolution?: SortOrder
+    attachments?: SortOrder
+    status?: SortOrder
+    isFeatured?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    repliedAt?: SortOrder
+    reviewedBy?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    isHelpfulCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebFeedbackWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: WebFeedbackWhereInput | WebFeedbackWhereInput[]
+    OR?: WebFeedbackWhereInput[]
+    NOT?: WebFeedbackWhereInput | WebFeedbackWhereInput[]
+    userId?: StringNullableFilter<"WebFeedback"> | string | null
+    isGuest?: BoolFilter<"WebFeedback"> | boolean
+    guestName?: StringNullableFilter<"WebFeedback"> | string | null
+    guestEmail?: StringNullableFilter<"WebFeedback"> | string | null
+    guestPhone?: StringNullableFilter<"WebFeedback"> | string | null
+    rating?: IntFilter<"WebFeedback"> | number
+    title?: StringNullableFilter<"WebFeedback"> | string | null
+    content?: StringFilter<"WebFeedback"> | string
+    category?: EnumFeedbackCategoryFilter<"WebFeedback"> | $Enums.FeedbackCategory
+    pageUrl?: StringNullableFilter<"WebFeedback"> | string | null
+    deviceInfo?: StringNullableFilter<"WebFeedback"> | string | null
+    screenResolution?: StringNullableFilter<"WebFeedback"> | string | null
+    attachments?: StringNullableListFilter<"WebFeedback">
+    status?: EnumFeedbackStatusFilter<"WebFeedback"> | $Enums.FeedbackStatus
+    isFeatured?: BoolFilter<"WebFeedback"> | boolean
+    adminNote?: StringNullableFilter<"WebFeedback"> | string | null
+    adminReply?: StringNullableFilter<"WebFeedback"> | string | null
+    repliedAt?: DateTimeNullableFilter<"WebFeedback"> | Date | string | null
+    reviewedBy?: StringNullableFilter<"WebFeedback"> | string | null
+    ipAddress?: StringNullableFilter<"WebFeedback"> | string | null
+    userAgent?: StringNullableFilter<"WebFeedback"> | string | null
+    isHelpfulCount?: IntFilter<"WebFeedback"> | number
+    createdAt?: DateTimeFilter<"WebFeedback"> | Date | string
+    updatedAt?: DateTimeFilter<"WebFeedback"> | Date | string
+  }, "id">
+
+  export type WebFeedbackOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    isGuest?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    rating?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    pageUrl?: SortOrder
+    deviceInfo?: SortOrder
+    screenResolution?: SortOrder
+    attachments?: SortOrder
+    status?: SortOrder
+    isFeatured?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    repliedAt?: SortOrder
+    reviewedBy?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    isHelpfulCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: WebFeedbackCountOrderByAggregateInput
+    _avg?: WebFeedbackAvgOrderByAggregateInput
+    _max?: WebFeedbackMaxOrderByAggregateInput
+    _min?: WebFeedbackMinOrderByAggregateInput
+    _sum?: WebFeedbackSumOrderByAggregateInput
+  }
+
+  export type WebFeedbackScalarWhereWithAggregatesInput = {
+    AND?: WebFeedbackScalarWhereWithAggregatesInput | WebFeedbackScalarWhereWithAggregatesInput[]
+    OR?: WebFeedbackScalarWhereWithAggregatesInput[]
+    NOT?: WebFeedbackScalarWhereWithAggregatesInput | WebFeedbackScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"WebFeedback"> | string
+    userId?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    isGuest?: BoolWithAggregatesFilter<"WebFeedback"> | boolean
+    guestName?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    guestEmail?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    guestPhone?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    rating?: IntWithAggregatesFilter<"WebFeedback"> | number
+    title?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    content?: StringWithAggregatesFilter<"WebFeedback"> | string
+    category?: EnumFeedbackCategoryWithAggregatesFilter<"WebFeedback"> | $Enums.FeedbackCategory
+    pageUrl?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    deviceInfo?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    screenResolution?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    attachments?: StringNullableListFilter<"WebFeedback">
+    status?: EnumFeedbackStatusWithAggregatesFilter<"WebFeedback"> | $Enums.FeedbackStatus
+    isFeatured?: BoolWithAggregatesFilter<"WebFeedback"> | boolean
+    adminNote?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    adminReply?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    repliedAt?: DateTimeNullableWithAggregatesFilter<"WebFeedback"> | Date | string | null
+    reviewedBy?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    ipAddress?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    userAgent?: StringNullableWithAggregatesFilter<"WebFeedback"> | string | null
+    isHelpfulCount?: IntWithAggregatesFilter<"WebFeedback"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"WebFeedback"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"WebFeedback"> | Date | string
+  }
+
   export type Category_RestaurantCreateInput = {
     id?: string
     name: string
@@ -110830,6 +115129,149 @@ export namespace Prisma {
     ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
     userAgent?: NullableStringFieldUpdateOperationsInput | string | null
     idempotencyKey?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactTicketCreateInput = {
+    id?: string
+    ticketCode: string
+    guestName: string
+    guestEmail: string
+    guestPhone?: string | null
+    hasZalo?: boolean
+    subject?: string | null
+    message: string
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    adminNote?: string | null
+    adminReply?: string | null
+    assignedTo?: string | null
+    ipAddress?: string | null
+    deviceInfo?: string | null
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContactTicketUncheckedCreateInput = {
+    id?: string
+    ticketCode: string
+    guestName: string
+    guestEmail: string
+    guestPhone?: string | null
+    hasZalo?: boolean
+    subject?: string | null
+    message: string
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    adminNote?: string | null
+    adminReply?: string | null
+    assignedTo?: string | null
+    ipAddress?: string | null
+    deviceInfo?: string | null
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContactTicketUpdateInput = {
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    guestName?: StringFieldUpdateOperationsInput | string
+    guestEmail?: StringFieldUpdateOperationsInput | string
+    guestPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasZalo?: BoolFieldUpdateOperationsInput | boolean
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: StringFieldUpdateOperationsInput | string
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    adminReply?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactTicketUncheckedUpdateInput = {
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    guestName?: StringFieldUpdateOperationsInput | string
+    guestEmail?: StringFieldUpdateOperationsInput | string
+    guestPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasZalo?: BoolFieldUpdateOperationsInput | boolean
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: StringFieldUpdateOperationsInput | string
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    adminReply?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactTicketCreateManyInput = {
+    id?: string
+    ticketCode: string
+    guestName: string
+    guestEmail: string
+    guestPhone?: string | null
+    hasZalo?: boolean
+    subject?: string | null
+    message: string
+    status?: $Enums.TicketStatus
+    priority?: $Enums.TicketPriority
+    adminNote?: string | null
+    adminReply?: string | null
+    assignedTo?: string | null
+    ipAddress?: string | null
+    deviceInfo?: string | null
+    resolvedAt?: Date | string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ContactTicketUpdateManyMutationInput = {
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    guestName?: StringFieldUpdateOperationsInput | string
+    guestEmail?: StringFieldUpdateOperationsInput | string
+    guestPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasZalo?: BoolFieldUpdateOperationsInput | boolean
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: StringFieldUpdateOperationsInput | string
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    adminReply?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ContactTicketUncheckedUpdateManyInput = {
+    ticketCode?: StringFieldUpdateOperationsInput | string
+    guestName?: StringFieldUpdateOperationsInput | string
+    guestEmail?: StringFieldUpdateOperationsInput | string
+    guestPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasZalo?: BoolFieldUpdateOperationsInput | boolean
+    subject?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: StringFieldUpdateOperationsInput | string
+    status?: EnumTicketStatusFieldUpdateOperationsInput | $Enums.TicketStatus
+    priority?: EnumTicketPriorityFieldUpdateOperationsInput | $Enums.TicketPriority
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    adminReply?: NullableStringFieldUpdateOperationsInput | string | null
+    assignedTo?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    resolvedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -115125,6 +119567,362 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type WebAuthorCreateInput = {
+    id?: string
+    fullName: string
+    avatarUrl?: string | null
+    bio?: string | null
+    role?: $Enums.DeveloperRole
+    roleTitle: string
+    techStack?: WebAuthorCreatetechStackInput | string[]
+    contributions?: WebAuthorCreatecontributionsInput | string[]
+    githubUrl?: string | null
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    email?: string | null
+    facebookUrl?: string | null
+    phone?: string | null
+    hasZalo?: boolean
+    zaloUrl?: string | null
+    displayOrder?: number
+    isActive?: boolean
+    isLeader?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WebAuthorUncheckedCreateInput = {
+    id?: string
+    fullName: string
+    avatarUrl?: string | null
+    bio?: string | null
+    role?: $Enums.DeveloperRole
+    roleTitle: string
+    techStack?: WebAuthorCreatetechStackInput | string[]
+    contributions?: WebAuthorCreatecontributionsInput | string[]
+    githubUrl?: string | null
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    email?: string | null
+    facebookUrl?: string | null
+    phone?: string | null
+    hasZalo?: boolean
+    zaloUrl?: string | null
+    displayOrder?: number
+    isActive?: boolean
+    isLeader?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WebAuthorUpdateInput = {
+    fullName?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumDeveloperRoleFieldUpdateOperationsInput | $Enums.DeveloperRole
+    roleTitle?: StringFieldUpdateOperationsInput | string
+    techStack?: WebAuthorUpdatetechStackInput | string[]
+    contributions?: WebAuthorUpdatecontributionsInput | string[]
+    githubUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasZalo?: BoolFieldUpdateOperationsInput | boolean
+    zaloUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isLeader?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebAuthorUncheckedUpdateInput = {
+    fullName?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumDeveloperRoleFieldUpdateOperationsInput | $Enums.DeveloperRole
+    roleTitle?: StringFieldUpdateOperationsInput | string
+    techStack?: WebAuthorUpdatetechStackInput | string[]
+    contributions?: WebAuthorUpdatecontributionsInput | string[]
+    githubUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasZalo?: BoolFieldUpdateOperationsInput | boolean
+    zaloUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isLeader?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebAuthorCreateManyInput = {
+    id?: string
+    fullName: string
+    avatarUrl?: string | null
+    bio?: string | null
+    role?: $Enums.DeveloperRole
+    roleTitle: string
+    techStack?: WebAuthorCreatetechStackInput | string[]
+    contributions?: WebAuthorCreatecontributionsInput | string[]
+    githubUrl?: string | null
+    linkedinUrl?: string | null
+    portfolioUrl?: string | null
+    email?: string | null
+    facebookUrl?: string | null
+    phone?: string | null
+    hasZalo?: boolean
+    zaloUrl?: string | null
+    displayOrder?: number
+    isActive?: boolean
+    isLeader?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WebAuthorUpdateManyMutationInput = {
+    fullName?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumDeveloperRoleFieldUpdateOperationsInput | $Enums.DeveloperRole
+    roleTitle?: StringFieldUpdateOperationsInput | string
+    techStack?: WebAuthorUpdatetechStackInput | string[]
+    contributions?: WebAuthorUpdatecontributionsInput | string[]
+    githubUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasZalo?: BoolFieldUpdateOperationsInput | boolean
+    zaloUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isLeader?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebAuthorUncheckedUpdateManyInput = {
+    fullName?: StringFieldUpdateOperationsInput | string
+    avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    bio?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: EnumDeveloperRoleFieldUpdateOperationsInput | $Enums.DeveloperRole
+    roleTitle?: StringFieldUpdateOperationsInput | string
+    techStack?: WebAuthorUpdatetechStackInput | string[]
+    contributions?: WebAuthorUpdatecontributionsInput | string[]
+    githubUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    linkedinUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    portfolioUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    facebookUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    hasZalo?: BoolFieldUpdateOperationsInput | boolean
+    zaloUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    displayOrder?: IntFieldUpdateOperationsInput | number
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isLeader?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFeedbackCreateInput = {
+    id?: string
+    userId?: string | null
+    isGuest?: boolean
+    guestName?: string | null
+    guestEmail?: string | null
+    guestPhone?: string | null
+    rating: number
+    title?: string | null
+    content: string
+    category?: $Enums.FeedbackCategory
+    pageUrl?: string | null
+    deviceInfo?: string | null
+    screenResolution?: string | null
+    attachments?: WebFeedbackCreateattachmentsInput | string[]
+    status?: $Enums.FeedbackStatus
+    isFeatured?: boolean
+    adminNote?: string | null
+    adminReply?: string | null
+    repliedAt?: Date | string | null
+    reviewedBy?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+    isHelpfulCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WebFeedbackUncheckedCreateInput = {
+    id?: string
+    userId?: string | null
+    isGuest?: boolean
+    guestName?: string | null
+    guestEmail?: string | null
+    guestPhone?: string | null
+    rating: number
+    title?: string | null
+    content: string
+    category?: $Enums.FeedbackCategory
+    pageUrl?: string | null
+    deviceInfo?: string | null
+    screenResolution?: string | null
+    attachments?: WebFeedbackCreateattachmentsInput | string[]
+    status?: $Enums.FeedbackStatus
+    isFeatured?: boolean
+    adminNote?: string | null
+    adminReply?: string | null
+    repliedAt?: Date | string | null
+    reviewedBy?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+    isHelpfulCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WebFeedbackUpdateInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGuest?: BoolFieldUpdateOperationsInput | boolean
+    guestName?: NullableStringFieldUpdateOperationsInput | string | null
+    guestEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guestPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumFeedbackCategoryFieldUpdateOperationsInput | $Enums.FeedbackCategory
+    pageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    screenResolution?: NullableStringFieldUpdateOperationsInput | string | null
+    attachments?: WebFeedbackUpdateattachmentsInput | string[]
+    status?: EnumFeedbackStatusFieldUpdateOperationsInput | $Enums.FeedbackStatus
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    adminReply?: NullableStringFieldUpdateOperationsInput | string | null
+    repliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    isHelpfulCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFeedbackUncheckedUpdateInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGuest?: BoolFieldUpdateOperationsInput | boolean
+    guestName?: NullableStringFieldUpdateOperationsInput | string | null
+    guestEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guestPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumFeedbackCategoryFieldUpdateOperationsInput | $Enums.FeedbackCategory
+    pageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    screenResolution?: NullableStringFieldUpdateOperationsInput | string | null
+    attachments?: WebFeedbackUpdateattachmentsInput | string[]
+    status?: EnumFeedbackStatusFieldUpdateOperationsInput | $Enums.FeedbackStatus
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    adminReply?: NullableStringFieldUpdateOperationsInput | string | null
+    repliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    isHelpfulCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFeedbackCreateManyInput = {
+    id?: string
+    userId?: string | null
+    isGuest?: boolean
+    guestName?: string | null
+    guestEmail?: string | null
+    guestPhone?: string | null
+    rating: number
+    title?: string | null
+    content: string
+    category?: $Enums.FeedbackCategory
+    pageUrl?: string | null
+    deviceInfo?: string | null
+    screenResolution?: string | null
+    attachments?: WebFeedbackCreateattachmentsInput | string[]
+    status?: $Enums.FeedbackStatus
+    isFeatured?: boolean
+    adminNote?: string | null
+    adminReply?: string | null
+    repliedAt?: Date | string | null
+    reviewedBy?: string | null
+    ipAddress?: string | null
+    userAgent?: string | null
+    isHelpfulCount?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type WebFeedbackUpdateManyMutationInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGuest?: BoolFieldUpdateOperationsInput | boolean
+    guestName?: NullableStringFieldUpdateOperationsInput | string | null
+    guestEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guestPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumFeedbackCategoryFieldUpdateOperationsInput | $Enums.FeedbackCategory
+    pageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    screenResolution?: NullableStringFieldUpdateOperationsInput | string | null
+    attachments?: WebFeedbackUpdateattachmentsInput | string[]
+    status?: EnumFeedbackStatusFieldUpdateOperationsInput | $Enums.FeedbackStatus
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    adminReply?: NullableStringFieldUpdateOperationsInput | string | null
+    repliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    isHelpfulCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type WebFeedbackUncheckedUpdateManyInput = {
+    userId?: NullableStringFieldUpdateOperationsInput | string | null
+    isGuest?: BoolFieldUpdateOperationsInput | boolean
+    guestName?: NullableStringFieldUpdateOperationsInput | string | null
+    guestEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    guestPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    rating?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    category?: EnumFeedbackCategoryFieldUpdateOperationsInput | $Enums.FeedbackCategory
+    pageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    deviceInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    screenResolution?: NullableStringFieldUpdateOperationsInput | string | null
+    attachments?: WebFeedbackUpdateattachmentsInput | string[]
+    status?: EnumFeedbackStatusFieldUpdateOperationsInput | $Enums.FeedbackStatus
+    isFeatured?: BoolFieldUpdateOperationsInput | boolean
+    adminNote?: NullableStringFieldUpdateOperationsInput | string | null
+    adminReply?: NullableStringFieldUpdateOperationsInput | string | null
+    repliedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reviewedBy?: NullableStringFieldUpdateOperationsInput | string | null
+    ipAddress?: NullableStringFieldUpdateOperationsInput | string | null
+    userAgent?: NullableStringFieldUpdateOperationsInput | string | null
+    isHelpfulCount?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -117640,6 +122438,103 @@ export namespace Prisma {
 
   export type BrandSubscriptionTransactionSumOrderByAggregateInput = {
     amount?: SortOrder
+  }
+
+  export type EnumTicketStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketStatus | EnumTicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketStatusFilter<$PrismaModel> | $Enums.TicketStatus
+  }
+
+  export type EnumTicketPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketPriority | EnumTicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketPriority[] | ListEnumTicketPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketPriority[] | ListEnumTicketPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketPriorityFilter<$PrismaModel> | $Enums.TicketPriority
+  }
+
+  export type ContactTicketCountOrderByAggregateInput = {
+    id?: SortOrder
+    ticketCode?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    hasZalo?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    assignedTo?: SortOrder
+    ipAddress?: SortOrder
+    deviceInfo?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContactTicketMaxOrderByAggregateInput = {
+    id?: SortOrder
+    ticketCode?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    hasZalo?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    assignedTo?: SortOrder
+    ipAddress?: SortOrder
+    deviceInfo?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ContactTicketMinOrderByAggregateInput = {
+    id?: SortOrder
+    ticketCode?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    hasZalo?: SortOrder
+    subject?: SortOrder
+    message?: SortOrder
+    status?: SortOrder
+    priority?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    assignedTo?: SortOrder
+    ipAddress?: SortOrder
+    deviceInfo?: SortOrder
+    resolvedAt?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumTicketStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketStatus | EnumTicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketStatusWithAggregatesFilter<$PrismaModel> | $Enums.TicketStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTicketStatusFilter<$PrismaModel>
+    _max?: NestedEnumTicketStatusFilter<$PrismaModel>
+  }
+
+  export type EnumTicketPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketPriority | EnumTicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketPriority[] | ListEnumTicketPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketPriority[] | ListEnumTicketPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketPriorityWithAggregatesFilter<$PrismaModel> | $Enums.TicketPriority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTicketPriorityFilter<$PrismaModel>
+    _max?: NestedEnumTicketPriorityFilter<$PrismaModel>
   }
 
   export type CustomerNotificationCountOrderByAggregateInput = {
@@ -120500,6 +125395,225 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumWebTemplateTypeFilter<$PrismaModel>
     _max?: NestedEnumWebTemplateTypeFilter<$PrismaModel>
+  }
+
+  export type EnumDeveloperRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeveloperRole | EnumDeveloperRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.DeveloperRole[] | ListEnumDeveloperRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeveloperRole[] | ListEnumDeveloperRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeveloperRoleFilter<$PrismaModel> | $Enums.DeveloperRole
+  }
+
+  export type WebAuthorCountOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    avatarUrl?: SortOrder
+    bio?: SortOrder
+    role?: SortOrder
+    roleTitle?: SortOrder
+    techStack?: SortOrder
+    contributions?: SortOrder
+    githubUrl?: SortOrder
+    linkedinUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    email?: SortOrder
+    facebookUrl?: SortOrder
+    phone?: SortOrder
+    hasZalo?: SortOrder
+    zaloUrl?: SortOrder
+    displayOrder?: SortOrder
+    isActive?: SortOrder
+    isLeader?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebAuthorAvgOrderByAggregateInput = {
+    displayOrder?: SortOrder
+  }
+
+  export type WebAuthorMaxOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    avatarUrl?: SortOrder
+    bio?: SortOrder
+    role?: SortOrder
+    roleTitle?: SortOrder
+    githubUrl?: SortOrder
+    linkedinUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    email?: SortOrder
+    facebookUrl?: SortOrder
+    phone?: SortOrder
+    hasZalo?: SortOrder
+    zaloUrl?: SortOrder
+    displayOrder?: SortOrder
+    isActive?: SortOrder
+    isLeader?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebAuthorMinOrderByAggregateInput = {
+    id?: SortOrder
+    fullName?: SortOrder
+    avatarUrl?: SortOrder
+    bio?: SortOrder
+    role?: SortOrder
+    roleTitle?: SortOrder
+    githubUrl?: SortOrder
+    linkedinUrl?: SortOrder
+    portfolioUrl?: SortOrder
+    email?: SortOrder
+    facebookUrl?: SortOrder
+    phone?: SortOrder
+    hasZalo?: SortOrder
+    zaloUrl?: SortOrder
+    displayOrder?: SortOrder
+    isActive?: SortOrder
+    isLeader?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebAuthorSumOrderByAggregateInput = {
+    displayOrder?: SortOrder
+  }
+
+  export type EnumDeveloperRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeveloperRole | EnumDeveloperRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.DeveloperRole[] | ListEnumDeveloperRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeveloperRole[] | ListEnumDeveloperRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeveloperRoleWithAggregatesFilter<$PrismaModel> | $Enums.DeveloperRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDeveloperRoleFilter<$PrismaModel>
+    _max?: NestedEnumDeveloperRoleFilter<$PrismaModel>
+  }
+
+  export type EnumFeedbackCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.FeedbackCategory | EnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.FeedbackCategory[] | ListEnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FeedbackCategory[] | ListEnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumFeedbackCategoryFilter<$PrismaModel> | $Enums.FeedbackCategory
+  }
+
+  export type EnumFeedbackStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.FeedbackStatus | EnumFeedbackStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FeedbackStatus[] | ListEnumFeedbackStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FeedbackStatus[] | ListEnumFeedbackStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFeedbackStatusFilter<$PrismaModel> | $Enums.FeedbackStatus
+  }
+
+  export type WebFeedbackCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    isGuest?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    rating?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    pageUrl?: SortOrder
+    deviceInfo?: SortOrder
+    screenResolution?: SortOrder
+    attachments?: SortOrder
+    status?: SortOrder
+    isFeatured?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    repliedAt?: SortOrder
+    reviewedBy?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    isHelpfulCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebFeedbackAvgOrderByAggregateInput = {
+    rating?: SortOrder
+    isHelpfulCount?: SortOrder
+  }
+
+  export type WebFeedbackMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    isGuest?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    rating?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    pageUrl?: SortOrder
+    deviceInfo?: SortOrder
+    screenResolution?: SortOrder
+    status?: SortOrder
+    isFeatured?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    repliedAt?: SortOrder
+    reviewedBy?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    isHelpfulCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebFeedbackMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    isGuest?: SortOrder
+    guestName?: SortOrder
+    guestEmail?: SortOrder
+    guestPhone?: SortOrder
+    rating?: SortOrder
+    title?: SortOrder
+    content?: SortOrder
+    category?: SortOrder
+    pageUrl?: SortOrder
+    deviceInfo?: SortOrder
+    screenResolution?: SortOrder
+    status?: SortOrder
+    isFeatured?: SortOrder
+    adminNote?: SortOrder
+    adminReply?: SortOrder
+    repliedAt?: SortOrder
+    reviewedBy?: SortOrder
+    ipAddress?: SortOrder
+    userAgent?: SortOrder
+    isHelpfulCount?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type WebFeedbackSumOrderByAggregateInput = {
+    rating?: SortOrder
+    isHelpfulCount?: SortOrder
+  }
+
+  export type EnumFeedbackCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FeedbackCategory | EnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.FeedbackCategory[] | ListEnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FeedbackCategory[] | ListEnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumFeedbackCategoryWithAggregatesFilter<$PrismaModel> | $Enums.FeedbackCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFeedbackCategoryFilter<$PrismaModel>
+    _max?: NestedEnumFeedbackCategoryFilter<$PrismaModel>
+  }
+
+  export type EnumFeedbackStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FeedbackStatus | EnumFeedbackStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FeedbackStatus[] | ListEnumFeedbackStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FeedbackStatus[] | ListEnumFeedbackStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFeedbackStatusWithAggregatesFilter<$PrismaModel> | $Enums.FeedbackStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFeedbackStatusFilter<$PrismaModel>
+    _max?: NestedEnumFeedbackStatusFilter<$PrismaModel>
   }
 
   export type RestaurantCreateNestedManyWithoutCategoryRestaurantsInput = {
@@ -123458,6 +128572,14 @@ export namespace Prisma {
     upsert?: SystemPaymentMethodUpsertWithoutBrandSubscriptionTransactionsInput
     connect?: SystemPaymentMethodWhereUniqueInput
     update?: XOR<XOR<SystemPaymentMethodUpdateToOneWithWhereWithoutBrandSubscriptionTransactionsInput, SystemPaymentMethodUpdateWithoutBrandSubscriptionTransactionsInput>, SystemPaymentMethodUncheckedUpdateWithoutBrandSubscriptionTransactionsInput>
+  }
+
+  export type EnumTicketStatusFieldUpdateOperationsInput = {
+    set?: $Enums.TicketStatus
+  }
+
+  export type EnumTicketPriorityFieldUpdateOperationsInput = {
+    set?: $Enums.TicketPriority
   }
 
   export type UserCreateNestedOneWithoutCustomerNotificationsInput = {
@@ -127624,6 +132746,45 @@ export namespace Prisma {
     deleteMany?: RestaurantScalarWhereInput | RestaurantScalarWhereInput[]
   }
 
+  export type WebAuthorCreatetechStackInput = {
+    set: string[]
+  }
+
+  export type WebAuthorCreatecontributionsInput = {
+    set: string[]
+  }
+
+  export type EnumDeveloperRoleFieldUpdateOperationsInput = {
+    set?: $Enums.DeveloperRole
+  }
+
+  export type WebAuthorUpdatetechStackInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type WebAuthorUpdatecontributionsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type WebFeedbackCreateattachmentsInput = {
+    set: string[]
+  }
+
+  export type EnumFeedbackCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.FeedbackCategory
+  }
+
+  export type WebFeedbackUpdateattachmentsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type EnumFeedbackStatusFieldUpdateOperationsInput = {
+    set?: $Enums.FeedbackStatus
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -128239,6 +133400,40 @@ export namespace Prisma {
     _max?: NestedEnumSubscriptionStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumTicketStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketStatus | EnumTicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketStatusFilter<$PrismaModel> | $Enums.TicketStatus
+  }
+
+  export type NestedEnumTicketPriorityFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketPriority | EnumTicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketPriority[] | ListEnumTicketPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketPriority[] | ListEnumTicketPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketPriorityFilter<$PrismaModel> | $Enums.TicketPriority
+  }
+
+  export type NestedEnumTicketStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketStatus | EnumTicketStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketStatus[] | ListEnumTicketStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketStatusWithAggregatesFilter<$PrismaModel> | $Enums.TicketStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTicketStatusFilter<$PrismaModel>
+    _max?: NestedEnumTicketStatusFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTicketPriorityWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TicketPriority | EnumTicketPriorityFieldRefInput<$PrismaModel>
+    in?: $Enums.TicketPriority[] | ListEnumTicketPriorityFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TicketPriority[] | ListEnumTicketPriorityFieldRefInput<$PrismaModel>
+    not?: NestedEnumTicketPriorityWithAggregatesFilter<$PrismaModel> | $Enums.TicketPriority
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTicketPriorityFilter<$PrismaModel>
+    _max?: NestedEnumTicketPriorityFilter<$PrismaModel>
+  }
+
   export type NestedEnumInventoryAlertTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.InventoryAlertType | EnumInventoryAlertTypeFieldRefInput<$PrismaModel>
     in?: $Enums.InventoryAlertType[] | ListEnumInventoryAlertTypeFieldRefInput<$PrismaModel>
@@ -128620,6 +133815,57 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumWebTemplateTypeFilter<$PrismaModel>
     _max?: NestedEnumWebTemplateTypeFilter<$PrismaModel>
+  }
+
+  export type NestedEnumDeveloperRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeveloperRole | EnumDeveloperRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.DeveloperRole[] | ListEnumDeveloperRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeveloperRole[] | ListEnumDeveloperRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeveloperRoleFilter<$PrismaModel> | $Enums.DeveloperRole
+  }
+
+  export type NestedEnumDeveloperRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeveloperRole | EnumDeveloperRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.DeveloperRole[] | ListEnumDeveloperRoleFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeveloperRole[] | ListEnumDeveloperRoleFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeveloperRoleWithAggregatesFilter<$PrismaModel> | $Enums.DeveloperRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDeveloperRoleFilter<$PrismaModel>
+    _max?: NestedEnumDeveloperRoleFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFeedbackCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.FeedbackCategory | EnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.FeedbackCategory[] | ListEnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FeedbackCategory[] | ListEnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumFeedbackCategoryFilter<$PrismaModel> | $Enums.FeedbackCategory
+  }
+
+  export type NestedEnumFeedbackStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.FeedbackStatus | EnumFeedbackStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FeedbackStatus[] | ListEnumFeedbackStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FeedbackStatus[] | ListEnumFeedbackStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFeedbackStatusFilter<$PrismaModel> | $Enums.FeedbackStatus
+  }
+
+  export type NestedEnumFeedbackCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FeedbackCategory | EnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.FeedbackCategory[] | ListEnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FeedbackCategory[] | ListEnumFeedbackCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumFeedbackCategoryWithAggregatesFilter<$PrismaModel> | $Enums.FeedbackCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFeedbackCategoryFilter<$PrismaModel>
+    _max?: NestedEnumFeedbackCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumFeedbackStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.FeedbackStatus | EnumFeedbackStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.FeedbackStatus[] | ListEnumFeedbackStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.FeedbackStatus[] | ListEnumFeedbackStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumFeedbackStatusWithAggregatesFilter<$PrismaModel> | $Enums.FeedbackStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumFeedbackStatusFilter<$PrismaModel>
+    _max?: NestedEnumFeedbackStatusFilter<$PrismaModel>
   }
 
   export type RestaurantCreateWithoutCategoryRestaurantsInput = {

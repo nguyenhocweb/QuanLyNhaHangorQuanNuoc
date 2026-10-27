@@ -5,7 +5,7 @@ import loyaltyRouter from "./loyalty/loyalty.router.js";
 import userRouter from "./profile/user.router.js";
 import promotionRouter from "./promotion/promotion.router.js";
 import reviewRouter from "./review/review.router.js";
-import notificationRouter from "../notifications/notification.router.js";
+import notificationRouter from "../shared/notifications/notification.router.js";
 import reservationRouter from "./reservation/reservation.router/index.js";
 import orderRouter from "./order/order.router/index.js";
 import invoiceRouter from "./invoice/invoice.router/index.js";

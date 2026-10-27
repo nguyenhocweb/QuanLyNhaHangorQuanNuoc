@@ -55,13 +55,17 @@ export const AssignTableModal = ({ reservation, restaurantId, onClose }: AssignT
                             <h4 className="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Bàn đã xếp</h4>
                             <div className="flex flex-wrap gap-3">
                                 {reservation.reservation_tables?.map(rt => (
-                                    <div key={rt.id} className="flex items-center gap-3 bg-green-50 text-green-700 px-4 py-2 rounded-xl border border-green-200">
-                                        <span className="font-medium">{rt.table.table_number}</span>
+                                    <div key={rt.id} className="flex items-center justify-between gap-3 bg-emerald-50 text-emerald-800 px-3.5 py-2 rounded-xl border border-emerald-200 shadow-xs">
+                                        <div className="flex flex-col text-left">
+                                            <span className="text-[10px] text-emerald-600 font-medium">{rt.table.area?.name || "Khu vực"}</span>
+                                            <span className="font-bold text-xs text-emerald-950">🪑 Bàn: {rt.table.table_number}</span>
+                                        </div>
                                         <button 
                                             onClick={() => handleUnassign(rt.tableId)}
-                                            className="text-green-600 hover:text-green-800 p-1 bg-green-200/50 rounded-md"
+                                            className="text-emerald-600 hover:text-red-600 p-1 hover:bg-red-50 rounded-md transition-colors"
+                                            title="Gỡ bàn này"
                                         >
-                                            <MdClose />
+                                            <MdClose className="text-base" />
                                         </button>
                                     </div>
                                 ))}

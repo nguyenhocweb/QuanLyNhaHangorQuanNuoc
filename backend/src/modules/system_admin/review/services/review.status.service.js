@@ -1,12 +1,12 @@
 import { getReviewById, updateReviewStatusRepo } from "../repositories/review.status.repo.js";
 import { NotFoundError } from "../../../../core/constants/error/index.js";
 
-export const updateReviewStatusService = async (reviewId, status) => {
+export const updateReviewStatusService = async (reviewId, is_public) => {
     const review = await getReviewById(reviewId);
     if (!review) {
         throw new NotFoundError("Không tìm thấy đánh giá này");
     }
 
-    const updatedReview = await updateReviewStatusRepo(reviewId, status);
+    const updatedReview = await updateReviewStatusRepo(reviewId, is_public);
     return updatedReview;
 };

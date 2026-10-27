@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const reviewStatusSchema = z.object({
-    status: z.enum(["PENDING", "APPROVED", "REJECTED_SPAM"])
+    is_public: z.boolean()
 });
 
 export type ReviewStatusFormValues = z.infer<typeof reviewStatusSchema>;

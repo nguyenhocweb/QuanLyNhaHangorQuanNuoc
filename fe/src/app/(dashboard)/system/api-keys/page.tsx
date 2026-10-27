@@ -4,7 +4,7 @@ import { ApiKeysDashboard } from '@/src/features/system_admin/api_keys/component
 
 export default function SystemApiKeyPage() {
   return (
-    <div className="p-6 h-full w-full">
+    <div className="p-4 sm:p-6 lg:p-8 w-full max-w-7xl mx-auto min-h-full">
       <ApiKeysDashboard />
     </div>
   );

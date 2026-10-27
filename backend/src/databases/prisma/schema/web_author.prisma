@@ -1,0 +1,36 @@
+model WebAuthor {
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+
+  // 1. Thông tin thành viên
+  fullName      String
+  avatarUrl     String?
+  bio           String?
+  role          DeveloperRole @default(FULLSTACK_DEV)
+  roleTitle     String        // Title hiển thị: ví dụ "Lead Fullstack Architect"
+
+  // 2. Kỹ thuật & Đóng góp
+  techStack     String[]
+  contributions String[]
+
+  // 3. Liên kết & Liên hệ
+  githubUrl     String?
+  linkedinUrl   String?
+  portfolioUrl  String?
+  email         String?
+  facebookUrl   String?
+  phone         String?
+  hasZalo       Boolean       @default(false)
+  zaloUrl       String?
+
+  // 4. Quản trị hiển thị
+  displayOrder  Int           @default(0)
+  isActive      Boolean       @default(true)
+  isLeader      Boolean       @default(false)
+
+  // 5. Metadata
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([isActive, displayOrder(sort: Asc)])
+  @@map("web_authors")
+}

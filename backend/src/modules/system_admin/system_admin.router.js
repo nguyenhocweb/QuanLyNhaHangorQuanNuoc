@@ -18,7 +18,10 @@ import tagRouter from "./tag/tag.router.js";
 import templateRouter from "./template/template.router.js";
 import upgradeRequestRouter from "./upgrade_request/upgradeRequest.router.js";
 import brandRouter from "./brand/route.brand.js";
-import notificationRouter from "../notifications/notification.router.js";
+import notificationRouter from "../shared/notifications/notification.router.js";
+import webFeedbackRouter from "./web_feedback/web_feedback.router.js";
+import webAuthorRouter from "./web_author/web_author.router.js";
+import contactTicketRouter from "./contact_ticket/contact_ticket.router.js";
 
 const route = Router();
 
@@ -40,5 +43,8 @@ route.use("/template", templateRouter);
 route.use("/upgrade-request", upgradeRequestRouter);
 route.use("/brand", brandRouter);
 route.use("/notifications", notificationRouter);
+route.use("/web-feedback", webFeedbackRouter);
+route.use("/web-author", webAuthorRouter);
+route.use("/contact-ticket", contactTicketRouter);
 
 export default route;

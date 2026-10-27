@@ -12,8 +12,20 @@ export const getApiKeysRepo = async (query) => {
     where.brandId = null; // Only show Global Keys if no brandId is specified
   }
 
+  if (query.chatboxId) {
+    where.chatboxId = query.chatboxId;
+  }
+
+  if (query.keyType) {
+    where.keyType = query.keyType;
+  }
+
   if (search) {
-    where.name = { contains: search, mode: "insensitive" };
+    where.OR = [
+      { name: { contains: search, mode: "insensitive" } },
+      { contactEmail: { contains: search, mode: "insensitive" } },
+      { prefix: { contains: search, mode: "insensitive" } },
+    ];
   }
   
   if (status) {

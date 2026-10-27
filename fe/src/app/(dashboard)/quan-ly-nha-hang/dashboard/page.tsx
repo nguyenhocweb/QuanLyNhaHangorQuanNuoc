@@ -1,5 +1,5 @@
 import React from 'react';
-import RestaurantOverviewDashboard from '@/src/features/restaurant_manager/dashboard/components/RestaurantOverviewDashboard';
+import RestaurantOverviewDashboard from '@/src/features/quan_ly_nha_hang/dashboard/components/RestaurantOverviewDashboard';
 
 const RestaurantDashboard = () => {
     return (

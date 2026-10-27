@@ -17,7 +17,8 @@ import reviewRouter from "./review/review.router.js";
 import staffRouter from "./staff/staff.router.js";
 import tableRouter from "./table/table.router.js";
 import tableMaintenanceRouter from "./table_maintenance/table_maintenance.router.js";
-import notificationRouter from "../notifications/notification.router.js";
+import notificationRouter from "../shared/notifications/notification.router.js";
+import tableKioskManagerRouter from "./table_kiosk/table_kiosk.manager.router.js";
 
 const route = Router();
 
@@ -42,6 +43,7 @@ route.use("/review", reviewRouter);
 route.use("/staff", staffRouter);
 route.use("/table", tableRouter);
 route.use("/table-maintenance", tableMaintenanceRouter);
+route.use("/table-kiosk", tableKioskManagerRouter);
 route.use("/notifications", (req, res, next) => {
     req.workspaceContext = "RESTAURANT";
     next();
@@ -68,6 +70,7 @@ route.use("/:restaurantId/review", reviewRouter);
 route.use("/:restaurantId/staff", staffRouter);
 route.use("/:restaurantId/table", tableRouter);
 route.use("/:restaurantId/table-maintenance", tableMaintenanceRouter);
+route.use("/:restaurantId/table-kiosk", tableKioskManagerRouter);
 route.use("/:restaurantId/notifications", (req, res, next) => {
     req.workspaceContext = "RESTAURANT";
     req.restaurantId = req.params.restaurantId;

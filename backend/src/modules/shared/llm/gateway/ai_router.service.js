@@ -7,8 +7,35 @@ import { ClaudeProvider } from "./providers/claude.provider.js";
 // Factory map các provider
 const providersMap = {
   'GEMINI': GeminiProvider,
+  'GOOGLE GEMINI': GeminiProvider,
+  'GOOGLE GEMINI CLOUD': GeminiProvider,
   'OPENAI': OpenAIProvider,
+  'OPENAI PLATFORM': OpenAIProvider,
   'CLAUDE': ClaudeProvider,
+  'ANTHROPIC': ClaudeProvider,
+  'ANTHROPIC CLAUDE': ClaudeProvider,
+};
+
+/**
+ * Phân giải ProviderClass từ tên chatbox một cách linh hoạt
+ */
+const resolveProvider = (rawName) => {
+  if (!rawName) return null;
+  const normalized = rawName.trim().toUpperCase();
+
+  if (providersMap[normalized]) {
+    return providersMap[normalized];
+  }
+  if (normalized.includes('GEMINI') || normalized.includes('GOOGLE')) {
+    return GeminiProvider;
+  }
+  if (normalized.includes('OPENAI') || normalized.includes('GPT')) {
+    return OpenAIProvider;
+  }
+  if (normalized.includes('CLAUDE') || normalized.includes('ANTHROPIC')) {
+    return ClaudeProvider;
+  }
+  return null;
 };
 
 /**
@@ -31,18 +58,18 @@ export const routeAiRequest = async (brandId, systemPrompt, userMessage, tools, 
     const apiKeyData = apiKeys[i];
     
     try {
-      const providerName = apiKeyData.chatbox.name.toUpperCase();
-      const ProviderClass = providersMap[providerName];
+      const rawProviderName = apiKeyData.chatbox?.name || '';
+      const ProviderClass = resolveProvider(rawProviderName);
 
       if (!ProviderClass) {
-        console.warn(`[Router] Provider ${providerName} chưa được hỗ trợ. Bỏ qua Key này.`);
+        console.warn(`[Router] Provider '${rawProviderName}' chưa được hỗ trợ. Bỏ qua Key này.`);
         continue;
       }
 
-      const modelName = apiKeyData.restrictedModel?.name || process.env.AI_MODEL_FLASH; // Lấy từ cấu hình môi trường nếu Key không giới hạn
+      const modelName = apiKeyData.restrictedModel?.name || process.env.AI_MODEL_FLASH || "gemini-1.5-flash";
       const decryptedKey = decryptKey(apiKeyData.encryptedKey);
 
-      console.log(`[Router] Đang thử gọi AI qua Provider: ${providerName}, Key: ${apiKeyData.name}...`);
+      console.log(`[Router] Đang thử gọi AI qua Provider: ${rawProviderName}, Key: ${apiKeyData.name}, Model: ${modelName}...`);
 
       // 3. Gọi Adapter
       const aiResponse = await ProviderClass.generateContent(

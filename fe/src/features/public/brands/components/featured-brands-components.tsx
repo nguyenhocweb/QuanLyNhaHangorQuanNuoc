@@ -11,9 +11,9 @@ import Pagination from "@/src/core/components/layout/Pagination";
 import { usePagination } from "@/src/core/hooks/usePagination";
 import { usePerformanceMode } from "@/src/core/hooks/usePerformanceMode";
 
-const featuredBrandComponent = ({ type }: { type: "home" | "page" }) => {
+const featuredBrandComponent = ({ type, limit: propLimit }: { type: "home" | "page"; limit?: number }) => {
     const { currentPage, setPage, searchKeyword, city, brandFilter, limit, setLimit } = usePagination();
-    const currentLimit = type === "home" ? 3 : (limit || 6);
+    const currentLimit = propLimit ?? (type === "home" ? 6 : (limit || 6));
     const isFeatured = brandFilter === "vip" ? true : undefined;
     const isNew = brandFilter === "hot" ? true : undefined;
 

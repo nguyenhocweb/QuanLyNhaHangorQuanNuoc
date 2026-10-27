@@ -19,3 +19,8 @@ node_modules
 
 !fe/README.md
 !backend/README.md
+
+# Temporary and build engine files
+*.tmp*
+*.tmp
+

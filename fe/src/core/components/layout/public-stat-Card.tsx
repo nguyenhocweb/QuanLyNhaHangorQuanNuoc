@@ -1,73 +1,76 @@
-import { Div, H, P } from "../ui"
-import React, { ReactNode,useEffect,useState } from 'react';
-
+import React, { ReactNode, useEffect, useState } from 'react';
 import { FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
 import FadeIn from "../animation/FadeIn";
+
 interface StatCardProps {
-    index: number,
+    index: number;
     title: string;
     value: string | number;
     icon: ReactNode;
-    iconWrapperClass?: string; // Cho phép tùy chỉnh màu nền/chữ của từng icon
+    iconWrapperClass?: string;
     trendValue?: string;
     trendLabel?: string;
     trendType?: 'up' | 'down' | 'neutral';
 }
 
-
-const colorBorder = [
-    "border-blue-500",    // Xanh dương (dành cho thông tin chung)
-    "border-indigo-500",  // Xanh chàm (dành cho người dùng/nhà hàng)
-    "border-emerald-500", // Xanh ngọc/Xanh lá (dành cho doanh thu/thành công)
-    "border-purple-500",  // Tím (dành cho yêu cầu/tác vụ)
-    "border-amber-500",   // Vàng hổ phách (dành cho cảnh báo/chờ duyệt)
-    "border-rose-500",    // Đỏ hồng (dành cho lỗi/hủy bỏ)
-    "border-sky-500",     // Xanh da trời 
-    "border-teal-500"     // Xanh mòng két
+const colorBorders = [
+    "bg-blue-500",
+    "bg-indigo-500",
+    "bg-emerald-500",
+    "bg-purple-500",
+    "bg-amber-500",
+    "bg-rose-500",
+    "bg-sky-500",
+    "bg-teal-500"
 ];
-// 2. Hàm lấy màu ngẫu nhiên từ ngân hàng màu
-const getRandomColor = () => {
-    const randomIndex = Math.floor(Math.random() * colorBorder.length);
-    return colorBorder[randomIndex];
-};
+
 const Public_Stat_Card = ({ index, title, value, icon, iconWrapperClass, trendLabel, trendValue, trendType }: StatCardProps) => {
-    // random màu
-    const [safeColor,setSafeColor]=useState("border-blue-500")
-    useEffect(()=>{setSafeColor(getRandomColor)},[])
+    const [safeColor, setSafeColor] = useState("bg-blue-500");
+    useEffect(() => {
+        const randomIndex = Math.floor(Math.random() * colorBorders.length);
+        setSafeColor(colorBorders[randomIndex]);
+    }, []);
+
     const isPositive = trendType === 'up';
     const isNegative = trendType === 'down';
+
     return (
-        <FadeIn delay={index / 10}>
-            <Div variant="bg_white" size="full" className={`w-65 h-30 border-l-4 justify-start ${safeColor}`}>
-                <Div className={` w-12 h-12 rounded-xl shrink-0 text-xl ${iconWrapperClass}`}>
-                    {icon}
-                </Div>
-                <Div vitri="col_none" >
-                    <H className="text-sm font-semibold text-gray-500 mb-1">{title}</H>
-                    <P className="text-2xl font-bold " variant="text_black">{value}</P>
-                    {/* Khu vực hiển thị tăng/giảm */}
+        <FadeIn delay={index / 10} className="w-full h-full">
+            <div className="w-full h-full bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-100 shadow-sm hover:shadow-md transition-all duration-200 flex flex-col justify-between gap-3 relative overflow-hidden group">
+                {/* Dải màu nhận diện thương hiệu tinh tế ở viền trái */}
+                <div className={`absolute top-0 left-0 bottom-0 w-1 ${safeColor}`} />
+
+                <div className="flex items-center justify-between gap-2 pl-1">
+                    <span className="text-xs sm:text-sm font-medium text-slate-500 truncate" title={title}>
+                        {title}
+                    </span>
+                    <div className={`w-8 h-8 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center shrink-0 text-base sm:text-xl shadow-2xs ${iconWrapperClass}`}>
+                        {icon}
+                    </div>
+                </div>
+
+                <div className="pl-1">
+                    <div className="text-lg sm:text-2xl font-extrabold text-slate-900 tracking-tight truncate" title={String(value)}>
+                        {value}
+                    </div>
                     {(trendValue || trendLabel) && (
-                        <div className="flex items-center gap-1 mt-1 text-xs">
+                        <div className="flex items-center gap-1 mt-1 text-[10px] sm:text-xs">
                             <span
-                                className={
-                                    `font-semibold flex items-center gap-0.5
-                                    ${isPositive ? 'text-green-500' : ''}
-                                    ${isNegative ? 'text-red-500' : ''}
-                                    ${!isPositive && !isNegative ? 'text-gray-500' : ''}
-                                    `
-                                    }
+                                className={`font-semibold flex items-center gap-0.5 ${
+                                    isPositive ? 'text-emerald-500' : isNegative ? 'text-rose-500' : 'text-slate-400'
+                                }`}
                             >
-                                {/* Thêm icon mũi tên tinh tế từ react-icons */}
-                                {isPositive && <FiTrendingUp className="w-3.5 h-3.5" />}
-                                {isNegative && <FiTrendingDown className="w-3.5 h-3.5" />}
+                                {isPositive && <FiTrendingUp className="w-3 h-3" />}
+                                {isNegative && <FiTrendingDown className="w-3 h-3" />}
                                 {trendValue}
                             </span>
-                            <span className="text-gray-400">{trendLabel}</span>
+                            <span className="text-slate-400 truncate">{trendLabel}</span>
                         </div>
                     )}
-                </Div>
-            </Div>
+                </div>
+            </div>
         </FadeIn>
-    )
-}
-export default Public_Stat_Card
+    );
+};
+
+export default Public_Stat_Card;

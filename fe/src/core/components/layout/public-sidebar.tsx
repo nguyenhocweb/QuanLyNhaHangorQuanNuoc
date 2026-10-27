@@ -13,10 +13,12 @@ import {
     MdOutlineSettings, MdCategory, MdOutlineSoupKitchen, MdStore, MdCardMembership,
     MdPayment
 } from "react-icons/md";
-import { FiUsers, FiMap, FiClock } from "react-icons/fi";
+import { FiUsers, FiMap, FiClock, FiX } from "react-icons/fi";
 import { BsShop, BsClipboardData, BsReceipt, BsCalendar2Check } from "react-icons/bs";
 import { RiAdminLine, RiBillLine, RiCoupon3Line } from "react-icons/ri";
 import { BiBuildingHouse, BiSupport, BiMessageSquareDetail, BiKey } from "react-icons/bi";
+import { FaTabletAlt, FaCommentDots, FaUsers as FaTeamUsers, FaHeadset } from "react-icons/fa";
+
 // 1. TÁC NHÂN: SYSTEM ADMIN (Quản trị viên hệ thống NVNguyen)
 // Mục tiêu: Giám sát tenant (Brand), user global và master data. Không can thiệp kinh doanh.
 export const SidebarMenuSystemAdmin = [
@@ -34,10 +36,15 @@ export const SidebarMenuSystemAdmin = [
     { stt: 11, name: "Quản lý Tiện ích", link: "/system/amenities", icon: <MdCategory className="text-xl" /> },
     { stt: 12, name: "Quản lý Thẻ (Tags)", link: "/system/tags", icon: <MdCategory className="text-xl" /> },
     { stt: 13, name: "Quản lý Đánh giá", link: "/system/reviews", icon: <CiStar className="text-xl" /> },
+    { stt: 13.1, name: "Góp ý Website", link: "/system/web-feedback", icon: <FaCommentDots className="text-xl" /> },
+    { stt: 13.2, name: "Đội ngũ Web", link: "/system/web-author", icon: <FaTeamUsers className="text-xl" /> },
+    { stt: 13.3, name: "Phiếu Hỗ Trợ CSKH", link: "/system/contact-ticket", icon: <FaHeadset className="text-xl" /> },
     { stt: 14, name: "Quản lý Mẫu giao diện", link: "/system/templates", icon: <MdOutlineDashboard className="text-xl" /> },
+
     { stt: 15, name: "Quản lý API Key", link: "/system/api-keys", icon: <BiKey className="text-xl" /> },
     { stt: 16, name: "Cài đặt hệ thống", link: "/system/settings", icon: <MdOutlineSettings className="text-xl" /> },
 ];
+
 const SidebarMenuCustomer = [
     { stt: 1, name: "Hồ sơ cá nhân", link: "/user/profile", icon: <BsPersonFill className="text-xl" /> },
     { stt: 2, name: "Thẻ Thành Viên", link: "/user/loyalty", icon: <MdCardMembership className="text-xl" /> },
@@ -76,6 +83,7 @@ export const SidebarMenuQuanLyNhaHang = [
     { stt: 2, name: "Hồ sơ cá nhân", link: "/quan-ly-nha-hang/profile", icon: <BsPersonFill className="text-xl" />, permissions: [] },
     { stt: 2.5, name: "Thông báo", link: "/quan-ly-nha-hang/notifications", icon: <IoIosNotificationsOutline className="text-xl" />, permissions: [] },
     { stt: 3, name: "Sơ đồ Bàn", link: "/quan-ly-nha-hang/tables", icon: <MdOutlineTableRestaurant className="text-xl" />, permissions: ["VIEW_TABLES", "MANAGE_TABLES"] }, // Core Base
+    { stt: 3.5, name: "Cài đặt Tablet Bàn", link: "/quan-ly-nha-hang/table-kiosk", icon: <FaTabletAlt className="text-xl" />, permissions: ["VIEW_TABLES", "MANAGE_TABLES"] },
     { stt: 4, name: "Quản lý Đặt bàn", link: "/quan-ly-nha-hang/reservations", icon: <BsCalendar2Check className="text-xl" />, permissions: ["VIEW_RESERVATION", "CREATE_RESERVATION", "UPDATE_RESERVATION", "CANCEL_RESERVATION", "ASSIGN_RESERVATION_TABLE"] }, // Core Base
     { stt: 5, name: "Quản lý Đơn hàng", link: "/quan-ly-nha-hang/orders", icon: <BsBag className="text-xl" />, permissions: ["VIEW_ORDER", "CREATE_ORDER", "UPDATE_ORDER", "CANCEL_ORDER", "APPLY_DISCOUNT"] }, // Core Base
     { stt: 6, name: "Thu ngân & Thanh toán", link: "/quan-ly-nha-hang/cashier", icon: <MdPayment className="text-xl" />, permissions: ["PROCESS_PAYMENT", "REFUND_PAYMENT", "VIEW_TRANSACTIONS"] },
@@ -95,44 +103,46 @@ import { useAuthStore } from "@/src/features/auth/auth_store/use-auth-store";
 import { A, Button, Div, H, P } from "../ui";
 import { usePathname } from "next/navigation";
 import { ConfirmModal } from "./public-ConfirmModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { UpgradeBrandAccountModal } from "@/src/features/customer/profile/components/UpgradeBrandAccountModal";
 import { FeatureGate } from "@/src/core/components/ui/FeatureGate";
 import { useGetMyBrandSubscription } from "@/src/features/brand_owner/my_brand/hook/useGetMyBrandSubscription";
 
-const PublicSidebar = () => {
-    const router = useRouter();
-    const { user, activeWorkspace, logout } = useAuthStore();
-    const pathname = usePathname();
-    
-    // Chỉ lấy gói cước nếu role tại workspace là Chủ thương hiệu hoặc Quản lý thương hiệu
-    const currentRole = activeWorkspace.role || user?.systemRole;
-    const isBrandRole = currentRole === "Chủ thương hiệu" || currentRole === "Quản lý thương hiệu";
-    const { data: mySubscription } = useGetMyBrandSubscription(isBrandRole);
+interface SidebarContentProps {
+    user: any;
+    activeWorkspace: any;
+    pathname: string;
+    mySubscription: any;
+    onNavigate?: () => void;
+    onOpenUpgradeModal: () => void;
+    onOpenUpgradePrompt: () => void;
+    onOpenLogoutModal: () => void;
+}
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
-    const [isUpgradePromptOpen, setIsUpgradePromptOpen] = useState(false);
-
-    const handleLogout = () => {
-        setIsModalOpen(false);
-        logout();
-        router.push("/");
-    }
-
+const SidebarContent: React.FC<SidebarContentProps> = ({
+    user,
+    activeWorkspace,
+    pathname,
+    mySubscription,
+    onNavigate,
+    onOpenUpgradeModal,
+    onOpenUpgradePrompt,
+    onOpenLogoutModal,
+}) => {
     return (
-        <Div variant="bg_white" vitri="col_none" className="h-[calc(100vh-4rem)] sticky top-16 w-70 flex flex-col" gap="g4_5" shape="none">
-            {/* sidebar mô tả profile */}
-            <Div className="border-b border-gray-300 pb-4" size="full" shape="none" gap="g3_4"  >
-                <Div className="w-10 h-10 overflow-hidden bg-amber-800" shape="circle" >
+        <Div variant="bg_white" vitri="col_none" className="h-full w-full flex flex-col" gap="g4_5" shape="none">
+            {/* Sidebar profile header */}
+            <Div className="border-b border-gray-200 pb-4" size="full" shape="none" gap="g3_4">
+                <Div className="w-10 h-10 overflow-hidden bg-amber-800 shrink-0" shape="circle">
                     <img
                         src={user?.avatar}
                         alt="Avatar"
-                        className=" object-cover object-center w-full h-full"
+                        className="object-cover object-center w-full h-full"
                     />
                 </Div>
-                <Div vitri="col_none" className="min-w-0 flex-1 overflow-hidden" shape="none" >
+                <Div vitri="col_none" className="min-w-0 flex-1 overflow-hidden" shape="none">
                     <H variant="text_black" line="truncate_1line" className="text-base font-semibold truncate" title={user?.name}>
                         {user?.name}
                     </H>
@@ -141,24 +151,19 @@ const PublicSidebar = () => {
                     </P>
                 </Div>
             </Div>
-            <Div
-                vitri="col_none"
-                size="full"
-                className="flex flex-col flex-1 overflow-hidden"
-                shape="none" >
 
-                {/* Luồng ưu tiên: System Admin */}
+            <Div vitri="col_none" size="full" className="flex flex-col flex-1 overflow-hidden" shape="none">
+                {/* 1. Luồng ưu tiên: System Admin */}
                 {(user?.systemRole === "Admin" || user?.systemRole === "SYSTEM" || user?.systemRole?.name === "SYSTEM") ? (
-                    <Div vitri="col_none" size="full" shape="none" gap="g3_4"
-                        className=" flex-1 overflow-y-auto overflow-x-hidden pr-2 pb-4"
-                    >
+                    <Div vitri="col_none" size="full" shape="none" gap="g3_4" className="flex-1 overflow-y-auto overflow-x-hidden pr-2 pb-4">
                         {SidebarMenuSystemAdmin.map((item) => (
                             <Div key={item.name} size="full">
                                 <A
                                     variant={pathname.startsWith(item.link) ? "green" : "gray_hover"}
                                     sizea="p3_2"
-                                    className={`w-full justify-start gap-3`}
+                                    className="w-full justify-start gap-3"
                                     href={item.link}
+                                    onClick={onNavigate}
                                 >
                                     {item.icon}
                                     {item.name}
@@ -167,17 +172,16 @@ const PublicSidebar = () => {
                         ))}
                     </Div>
                 ) : (!activeWorkspace || activeWorkspace.type === "CUSTOMER") ? (
-                    /* Dành cho Không gian Khách hàng */
-                    <Div vitri="col_none" size="full" shape="none" gap="g3_4"
-                        className=" flex-1 overflow-y-auto overflow-x-hidden pr-2 pb-4"
-                    >
+                    /* 2. Luồng: Không gian Khách hàng */
+                    <Div vitri="col_none" size="full" shape="none" gap="g3_4" className="flex-1 overflow-y-auto overflow-x-hidden pr-2 pb-4">
                         {SidebarMenuCustomer.map((item) => (
                             <Div key={item.name} size="full">
                                 <A
                                     variant={pathname.startsWith(item.link) ? "green" : "gray_hover"}
                                     sizea="p3_2"
-                                    className={`w-full justify-start gap-3`}
+                                    className="w-full justify-start gap-3"
                                     href={item.link}
+                                    onClick={onNavigate}
                                 >
                                     {item.icon}
                                     {item.name}
@@ -189,8 +193,8 @@ const PublicSidebar = () => {
                             <Button
                                 variant="gray_hover"
                                 sizea="p3_2"
-                                className='w-full justify-start gap-3 text-amber-600 hover:text-amber-700 hover:bg-amber-50'
-                                onClick={() => setIsUpgradeModalOpen(true)}
+                                className="w-full justify-start gap-3 text-amber-600 hover:text-amber-700 hover:bg-amber-50"
+                                onClick={onOpenUpgradeModal}
                             >
                                 <MdStore className="text-xl" />
                                 Trở thành đối tác
@@ -198,23 +202,22 @@ const PublicSidebar = () => {
                         </Div>
                     </Div>
                 ) : activeWorkspace.type === "BRAND" ? (
-                    /* Dành cho Không gian Thương hiệu */
-                    <Div vitri="col_none" size="full" shape="none" gap="g3_4"
-                        className=" flex-1 overflow-y-auto overflow-x-hidden pr-2 pb-4"
-                    >
+                    /* 3. Luồng: Không gian Chủ thương hiệu */
+                    <Div vitri="col_none" size="full" shape="none" gap="g3_4" className="flex-1 overflow-y-auto overflow-x-hidden pr-2 pb-4">
                         {SidebarMenuBrandOwner.map((item) => (
                             <FeatureGate 
                                 key={item.name} 
                                 featureKey={item.featureKey} 
                                 featuresData={(mySubscription as any)?.featuresData as Record<string, boolean>}
                                 className="w-full"
-                                onLockClick={() => setIsUpgradePromptOpen(true)}
+                                onLockClick={onOpenUpgradePrompt}
                             >
                                 <A
                                     variant={pathname.startsWith(item.link) ? "green" : "gray_hover"}
                                     sizea="p3_2"
-                                    className={`w-full justify-start gap-3`}
+                                    className="w-full justify-start gap-3"
                                     href={item.link}
+                                    onClick={onNavigate}
                                 >
                                     {item.icon}
                                     {item.name}
@@ -223,18 +226,13 @@ const PublicSidebar = () => {
                         ))}
                     </Div>
                 ) : (
-                    /* Dành cho Không gian Chi nhánh */
-                    <Div vitri="col_none" size="full" shape="none" gap="g3_4"
-                        className=" flex-1 overflow-y-auto overflow-x-hidden pr-2 pb-4"
-                    >
+                    /* 4. Luồng: Không gian Chi nhánh Nhà hàng */
+                    <Div vitri="col_none" size="full" shape="none" gap="g3_4" className="flex-1 overflow-y-auto overflow-x-hidden pr-2 pb-4">
                         {SidebarMenuQuanLyNhaHang
                             .filter(item => {
                                 const currentRole = activeWorkspace.role || user?.systemRole;
-                                // Quản lý nhà hàng, Admin, Chủ thương hiệu được xem full
                                 if (currentRole === "Quản lý nhà hàng" || currentRole === "Chủ thương hiệu" || currentRole === "Admin" || currentRole === "Quản lý thương hiệu") return true;
-                                // Không yêu cầu quyền cụ thể
                                 if (!item.permissions || item.permissions.length === 0) return true;
-                                // Có yêu cầu quyền -> user phải có ít nhất 1 quyền trong mảng
                                 const userPerms = user?.permissions || [];
                                 return item.permissions.some(p => userPerms.includes(p));
                             })
@@ -244,13 +242,14 @@ const PublicSidebar = () => {
                                     featureKey={item.featureKey} 
                                     featuresData={(mySubscription as any)?.featuresData as Record<string, boolean>}
                                     className="w-full"
-                                    onLockClick={() => setIsUpgradePromptOpen(true)}
+                                    onLockClick={onOpenUpgradePrompt}
                                 >
                                     <A
                                         variant={pathname.startsWith(item.link) ? "green" : "gray_hover"}
                                         sizea="p3_2"
-                                        className={`w-full justify-start gap-3`}
+                                        className="w-full justify-start gap-3"
                                         href={item.link}
+                                        onClick={onNavigate}
                                     >
                                         {item.icon}
                                         {item.name}
@@ -259,26 +258,131 @@ const PublicSidebar = () => {
                             ))}
                     </Div>
                 )}
-                <Div vitri="col_none" size="full" shape="none" className=" border-t border-gray-300 pt-4 mt-auto ">
+
+                {/* Nút Đăng xuất */}
+                <Div vitri="col_none" size="full" shape="none" className="border-t border-gray-200 pt-4 mt-auto">
                     <Button
                         variant="gray_hover"
                         sizea="p3_2"
-                        className='w-full justify-start gap-3 text-red-600'
-                        onClick={() => { setIsModalOpen(prev => !prev) }}
-
+                        className="w-full justify-start gap-3 text-red-600 hover:bg-red-50"
+                        onClick={onOpenLogoutModal}
                     >
                         <MdOutlineLogout className="text-lg" />
                         Đăng xuất
                     </Button>
                 </Div>
             </Div>
+        </Div>
+    );
+};
 
+const PublicSidebar = () => {
+    const router = useRouter();
+    const { user, activeWorkspace, logout, isMobileSidebarOpen, setMobileSidebarOpen } = useAuthStore();
+    const pathname = usePathname();
+    
+    // Tự động đóng mobile drawer khi chuyển trang
+    useEffect(() => {
+        setMobileSidebarOpen(false);
+    }, [pathname, setMobileSidebarOpen]);
+
+    const currentRole = activeWorkspace.role || user?.systemRole;
+    const isBrandRole = currentRole === "Chủ thương hiệu" || currentRole === "Quản lý thương hiệu";
+    const { data: mySubscription } = useGetMyBrandSubscription(isBrandRole);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isUpgradeModalOpen, setIsUpgradeModalOpen] = useState(false);
+    const [isUpgradePromptOpen, setIsUpgradePromptOpen] = useState(false);
+
+    const handleLogout = () => {
+        setIsModalOpen(false);
+        setMobileSidebarOpen(false);
+        logout();
+        router.push("/");
+    };
+
+    return (
+        <>
+            {/* 1. Desktop Sticky Sidebar (Chỉ hiện trên Desktop >= lg: 1024px) */}
+            <aside className="hidden lg:flex flex-col h-[calc(100vh-4rem)] sticky top-16 w-70 shrink-0 bg-white border-r border-gray-200 p-4 z-20">
+                <SidebarContent
+                    user={user}
+                    activeWorkspace={activeWorkspace}
+                    pathname={pathname}
+                    mySubscription={mySubscription}
+                    onOpenUpgradeModal={() => setIsUpgradeModalOpen(true)}
+                    onOpenUpgradePrompt={() => setIsUpgradePromptOpen(true)}
+                    onOpenLogoutModal={() => setIsModalOpen(true)}
+                />
+            </aside>
+
+            {/* 2. Mobile Off-Canvas Drawer (Chỉ hiện trên Mobile/Tablet < lg: 1024px) */}
+            <AnimatePresence>
+                {isMobileSidebarOpen && (
+                    <div className="fixed inset-0 z-[60] lg:hidden">
+                        {/* Backdrop làm mờ hậu cảnh */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            onClick={() => setMobileSidebarOpen(false)}
+                            className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs"
+                        />
+
+                        {/* Drawer trượt từ bên phải */}
+                        <motion.div
+                            initial={{ x: "100%" }}
+                            animate={{ x: 0 }}
+                            exit={{ x: "100%" }}
+                            transition={{ type: "spring", damping: 26, stiffness: 280 }}
+                            className="fixed inset-y-0 right-0 w-80 max-w-[85vw] bg-white shadow-2xl flex flex-col p-4 z-10"
+                        >
+                            {/* Header của Drawer có nút đóng */}
+                            <div className="flex items-center justify-between pb-3 mb-2 border-b border-gray-200">
+                                <span className="text-xs font-bold uppercase tracking-wider text-gray-500">
+                                    Menu Quản trị
+                                </span>
+                                <button
+                                    type="button"
+                                    onClick={() => setMobileSidebarOpen(false)}
+                                    className="p-1.5 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-colors cursor-pointer"
+                                    aria-label="Đóng menu"
+                                    title="Đóng menu"
+                                >
+                                    <FiX className="w-5 h-5 text-xl" />
+                                </button>
+                            </div>
+
+                            <SidebarContent
+                                user={user}
+                                activeWorkspace={activeWorkspace}
+                                pathname={pathname}
+                                mySubscription={mySubscription}
+                                onNavigate={() => setMobileSidebarOpen(false)}
+                                onOpenUpgradeModal={() => {
+                                    setMobileSidebarOpen(false);
+                                    setIsUpgradeModalOpen(true);
+                                }}
+                                onOpenUpgradePrompt={() => {
+                                    setMobileSidebarOpen(false);
+                                    setIsUpgradePromptOpen(true);
+                                }}
+                                onOpenLogoutModal={() => {
+                                    setMobileSidebarOpen(false);
+                                    setIsModalOpen(true);
+                                }}
+                            />
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* Modals xác nhận & nâng cấp */}
             <ConfirmModal
                 open={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
-                onConfirm={() => {
-                    handleLogout();
-                }}
+                onConfirm={handleLogout}
                 title="Xác nhận đăng xuất"
                 content="Bạn có chắc chắn muốn đăng xuất không?"
                 confirmText="Đăng xuất"
@@ -306,8 +410,8 @@ const PublicSidebar = () => {
                 onClose={() => setIsUpgradeModalOpen(false)}
                 userId={user?.id || ""}
             />
-        </Div>
-    )
-}
+        </>
+    );
+};
 
-export default PublicSidebar
+export default PublicSidebar;

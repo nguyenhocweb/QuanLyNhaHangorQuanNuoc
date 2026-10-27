@@ -10,17 +10,16 @@ export const useUpdateReviewStatus = () => {
         mutationFn: ({ reviewId, data }: { reviewId: string, data: ReviewStatusFormValues }) => 
             updateReviewStatusService(reviewId, data),
         onSuccess: (_, variables) => {
-            if (variables.data.status === 'APPROVED') {
-                toast.success("Đã duyệt đánh giá công khai!");
-            } else if (variables.data.status === 'REJECTED_SPAM') {
-                toast.success("Đã chặn đánh giá (Spam)!");
+            if (variables.data.is_public) {
+                toast.success("Đã công khai hiển thị đánh giá!");
             } else {
-                toast.success("Đã cập nhật trạng thái!");
+                toast.success("Đã ẩn đánh giá khỏi hệ thống!");
             }
             queryClient.invalidateQueries({ queryKey: ['system-reviews'] });
+            queryClient.invalidateQueries({ queryKey: ['system-reviews-stats'] });
         },
         onError: (error: any) => {
-            const message = error?.response?.data?.message || "Có lỗi xảy ra khi cập nhật";
+            const message = error?.response?.data?.message || "Có lỗi xảy ra khi cập nhật trạng thái";
             toast.error(message);
         }
     });

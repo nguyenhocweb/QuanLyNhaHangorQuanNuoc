@@ -2,8 +2,8 @@
 import React from 'react'
 import { Div, H } from '@/src/core/components/ui'
 import { useAuthStore } from '@/src/features/auth/auth_store/use-auth-store'
-import { ManagerPromotionsDashboard } from '@/src/features/restaurant_manager/promotions/components/ManagerPromotionsDashboard'
-import { StaffPromotionsScanner } from '@/src/features/restaurant_manager/promotions/components/StaffPromotionsScanner'
+import { ManagerPromotionsDashboard } from '@/src/features/quan_ly_nha_hang/promotions/components/ManagerPromotionsDashboard'
+import { StaffPromotionsScanner } from '@/src/features/quan_ly_nha_hang/promotions/components/StaffPromotionsScanner'
 
 export default function PromotionsPage() {
   const { user } = useAuthStore()

@@ -10,9 +10,10 @@ interface ModalProps {
   title: string;
   onClose: () => void;
   children: React.ReactNode;
+  maxWidth?: string;
 }
 
-export function Modal({ open, title, onClose, children }: ModalProps) {
+export function Modal({ open, title, onClose, children, maxWidth = "max-w-lg" }: ModalProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -31,14 +32,14 @@ export function Modal({ open, title, onClose, children }: ModalProps) {
 
   return createPortal(
     <div 
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 p-2 backdrop-blur-sm transition-opacity"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 p-3 sm:p-4 backdrop-blur-sm transition-opacity"
       role="dialog"
       aria-modal="true"
     >
       <Div 
         variant="bg_white" 
         shape="square" 
-        className="relative w-full max-w-lg flex-col items-stretch overflow-hidden rounded-2xl !p-0 animate-in fade-in zoom-in-95 duration-200"
+        className={`relative w-full ${maxWidth} flex-col items-stretch overflow-hidden rounded-2xl !p-0 animate-in fade-in zoom-in-95 duration-200 shadow-2xl border border-gray-100`}
       >
         <div className="flex items-center justify-between border-b border-gray-100 p-4">
           <H variant="text_black" className="text-lg font-bold">

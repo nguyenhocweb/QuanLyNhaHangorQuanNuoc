@@ -1,43 +1,71 @@
 "use client";
-import React, { useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { updateTagSchema, UpdateTagFormValues } from "../schema/tag-schema";
 import { useUpdateTag } from "../hook/useTag_hook";
-import { Div, H, P, Label, Input, Button } from "@/src/core/components/ui";
 import FadeIn from "@/src/core/components/animation/FadeIn";
 import { IoClose } from "react-icons/io5";
-import { FiLoader, FiTag, FiZap, FiRefreshCw } from "react-icons/fi";
+import { FiLoader, FiTag, FiZap, FiRefreshCw, FiSave, FiEdit3 } from "react-icons/fi";
 import { useRandomColor } from "@/src/core/hooks/useRandomColor";
 
-interface Props { isOpen: boolean; onClose: () => void; initialData: any; }
+interface Props {
+  isOpen: boolean;
+  onClose: () => void;
+  initialData: any;
+}
 
 const UpdateTagForm: React.FC<Props> = ({ isOpen, onClose, initialData }) => {
   const { mutate: updateMutation, isPending } = useUpdateTag();
   const { getLighterColor, getDarkerColor, getRandomColorPair } = useRandomColor();
-  
-  const [isSlugManual, setIsSlugManual] = React.useState(true);
 
-  const { register, handleSubmit, watch, setValue, formState: { errors }, reset } = useForm<UpdateTagFormValues>({
-    resolver: zodResolver(updateTagSchema),
-    defaultValues: initialData
+  const [isSlugManual, setIsSlugManual] = useState(true);
+
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+    reset
+  } = useForm<UpdateTagFormValues>({
+    resolver: zodResolver(updateTagSchema) as any,
+    defaultValues: initialData || {
+      name: "",
+      slug: "",
+      description: "",
+      bgColor: "#EEF2FF",
+      textColor: "#4F46E5"
+    }
   });
 
-  useEffect(() => { 
+  useEffect(() => {
     if (initialData) {
-      reset(initialData);
-      // Ensure defaults if missing
-      if (!initialData.bgColor) setValue("bgColor", "#EEF2FF");
-      if (!initialData.textColor) setValue("textColor", "#6366F1");
+      reset({
+        name: initialData.name || "",
+        slug: initialData.slug || "",
+        description: initialData.description || "",
+        bgColor: initialData.bgColor || "#EEF2FF",
+        textColor: initialData.textColor || "#4F46E5"
+      });
       setIsSlugManual(!!initialData.slug);
     }
-  }, [initialData, reset, setValue]);
+  }, [initialData, reset]);
 
   const name = watch("name");
+  const bgColor = watch("bgColor") || "#EEF2FF";
+  const textColor = watch("textColor") || "#4F46E5";
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!isSlugManual && name) {
-      const slug = name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
+      const slug = name
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)+/g, "");
       setValue("slug", slug, { shouldValidate: true });
     }
   }, [name, isSlugManual, setValue]);
@@ -45,157 +73,226 @@ const UpdateTagForm: React.FC<Props> = ({ isOpen, onClose, initialData }) => {
   if (!isOpen) return null;
 
   const onSubmit = (data: UpdateTagFormValues) => {
-    updateMutation({ id: initialData.id, ...data }, {
-      onSuccess: () => { onClose(); }
-    });
+    updateMutation(
+      { id: initialData.id, ...data },
+      {
+        onSuccess: () => {
+          onClose();
+        }
+      }
+    );
   };
 
-  const bgColor = watch("bgColor") || "#EEF2FF";
-  const textColor = watch("textColor") || "#6366F1";
-  const displayPreviewName = name || "Tên thẻ mẫu";
+  const displayPreviewName = name ? name : "Thẻ xem trước";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <FadeIn className="w-full max-w-md">
-        <Div variant="bg_white" vitri="col_none" className="relative w-full !p-6 !rounded-2xl" style={{'--bg-color': bgColor, '--text-color': textColor} as React.CSSProperties}>
-          <H variant="text_black" className="text-2xl font-bold">Cập nhật thẻ</H>
-          <P className="text-gray-500 mb-4">Ch�0nh sửa thông tin thẻ phân loại</P>
-          <Button className="absolute top-4 right-4 !p-2 !bg-gray-100 hover:!bg-gray-200 !rounded-full !min-h-0"
-              onClick={() => onClose()}
-          >
-              <IoClose className="text-xl text-gray-600" />
-          </Button>
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-            <Div grids="col_1" vitri='col_none' gap="g4_5" size="full">
-              <Div vitri="col_none" size="full" >
-                  <Label>Tên thẻ (Tag) <span className="text-red-500">*</span></Label>
-                  <Input
-                      sizea="full"
-                      placeholder="Nhập tên thẻ"
-                      {...register("name")}
-                      className={`!rounded-xl ${errors.name ? "border-red-500" : ""}`}
-                  />
-                  {errors.name && <P className="text-red-500 text-sm mt-1">{errors.name.message}</P>}
-              </Div>
-              
-              <Div vitri="col_none" size="full" >
-                  <Label>Đường dẫn tĩnh (Slug) <span className="text-red-500">*</span></Label>
-                  <Input
-                      sizea="full"
-                      placeholder="VD: sang-trong"
-                      {...register("slug", {
-                        onChange: () => setIsSlugManual(true)
-                      })}
-                      className={`!rounded-xl ${errors.slug ? "border-red-500" : ""}`}
-                  />
-                  {errors.slug && <P className="text-red-500 text-sm mt-1">{errors.slug.message}</P>}
-              </Div>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fadeIn">
+      <FadeIn className="w-full max-w-lg">
+        <div className="relative w-full bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden flex flex-col max-h-[92vh]">
+          {/* Header */}
+          <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 bg-gradient-to-r from-gray-50/80 via-white to-blue-50/30">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center text-xl shadow-md shadow-blue-200">
+                <FiEdit3 />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-900">Cập nhật thẻ (Tag)</h3>
+                <p className="text-xs text-gray-500 mt-0.5">Chỉnh sửa thông tin và màu sắc của thẻ</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              className="w-9 h-9 flex items-center justify-center rounded-xl text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-all"
+            >
+              <IoClose className="text-xl" />
+            </button>
+          </div>
 
-              <Div vitri="col_none" size="full" className="gap-2 mt-2">
-                  <Div vitri="row_between" size="full">
-                      <Label className="mb-0">Màu sắc (Colors)</Label>
-                      <button 
-                          type="button" 
-                          onClick={() => {
-                              const { textColor, bgColor } = getRandomColorPair();
-                              setValue("textColor", textColor);
-                              setValue("bgColor", bgColor);
-                          }} 
-                          className="text-xs text-indigo-600 hover:text-indigo-700 bg-indigo-50 hover:bg-indigo-100 flex items-center gap-1.5 font-medium transition-colors px-2.5 py-1.5 rounded-lg"
-                          title="Tạo ngẫu nhiên một cặp màu hài hòa"
-                      >
-                          <FiRefreshCw /> Random cặp màu
-                      </button>
-                  </Div>
-                  <Div vitri="row_between" size="full" className="gap-4">
-                      <Div vitri="col_none" className="w-1/2">
-                          <Div vitri="row_between" size="full" className="mb-1">
-                              <Label className="mb-0 text-sm font-normal text-gray-600">Màu nền</Label>
-                              <button 
-                                  type="button" 
-                                  onClick={() => setValue("bgColor", getLighterColor(textColor))} 
-                                  className="text-[11px] text-indigo-400 hover:text-indigo-600 flex items-center gap-1 transition-colors"
-                                  title="Tự động tạo màu nền nhạt từ màu chữ"
-                              >
-                                  <FiZap /> Auto
-                              </button>
-                          </Div>
-                          <Input
-                              type="color"
-                              sizea="full"
-                              className="h-[40px] p-1 cursor-pointer !rounded-xl"
-                              {...register("bgColor")}
-                          />
-                      </Div>
-                      <Div vitri="col_none" className="w-1/2">
-                          <Div vitri="row_between" size="full" className="mb-1">
-                              <Label className="mb-0 text-sm font-normal text-gray-600">Màu chữ</Label>
-                              <button 
-                                  type="button" 
-                                  onClick={() => setValue("textColor", getDarkerColor(bgColor))} 
-                                  className="text-[11px] text-indigo-400 hover:text-indigo-600 flex items-center gap-1 transition-colors"
-                                  title="Tự động tạo màu chữ đậm từ màu nền"
-                              >
-                                  <FiZap /> Auto
-                              </button>
-                          </Div>
-                          <Input
-                              type="color"
-                              sizea="full"
-                              className="h-[40px] p-1 cursor-pointer !rounded-xl"
-                              {...register("textColor")}
-                          />
-                      </Div>
-                  </Div>
-              </Div>
+          {/* Form */}
+          <form onSubmit={handleSubmit(onSubmit)} className="p-6 overflow-y-auto space-y-4 flex-1">
+            {/* Tên thẻ */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                Tên thẻ (Tag) <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="VD: View đẹp, Sang trọng..."
+                {...register("name")}
+                className={`w-full px-4 py-2.5 rounded-xl border text-sm transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/10 ${
+                  errors.name ? "border-rose-400 bg-rose-50/20" : "border-gray-200 focus:border-blue-500 bg-white"
+                }`}
+              />
+              {errors.name && <p className="text-rose-500 text-xs mt-1.5 font-medium">{errors.name.message}</p>}
+            </div>
 
-              <Div vitri="col_none" size="full" className="mt-2">
-                  <Label>Màu sắc Preview</Label>
-                  <div className="flex items-center gap-3 mt-2">
-                      <Div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-sm border border-gray-100" 
-                          style={{ 
-                              backgroundColor: errors.bgColor ? '#EEF2FF' : 'var(--bg-color, #EEF2FF)', 
-                              color: errors.textColor ? '#6366F1' : 'var(--text-color, #6366F1)' 
-                          }}>
-                          <FiTag className="text-xl" />
-                      </Div>
-                      <span 
-                          className="font-semibold text-[14px] px-4 py-2 rounded-full whitespace-nowrap shadow-sm border border-gray-100"
-                          style={{ 
-                              backgroundColor: errors.bgColor ? '#EEF2FF' : 'var(--bg-color, #EEF2FF)', 
-                              color: errors.textColor ? '#6366F1' : 'var(--text-color, #6366F1)' 
-                          }}
-                      >
-                          {displayPreviewName}
-                      </span>
+            {/* Slug */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+                Đường dẫn tĩnh (Slug) <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                placeholder="VD: view-dep, sang-trong..."
+                {...register("slug", {
+                  onChange: () => setIsSlugManual(true)
+                })}
+                className={`w-full px-4 py-2.5 rounded-xl border text-sm font-mono transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/10 ${
+                  errors.slug ? "border-rose-400 bg-rose-50/20" : "border-gray-200 focus:border-blue-500 bg-white"
+                }`}
+              />
+              {errors.slug && <p className="text-rose-500 text-xs mt-1.5 font-medium">{errors.slug.message}</p>}
+            </div>
+
+            {/* Color section */}
+            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-100 space-y-3">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-semibold text-gray-700">Màu sắc hiển thị</label>
+                <button
+                  type="button"
+                  onClick={() => {
+                    const { textColor: rText, bgColor: rBg } = getRandomColorPair();
+                    setValue("textColor", rText);
+                    setValue("bgColor", rBg);
+                  }}
+                  className="text-xs text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 flex items-center gap-1.5 font-medium transition-colors px-2.5 py-1.5 rounded-lg border border-blue-100 shadow-sm"
+                  title="Tạo ngẫu nhiên một cặp màu hài hòa"
+                >
+                  <FiRefreshCw className="text-xs" />
+                  <span>Đổi màu ngẫu nhiên</span>
+                </button>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                {/* Màu nền */}
+                <div className="bg-white p-2.5 rounded-xl border border-gray-200">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-medium text-gray-600">Màu nền</span>
+                    <button
+                      type="button"
+                      onClick={() => setValue("bgColor", getLighterColor(textColor))}
+                      className="text-[11px] text-blue-500 hover:text-blue-700 flex items-center gap-0.5 font-medium"
+                      title="Tạo màu nền nhạt tương phản từ màu chữ"
+                    >
+                      <FiZap className="text-[10px]" /> Tự tạo
+                    </button>
                   </div>
-              </Div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      {...register("bgColor")}
+                      className="w-9 h-9 rounded-lg cursor-pointer border border-gray-200 p-0.5 bg-transparent"
+                    />
+                    <input
+                      type="text"
+                      {...register("bgColor")}
+                      className="w-full text-xs font-mono px-2 py-1.5 rounded-lg border border-gray-200 uppercase"
+                    />
+                  </div>
+                </div>
 
-              <Div vitri="col_none" size="full" className="mt-2">
-                  <Label>Mô tả</Label>
-                  <textarea 
-                      className={`w-full h-24 p-3 border rounded-xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all resize-none outline-none ${errors.description ? "border-red-500" : "border-gray-200"}`}
-                      placeholder="Mô tả thẻ..."
-                      {...register("description")}
-                  />
-                  {errors.description && <P className="text-red-500 text-sm mt-1">{errors.description.message}</P>}
-              </Div>
-            </Div>
-            
-            <Div className="justify-end mt-6 pt-4 border-t border-gray-50" gap="g3_4" >
-                <Button type="button" variant="red" sizea="p3_2" className="!rounded-xl" onClick={() => onClose()} disabled={isPending}>Hủy</Button>
-                <Button type="submit" variant="green" sizea="p3_2" className="!rounded-xl" disabled={isPending}>
-                    {isPending ? (
-                        <span className="flex items-center gap-2">
-                            <FiLoader className="animate-spin" /> Đang lưu...
-                        </span>
-                    ) : "Lưu"}
-                </Button>
-            </Div>
+                {/* Màu chữ */}
+                <div className="bg-white p-2.5 rounded-xl border border-gray-200">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-medium text-gray-600">Màu chữ</span>
+                    <button
+                      type="button"
+                      onClick={() => setValue("textColor", getDarkerColor(bgColor))}
+                      className="text-[11px] text-blue-500 hover:text-blue-700 flex items-center gap-0.5 font-medium"
+                      title="Tạo màu chữ đậm tương phản từ màu nền"
+                    >
+                      <FiZap className="text-[10px]" /> Tự tạo
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="color"
+                      {...register("textColor")}
+                      className="w-9 h-9 rounded-lg cursor-pointer border border-gray-200 p-0.5 bg-transparent"
+                    />
+                    <input
+                      type="text"
+                      {...register("textColor")}
+                      className="w-full text-xs font-mono px-2 py-1.5 rounded-lg border border-gray-200 uppercase"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Tag Live Preview */}
+              <div className="pt-2 border-t border-slate-200/60">
+                <span className="text-xs text-gray-500 block mb-2 font-medium">Bản xem trước thực tế:</span>
+                <div className="flex items-center gap-3 p-3 bg-white rounded-xl border border-gray-100 shadow-sm">
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center text-sm shadow-xs border"
+                    style={{
+                      backgroundColor: bgColor,
+                      color: textColor,
+                      borderColor: `${textColor}33`
+                    }}
+                  >
+                    <FiTag />
+                  </div>
+                  <span
+                    className="px-3 py-1.5 rounded-full text-xs font-semibold inline-flex items-center gap-1.5 shadow-xs border"
+                    style={{
+                      backgroundColor: bgColor,
+                      color: textColor,
+                      borderColor: `${textColor}40`
+                    }}
+                  >
+                    <FiTag className="text-[11px]" />
+                    <span>{displayPreviewName}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Mô tả */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-1.5">Mô tả</label>
+              <textarea
+                rows={2}
+                placeholder="Mô tả mục đích thẻ phân loại (tùy chọn)..."
+                {...register("description")}
+                className="w-full px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all resize-none"
+              />
+            </div>
+
+            {/* Buttons */}
+            <div className="flex items-center justify-end gap-3 pt-4 border-t border-gray-100">
+              <button
+                type="button"
+                onClick={onClose}
+                disabled={isPending}
+                className="px-5 py-2.5 rounded-xl text-sm font-medium text-gray-600 bg-gray-100 hover:bg-gray-200 transition-all disabled:opacity-50"
+              >
+                Hủy bỏ
+              </button>
+              <button
+                type="submit"
+                disabled={isPending}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-200 transition-all hover:-translate-y-0.5 disabled:opacity-50"
+              >
+                {isPending ? (
+                  <>
+                    <FiLoader className="animate-spin text-base" />
+                    <span>Đang lưu...</span>
+                  </>
+                ) : (
+                  <>
+                    <FiSave className="text-base" />
+                    <span>Lưu thay đổi</span>
+                  </>
+                )}
+              </button>
+            </div>
           </form>
-        </Div>
+        </div>
       </FadeIn>
     </div>
   );
 };
+
 export default UpdateTagForm;

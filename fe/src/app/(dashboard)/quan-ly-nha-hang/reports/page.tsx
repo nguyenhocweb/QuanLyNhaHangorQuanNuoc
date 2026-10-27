@@ -1,5 +1,5 @@
 import React from 'react';
-import { RestaurantRevenueDashboard } from '@/src/features/restaurant_manager/report/components/RestaurantRevenueDashboard';
+import { RestaurantRevenueDashboard } from '@/src/features/quan_ly_nha_hang/report/components/RestaurantRevenueDashboard';
 
 const ReportsPage = () => {
     return (

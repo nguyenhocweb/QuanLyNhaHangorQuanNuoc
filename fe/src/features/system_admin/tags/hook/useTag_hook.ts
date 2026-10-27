@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { getTagsService, createTagService, updateTagService, deleteTagService } from "../service/tag_service";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
-export const useTags = (params?: any) => {
+export const useTags = (params?: { page?: number; limit?: number; search?: string }) => {
   return useQuery({
     queryKey: ["Tags", params],
     queryFn: () => getTagsService(params),
@@ -15,11 +15,11 @@ export const useCreateTag = () => {
   return useMutation({
     mutationFn: createTagService,
     onSuccess: () => {
-      toast.success("Thêm mới thành công!");
+      toast.success("Thêm thẻ mới thành công!");
       queryClient.invalidateQueries({ queryKey: ["Tags"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Có lỗi xảy ra");
+      toast.error(error?.response?.data?.message || "Có lỗi xảy ra khi tạo thẻ");
     }
   });
 };
@@ -29,11 +29,11 @@ export const useUpdateTag = () => {
   return useMutation({
     mutationFn: updateTagService,
     onSuccess: () => {
-      toast.success("Cập nhật thành công!");
+      toast.success("Cập nhật thẻ thành công!");
       queryClient.invalidateQueries({ queryKey: ["Tags"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Có lỗi xảy ra");
+      toast.error(error?.response?.data?.message || "Có lỗi xảy ra khi cập nhật thẻ");
     }
   });
 };
@@ -43,11 +43,11 @@ export const useDeleteTag = () => {
   return useMutation({
     mutationFn: deleteTagService,
     onSuccess: () => {
-      toast.success("Xóa thành công!");
+      toast.success("Đã xóa thẻ thành công!");
       queryClient.invalidateQueries({ queryKey: ["Tags"] });
     },
     onError: (error: any) => {
-      toast.error(error?.response?.data?.message || "Có lỗi xảy ra");
+      toast.error(error?.response?.data?.message || "Có lỗi xảy ra khi xóa thẻ");
     }
   });
 };

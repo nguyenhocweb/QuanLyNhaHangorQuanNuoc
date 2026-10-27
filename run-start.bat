@@ -14,6 +14,9 @@ FOR /F "tokens=5" %%T IN ('netstat -a -n -o ^| findstr :4000') DO (
 FOR /F "tokens=5" %%T IN ('netstat -a -n -o ^| findstr :3000') DO (
     taskkill /F /PID %%T >nul 2>&1
 )
+FOR /F "tokens=5" %%T IN ('netstat -a -n -o ^| findstr :3002') DO (
+    taskkill /F /PID %%T >nul 2>&1
+)
 
 echo ==========================================
 echo Kiem tra va cai dat thu vien (Dependencies)

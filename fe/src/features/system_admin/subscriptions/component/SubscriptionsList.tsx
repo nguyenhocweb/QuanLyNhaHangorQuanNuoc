@@ -173,11 +173,11 @@ export const SubscriptionsList = () => {
                                             </button>
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                            <div className="flex items-center justify-end gap-1.5">
                                                 {plan.discountPrice !== undefined && plan.discountPrice !== null && (
                                                     <button 
                                                         onClick={() => setViewingDiscountPlan(plan)}
-                                                        className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                                                        className="p-2 text-indigo-600 hover:bg-indigo-50 active:scale-95 rounded-lg transition-all cursor-pointer"
                                                         title="Chi tiết khuyến mãi"
                                                     >
                                                         <FiInfo className="text-lg" />
@@ -185,14 +185,14 @@ export const SubscriptionsList = () => {
                                                 )}
                                                 <button 
                                                     onClick={() => setEditingPlan(plan)}
-                                                    className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                    className="p-2 text-blue-600 hover:bg-blue-50 active:scale-95 rounded-lg transition-all cursor-pointer"
                                                     title="Chỉnh sửa"
                                                 >
                                                     <FiEdit2 className="text-lg" />
                                                 </button>
                                                 <button 
                                                     onClick={() => deleteSubscription(plan.id)}
-                                                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                    className="p-2 text-red-600 hover:bg-red-50 active:scale-95 rounded-lg transition-all cursor-pointer"
                                                     title="Xóa"
                                                 >
                                                     <FiTrash2 className="text-lg" />

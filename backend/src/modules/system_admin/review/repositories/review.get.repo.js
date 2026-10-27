@@ -12,7 +12,8 @@ export const getSystemReviewsRepo = async (filter, skip, take) => {
                     select: {
                         id: true,
                         name: true,
-                        avatar: true
+                        avatar: true,
+                        email: true
                     }
                 },
                 restaurant: {
@@ -21,8 +22,22 @@ export const getSystemReviewsRepo = async (filter, skip, take) => {
                         name: true,
                         brandId: true,
                         brand: {
-                            select: { name: true }
+                            select: {
+                                id: true,
+                                name: true
+                            }
                         }
+                    }
+                },
+                reservation: {
+                    select: {
+                        id: true,
+                        confirmation_code: true,
+                        party_size: true,
+                        reservation_date: true,
+                        start_time: true,
+                        end_time: true,
+                        status: true
                     }
                 }
             },

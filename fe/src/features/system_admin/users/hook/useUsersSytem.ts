@@ -1,6 +1,7 @@
 import { useState, useMemo } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { UserService } from "../service/usersSytem-service";
+import useDebounce from "@/src/core/hooks/useDebounce";
 
 export const useUsers = () => {
   // 1. Quản lý State của Filters
@@ -11,22 +12,22 @@ export const useUsers = () => {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [dateFilter, setDateFilter] = useState<string>("all");
 
+  const debouncedSearchTerm = useDebounce({ value: searchTerm, delay: 400 });
+
   // 2. Tích hợp React Query
-  const { data, isLoading, isFetching, isError } = useQuery({
-    // queryKey: Bất cứ biến nào trong mảng này thay đổi, useQuery sẽ tự động gọi lại API
-    queryKey: ['users', page, limit, searchTerm, roleFilter, statusFilter, dateFilter],
+  const { data, isLoading, isFetching, isError, refetch } = useQuery({
+    queryKey: ['users', page, limit, debouncedSearchTerm, roleFilter, statusFilter, dateFilter],
     queryFn: () => UserService.getUsers({
       page,
       limit,
-      search: searchTerm || undefined,
+      search: debouncedSearchTerm || undefined,
       role: roleFilter !== "all" ? roleFilter : undefined,
       status: statusFilter !== "all" ? statusFilter : undefined,
       dateFilter: dateFilter !== "all" ? dateFilter : undefined,
     }),
-    // Giữ lại data của trang trước đó trong lúc fetch trang mới (UX mượt mà)
     placeholderData: keepPreviousData,
-    // (Tùy chọn) Không tự fetch lại khi click sang tab khác
     refetchOnWindowFocus: false, 
+    staleTime: 60 * 1000,
   });
 
   // 3. Handlers
@@ -54,6 +55,8 @@ export const useUsers = () => {
     setPage(1);
   };
 
+  const isFiltersActive = searchTerm.trim() !== "" || roleFilter !== "all" || statusFilter !== "all" || dateFilter !== "all";
+
   // 4. Tính toán UI Phân trang
   const meta = data?.meta;
   const startItem = useMemo(() => meta?.totalRecords === 0 ? 0 : (page - 1) * limit + 1, [page, limit, meta?.totalRecords]);
@@ -67,7 +70,9 @@ export const useUsers = () => {
     
     // Status
     isLoading: isLoading || isFetching,
+    isRefetching: isFetching,
     isError,
+    refetch,
 
     // Filters & Actions
     searchTerm, setSearchTerm,
@@ -75,8 +80,9 @@ export const useUsers = () => {
     statusFilter, setStatusFilter,
     dateFilter, setDateFilter,
     limit,
+    isFiltersActive,
     
     handleFilterChange, handlePageChange, handleLimitChange, resetFilters,
     startItem, endItem
   };
-};
+};

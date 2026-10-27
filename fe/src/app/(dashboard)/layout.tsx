@@ -42,19 +42,18 @@ export default function DashboardLayout({ children }: PublicLayoutProps) {
     }, [socket, isConnected, updateUser]);
 
     return (
-        <Div size="full_screen" vitri="col_none" className=" bg-slate-50" shape="none">
+        <Div size="full_screen" vitri="col_none" className="bg-slate-50" shape="none">
             {/* 2. Thanh điều hướng dùng chung cho mọi trang Public */}
             <PublicHeader />
             {/* 3. Phần ruột thay đổi theo từng trang (Trang chủ, Liên hệ, Giới thiệu...) */}
             {/* class "flex-1" cực kỳ quan trọng: Nó sẽ đẩy content giãn ra hết mức có thể, ép Footer chìm xuống đáy */}
-            <Div vitri="col_none" size="full" className="flex flex-row"  shape="none">
+            <Div vitri="col_none" size="full" className="flex flex-row flex-1" shape="none">
                 {/* ở đây 2 phần sidebar và main content */}
                 {/* phần sidebar */}
-              
-                    <PublicSidebar />
+                <PublicSidebar />
                 
                 {/* phần nội dung chính */}
-                <main className="flex-1 min-w-0">
+                <main className="flex-1 min-w-0 w-full">
                     <RouteGuard>
                         {children}
                     </RouteGuard>

@@ -36,8 +36,8 @@ const Dashboard_Stats_component = () => {
     return (
         <FadeIn>
         <div className="flex flex-col gap-6 w-full">
-            {/* Hàng 1: Các thẻ KPI (Premium Design) */}
-            <Div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" size="full">
+            {/* Hàng 1: Các thẻ KPI (Chuẩn Grid 2x2 trên Mobile, 4 cột trên Desktop) */}
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 w-full">
                 <Public_Stat_Card
                     index={1}
                     title="Tổng thương hiệu"
@@ -72,25 +72,25 @@ const Dashboard_Stats_component = () => {
                     index={4}
                     title="Doanh thu dự kiến"
                     value={formatCurrency(stats.totalRevenue.value)}
-                    icon={<BiMoney className="text-2xl" />}
+                    icon={<BiMoney className="text-xl sm:text-2xl" />}
                     iconWrapperClass="bg-emerald-50 text-emerald-500"
                     trendValue={stats.totalRevenue.trendPercentage}
                     trendLabel={stats.totalRevenue.trendLabel}
                     trendType={stats.totalRevenue.trendType}
                 />
-            </Div>
+            </div>
 
             {/* Hàng 2: Biểu đồ & Danh sách chờ */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 w-full">
                 {/* Cột trái: Biểu đồ */}
-                <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-6">
-                    <div className="mb-6">
-                        <h3 className="text-lg font-semibold text-slate-800">Tăng trưởng Người dùng, Thương hiệu & Nhà hàng</h3>
-                        <p className="text-sm text-slate-500">Thống kê số lượng đăng ký trong 6 tháng gần nhất</p>
+                <div className="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sm:p-6">
+                    <div className="mb-4 sm:mb-6">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-800">Tăng trưởng Người dùng, Thương hiệu & Nhà hàng</h3>
+                        <p className="text-xs sm:text-sm text-slate-500">Thống kê số lượng đăng ký trong 6 tháng gần nhất</p>
                     </div>
-                    <div className="h-[300px] w-full">
+                    <div className="h-[260px] sm:h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
-                            <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                            <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                                 <defs>
                                     <linearGradient id="colorBrands" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor="#10b981" stopOpacity={0.3} />
@@ -122,9 +122,9 @@ const Dashboard_Stats_component = () => {
                 </div>
 
                 {/* Cột phải: Yêu cầu gần đây */}
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 flex flex-col">
-                    <div className="flex items-center justify-between mb-6">
-                        <h3 className="text-lg font-semibold text-slate-800">Yêu cầu nâng cấp mới</h3>
+                <div className="bg-white rounded-2xl shadow-sm border border-slate-100 p-4 sm:p-6 flex flex-col">
+                    <div className="flex items-center justify-between mb-4 sm:mb-6">
+                        <h3 className="text-base sm:text-lg font-bold text-slate-800">Yêu cầu nâng cấp mới</h3>
                         <button className="text-sm text-blue-600 font-medium hover:text-blue-700">Xem tất cả</button>
                     </div>
                     

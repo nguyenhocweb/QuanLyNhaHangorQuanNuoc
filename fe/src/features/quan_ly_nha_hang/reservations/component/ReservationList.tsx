@@ -171,19 +171,37 @@ export const ReservationList = ({ reservations, onEdit, onAssignTable, restauran
                                         {/* Bàn đã xếp */}
                                         <td className="p-4">
                                             {res.reservation_tables && res.reservation_tables.length > 0 ? (
-                                                <div className="flex flex-wrap gap-1.5 cursor-pointer max-w-[180px]" onClick={() => onAssignTable(res)}>
+                                                <div 
+                                                    className="flex flex-col gap-1.5 cursor-pointer max-w-[210px]" 
+                                                    onClick={() => onAssignTable(res)}
+                                                    title="Nhấn để đổi hoặc gán thêm bàn"
+                                                >
                                                     {res.reservation_tables.map(rt => (
-                                                        <span key={rt.id} className="px-2.5 py-1 bg-emerald-50 text-emerald-800 rounded-lg text-xs font-bold border border-emerald-200 hover:bg-emerald-100 transition-colors truncate" title={rt.table.area?.name ? `${rt.table.area.name} - ${rt.table.table_number}` : rt.table.table_number}>
-                                                            🪑 {rt.table.area?.name ? `${rt.table.area.name} - ${rt.table.table_number}` : rt.table.table_number}
-                                                        </span>
+                                                        <div 
+                                                            key={rt.id} 
+                                                            className="flex flex-col px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200/80 rounded-xl transition-all duration-200 shadow-xs"
+                                                        >
+                                                            {/* Tên tầng / khu vực ở trên */}
+                                                            <span 
+                                                                className="text-[11px] font-medium text-emerald-700 truncate flex items-center gap-1.5"
+                                                                title={rt.table.area?.name || "Khu vực chung"}
+                                                            >
+                                                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+                                                                <span className="truncate">{rt.table.area?.name || "Khu vực chung"}</span>
+                                                            </span>
+                                                            {/* Tên bàn ở dưới */}
+                                                            <span className="text-xs font-bold text-emerald-950 flex items-center gap-1 mt-0.5">
+                                                                🪑 Bàn: {rt.table.table_number}
+                                                            </span>
+                                                        </div>
                                                     ))}
                                                 </div>
                                             ) : (
                                                 <button 
                                                     onClick={() => onAssignTable(res)}
-                                                    className="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-lg text-xs font-bold border border-amber-200 hover:bg-amber-100 transition-colors flex items-center gap-1.5 whitespace-nowrap"
+                                                    className="px-3 py-1.5 bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200/80 rounded-xl text-xs font-semibold transition-all duration-200 flex items-center gap-1.5 shadow-xs whitespace-nowrap"
                                                 >
-                                                    <MdOutlineTableRestaurant className="text-base" />
+                                                    <MdOutlineTableRestaurant className="text-base text-amber-600" />
                                                     Chưa xếp bàn
                                                 </button>
                                             )}

@@ -30,7 +30,7 @@ import aiModelRouter from "./ai_model/ai_model.router.js";
 import paymentConfigRouter from "./payment_config/payment_config.router.js";
 
 // Import Notification từ thư mục chung
-import notificationRouter from "../notifications/notification.router.js";
+import notificationRouter from "../shared/notifications/notification.router.js";
 
 const route = Router();
 
